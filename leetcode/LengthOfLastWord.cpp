@@ -55,3 +55,25 @@ public:
         return end - start + 1;
     }
 };
+
+
+//
+// This works too, and is shorter!
+//
+class Solution3 {
+public:
+    int lengthOfLastWord(const char *s) {
+        if (s == NULL || *s == '\0') return 0;
+        
+        const char * head = s;
+        
+        while (*s) ++ s;
+        -- s;
+        
+        while (*s == ' ') -- s;
+        const char * end = s; // end of last word.
+        while (*s != ' ' && s >= head) -- s; // go to start of last word.
+        
+        return end - s;
+    }
+};

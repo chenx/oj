@@ -33,7 +33,7 @@ void dump(vector<Interval> &v) {
      puts("");
 }
  
-bool comp(const Interval a, const Interval b) {
+bool comp(const Interval &a, const Interval &b) {
     return a.start < b.start; // Note: be care of the format!
 }
 
@@ -72,6 +72,65 @@ public:
         return vs;
     }
 };
+
+
+//
+// This works too.
+//
+class Solution2 {
+public:
+    vector<Interval> merge(vector<Interval> &intervals) {
+        vector<Interval> ans;
+        sort(intervals.begin(), intervals.end(), comp);
+        
+        while (! intervals.empty()) {
+            if (intervals.size() == 1) {
+                ans.push_back(intervals[0]);
+            }
+            else {
+                Interval &a = intervals[0];
+                Interval &b = intervals[1];
+                
+                if (a.end < b.start) {
+                    ans.push_back(a);
+                }
+                else if (a.end > b.end) {
+                    b.start = a.start, b.end = a.end;
+                }
+                else {
+                    b.start = a.start;
+                }
+            }
+            
+            intervals.erase(intervals.begin());
+        }        
+        return ans;
+    }
+};
+
+// This works too, and is more efficient since no erase is used!
+// 1/4/2013
+class Solution3 {
+public:
+    vector<Interval> merge(vector<Interval> &intervals) {
+        if (intervals.size() <= 1) return intervals;
+        sort(intervals.begin(), intervals.end(), comp);
+        vector<Interval> ans;
+        
+        int n = intervals.size();
+        for (int i = 0; i < n-1; ++ i) {
+            Interval &a = intervals[i];
+            Interval &b = intervals[i+1];
+            if (a.end < b.start) { ans.push_back(a); }
+            else if (a.end <= b.end) { b.start = a.start; }
+            else { b.start = a.start; b.end = a.end; }
+        }
+        ans.push_back(intervals[n-1]);
+        
+        return ans;
+    }
+};
+
 
 int main() {
     Solution s;

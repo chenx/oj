@@ -263,6 +263,61 @@ public:
             }*/
 };
 
+//
+// This works too. Use brutal force method.
+//
+class Solution4 {
+public:
+    bool isNumber(const char *s) {
+        while (isspace(*s)) ++ s;
+        if (*s == '+' || *s == '-') ++ s;
+        //while (isspace(*s)) ++ s; // leetcode does not allow space here.
+        
+        if (*s == '.') { // something like: .3
+            ++ s;
+            if (! isdigit(*s)) return false;
+            while (isdigit(*s)) ++ s;
+        }
+        else { // e.g.: 5, 3., or 3.1
+            if (! isdigit(*s)) return false;
+            // leetcode considers this valid.
+            //if (*s == '0' && isdigit(*(s+1))) return false; // 0 cannot be followed by another digit.
+            
+            while (isdigit(*s)) ++ s;
+            if (*s == '.') {
+                ++ s;
+                while (isdigit(*s)) ++ s;
+            }
+        }
+        //while (isspace(*s)) ++ s; // leetcode does not allow space here.
+        
+        if (*s == 'e') {
+            ++ s;
+            if (*s == '+' || *s == '-') ++ s;
+            if (! isdigit(*s)) return false;
+            while(isdigit(*s)) ++ s;
+        }
+        
+        while (isspace(*s)) ++ s;
+        return *s == '\0';
+    }
+    
+    bool isspace(char c) {
+        if (c == ' ' || c == '\t' || c == '\b') return true;
+        return false;
+    }
+    
+    bool isdigit(char c) {
+        if (c >= '0' && c <= '9') return true;
+        return false;
+    }
+
+    // note: can use this to ignore space.
+    void ignore_space(const char *& s) {
+        while (isspace(*s)) ++ s;
+    }
+};
+
 
 int main() {
     return 0;

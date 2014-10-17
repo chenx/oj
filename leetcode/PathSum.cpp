@@ -29,6 +29,66 @@ public:
     
 };
 
+
+class Solution2 {
+public:
+    // This works too.
+    bool hasPathSum(TreeNode *root, int sum) {
+        if (! root) return false;
+        
+        sum -= root->val;
+        if (root->left && root->right) {
+            return hasPathSum(root->left, sum) ||
+                   hasPathSum(root->right, sum);
+        }
+        else if (root->left) {
+            return hasPathSum(root->left, sum);
+        }
+        else if (root->right) {
+            return hasPathSum(root->right, sum);
+        }
+        else {
+            return sum == 0;
+        }
+    }
+    
+    // This works too. Most succinct.
+    bool hasPathSum2(TreeNode *root, int sum) {
+        if (! root) return false;
+        
+        //if (root->val == sum) { // note, this does not work.
+        //    return root->left == NULL && root->right == NULL;
+        //}
+
+        sum -= root->val;
+
+        if (! root->left && ! root->right) {
+            return 0 == sum;
+        }
+        
+        return hasPathSum(root->left, sum) ||
+               hasPathSum(root->right, sum);
+    }
+};
+
+//
+// This works too, and is shorter.
+//
+class Solution3 {
+public:
+    bool hasPathSum(TreeNode *root, int sum) {
+        if (! root) return false;
+        
+        if (root->left == NULL && root->right == NULL) {
+            return root->val == sum;
+        }
+        
+        return hasPathSum(root->left, sum - root->val) ||
+               hasPathSum(root->right, sum - root->val);
+    }
+};
+
+
 /*
 Problem:
 

@@ -147,6 +147,115 @@ public:
     */
 };
 
+
+/**
+ * This works!
+ */
+class Solution2 {
+public:
+    int maxPathSum(TreeNode *root) {
+        TreeNode * h;
+        getH(root, h);
+        return msum(root, h);
+    }
+    
+    // max of 2 cases: 1) contains root, 2) does not contain root.
+    int msum(TreeNode * root, TreeNode * h) {
+        if (root == NULL) return 0;
+        
+        int m1 = root->val,
+            m2 = msum(root->left, h->left),
+            m3 = msum(root->right, h->right);
+        if (root->left && root->right) {
+            return max(m1 + max(0,h->left->val) + max(0,h->right->val), max(m2, m3));
+        }
+        else if (root->left) {
+            return max(m1 + max(0,h->left->val), m2);
+        }
+        else if (root->right) {
+            return max(m1 + max(0,h->right->val), m3);
+        }
+        else {
+            return m1;
+        }
+    }
+    
+    // max sum of a branch starting from root.
+    void getH(TreeNode * root, TreeNode *& h) {
+        if (root == NULL) {
+            h = NULL;
+            return;
+        }
+        
+        h = new TreeNode(root->val);
+        if (root->left == NULL && root->right == NULL) {}
+        else if (root->left == NULL) {
+            getH(root->right, h->right);
+            h->val += max(0, h->right->val);
+        }
+        else if (root->right == NULL) {
+            getH(root->left, h->left);
+            h->val += max(0, h->left->val);
+        }
+        else {
+            getH(root->left, h->left);
+            getH(root->right, h->right);
+            h->val += max(0, max(h->left->val, h->right->val));
+        }
+    }
+};
+
+
+/**
+ * This works too! Improved from Solution2.
+ */
+class Solution3 {
+public:
+    int maxPathSum(TreeNode *root) {
+        TreeNode * h;
+        getH(root, h);
+        return msum(root, h);
+    }
+    
+    int msum(TreeNode * root, TreeNode * h) {
+        if (root == NULL) return 0;
+        
+        int m1 = root->val,
+            m2 = msum(root->left, h->left),
+            m3 = msum(root->right, h->right);
+        
+        if (root->left && root->right) {
+            return max(m1 + max(0,h->left->val) + max(0,h->right->val), max(m2, m3));
+        }
+        else if (root->left) {
+            return max(m1 + max(0,h->left->val), m2);
+        }
+        else if (root->right) {
+            return max(m1 + max(0,h->right->val), m3);
+        }
+        else {
+            return m1;
+        }
+    }
+    
+    void getH(TreeNode * root, TreeNode *& h) {
+        if (root == NULL) {
+            h = NULL;
+            return;
+        }
+        
+        h = new TreeNode(root->val);
+        getH(root->left, h->left);
+        getH(root->right, h->right);
+        
+        int m = 0;
+        if (root->left) m = max(m, h->left->val);
+        if (root->right) m = max(m, h->right->val);
+        h->val += m;
+    }
+};
+
+
 int main() {
     TreeNode * r1 = new TreeNode(5);
     TreeNode * r2 = new TreeNode(4);

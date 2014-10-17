@@ -15,7 +15,7 @@ public:
         return clone(node, m);
     }
     
-
+    // DFS
     UndirectedGraphNode * clone(UndirectedGraphNode * root, 
             map<UndirectedGraphNode *, UndirectedGraphNode *> &m) {
         if (! root) return NULL;
@@ -35,3 +35,40 @@ public:
 
     
 };
+
+
+// BFS.
+class Solution {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        if (node == NULL) return NULL;
+        map<UndirectedGraphNode *, UndirectedGraphNode *> m;
+
+        queue<UndirectedGraphNode *> q;
+        q.push(node);
+
+        UndirectedGraphNode * n = new UndirectedGraphNode(node->label);
+        m[node] = n;
+        
+        while(! q.empty()) {
+            UndirectedGraphNode *h = q.front();
+            q.pop();
+            
+            for (int i = 0; i < h->neighbors.size(); ++ i) {
+                UndirectedGraphNode *t = h->neighbors[i];
+                map<UndirectedGraphNode *, UndirectedGraphNode *>::iterator it = m.find(t);
+                if (it == m.end()) {
+                    UndirectedGraphNode *t2 = new UndirectedGraphNode(t->label);
+                    m[h]->neighbors.push_back(t2);
+                    m[t] = t2;
+                    q.push(t);
+                }
+                else {
+                    m[h]->neighbors.push_back(m[t]);
+                }
+            }
+        }
+        
+        return n;
+    }
+}

@@ -28,15 +28,48 @@ public:
         if (n == NULL) return;
         
         path.push_back(n->val);
-        if (n->val == sum && n->left == NULL && n->right == NULL) {
+        sum -= n->val;
+
+        if (0 == sum && n->left == NULL && n->right == NULL) {
             vs.push_back(path);
             return;
         }
         
-        ps(n->left, sum - n->val, vs, path);
-        ps(n->right, sum - n->val, vs, path);
+        ps(n->left, sum, vs, path);
+        ps(n->right, sum, vs, path);
     }
 };
+
+
+//
+// This works too!
+//
+class Solution2 {
+public:
+    vector<vector<int> > pathSum(TreeNode *root, int sum) {
+        vector<vector<int> > ans;
+        vector<int> path;
+        hasPath(ans, path, root, sum);
+        return ans;
+    }
+    
+    void hasPath(vector<vector<int> > &ans, vector<int> path, TreeNode * root, int sum) {
+        if (! root) return;
+        
+        if (root->left == NULL && root ->right == NULL) {
+            if (root->val == sum) {
+                path.push_back(root->val);
+                ans.push_back(path);
+            }
+            return;
+        }
+        
+        path.push_back(root->val);
+        hasPath(ans, path, root->left, sum - root->val);
+        hasPath(ans, path, root->right, sum - root->val);
+    }
+};
+
 
 /*
 Problem:
