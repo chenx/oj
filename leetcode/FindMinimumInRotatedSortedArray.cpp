@@ -1,6 +1,30 @@
+
+//
+// 10/24/2014
+// This O(log(n)) solution works too! And is most simple.
+// Modified from the result of FindMinimumInRotatedSortedArray_II.
+//
+class Solution3 {
+public:
+    int findMin(vector<int> &num) {
+        int L = 0, R = num.size() - 1;
+        
+        while (L < R) {
+            int M = L + (R - L) / 2;
+
+            if (num[M] < num[R]) {
+                R = M;
+            } else {
+                L = M + 1;
+            }
+        }
+        
+        return num[L];
+    }
+};
+
+
 // 10/16/2014
-
-
 // Assumption: sorted ASC.
 // Note the min is the only one less than its immediate left member.
 // Every other element is larger than its immediate left member.
