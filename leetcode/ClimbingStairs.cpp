@@ -5,6 +5,35 @@
 // @Created on: 12/13/2012
 // @Last modified: 12/13/2012
 //
+
+// This works too. 10/26/2014
+class Solution2 {
+public:
+    int climbStairs(int n) {
+        if (n <= 1) return 1;
+        
+        int a = 1, b = 1;
+        for (int i = 2; i <= n; ++ i) {
+            int tmp = b;
+            b = a + b;
+            a = tmp;
+        }
+        return b;
+    }
+    
+    // This works too, and most simple.
+    int climbStairs2(int n) {
+        if (n <= 1) return 1;
+        
+        int a = 1, b = 1;
+        for (int i = 2; i <= n; ++ i) {
+            b = a + b;
+            a = b - a;
+        }
+        return b;
+    }    
+};
+
 class Solution {
 public:
     int climbStairs(int n) {
