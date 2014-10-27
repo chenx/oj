@@ -10,6 +10,7 @@ class Solution2 {
 public:
     bool exist(vector<vector<char> > &board, string word) {
         if (board.size() == 0 || board[0].size() == 0) { return word.size() == 0; }
+        if (word.size() == 0) return true;
         
         int M = board.size(), N = board[0].size();
         vector<vector<int> > used(M, vector<int>(N, 0));
