@@ -8,13 +8,9 @@
 class Solution {
 public:
     bool isValid(string s) {
-        int i, len = s.length();
-        if (len == 0) return true;
-        if (len % 2 == 1) return false; // not paired.
-        
         stack<char> t;        
         
-        for (i = 0; i < len; ++ i) {
+        for (int i = 0, len = s.length(); i < len; ++ i) {
             switch(s[i]) {
                 case '(':
                 case '[':
@@ -39,7 +35,7 @@ public:
             }
         }
         
-        return t.size() == 0;        
+        return t.empty();        
     }
 };
 
