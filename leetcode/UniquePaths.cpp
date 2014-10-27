@@ -5,6 +5,28 @@
 // @Last modified: 1/21/2013
 //
 
+// This works too. 10-26-2014
+class Solution2 {
+public:
+    int uniquePaths(int m, int n) {
+        if (m == 0 || n == 0) return 0;
+        
+        vector<vector<int> > v(m, vector<int>(n, 0));
+        
+        // initialize first row.
+        for (int j = 0; j < n; ++ j) v[0][j] = 1;
+        
+        // other rows.
+        for (int i = 1; i < m; ++ i) {
+            v[i][0] = 1;
+            for (int j = 1; j < n; ++ j) {
+                v[i][j] = v[i][j-1] + v[i-1][j];
+            }
+        }
+        return v[m-1][n-1];
+    }
+};
+
 class Solution {
 public:
     int uniquePaths(int m, int n) {
