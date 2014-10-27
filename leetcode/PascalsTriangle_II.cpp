@@ -31,7 +31,8 @@ public:
 
 
 // This works too.
-class Solution2 {
+
+class Solution2 {
 public:
     vector<int> getRow(int rowIndex) {
         vector<int> v(rowIndex+1);
@@ -85,6 +86,25 @@ public:
         return v;
     }
 };
+
+// This works too. Seems most clean.
+class Solution5 {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> v(rowIndex + 1);
+        
+        v[0] = 1;
+        for (int i = 1; i <= rowIndex; ++ i) {
+            v[i] = 1;
+            for (int j = i-1; j > 0; -- j) {
+                v[j] += v[j-1];
+            }
+        }
+        
+        return v;
+    }
+}    
+    
 
 /*
 Problem:
