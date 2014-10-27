@@ -111,6 +111,44 @@ public:
     }
 };
 
+
+// This also works. And seems most clean.
+class Solution3 {
+public:
+    string addBinary(string a, string b) {
+        int carry = 0, sum = 0;
+        string c;
+        
+        int i = a.length() - 1, j = b.length() - 1;
+        while (i >= 0 && j >= 0) {
+            add(a[i --] - '0' + b[j --] - '0' + carry, carry, c);
+        }
+        while (i >= 0) {
+            add(a[i --] - '0' + carry, carry, c);
+        }
+        while (j >= 0) {
+            add(b[j --] - '0' + carry, carry, c);
+        }
+        
+        if (carry > 0) { c = "1" + c; }
+        return c;
+    }
+    
+    void add(int sum, int &carry, string &c) {
+        if (sum >= 2) {
+            sum -= 2;
+            carry = 1;
+        }
+        else {
+            carry = 0;
+        }
+        
+        char x = sum + '0';
+        c = x + c;
+    }
+};
+
+
 /* 
 // First version. This works.
 class Solution {
