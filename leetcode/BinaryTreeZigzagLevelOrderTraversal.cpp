@@ -145,3 +145,40 @@ public:
         return vs;
     }
 };
+
+
+// This works too. Seems most clean.
+class Solution4 {
+public:
+    vector<vector<int> > zigzagLevelOrder(TreeNode *root) {
+        vector<vector<int> > ans;
+        if (! root) return ans;
+        
+        queue<TreeNode *> q;
+        q.push(root);
+        int level_ct = 1;
+        int level = 0; // <--
+        
+        while (level_ct > 0) {
+            int ct = 0;
+            vector<int> R;
+            
+            for (; level_ct > 0; -- level_ct) {
+                TreeNode * t = q.front();
+                q.pop();
+                R.push_back(t->val);
+                
+                if (t->left) { q.push(t->left); ++ ct; }
+                if (t->right) { q.push(t->right); ++ ct; }
+            }
+            
+            level_ct = ct;
+
+            if (level & 1) { reverse(R.begin(), R.end()); } // <--
+            ans.push_back(R);
+            ++ level; // <--
+        }
+        
+        return ans;        
+    }
+};
