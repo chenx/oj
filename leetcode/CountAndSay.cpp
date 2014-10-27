@@ -147,6 +147,40 @@ public:
 };
 
 
+// This works too, and seems most clean.
+class Solution4 {
+public:
+    string countAndSay(int n) {
+        string s = "1";
+        if (n == 1) return s;
+        
+        for (int i = 2; i <= n; ++ i) {
+            string t = "";
+            char c = s[0];
+            int ct = 1;
+            for (int j = 1; j < s.length(); ++ j) {
+                if (c == s[j]) { ++ ct; }
+                else {
+                    t += getStr(ct, c);
+                    c = s[j];
+                    ct = 1;
+                }
+            }
+            if (ct > 0) { t += getStr(ct, c); }
+            s = t;
+        }
+        
+        return s;
+    }
+    
+    string getStr(int ct, char c) {
+        stringstream ss;
+        ss << ct << c;
+        return ss.str();
+    }
+};
+
+
 int main() {
     Solution s;
     cout << s.countAndSay(4) << endl;
