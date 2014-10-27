@@ -112,7 +112,12 @@ public:
 };
 
 
-// This also works. And seems most clean.
+// This also works. And seems most clean. 10/26/2014
+// Note this can be easily extended to calculate addition for different base:
+//   just change the cutoff value in function add():
+//   when it's 2, it's binary addition; when it's 10, it's decimal; 
+//   it can also be base-14 or any base.
+// Basically, this is one solution to large number addition.
 class Solution3 {
 public:
     string addBinary(string a, string b) {
