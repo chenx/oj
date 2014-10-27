@@ -19,40 +19,34 @@
  Queue: push(), pop(), front(), back(), size(), empty().
  http://www.cplusplus.com/reference/queue/queue/
  */
+ 
 class Solution {
 public:
     vector<vector<int> > levelOrder(TreeNode *root) {
-        int level_ct, ct;
-        TreeNode * n;
-        vector<vector<int> > vs;
-        if (NULL == root) return vs;
+        vector<vector<int> > ans;
+        if (! root) return ans;
         
         queue<TreeNode *> q;
+        int level_ct = 1;
         q.push(root);
-        level_ct = 1;
-                
-        while(q.size() > 0) {
-            vector<int> v;
-            ct = 0;
-            while (level_ct > 0) {
-                n = q.front();
-                if (n->left != NULL) {
-                    q.push(n->left);
-                    ct ++;
-                }
-                if (n->right != NULL) {
-                    q.push(n->right);
-                    ct ++;
-                }
-                
-                v.push_back(n->val);
+        
+        while (level_ct > 0) {
+            int ct = 0;
+            vector<int> R;
+            for (int i = 0; i < level_ct; ++ i) {
+                TreeNode * t = q.front();
                 q.pop();
-                level_ct --;
+                R.push_back(t->val);
+                if (t->left) {
+                    q.push(t->left); ++ ct;
+                }
+                if (t->right) {
+                    q.push(t->right); ++ ct;
+                }
             }
-            vs.push_back(v);
-            
             level_ct = ct;
+            ans.push_back(R);
         }
-        return vs;
+        return ans;
     }
 };
