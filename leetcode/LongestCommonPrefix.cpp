@@ -8,6 +8,31 @@
 /*
  * It's possible to use a Trie, but it seems like a over-kill.
  */
+ 
+// This works too, and is clean.
+class Solution3 {
+public:
+    string longestCommonPrefix(vector<string> &strs) {
+        if (strs.size() == 0) return "";
+        
+        int p = strs[0].length();
+        for (int i = 1, n = strs.size(); i < n; ++ i) {
+            int q = common(strs[0], strs[i], p);
+            p = min(p, q);
+        }
+        return strs[0].substr(0, p);
+    }
+    
+    int common(string a, string b, int p) { // p - make use of previous result.
+        int n = min(p, b.length());
+        for (int i = 0; i < n; ++ i) {
+            if (a[i] != b[i]) return i;
+        }
+        return n;
+    }
+    
+    int min(int a, int b) { return a < b ? a : b; }
+};
 
 // This works too. And is shorter. Better.
 class Solution2 {
