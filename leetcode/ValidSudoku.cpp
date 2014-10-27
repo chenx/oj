@@ -2,12 +2,72 @@
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
 // @Created on: 1/3/2013
-// @Last modified: 1/3/2013
+// @Last modified: 10/26/2014
 //
 
 #include <iostream>
 #include <vector>
 using namespace std;
+
+// This works too, and is clear. 10-26-2014.
+class Solution3 {
+public:
+    bool isValidSudoku(vector<vector<char> > &board) {
+        for (int i = 0; i < 9; i += 3) {
+            for (int j = 0; j < 9; j += 3) {
+                if (! validS(board, i, j)) return false;
+            }
+        }
+        for (int i = 0; i < 9; ++ i) {
+            if (! validRow(board, i)) return false;
+        }
+        for (int j = 0; j < 9; ++ j) {
+            if (! validCol(board, j)) return false;
+        }
+        return true;
+    }
+    
+    bool validS(vector<vector<char> > &board, int i, int j) {
+        vector<int> v(9);
+        for (int a = 0; a < 3; ++ a) {
+            for (int b = 0; b < 3; ++ b) {
+                char c = board[i+a][j+b];
+                if (c >= '1' && c <= '9') {
+                    int x = c - '1';
+                    if (v[x] == 1) return false;
+                    v[x] = 1;
+                }
+            }
+        }
+        return true;
+    }
+    
+    bool validRow(vector<vector<char> > &board, int i) {
+        vector<int> v(9);
+        for (int a = 0; a < 9; ++ a) {
+            char c = board[i][a];
+            if (c >= '1' && c <= '9') {
+                int x = c - '1';
+                if (v[x] == 1) return false;
+                v[x] = 1;
+            }
+        }
+        return true;
+    }
+    
+    bool validCol(vector<vector<char> > &board, int j) {
+        vector<int> v(9);
+        for (int a = 0; a < 9; ++ a) {
+            char c = board[a][j];
+            if (c >= '1' && c <= '9') {
+                int x = c - '1';
+                if (v[x] == 1) return false;
+                v[x] = 1;
+            }
+        }
+        return true;
+    }    
+};
 
 // for each row, col, square, validate no duplicates.
 // Note leetcode assume this to be enough, i.e., don't go ahead to check
