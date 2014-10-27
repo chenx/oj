@@ -2,9 +2,50 @@
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
 // @Created on: 12/27/2012
-// @Last modified: 12/27/2012
+// @Last modified: 10/26/2014
 //
 
+// This works too. 10-26-2014
+class Solution2 {
+public:
+    string convert(string s, int nRows) {
+        int N = s.length();
+        if (N == 0 || nRows == 0) return "";
+        if (nRows == 1) return s; // first line code below will go infinite when nRows is 1.
+        
+        string t = "";
+        
+        // first line
+        for (int j = 0; j < N; j += 2*nRows - 2) {
+            t += s[j];
+        }
+        
+        // middle lines
+        for (int i = 1; i < nRows - 1; ++ i) {
+            int ct = 0; // column count
+            for (int j = i; j < N + nRows; j += nRows - 1) {
+                int k = j;
+                if (ct & 1) {
+                    // base is the index of the last element in the previous column 
+                    int base = (j/(2 * nRows - 2)) * (2 * nRows - 2) + ( (ct & 1) ? (nRows - 1) : 0 );
+                    k = base + (nRows - i - 1); // for odd number column, index goes in inverse.
+                }
+                if (k < N) t += s[k];
+                
+                ++ ct;
+            }
+        }
+        
+        // last line
+        for (int j = nRows - 1; j < N; j += 2*nRows - 2) {
+            t += s[j];
+        }
+        
+        return t;
+    }
+};
+
+// This works.
 class Solution {
 public:
     // Each block size is 2*nRows - 2.
