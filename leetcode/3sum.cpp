@@ -48,6 +48,46 @@ public:
 };
 
 
+// This should work too, but O(n^2log(n)).
+class Solution_3 {
+public:
+   vector<vector<int> > threeSum(vector<int> &num) {
+        vector<vector<int> > ans;
+        if (num.size() < 3) return ans;
+        
+        sort(num.begin(), num.end());
+        
+        for (int L = 0, len = num.size()-2; L < len; ++ L) {
+            for (int R = L + 2; R < num.size(); ++ R) {
+                //if (num[L] + num[R] > 0 && num[L] > 0) break;
+                //if (num[L] + num[R] < 0 && num[R] < 0) break;
+                
+                int M = b(num, L, R, - (num[L] + num[R]));
+                if (M != -1) {
+                    vector<int> v(3); 
+                    v[0] = num[L]; v[1] = num[M]; v[2] = num[R];
+                    if (find(ans.begin(), ans.end(), v) == ans.end()) ans.push_back(v);
+                    
+                    //while (num[R+1] == num[R]) ++ R;
+                }
+            }
+        }
+        
+        return ans;
+    }
+    
+    int b(vector<int> &num, int L, int R, int k) {
+        while (L < R) {
+            int M = L + (R - L)/2;
+            if (num[M] == k) return M;
+            else if (num[M] < k) L = M + 1;
+            else R = M - 1;
+        }
+        return -1;
+    }
+};
+
+
 #include <vector>
 #include <set>
 #include <iostream>
@@ -296,7 +336,7 @@ which gives the sum of zero.
 
 Note:
 
-    Elements in a triplet (a,b,c) must be in non-descending order. (ie, a ¡Ü b ¡Ü c)
+    Elements in a triplet (a,b,c) must be in non-descending order. (ie, a Â¡Ãœ b Â¡Ãœ c)
     The solution set must not contain duplicate triplets.
 
     For example, given array S = {-1 0 1 2 -1 -4},
