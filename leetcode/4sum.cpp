@@ -144,3 +144,46 @@ public:
         return v;
     }
 };
+
+
+// This works too, and is the most clean.
+class Solution3 {
+public:
+    vector<vector<int> > fourSum(vector<int> &num, int target) {
+        vector<vector<int> > ans;
+        if (num.size() < 4) return ans; // need this to avoid runtime error when num is empty.
+        
+        sort(num.begin(), num.end());
+        for (int L = 0; L < num.size() - 3; ++ L) {
+            vector<vector<int> > v = threeSum(num, L+1, target - num[L]);
+            for (int i = 0; i < v.size(); ++ i) {
+                vector<int> u(4);
+                u[0] = num[L]; u[1] = v[i][0]; u[2] = v[i][1]; u[3] = v[i][2];
+                if (find(ans.begin(), ans.end(), u) == ans.end()) {
+                    ans.push_back(u);
+                }
+            }
+        }
+        return ans;
+    }
+    
+    vector<vector<int> > threeSum(vector<int> &num, int L, int target) {
+        vector<vector<int> > ans;
+        for (; L < num.size() - 2; ++ L) {
+            for (int M = L + 1, R = num.size() - 1; M < R; ) {
+                int sum = num[L] + num[M] + num[R];
+                if (sum == target) {
+                    vector<int> v(3);
+                    v[0] = num[L]; v[1] = num[M], v[2] = num[R];
+                    if (find(ans.begin(), ans.end(), v) == ans.end()) {
+                        ans.push_back(v);
+                    }
+                    ++ M;
+                }
+                else if (sum < target) ++ M;
+                else -- R;
+            }
+        }
+        return ans;
+    }
+};
