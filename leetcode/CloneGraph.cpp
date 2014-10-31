@@ -38,6 +38,7 @@ public:
 
 
 // DFS. This works too. 10/30/2014.
+// Notice that no matter DFS or BFS, mapping is always m[old] = new.
 class Solution2 {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
