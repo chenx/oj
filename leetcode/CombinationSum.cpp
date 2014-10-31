@@ -181,3 +181,37 @@ public:
         return ans[target];
     }
 };
+
+
+// This works too and is very clean.
+// 1) i can start from 1 instead of 0. 2) if use sort, then can break. See below.
+class Solution6 {
+public:
+    vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
+        vector<vector<vector<int> > > ans(1+target);
+        
+        //sort(candidates.begin(), candidates.end());
+        for (int i = 1; i <= target; ++ i) {
+            for (int j = 0; j < candidates.size(); ++ j) {
+                if (i == candidates[j]) {
+                    vector<int> v(1);
+                    v[0] = candidates[j];
+                    ans[i].push_back(v);
+                    //break; // if use sort above, then can use break here.
+                }
+                else if (i > candidates[j]) {
+                    vector<vector<int> > w = ans[i - candidates[j]];
+                    for (int k = 0; k < w.size(); ++ k) {
+                        vector<int> v = w[k];
+                        if (candidates[j] >= v.back()) {
+                            v.push_back(candidates[j]);
+                            ans[i].push_back(v);
+                        }
+                    }
+                }
+            } // end for
+        } // end for
+        
+        return ans[target];
+    }
+};
