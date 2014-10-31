@@ -37,6 +37,35 @@ public:
 };
 
 
+// DFS. This works too. 10/30/2014.
+class Solution2 {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> m;
+        return clone(node, m);
+    }
+    
+    UndirectedGraphNode * clone(UndirectedGraphNode *node, unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> &m) {
+        if (! node) return NULL;
+        
+        UndirectedGraphNode * c = new UndirectedGraphNode(node->label);
+        m[node] = c;
+        
+        for (int i = 0; i < node->neighbors.size(); ++ i) {
+            UndirectedGraphNode * n = node->neighbors[i];
+            if (m.find(n) != m.end()) {
+                c->neighbors.push_back(m[n]);
+            }
+            else {
+                c->neighbors.push_back( clone(n, m) );
+            }
+        }
+        
+        return c;
+    }
+};
+
+
 // BFS.
 class Solution {
 public:
