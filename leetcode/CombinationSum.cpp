@@ -185,6 +185,8 @@ public:
 
 // This works too and is very clean.
 // 1) i can start from 1 instead of 0. 2) if use sort, then can break. See below.
+// 3) use hash (&) on line 204, to save cost of creating new copy.
+// 4) don't use hash on line 207, to create new copy of array.
 class Solution6 {
 public:
     vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
@@ -200,10 +202,10 @@ public:
                     //break; // if use sort above, then can use break here.
                 }
                 else if (i > candidates[j]) {
-                    vector<vector<int> > w = ans[i - candidates[j]];
+                    vector<vector<int> > &w = ans[i - candidates[j]];
                     for (int k = 0; k < w.size(); ++ k) {
-                        vector<int> v = w[k];
-                        if (candidates[j] >= v.back()) {
+                        if (candidates[j] >= w[k].back()) {
+                            vector<int> v = w[k];
                             v.push_back(candidates[j]);
                             ans[i].push_back(v);
                         }
