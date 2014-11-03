@@ -108,6 +108,23 @@ public:
        
         return total >= 0 ? start+1 : -1;    
     }
+    
+    // This works too, adapted from canCompleteCircuit2.
+    int canCompleteCircuit3(vector<int> &gas, vector<int> &cost) {
+        int index = 0;
+        int sum = 0, total = 0;
+        
+        for (int i = 0; i < gas.size(); ++ i) {
+            if (sum < 0) {
+                index = i; 
+                sum = 0;
+            }
+            sum += gas[i] - cost[i];
+            total += gas[i] - cost[i];
+        }
+        
+        return total < 0 ? -1 : index;
+    }    
 };
 
 
