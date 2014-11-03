@@ -63,8 +63,8 @@ public:
         cells.push(j), cells.push(i);
         
         while (! cells.empty() ) {
-            i = cells.front(), cells.pop();
             j = cells.front(), cells.pop();
+            i = cells.front(), cells.pop();
             board[i][j] = 'K';
             
             if (i > 0 && board[i-1][j] == 'O') { cells.push(j), cells.push(i-1); } //label(board, i-1, j);
