@@ -5,6 +5,70 @@
 // @Last modified: 2/3/2013
 //
 
+// This works. Passed both small and large tests. 11/2/2014.
+class Solution {
+public:
+    void solve(vector<vector<char>> &board) {
+        if (board.size() == 0 || board[0].size() == 0) return;
+        
+        int rows = board.size(), cols = board[0].size();
+        for (int i = 0; i < cols; ++ i) {
+            if (board[0][i] == 'O') flip(board, 0, i);
+            if (board[rows-1][i] == 'O') flip(board, rows - 1, i);
+        }
+
+        for (int i = 0; i < rows; ++ i) {
+            if (board[i][0] == 'O')  flip(board, i, 0);
+            if (board[i][cols-1] == 'O')  flip(board, i, cols-1);
+        }
+        
+        for (int i = 0; i < rows; ++ i) {
+            for (int j = 0; j < cols; ++ j) {
+                if (board[i][j] == 'O') board[i][j] = 'X';
+                else if (board[i][j] == 'k') board[i][j] = 'O';
+            }
+        }
+    }
+    
+    // This has run-time error. don't know why. Stack overflow?
+    void flip2(vector<vector<char>> &b, int i, int j) {
+        if (b[i][j] != 'O') return;
+        b[i][j] = 'k';
+        
+        int rows = b.size();
+        int cols = b[0].size();
+        
+        if (i > 0 && b[i-1][j] == 'O') flip(b, i-1, j);
+        if ((i < rows-1) && b[i+1][j] == 'O') flip(b, i+1, j);
+        if (j > 0 && b[i][j-1] == 'O') flip(b, i, j-1);
+        if ((j < cols-1) && b[i][j+1] == 'O') flip(b, i, j+1);
+    }
+    
+    // This passes all large tests. But if use queue as in Solution, will have timeout error.
+    void flip(vector<vector<char>> &board, int i, int j) {
+        if (board[i][j] != 'O') return;
+
+        int X = board.size();
+        int Y = board[0].size();
+
+        stack<int> cells;
+        cells.push(j), cells.push(i);
+        
+        while (! cells.empty() ) {
+            i = cells.top(); cells.pop();
+            j = cells.top(); cells.pop();
+            board[i][j] = 'k';
+            
+            if (i > 0 && board[i-1][j] == 'O') { cells.push(j), cells.push(i-1); } //label(board, i-1, j);
+            if (i < X-1 && board[i+1][j] == 'O') { cells.push(j), cells.push(i+1); } //label(board, i+1, j);
+            if (j > 0 && board[i][j-1] == 'O') { cells.push(j-1), cells.push(i); } //label(board, i, j-1);
+            if (j < Y-1 && board[i][j+1] == 'O') { cells.push(j+1), cells.push(i); } //label(board, i, j+1);
+        }
+    }
+    
+};
+
+
 //
 // This works. Passed small test set, and all tests in large test set except the last one. 
 // Has run time error for the last input of the largest test set.
