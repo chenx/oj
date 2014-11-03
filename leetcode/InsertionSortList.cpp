@@ -8,9 +8,47 @@ struct ListNode {
 };
 
 
+// This works too.
+// start from head, find insertion point and insert.
+// Considerations: 1) insert before head, 2) no move, 3) insert between head and current position.
+class Solution5 {
+public:
+    ListNode *insertionSortList(ListNode *head) {
+        if (! head || ! head->next) return head;
+        ListNode * cur = head->next, * cur_prev = head;
+        
+        while (cur) {
+            if (head->val >= cur->val) { // 1) insert before head. Note ">=".
+                cur_prev->next = cur->next;
+                cur->next = head;
+                head = cur;
+                cur = cur_prev->next;
+            }
+            else {
+                ListNode * p = head;
+                while (p->next->val < cur->val) { p = p->next; }
+                
+                if (p->next == cur) { // 2) no move.
+                    cur_prev = cur;
+                    cur = cur->next;
+                }
+                else { // 3) now, insert cur after p.
+                    cur_prev->next = cur->next;
+                    cur->next = p->next;
+                    p->next = cur;
+                    cur = cur_prev->next;
+                }
+            }
+        }
+        
+        return head;
+    }
+};
+
 // This works too, and is much shorter.
 // From: http://www.mitbbs.com/article_t/JobHunting/32576307.html
-class Solution {
+// --> However, this is a memory leak on dummyHead. Should delete it before return.
+class Solution4 {
 public:
     ListNode *insertionSortList(ListNode *head) {
         ListNode dummyHead(INT_MIN);
@@ -32,7 +70,7 @@ public:
 
 // Java version. works too.
 // From: http://www.mitbbs.com/article_t/JobHunting/32576307.html
-public class Solution {
+public class Solution3 {
     public ListNode insertionSortList(ListNode head) {
         // IMPORTANT: Please reset any member data you declared, as
         // the same Solution instance will be reused for each test case.
