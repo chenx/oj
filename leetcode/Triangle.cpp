@@ -5,6 +5,24 @@
 // @Last modified: 12/18/2012
 //
 
+// This works too. Use O(n) space. This does not destroy triangle. 11/4/2014.
+class Solution2 {
+public:
+    int minimumTotal(vector<vector<int> > &triangle) {
+        int n = triangle.size();
+        if (n == 0) return 0;
+        vector<int> v = triangle[n-1];
+        
+        for (int i = n-2; i >= 0; -- i) {
+            for (int j = 0; j <= i; ++ j) {
+                v[j] = triangle[i][j] + min(v[j], v[j+1]);
+            }
+        }
+        
+        return v[0];
+    }
+};
+
 class Solution {
 public:
     int minimumTotal(vector<vector<int> > &triangle) {
