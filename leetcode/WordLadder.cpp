@@ -83,7 +83,7 @@ public:
 //
 // This works too. For this case, only need to keep length, not need to keep pointer.
 //
-class Solution {
+class Solution2 {
 public:
     int ladderLength(string start, string end, unordered_set<string> &dict) {
         unordered_set<string> used; // store words used.
@@ -121,6 +121,44 @@ public:
     }
 };
 
+
+// This works too. Use a map to store (word, dist). Seems best. 11/4/2014
+class Solution3 {
+public:
+    int ladderLength(string start, string end, unordered_set<string> &dict) {
+        if (start == end) return 1;
+        
+        unordered_map<string, int> used; // record: 1) used words, 2) distance from start.
+        used[start] = 1;
+        
+        queue<string> q; // For BFS.
+        q.push(start);
+        
+        while (! q.empty()) {
+            string s = q.front();
+            int dist = used[s];
+            q.pop();
+
+            for (int i = 0; i < s.length(); ++ i) {
+                char c = s[i];
+                for (int j = 0; j < 26; ++ j) {
+                    char c1 = 'a' + j;
+                    if (c1 == c) { continue; }
+                    
+                    s[i] = c1;
+                    if (s == end) { return dist + 1; }
+                    if (dict.find(s) != dict.end() && used.find(s) == used.end()) {
+                        q.push(s);
+                        used[s] = dist + 1;
+                    }
+                }
+                s[i] = c;
+            }
+        }
+        
+        return 0;
+    }
+};
 
 /*
 Problem:
