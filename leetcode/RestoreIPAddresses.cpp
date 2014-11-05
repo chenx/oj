@@ -50,6 +50,46 @@ public:
     }
 };
 
+// This works too. But not as clear as Solution above. 11/4/2014
+class Solution2 {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> ans;
+        
+        for (int i = 0; i < 3; ++ i) {
+            for (int j = i+1; j <= i+3; ++ j) {
+                for (int k = j+1; k <= j+3; ++ k) {
+                    if (k+1 >= s.length()) continue;
+                    
+                    string s1 = s.substr(0, i+1),
+                           s2 = s.substr(i+1, j-i),
+                           s3 = s.substr(j+1, k-j),
+                           s4 = s.substr(k+1, s.length()-1-k);
+                    if (valid(s1) && valid(s2) && valid(s3) && valid(s4)) {
+                        string ip = s1 + "." + s2 + "." + s3 + "." + s4;
+                        if (find(ans.begin(), ans.end(), ip) == ans.end()) {
+                            ans.push_back(ip);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ans;
+    }
+    
+    bool valid(string s) {
+        if (s.length() > 1 && s[0] == '0') return false;
+        
+        int v = 0;
+        for (int i = 0; i < s.length(); ++ i) {
+            v = v * 10 + (s[i] - '0'); 
+            if (v > 255) return false;
+        }
+        return v <= 255;
+    }
+};
+
 
 /*
 Problem:
