@@ -66,10 +66,7 @@ public:
                            s3 = s.substr(j+1, k-j),
                            s4 = s.substr(k+1, s.length()-1-k);
                     if (valid(s1) && valid(s2) && valid(s3) && valid(s4)) {
-                        string ip = s1 + "." + s2 + "." + s3 + "." + s4;
-                        if (find(ans.begin(), ans.end(), ip) == ans.end()) {
-                            ans.push_back(ip);
-                        }
+                        ans.push_back(s1 + "." + s2 + "." + s3 + "." + s4);
                     }
                 }
             }
