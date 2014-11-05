@@ -25,6 +25,36 @@ struct TreeNode {
       TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
  
+// This works too. 11/4/2014.
+class Solution2 {
+public:
+    void flatten(TreeNode *root) {
+        if (! root) return;
+        
+        TreeNode * head = NULL, * tail = NULL;
+        f(root, head, tail);
+        root = head;
+    }
+    
+    void f(TreeNode * root, TreeNode *&head, TreeNode *&tail) {
+        TreeNode *LH = NULL, *LT = NULL, *RH = NULL, *RT = NULL;
+        if (root->left) { f(root->left, LH, LT); }
+        if (root->right) { f(root->right, RH, RT); }
+        
+        head = tail = root;
+        head->left = NULL;
+        if (LH) {
+            tail->right = LH;
+            tail = LT;
+        }
+        if (RH) {
+            tail->right = RH;
+            tail = RT;
+        }
+    }
+};
+
+
 class Solution {
 public:
     void flatten(TreeNode *root) {
