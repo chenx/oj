@@ -29,7 +29,7 @@ public:
             ts.push_back(NULL);
             return ts;
         }
-        if (left == right) {
+        if (left == right) { // this branch can be omitted.
             ts.push_back(new TreeNode(left));
             return ts;
         }
@@ -48,6 +48,39 @@ public:
         }
         
         return ts;
+    }
+};
+
+// This generates the same tree set, but ordering is different.
+// So this can't pass the test. 11/4/2014
+class Solution2 {
+public:
+    vector<TreeNode *> generateTrees2(int n) {
+        vector<vector<TreeNode *> > ans;
+        vector<TreeNode *> t(1);
+
+        t[0] = NULL;
+        ans.push_back(t);
+
+        t[0] = new TreeNode(1);
+        ans.push_back(t);
+        
+        for (int i = 2; i <= n; ++ i) {
+            vector<TreeNode *> tmp;
+            for (int j = 0; j < i; ++ j) {
+                for (int x = 0; x < ans[j].size(); ++ x) {
+                    for (int y = 0; y < ans[i-1-j].size(); ++ y) {
+                        TreeNode * t = new TreeNode(i);
+                        t->left = ans[j][x];
+                        t->right = ans[i-1-j][y];
+                        tmp.push_back(t);
+                    }
+                }
+            }
+            ans.push_back(tmp);
+        }
+        
+        return ans[n];
     }
 };
 
