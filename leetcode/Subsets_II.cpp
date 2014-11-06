@@ -14,9 +14,9 @@ Solution:
 1) The most intuitive way is to find out all possible subsets and put them 
    into hashtable, and then display only keys. It is easy to implement, however, 
    takes lot of additional memory, assume that when we have an array with 10000 
-   elements while all elememnt is ¡°1¡å, in this way one needs to have 2^1000 
+   elements while all elememnt is Â¡Â°1Â¡Ã¥, in this way one needs to have 2^1000 
    space to store all possible subsets, however, we both know that there are 
-   only 1001 distinct subsets as {}, {1},{1,1},¡­,{1,1¡­.1}.
+   only 1001 distinct subsets as {}, {1},{1,1},Â¡Â­,{1,1Â¡Â­.1}.
 
 2) To solve this issue, we need a better approach. This blog suggests an 
    efficient approach that decompose the problem into either generate the 
@@ -32,13 +32,13 @@ The algorithm goes as following:
 2) Find out all subsets from Arr_distinct, denoted as SubSets
 
 3) For the elements which appear multiple times, create their subsets 
-   SubSets_for_num. For example, if ¡°2¡å appear 3 time, 
+   SubSets_for_num. For example, if Â¡Â°2Â¡Ã¥ appear 3 time, 
    SubSets_for_2 ={2}, {2,2} and {2,2,2}
 
 4) For each element subset in the SubSets, create new datasets which 
    is combined by subset and all the SubSets_for_num created in step 
    3) and one element at a time. That is, supposse in step 3) we have 
-   numbers ¡°2¡å and ¡°3¡å, both appear 3 times, then in this iteration 
+   numbers Â¡Â°2Â¡Ã¥ and Â¡Â°3Â¡Ã¥, both appear 3 times, then in this iteration 
    all ELEs are only concatenated with SubSets_for_2, the SubSets_for_3 
    will be added in next iteration. After that, the new geneated dataset 
    are included into SubSets to make it larger.
@@ -168,6 +168,128 @@ public:
         return result;
     }    
 };
+
+
+// This works too.
+class Solution2 {
+public:
+
+    // This works. But notice the use of sort to match OJ result.
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        vector<vector<int> > ans;
+        if (S.size() == 0) return ans;
+        
+        sort(S.begin(), S.end());
+        
+        vector<int> single;
+        unordered_map<int, int> m;
+        int v = S[0], ct = 1;
+        
+        for (int i = 1; i < S.size(); ++ i) {
+            if (S[i] != v) {
+                if (ct == 1) { single.push_back(v); }
+                else {
+                    m[v] = ct; ct = 1;
+                }
+                v = S[i];
+            }
+            else {
+                ++ ct;
+            }
+        }
+        if (ct == 1) single.push_back(v);
+        else m[v] = ct;
+        
+        ans = subsets(single);
+        
+        for (unordered_map<int, int>::iterator it = m.begin(); it != m.end(); ++ it) {
+            int v = (*it).first;
+            int ct = m[v];
+            int n = ans.size();
+            for (int i = 0; i < n; ++ i) {
+                vector<int> t = ans[i];
+                for (int j = 0; j < ct; ++ j) {
+                    t.push_back(v);
+                    sort(t.begin(), t.end());
+                    ans.push_back(t);
+                }
+            }
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+    
+    // This works too. But notice the use of sort to match OJ result.
+    vector<vector<int> > subsetsWithDup2(vector<int> &S) {
+        vector<vector<int> > ans;
+        if (S.size() == 0) return ans;
+        
+        sort(S.begin(), S.end());
+        
+        vector<int> single;
+        //unordered_map<int, int> m;
+        vector<int> dup;
+        int v = S[0], ct = 1;
+        
+        for (int i = 1; i < S.size(); ++ i) {
+            if (S[i] != v) {
+                if (ct == 1) { single.push_back(v); }
+                else {
+                    //m[v] = ct; 
+                    dup.push_back(v);
+                    dup.push_back(ct);
+                    ct = 1;
+                }
+                v = S[i];
+            }
+            else {
+                ++ ct;
+            }
+        }
+        if (ct == 1) single.push_back(v);
+        else {
+            dup.push_back(v);
+            dup.push_back(ct);
+        }
+        
+        ans = subsets(single);
+
+        for (int i = 0; i < dup.size(); i += 2) {        
+            int v = dup[i];
+            int ct = dup[i+1];
+            int n = ans.size();
+            for (int i = 0; i < n; ++ i) {
+                vector<int> t = ans[i];
+                for (int j = 0; j < ct; ++ j) {
+                    t.push_back(v);
+                    sort(t.begin(), t.end());
+                    ans.push_back(t);
+                }
+            }
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+    
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int> > ans;
+        int n = S.size();
+        int len = 1 << n;
+        sort(S.begin(), S.end());
+        
+        for (int i = 0; i < len; ++ i) {
+            vector<int> v;
+            for (int j = 0; j < n; ++ j) {
+                if (i & (1 << j)) {
+                    v.push_back(S[j]);
+                }
+            }
+            ans.push_back(v);
+        }
+        return ans;
+    }    
+};
+
 
 /*
 Problem:
