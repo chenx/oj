@@ -77,7 +77,7 @@ public:
         if (i == s.length()) return 1;
         if (i == s.length() - 1) return (s[i] == '0') ? 0 : 1;
         
-        if ((s[i] == '1' || s[i] == '2') && s[i+1] == '0') {
+        if ((s[i] == '1' || s[i] == '2') && s[i+1] == '0') { // This branch can be removed, due to branch 2 and 3 below.
             return countWays(s, i + 2);
         }
         else if ( s[i] == '1' || 
