@@ -181,8 +181,8 @@ public:
         
         sort(S.begin(), S.end());
         
-        vector<int> single;
-        unordered_map<int, int> m;
+        vector<int> single; // store elements that appear once.
+        unordered_map<int, int> m; // store elements that appear more than once.
         int v = S[0], ct = 1;
         
         for (int i = 1; i < S.size(); ++ i) {
@@ -226,16 +226,14 @@ public:
         
         sort(S.begin(), S.end());
         
-        vector<int> single;
-        //unordered_map<int, int> m;
-        vector<int> dup;
+        vector<int> single; // store elements that appear once.
+        vector<int> dup; // store elements that appear more than once.
         int v = S[0], ct = 1;
         
         for (int i = 1; i < S.size(); ++ i) {
             if (S[i] != v) {
                 if (ct == 1) { single.push_back(v); }
                 else {
-                    //m[v] = ct; 
                     dup.push_back(v);
                     dup.push_back(ct);
                     ct = 1;
