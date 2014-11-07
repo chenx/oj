@@ -56,6 +56,30 @@ public:
     }
 };
 
+// This works too. Same structure as Solution2, but use queue instead of stack.
+class Solution3 {
+public:
+    bool isSymmetric(TreeNode * root) {
+        if (! root) return true;
+        queue<TreeNode *> s1, s2;
+        s1.push(root->left);
+        s2.push(root->right);
+        
+        while(! s1.empty() && ! s2.empty()) {
+            TreeNode * n1 = s1.front(); s1.pop();
+            TreeNode * n2 = s2.front(); s2.pop();
+            
+            if (!n1 && !n2) continue; 
+            if (!n1 || !n2 || n1->val != n2->val) return false;
+            
+            s1.push(n1->left);
+            s1.push(n1->right);
+            s2.push(n2->right);
+            s2.push(n2->left);
+        }
+        return true; 
+    }
+};
 
 /*
 Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
