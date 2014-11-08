@@ -5,6 +5,35 @@
 // @Last modified: 12/24/2012
 //
 
+// This works too. 11/7/2014
+class Solution2 {
+public:
+    string intToRoman(int num) {
+        string s;
+        eval(num, s, 1000, "M");
+        eval(num, s, 900, "CM");
+        eval(num, s, 500, "D");
+        eval(num, s, 400, "CD");
+        eval(num, s, 100, "C");
+        eval(num, s, 90, "XC");
+        eval(num, s, 50, "L");
+        eval(num, s, 40, "XL");
+        eval(num, s, 10, "X");
+        eval(num, s, 9, "IX");
+        eval(num, s, 5, "V");
+        eval(num, s, 4, "IV");
+        eval(num, s, 1, "I");
+        return s;
+    }
+    
+    void eval(int &num, string &s, int v, string roman) {
+        while (num >= v) {
+            s += roman;
+            num -= v;
+        }
+    }
+};
+
 // http://en.wikipedia.org/wiki/Roman_numerals
 class Solution {
 public:
