@@ -21,6 +21,56 @@ void dumpMatrix(vector<vector<int> > &matrix) {
 }
 
 
+// This works too. Slightly more cleaner, due to use of setRow0() and setCol().
+class Solution3 {
+public:
+    void setZeroes(vector<vector<int> > &matrix) {
+        if (matrix.size() == 0 || matrix[0].size() == 0) return;
+        int rows = matrix.size(), cols = matrix[0].size();
+        int M = -1, N = -1;
+        for (int i = 0; i < rows; ++ i) {
+            for (int j = 0; j < cols; ++ j) {
+                if (matrix[i][j] == 0) {
+                    M = i; N = j; 
+                    break;
+                }
+            }
+        }
+        
+        if (M == -1) return;
+        
+        for (int i = 0; i < rows; ++ i) {
+            if (i == M) continue;
+            for (int j = 0; j < cols; ++ j) {
+                if (j == N) continue;
+                if (matrix[i][j] == 0) {
+                    matrix[i][N] = 0;
+                    matrix[M][j] = 0;
+                }
+            }
+        }
+        
+        for (int i = 0; i < rows; ++ i) {
+            if (i == M) continue; // must have this!
+            if (matrix[i][N] == 0) setRow0(matrix, i);
+        }
+        for (int j = 0; j < cols; ++ j) {
+            if (j == N) continue; // must have this!
+            if (matrix[M][j] == 0) setCol0(matrix, j);
+        }
+        setRow0(matrix, M);
+        setCol0(matrix, N);
+    }
+    
+    void setRow0(vector<vector<int> > &matrix, int row) {
+        for (int j = 0; j < matrix[0].size(); ++ j) matrix[row][j] = 0;
+    }
+
+    void setCol0(vector<vector<int> > &matrix, int col) {
+        for (int i = 0; i < matrix.size(); ++ i) matrix[i][col] = 0;
+    }
+};
+
 class Solution {
 public:
     // This is more efficient than the other, since it labels with 0, not 1.
