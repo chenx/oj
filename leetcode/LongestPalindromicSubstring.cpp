@@ -17,6 +17,36 @@
 #include <string>
 using namespace std;
 
+// This works too. Seems most clean. 11/7/2014
+class Solution3 {
+public:
+    string longestPalindrome(string s) {
+       int len = s.length();
+       if (len == 0) return "";
+       
+       int mlen = 1; // max palindrome length.
+       int mL = 0;   // start position (L) of max palindrome.
+       
+       for (int i = 0; i < len; ++ i) {
+           check(s, i, i, mlen, mL);
+           check(s, i, i+1, mlen, mL);
+       }
+       
+       return s.substr(mL, mlen);
+    }
+    
+    void check(string &s, int L, int R, int &mlen, int &mL) {
+        while (L >= 0 && R < s.length() && s[L] == s[R]) {
+            -- L; ++ R;
+        }
+        ++ L; -- R;
+        if (R - L + 1 > mlen) {
+            mlen = R - L + 1;
+            mL = L;
+        }
+    }
+};
+
 // This works too.
 class Solution2 {
 public:
