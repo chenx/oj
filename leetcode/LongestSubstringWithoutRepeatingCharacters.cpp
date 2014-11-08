@@ -9,6 +9,38 @@
 using namespace std;
 
 
+// This works too. 
+// Note update value of maxlen either at the 2 places as below, or at single place of commented-out.
+// 11/7/2014
+class Solution5 {
+public:
+    int lengthOfLongestSubstring(string s) {
+       const int SIZE = 256;
+       int pos[SIZE];
+       int ct[SIZE];
+       int len = 0, maxlen = 0;
+       memset(ct, 0, SIZE * sizeof(int));
+       
+       for (int i = 0; i < s.length(); ++ i) {
+           if (ct[s[i]] == 0) {
+               ct[s[i]] = 1;
+               pos[s[i]] = i;
+               ++ len;
+               // maxlen = max(maxlen, len); // 1) update method 1.
+           }
+           else {
+               maxlen = max(maxlen, len); // 2) update method 2.
+               i = pos[s[i]];
+               len = 0;
+               memset(ct, 0, SIZE * sizeof(int));
+           }
+       }
+       
+       maxlen = max(maxlen, len); // 2) update method 2.
+       return maxlen; 
+    }
+};
+
 // New code, 9/22/2014
 // Updated from the previous code, since the question changed alphabet from
 // lower case a-z to the entire ascii set. So the change here is mostly
