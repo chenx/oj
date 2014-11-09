@@ -5,6 +5,27 @@
 // @Last modified: 1/9/2012
 //
 
+// This works too. more clean.
+class Solution3 {
+public:
+    void nextPermutation(vector<int> &num) {
+        int n = num.size();
+        
+        int i, j;
+        for (i = n-2; i >= 0 && num[i] >= num[i+1]; -- i) {} // find first num[i] < num[i+1].
+        
+        if (i == -1) {
+            reverse(num.begin(), num.end());
+            return;
+        }
+        
+        for (j = n-1; num[j] <= num[i]; -- j) {} // find first elem from right larger than num[i].
+        swap(num[i], num[j]);
+        
+        reverse(num.begin() + i + 1, num.end());
+    }
+};
+
 // Optimized from Solution2.
 // reference: http://blog.csdn.net/sunjilong/article/details/8258254
 class Solution {
@@ -90,7 +111,7 @@ The replacement must be in-place, do not allocate extra memory.
 
 Here are some examples. Inputs are in the left-hand column and 
 its corresponding outputs are in the right-hand column.
-1,2,3 ¡ú 1,3,2
-3,2,1 ¡ú 1,2,3
-1,1,5 ¡ú 1,5,1        
+1,2,3 Â¡Ãº 1,3,2
+3,2,1 Â¡Ãº 1,2,3
+1,1,5 Â¡Ãº 1,5,1        
  */
