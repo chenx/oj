@@ -89,6 +89,31 @@ public:
     }
 };
 
+// This works too. Use a dummy node. 11/8/2014
+class Solution3 {
+public:
+    ListNode *swapPairs(ListNode *head) {
+        if (! head || ! head->next) return head;
+        
+        ListNode * dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode * prev = dummy, * n1 = head, * n2;
+        
+        while (n1 && n1->next) {
+            n2 = n1->next;
+            n1->next = n2->next;
+            n2->next = n1;
+            prev->next = n2;
+            
+            prev = n1;
+            n1 = n1->next;
+        }
+        
+        head = dummy->next;
+        delete dummy;
+        return head;
+    }
+};
 
 /*
 Problem:
