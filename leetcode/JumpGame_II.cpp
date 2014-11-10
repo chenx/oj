@@ -8,8 +8,38 @@
 #include <iostream>
 using namespace std;
 
+// This works. 11/9/2014
+class Solution6 {
+public:
+    int jump(int A[], int n) {
+        if (n <= 1) return 0;
+        
+        int steps[n];
+        for (int i = 0; i < n; ++ i) steps[i] = -1;
+        steps[n-1] = 0;
+        
+        for (int i = n-2; i >= 0; -- i) {
+            if (A[i] + i >= n - 1) {
+                steps[i] = 1;
+            }
+            else {
+                for (int j = A[i]; j > 0; -- j) {
+                    if (i + j <= n - 1 && steps[i+j] >= 0) {
+                        if (steps[i] == -1 || steps[i] > steps[i+j] + 1) {
+                            steps[i] = steps[i+j] + 1;
+                            if (steps[i] == 2) break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return steps[0];
+    }
+}
 
 // This also works and passes the large test set!
+// <-- may have bug, see comment below.
 class Solution5 {
 public:
     int jump(int A[], int n) {
@@ -19,10 +49,10 @@ public:
         
         for (int i = n-2; i >= 0; -- i) {
             for (int j = A[i]; j > 0; -- j) {
-                if (ok[i + j] >= 0) {
+                if (ok[i + j] >= 0) { // <-- may have a bug if i+j overflows array index.
                     if (ok[i] == -1 || ok[i] > 1 + ok[i + j]) {
                         ok[i] = 1 + ok[i + j];
-                        if (ok[i] == 2) break; // this is needed to pass the large test set.
+                        if (ok[i] == 2) break; // this is needed to pass the large test set. // <- if min is 1, this is wrong.
                     }
                 }
             }
@@ -48,7 +78,7 @@ public:
                 for (int j = A[i]; j > 0; -- j) {
                 // this works too, but time out for the last test case of the large test set.
                 //for (int j = 1; j <= A[i]; ++ j) { 
-                    if (can[i + j] > 0) {
+                    if (can[i + j] > 0) { // may overflow array index here. See correction in Solution6.
                         if (can[i] < 0 || can[i] > 1 + can[i+j]) {
                             can[i] = 1 + can[i+j];
                         }
