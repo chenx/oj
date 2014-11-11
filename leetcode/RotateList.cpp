@@ -49,15 +49,15 @@ public:
         if (! head || ! head->next) return head;
         
         ListNode * n1 = head;
-        int ct = 0; // optional, can make it more efficient if k >> ct
+        //int ct = 0; // optional, can make it more efficient if k >> ct
         while (n1 && k > 0) {
             n1 = n1->next;
             -- k;
-            ++ ct; // optional, can make it more efficient if k >> ct
+            //++ ct; // optional, can make it more efficient if k >> ct
         }
         
-        //if (n1 == NULL) return rotateRight(head, k); 
-        if (n1 == NULL) return rotateRight(head, k % ct); // optional, can make it more efficient if k >> ct
+        if (n1 == NULL) return rotateRight(head, k); 
+        //if (n1 == NULL) return rotateRight(head, k % ct); // optional, can make it more efficient if k >> ct
         
         ListNode * n2 = head;
         while (n1->next) {
