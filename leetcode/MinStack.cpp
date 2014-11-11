@@ -7,9 +7,10 @@
  
  /**
   * This works too, passes all tests.
+  * From: http://www.mitbbs.com/article_t/JobHunting/32825491.html
   * 
-  * However, this does not save that much memory as MinStack2:
-  * If all elements are equal, both stacks will be pushed at all time.
+  * However, this does not save that much memory as MinStack2 when, e.g.,
+  * all elements are equal, both stacks will be pushed all the time.
   * 
   * That said, if numbers are pushed in decreasing order, MinStack2 uses more spaces
   * since all numbers will be pushed to smin too as (x, 1).
