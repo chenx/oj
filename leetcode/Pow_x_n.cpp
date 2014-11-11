@@ -27,3 +27,23 @@ public:
         return neg ? 1/R : R;
     }
 };
+
+// This works too, and is probably better.
+class Solution2 {
+public:
+    double pow(double x, int n) {
+        if (n == 0) return abs(x) < 0.000001 ? 0 : 1;
+        bool neg = n < 0;
+        if (neg) n = -n;
+        
+        double R = 1.0, F = x;
+        while (n > 0) {
+            if (n & 1) R *= F;
+            n = n >> 1; // n >>= 1;
+            if (n == 0) break;
+            F *= F;
+        }
+        
+        return neg ? 1 / R : R;
+    }
+};
