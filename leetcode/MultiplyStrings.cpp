@@ -176,6 +176,81 @@ public:
     }
 };
 
+// This works too. May be most clean. 11/11/2014
+class Solution3 {
+public:
+    string multiply(string num1, string num2) {
+        if (num1 == "0" || num2 == "0") return "0";
+        
+        string sum = "0";
+        for (int i = 0, n = num2.length(); i < n; ++ i) {
+            string t = mult(num1, num2[i] - '0');
+            sum = add(sum, shift_left(t, n-1-i));
+        }
+        return sum;
+    }
+    
+    string mult(string s, int c) {
+        int carry = 0;
+        string p = "";
+        for (int i = s.length() - 1; i >= 0; -- i) {
+            int prod = c * (s[i] - '0') + carry;
+            if (prod >= 10) {
+                carry = prod / 10;
+                prod = prod % 10;
+            }
+            else {
+                carry = 0;
+            }
+            p = m_char(prod) + p;
+        }
+        if (carry > 0) {
+            p = m_char(carry) + p;
+        }
+        return p;
+    }
+    
+    string shift_left(string s, int pos) {
+        while (pos > 0) {
+            s = s + "0";
+            -- pos;
+        }
+        return s;
+    }
+    
+    string add(string a, string b) {
+        int carry = 0, i, j;
+        string sum = "";
+        for (i = a.length()-1, j = b.length()-1; i >= 0 && j >= 0; -- i, -- j) {
+            add_digit(sum, a[i] - '0' + b[j] - '0' + carry, carry);
+        }
+        for (; i >= 0; -- i) {
+            add_digit(sum, a[i] - '0' + carry, carry);
+        }
+        for (; j >= 0; -- j) {
+            add_digit(sum, b[j] - '0' + carry, carry);
+        }
+        if (carry > 0) {
+            sum = m_char(carry) + sum;
+        }
+        return sum;
+    }
+    
+    void add_digit(string & sum, int n, int &carry) {
+        if (n >= 10) {
+            carry = 1;
+            n -= 10;
+        }
+        else {
+            carry = 0;
+        }
+        sum = m_char(n) + sum;
+    }
+    
+    char m_char(int i) {
+        return i + '0';
+    }
+};
 
 
 /*
