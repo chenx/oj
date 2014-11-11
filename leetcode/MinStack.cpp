@@ -5,6 +5,42 @@
  * @since: 11/10/2014
  */
  
+ /**
+  * This works too, passes all tests.
+  * 
+  * However, this does not save that much memory as MinStack2:
+  * If all elements are equal, both stacks will be pushed at all time.
+  * 
+  * That said, if numbers are pushed in decreasing order, MinStack2 uses more spaces
+  * since all numbers will be pushed to smin too as (x, 1).
+  */
+ class MinStack3 {
+    stack<int> s;
+    stack<int> smin;
+public:
+    void push(int x) {
+        if (s.empty() || smin.top() >= x) {
+            smin.push(x);
+        }
+        s.push(x);
+    }
+
+    void pop() {
+        if (smin.top() == s.top()) {
+            smin.pop();
+        }
+        s.pop();
+    }
+
+    int top() {
+        return s.top();
+    }
+
+    int getMin() {
+        return smin.top();
+    }
+};
+
 /**
  * This works. Also passes all tests.
  * 
@@ -17,7 +53,7 @@
  *     pair<int, int> p(x, 1);
  *     smin.push(p);
  */
-class MinStack {
+class MinStack2 {
     stack<int> s;
     stack<pair<int, int> > smin;
 public:
