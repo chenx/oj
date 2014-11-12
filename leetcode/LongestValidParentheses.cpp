@@ -5,6 +5,37 @@
 // @Last modified: 1/21/2013
 //
 
+// Slighly changed from Solution3. Works too.
+class Solution4 {
+public:
+    int longestValidParentheses(string s) {
+        int maxlen = 0, pair = 0, len = 0;
+
+        for (int i = 0; i < s.length(); ++ i) {
+            count(maxlen, pair, len, s[i] == '(' ? 1 : -1);
+        }
+        
+        pair = len = 0;
+        for (int i = s.length() - 1; i >= 0; -- i) {
+            count(maxlen, pair, len, s[i] == ')' ? 1 : -1);
+        }
+        
+        return maxlen;
+    }
+    
+    void count(int &maxlen, int &pair, int &len, int c) {
+        pair += c;
+        len ++;
+
+        if (pair == 0) {
+            maxlen = max(maxlen, len);
+        }
+        else if (pair < 0) {
+            pair = 0;
+            len = 0;
+        }
+    }
+};
 
 // Adapted from Solution. Works too.
 class Solution3 {
