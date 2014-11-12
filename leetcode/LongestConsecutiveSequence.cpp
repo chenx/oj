@@ -13,6 +13,40 @@
  * @On: 2/18/2013
  */
 
+// This works too. 11/11/2014
+class Solution {
+public:
+    int longestConsecutive(vector<int> &num) {
+        unordered_set<int> hash;
+        for (int i = 0; i < num.size(); ++ i) {
+            hash.insert(num[i]);
+        }
+        
+        int len = 0;
+        while (! hash.empty()) {
+            len = max(len, getLen(hash, * hash.begin()));
+        }
+        return len;
+    }
+    
+    int getLen(unordered_set<int> &hash, int v) {
+        int len = 1;
+        hash.erase(v); // also can do: hash.erase(hash.find(v));
+        
+        for (int i = v-1; hash.find(i) != hash.end(); -- i) {
+            ++ len;
+            hash.erase(i);
+        }
+        for (int i = v+1; hash.find(i) != hash.end(); ++ i) {
+            ++ len;
+            hash.erase(i);
+        }
+        
+        return len;
+    }
+};
+
+
 class Solution {
 public:
     int longestConsecutive(vector<int> &num) {
