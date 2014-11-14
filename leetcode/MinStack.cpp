@@ -5,6 +5,38 @@
  * @since: 11/10/2014
  */
  
+// This works too and is the best!
+// This avoids inserting duplicate equal elements onto smin, 
+// and also avoids an extra counter field.
+// From: goalchaser at http://www.mitbbs.com/article_t/JobHunting/32829359.html
+class MinStack4 {
+    stack<int> s;
+    stack<int> smin;
+public:
+    void push(int x) {
+        if (s.empty() || smin.top() > x) {
+            smin.push(x);
+        }
+        s.push(x);
+    }
+
+    void pop() {
+        int tmp = s.top();
+        s.pop();
+        if (s.empty() || (smin.top() == tmp && smin.top() < s.top())) {
+            smin.pop();
+        }
+    }
+
+    int top() {
+        return s.top();
+    }
+
+    int getMin() {
+        return smin.top();
+    }
+};
+
  /**
   * This works too, passes all tests.
   * From: http://www.mitbbs.com/article_t/JobHunting/32825491.html
