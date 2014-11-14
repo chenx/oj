@@ -15,7 +15,7 @@
   * That said, if numbers are pushed in decreasing order, MinStack2 uses more spaces
   * since all numbers will be pushed to smin too as (x, 1).
   */
- class MinStack3 {
+class MinStack3 {
     stack<int> s;
     stack<int> smin;
 public:
