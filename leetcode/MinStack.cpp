@@ -5,9 +5,8 @@
  * @since: 11/10/2014
  */
  
-// This works too and is the best!
-// This avoids inserting duplicate equal elements onto smin, 
-// and also avoids an extra counter field.
+// This does NOT work, because on stack s, elements are not ordered.
+// This will have run time error for: push(0),push(1),push(0),pop(),getMin().
 // From: goalchaser at http://www.mitbbs.com/article_t/JobHunting/32829359.html
 class MinStack4 {
     stack<int> s;
