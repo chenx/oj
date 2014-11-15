@@ -151,6 +151,45 @@ public:
     }
 };
 
+// This works too.
+// Notice the use of substr() with only 1 param and ignore the 2nd.
+// The code commented out should also work, but so far it times out, 
+// so guess string creation is time consuming. 11/14/2014
+class Solution5 {
+public:
+    bool isScramble(string s1, string s2) {
+        if (s1.length() != s2.length()) return false;
+        int n = s1.length();
+        if (n <= 1) return s1 == s2;
+
+        for (int i = 1; i < n; ++ i) {
+            //string s1L = s1.substr(0, i), s1R = s1.substr(i),
+            //       s2L = s1.substr(0, i), s2R = s2.substr(i);
+            //if (isAnagram(s1L, s2L) && isScramble(s1L, s2L) && isScramble(s1R, s2R)) return true;
+            if (isAnagram(s1.substr(0, i), s2.substr(0, i)) && 
+                isScramble(s1.substr(0, i), s2.substr(0, i)) && 
+                isScramble(s1.substr(i), s2.substr(i))) return true;
+        }
+        
+        for (int i = 1; i < n; ++ i) {
+            //string s1L = s1.substr(0, i), s1R = s1.substr(i),
+            //       s2L = s2.substr(0, n-i), s2R = s2.substr(n-i);
+            //if (isAnagram(s1L, s2R) && isScramble(s1L, s2R) && isScramble(s1R, s2L)) return true;
+            if (isAnagram(s1.substr(0, i), s2.substr(n-i)) && 
+                isScramble(s1.substr(0, i), s2.substr(n-i)) && 
+                isScramble(s1.substr(i), s2.substr(0, n-i))) return true;
+        }
+        
+        return false;
+    }
+    
+    bool isAnagram(string a, string b) {
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+        return a == b;
+    }
+};
+
 /*
 This handles the case chars in s1 don't duplicate.
 http://csjobinterview.wordpress.com/2012/05/07/google-scramble-string/
