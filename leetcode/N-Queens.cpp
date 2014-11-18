@@ -113,6 +113,59 @@ public:
     }
 };
 
+// This works. too. 11/17/2014
+class Solution3 {
+public:
+    vector<vector<string> > solveNQueens(int n) {
+        vector<vector<string> > ans;
+        vector<int> a(n);
+        solve(ans, a, n, 0);
+        return ans;
+    }
+    
+    void solve(vector<vector<string> > &ans, vector<int> a, int n, int pos) {
+        if (n == pos) {
+            ans.push_back( getMatrix(a, n) );
+            return;
+        }
+        
+        for (int i = 0; i < n; ++ i) {
+            a[pos] = i + 1;
+            if (! hasConflict(a, pos)) {
+                solve(ans, a, n, pos+1);
+            }
+            //a[pos] = 0; // not needed.
+        }
+    }
+    
+    vector<string> getMatrix(vector<int> &a, int n) {
+        vector<string> v;
+        for (int i = 0; i < n; ++ i) {
+            string s = "";
+            for (int j = 1; j < a[i]; ++ j) { s += "."; }
+            s += "Q";
+            for (int j = a[i] + 1; j <= n; ++ j) { s += "."; }
+            v.push_back(s);
+        }
+        return v;
+    }
+    
+    bool hasConflict(vector<int> &a, int pos) {
+        for (int i = 0; i < pos; ++ i) {
+            if (a[i] == a[pos] || abs(a[i] - a[pos]) == pos-i) return true;
+        }
+        return false;
+        /*
+        // no need to use double loop. can use the fact that (a, pos-1) is conflict-free, to check only the last one.
+        for (int i = 0; i < pos-1; ++ i) {
+            for (int j = i+1; j < pos; ++ j) {
+                if (a[i] == a[j] || abs(i-j) == abs(a[i] - a[j])) return true;
+            }
+        }
+        return false;
+        */
+    }
+};
 
 int main() {
     Solution s;
