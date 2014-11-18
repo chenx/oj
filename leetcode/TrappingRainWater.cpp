@@ -73,7 +73,7 @@ public:
             if (P.size() == 0 || A[i] <= A[P.top()]) {
                 P.push(i);
             }
-            else if (A[i] == A[P.top()]) {
+            else if (A[i] == A[P.top()]) { // note this branch is not needed, as it's included in the above branch.
                 // do nothing.
             }
             else { // H.size() > 0 && A[i] > H.top().
