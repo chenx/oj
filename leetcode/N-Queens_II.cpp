@@ -53,10 +53,10 @@ public:
 
 
 //
-// This also works. Passes both test sets.
+// This  works. Passes both test sets.
 // Major difference: conflict() test is incremental.
 //
-class Solution {
+class Solution2 {
 public:
     int totalNQueens(int n) {
         int ans = 0;
@@ -90,6 +90,37 @@ public:
     }
 };
 
+// This also works. Passes all tests. 11/17/2014
+class Solution3 {
+public:
+    int totalNQueens(int n) {
+        int ans = 0;
+        vector<int> a(n);
+        solve(ans, a, n, 0);
+        return ans;
+    }
+    
+    void solve(int &ans, vector<int> a, int n, int pos) {
+        if (n == pos) {
+            ++ ans;
+            return;
+        }
+        
+        for (int i = 0; i < n; ++ i) {
+            a[pos] = i + 1;
+            if (! hasConflict(a, pos)) {
+                solve(ans, a, n, pos+1);
+            }
+        }
+    }
+    
+    bool hasConflict(vector<int> &a, int pos) {
+        for (int i = 0; i < pos; ++ i) {
+            if (a[i] == a[pos] || abs(a[i] - a[pos]) == pos-i) return true;
+        }
+        return false;
+    }    
+};
 
 int main() {
     Solution s;
