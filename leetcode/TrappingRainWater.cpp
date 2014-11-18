@@ -98,6 +98,36 @@ public:
     }
 };
 
+// This works too. Is more clean that Solution2. 11/17/2014.
+class Solution3 {
+public:
+    int trap(int A[], int n) {
+        if (n <= 2) return 0;
+        int water = 0;
+        stack<int> h;
+
+        for (int i = 0; i < n; ++ i) {
+            if (h.empty() || A[i] <= A[h.top()]) {
+                h.push(i);
+            }
+            else {
+                int bottom = A[h.top()];
+                h.pop();
+                while (! h.empty() && A[h.top()] <= A[i]) {
+                    water += (A[h.top()] - bottom) * (i - 1 - h.top());
+                    bottom = A[h.top()];
+                    h.pop();
+                }
+                if (! h.empty()) {
+                    water += (A[i] - bottom) * (i - 1 - h.top());
+                }
+                h.push(i);
+            }
+        }
+        
+        return water;
+    }
+};
 
 int main() {
     Solution s;
