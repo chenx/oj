@@ -23,6 +23,55 @@ struct ListNode {
      ListNode(int x) : val(x), next(NULL) {}
 };
  
+// This should work.
+// But times out for large test cases. O(n^3).
+class Solution2 {
+public:
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+        int n = lists.size();
+        if (n == 0) return NULL;
+        if (n == 1) return lists[0];
+        
+        ListNode * head = merge(lists[0], lists[1]);
+        for (int i = 2; i < n; ++ i) {
+            head = merge(head, lists[i]);
+        }
+        return head;
+    }
+    
+    ListNode * merge(ListNode * a, ListNode * b) {
+        if (! a) return b;
+        if (! b) return a;
+        
+        ListNode * head = NULL, * tail = NULL;
+        while (a && b) {
+            if (a->val < b->val) {
+                add(head, tail, a);
+            }
+            else {
+                add(head, tail, b);
+            }
+        }
+        
+        if (a) { tail->next = a; }
+        if (b) { tail->next = b; }
+        return head;
+    }
+    
+    void add(ListNode * &head, ListNode * &tail, ListNode * &a) {
+        if (head == NULL) {
+            head = tail = a;
+        }
+        else {
+            tail->next = a;
+            tail = a;
+        }
+        a = a->next;
+        tail->next = NULL;
+    }
+};
+
+// This works. O(n^2log(n)).
 class Solution {
     ListNode ** Heap; // a min heap.
     int Heap_count;
