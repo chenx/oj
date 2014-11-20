@@ -31,6 +31,7 @@ bool cmp(const ListNode * a, const ListNode * b) {
 
 // This works too. Is the best solution. 
 // Uses std fuctions: make_heap, push_heap, pop_heap.
+// See: http://www.cplusplus.com/reference/algorithm/make_heap/
 // Be careful that a list could be empty.
 // O(n^2log(n)). 11/19/2014.
 class Solution3 {
