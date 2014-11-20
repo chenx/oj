@@ -23,8 +23,59 @@ struct ListNode {
      ListNode(int x) : val(x), next(NULL) {}
 };
  
+
+// For min heap, use ">".
+bool cmp(const ListNode * a, const ListNode * b) {
+    return a->val > b->val;
+}
+
+// This works too. Is the best solution. 
+// Uses std fuctions: make_heap, push_heap, pop_heap.
+// Be careful that a list could be empty.
+// O(n^2log(n)). 11/19/2014.
+class Solution3 {
+public:
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+        int n = lists.size();
+
+        vector<ListNode *> h;
+        for (int i = 0; i < n; ++ i) { 
+            if (lists[i]) h.push_back(lists[i]); 
+        }
+        
+        if (h.size() == 0) return NULL;
+        if (h.size() == 1) return h[0];
+        
+        make_heap(h.begin(), h.end(), cmp);
+        
+        ListNode * head = NULL, * tail = NULL;
+        
+        while (! h.empty()) {
+            // get top element (smallest), add to list.
+            pop_heap(h.begin(), h.end(), cmp);
+            ListNode * node = h.back();
+            
+            if (head == NULL) { head = tail = node; }
+            else { tail->next = node; tail = tail->next; }
+            
+            h.pop_back();
+            
+            // add next element to heap.
+            if (node->next) {
+                h.push_back(node->next);
+                push_heap(h.begin(), h.end(), cmp);
+                node->next = NULL;
+            }
+        }
+        
+        return head;
+    }
+};
+
+
 // This should work.
 // But times out for large test cases. O(n^3).
+// 11/19/2014.
 class Solution2 {
 public:
     ListNode *mergeKLists(vector<ListNode *> &lists) {
