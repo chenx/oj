@@ -15,4 +15,6 @@
  * Input:    "ab", [read(1),read(2)]
  * Output:    ["a",""]
  * Expected:    ["a","b"]
+ * 
+ * Ref: http://blog.csdn.net/a83610312/article/details/12872437
  */
