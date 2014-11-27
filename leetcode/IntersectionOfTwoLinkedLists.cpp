@@ -8,7 +8,7 @@
  */
  
 //
-// This works. O(n) time, O(1) space.
+// This works. O(n+m) time, O(1) space.
 // Concept: first find length of both lists, then start from where 
 // distance is the same to the end for both lists, find common node.
 //
