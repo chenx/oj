@@ -5,6 +5,35 @@
 // @Last modified: 1/4/2013
 //
 
+// This works too. Basically the same as Solution.
+class Solution2 {
+public:
+    vector<int> findSubstring(string S, vector<string> &L) {
+        vector<int> ans;
+        if (L.size() == 0) return ans;
+        int N = L[0].length();
+        
+        unordered_map<string, int> ct;
+        for (int i = 0; i < L.size(); ++ i) ct[L[i]] ++;
+        
+        for (int i = 0, len = S.length() - N * L.size(); i <= len; ++ i) {
+            unordered_map<string, int> stat;
+            int total = 0;
+            for (int j = i, lenj = S.length(); j < lenj; j += N) {
+                string s = S.substr(j, N);
+                if (stat[s] == ct[s]) break;
+                stat[s] ++;
+                total ++;
+            }
+            if (total == L.size()) {
+                ans.push_back(i);
+            }
+        }
+        
+        return ans;
+    }
+};
+
 class Solution {
 public:
     // Method from http://blog.csdn.net/maqingli87/article/details/8009972:
