@@ -4,7 +4,7 @@
 #include <sstream>
 using namespace std;
 
-// Solution2. This works too.
+// Solution 2. This works too.
 // Function to_string() convert int to string.
 // See: http://www.cplusplus.com/reference/string/to_string/
 // Use header: #include <string>
@@ -32,7 +32,7 @@ public:
     }
 };
 
-// This works.
+// Solution 1. This works.
 // Solution starts.
 
 string int2str(int n) {
