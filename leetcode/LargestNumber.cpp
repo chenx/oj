@@ -4,6 +4,34 @@
 #include <sstream>
 using namespace std;
 
+// Solution2. This works too.
+// Function to_string() convert int to string.
+// See: http://www.cplusplus.com/reference/string/to_string/
+// Use header: #include <string>
+// In C++11, also in GCC4.5, compile with -std=c++0x flag.
+bool cmp2(const string &a, const string &b) {
+    return a + b > b + a;
+}
+class Solution2 {
+public:
+    string largestNumber(vector<int> &num) {
+        vector<string> nums;
+        for (int i = 0; i < num.size(); ++ i) {
+            nums.push_back( to_string( num[i] ) );
+        }
+        
+        sort(nums.begin(), nums.end(), cmp2);
+        
+        string s = "";
+        for (int i = 0, n = nums.size(); i < n; ++ i) {
+            if (s == "" && nums[i] == "0" && i < n-1) continue;
+            s += nums[i];
+        }
+        
+        return s;
+    }
+};
+
 // This works.
 // Solution starts.
 
