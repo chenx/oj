@@ -47,3 +47,21 @@ int main() {
     
     return 0;
 }
+
+// Note, convert string to int:
+double str2int(string s) {
+    int n;
+    istringstream iss(s);
+    iss >> n;
+    return n;
+}
+
+/**
+Largest Number
+
+Given a list of non negative integers, arrange them such that they form the largest number.
+
+For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.
+
+Note: The result may be very large, so you need to return a string instead of an integer.
+ */
