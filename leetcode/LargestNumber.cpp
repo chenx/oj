@@ -23,11 +23,11 @@ bool cmp(int a, int b) {
 class Solution {
 public:
     string largestNumber(vector<int> &num) {
-        sort(num.begin(), num.end(), cmp);
+        sort(num.begin(), num.end(), cmp); // this is the key.
                 
         string s = "";
         for (int i = 0, n = num.size(); i < n; ++ i) {
-            if (s == "" && num[i] == 0 && i < n-1) continue;
+            if (s == "" && num[i] == 0 && i < n-1) continue; // avoid "00" or "012" etc.
             s += int2str(num[i]);
         }
         
