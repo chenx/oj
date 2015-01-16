@@ -101,7 +101,7 @@ int main() {
     return 0;
 }
 
-
+/*
 // Java solution. This works too.
 // From: https://oj.leetcode.com/discuss/20721/my-ac-java-version-suggestions-are-welcome
 public int calculateMinimumHP(int[][] dungeon) {
@@ -132,7 +132,7 @@ public int calculateMinimumHP(int[][] dungeon) {
 
     return health[0][0];
 }
-
+*/
 
 /**
 
