@@ -12,6 +12,62 @@
 #include <algorithm>
 using namespace std;
 
+// This works too. Use DFS.
+class Solution4 {
+public:
+    // Note that for every element it has two options: 
+    // 1. Either it is in set. 2. or it is NOT in set.
+    // From: https://oj.leetcode.com/discuss/13304/simple-solution-using-backtracking
+    // Also see: 
+    // - http://tech-wonderland.net/blog/leetcode-subset-i-and-ii.html
+    // - https://shepherdyuan.wordpress.com/2014/08/01/subset-combination-combination-sum/
+    // - http://www.cnblogs.com/fightformylife/p/4118071.html
+    void findsub(vector<vector<int> > &res, vector<int> &s, vector<int> &v, int i)
+    {
+        if (i == s.size()) {
+            res.push_back(v);
+            return;
+        }
+
+        findsub(res, s, v, i+1); // not in set.
+
+        v.push_back(s[i]);
+        findsub(res, s, v, i+1); // in set.
+        v.pop_back();   
+    }
+    
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int> > res;
+        sort(S.begin(), S.end());
+        vector<int> v;
+        findsub(res, S,v, 0);
+        return res;
+
+    }
+};
+
+// This works too.
+// From: https://oj.leetcode.com/discuss/21002/share-my-recursive-and-iterative-solutions
+class Solution {
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int> > ans(1, vector<int>());
+        sort(S.begin(), S.end());
+    
+        vector<int> tmp;
+        for (int i = 0; i < S.size(); ++i) {
+            int len = ans.size();
+            for (int j = 0; j < len; ++j) {
+                tmp = ans[j];
+                tmp.push_back(S[i]);
+                ans.push_back(tmp);
+            }
+        }
+    
+        return ans;
+    }
+};
+
 // This works too.
 class Solution2 {
 public:
