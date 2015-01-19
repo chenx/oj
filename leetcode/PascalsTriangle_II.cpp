@@ -103,7 +103,7 @@ public:
         
         return v;
     }
-}  
+}
 
 // This works too.
 // Note the use of function fill() on vector.
@@ -120,7 +120,7 @@ public:
         
         for (int i = 2; i <= rowIndex; ++ i) {
             for (int j = i - 1; j > 0; -- j) {
-                row[j] = row[j] + row[j - 1];
+                row[j] += row[j - 1];
             }
         } 
         
