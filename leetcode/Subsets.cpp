@@ -12,6 +12,29 @@
 #include <algorithm>
 using namespace std;
 
+// This works too.
+class Solution2 {
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int> > ans;
+        int n = S.size();
+        int len = 1 << n;
+        sort(S.begin(), S.end());
+        
+        for (int i = 0; i < len; ++ i) {
+            vector<int> v;
+            for (int j = 0; j < n; ++ j) {
+                if (i & (1 << j)) {
+                    v.push_back(S[j]);
+                }
+            }
+            ans.push_back(v);
+        }
+        return ans;
+    }
+};
+
+// This works.
 // This is good in run time.
 class Solution {
 public:
