@@ -47,6 +47,8 @@ public:
 
 // This works too.
 // From: https://oj.leetcode.com/discuss/21002/share-my-recursive-and-iterative-solutions
+// In essence this uses BFS. ans[1...] is a queue. Each time go through the queue.
+// Refer to: http://www.cnblogs.com/Xylophone/p/3915101.html
 class Solution {
 public:
     vector<vector<int> > subsets(vector<int> &S) {
