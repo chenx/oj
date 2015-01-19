@@ -42,7 +42,6 @@ public:
         vector<int> v;
         findsub(res, S,v, 0);
         return res;
-
     }
 };
 
@@ -90,7 +89,7 @@ public:
     }
 };
 
-// This works.
+// This works. Uses the concept of power set.
 // This is good in run time.
 class Solution {
 public:
