@@ -27,6 +27,7 @@ struct ListNode {
 //
 // Solution 4. This works too. O(n^2 log(k))
 // Prefer this over Solution 2, for more standard use of priority_queue.
+// Best solution so far.
 //
 class comp {
 public:    
@@ -119,6 +120,8 @@ public:
 
 // This should work.
 // But times out for large test cases. O(n^3).
+// Merge sort: O(m+n). So complexity is: 
+// n+n + (2n+n) + (3n+n) + ... + ((n-1)*n+n) => O(n^3).
 // 11/19/2014.
 class Solution2 {
 public:
