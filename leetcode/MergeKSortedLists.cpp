@@ -24,6 +24,49 @@ struct ListNode {
 };
  
 
+//
+// Solution 4. This works too. O(n^2 log(k))
+// Prefer this over Solution 2, for more standard use of priority_queue.
+//
+class comp {
+public:    
+    bool operator()(const ListNode * a, const ListNode * b) const {
+        return a->val > b->val; // min heap.
+    }
+};
+
+class Solution4 {
+public:
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+        ListNode * head = NULL, * tail = NULL;
+        priority_queue<ListNode *, vector<ListNode *>, comp> pq;
+        
+        int n = lists.size();
+        for (int i = 0; i < n; ++ i) {
+            if (lists[i] != NULL) pq.push(lists[i]);
+        }
+        
+        while (! pq.empty()) {
+            ListNode * tmp = pq.top();
+            pq.pop();
+            append(head, tail, tmp);
+            if (tmp->next != NULL) pq.push(tmp->next);
+        }
+        return head;
+    }
+    
+    void append(ListNode *& head, ListNode *&tail, ListNode * tmp) {
+        if (head == NULL) {
+            head = tail = tmp;
+        }
+        else {
+            tail->next = tmp;
+            tail = tail->next;
+        }
+    }
+};
+
+
 // For min heap, use ">".
 bool cmp(const ListNode * a, const ListNode * b) {
     return a->val > b->val;
