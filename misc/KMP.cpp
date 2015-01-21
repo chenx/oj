@@ -43,7 +43,8 @@ void getFailureFunc(string P, vector<int> & F) {
 
 int kmpMatch(string T, string P) {
     int n = T.length(), m = P.length();
-    if (n < m) return -1;
+    if (n < m) return -1; // text is shorter than pattern.
+    if (m == 0) return 0; // pattern is empty string.
     
     vector<int> F(m);
     getFailureFunc(P, F); //return -1;
