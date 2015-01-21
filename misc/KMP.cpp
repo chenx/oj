@@ -1,5 +1,7 @@
 //
 // Implementation of the KMP string matching algorithm.
+// Knuth-Morris-Pratt. Running time: O(n+m).
+// Pre-process pattern string. Avoid throwing away previous information.
 // Reference:
 // Data Structure And Algorithms in Java. M. Goodrich, R. Tamassia. p.448.
 // X. C. 1/20/2015
