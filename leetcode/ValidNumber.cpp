@@ -338,4 +338,5 @@ Some examples:
 Note: It is intended for the problem statement to be ambiguous. 
 You should gather all requirements up front before implementing one. 
 
+Note 2: format of leetcode: num(exp), num: [.][d]+ or [d]+([.]([d]+)), exp: e(+|-)[d]+
  */
