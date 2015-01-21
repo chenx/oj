@@ -67,6 +67,7 @@ public:
 //
 class Solution2 {
 public:
+    // Note, here the 2 loop is redundant. See Solution3. 1/20/2013.
     int maximalRectangle(vector<vector<char> > &matrix) {
         int rows = matrix.size();
         if (rows == 0) return 0;
@@ -91,6 +92,53 @@ public:
         }
 
         return ma;
+    }
+    
+    int hist(vector<int> & H) {
+        stack<int> s;
+        H.push_back(0);
+        int i = 0, ma = 0;
+        
+        while (i < H.size()) {
+            if (s.empty() || H[i] >= H[s.top()]) {
+                s.push(i ++);
+            }
+            else {
+                int t = s.top();
+                s.pop();
+                ma = max(ma, H[t] * (s.empty() ? i : i - s.top() - 1));
+            }
+        }
+        
+        return ma;
+    }
+};
+
+
+//
+// This works. O(nm). m = rows, n = cols.
+//
+// Idea: Solution 2 is actually redundant in the calculation.
+// Only need to go through the row once. 
+// Each row sum forms a histogram, whose max area can be calculated using hist().
+//
+class Solution3 {
+public:
+    int maximalRectangle(vector<vector<char> > &matrix) {
+        if (matrix.size() == 0 || matrix[0].size() == 0) return 0;
+        int rows = matrix.size(), cols = matrix[0].size();
+        
+        int marea = 0;
+        
+        vector<int> v(cols);
+        for (int j = 0; j < cols; ++ j) v[j] = matrix[0][j] - '0';
+        marea = max(marea, hist(v));
+            
+        for (int i = 1; i < rows; ++ i) {
+            for (int j = 0; j < cols; ++ j) v[j] = ( matrix[i][j] == '0' ? 0 : v[j] + 1 );
+            marea = max(marea, hist(v));
+        }
+        return marea;
     }
     
     int hist(vector<int> & H) {
