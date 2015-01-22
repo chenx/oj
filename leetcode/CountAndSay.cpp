@@ -180,6 +180,36 @@ public:
     }
 };
 
+//
+// This works too. 
+// Note the use of function to_string() to convert int to string.
+//
+class Solution5 {
+public:
+    string countAndSay(int n) {
+        string s = "1";
+        if (n == 1) return s;
+        
+        for (int i = 2; i <= n; ++ i) {
+            string t = "";
+            int ct = 1;
+            char c = s[0];
+            for (int j = 1; j < s.length(); ++ j) {
+                if (c == s[j]) { ++ ct; }
+                else {
+                    t += to_string(ct) + c;
+                    ct = 1;
+                    c = s[j];
+                }
+            }
+            if (ct > 0) t += to_string(ct) + c;
+            
+            s = t;
+        }
+        
+        return s;
+    }
+};
 
 int main() {
     Solution s;
