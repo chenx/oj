@@ -5,6 +5,31 @@
 // @Last modified: 10/26/2014
 //
 
+//
+// This works too. 
+// Is best solution. Really easy to understand.
+// Converted from Java version at: 
+// https://oj.leetcode.com/discuss/10493/easy-to-understand-java-solution 
+//
+class Solution3 {
+public:
+    string convert(string s, int nRows) {
+        string rows[nRows];
+        //for (int i = 0; i < nRows; ++ i) rows[i] = "";
+        
+        int k = 0, n = s.length();
+        while (k < n) {
+            for (int i = 0; i < nRows && k < n; ++ i) rows[i] += s[k ++];
+            for (int i = nRows - 2; i >= 1 && k < n; -- i) rows[i] += s[k ++];
+        }
+        
+        string ans; // = "";
+        for (int i = 0; i < nRows; ++ i) ans += rows[i];
+        
+        return ans;
+    }
+};
+
 // This works too. 10-26-2014
 class Solution2 {
 public:
