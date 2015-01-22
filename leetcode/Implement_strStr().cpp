@@ -52,7 +52,7 @@ public:
     }
 };
 
-// this works too.
+// This works too. Brute-Force match. O(mn).
 class Solution3 {
 public:
     char *strStr(char *haystack, char *needle) {
@@ -66,5 +66,59 @@ public:
         }
         
         return NULL;
+    }
+};
+
+// This works too. Use KMP match. O(m+n).
+class Solution {
+public:
+    int strStr(char *haystack, char *needle) {
+        return kmp(haystack, needle);
+    }
+private:    
+    int kmp(char * T, char * P) {
+        int n = strlen(T), m = strlen(P);
+        if (n < m) return -1;
+        if (m == 0) return 0;
+        
+        vector<int> F(m);
+        getFailureFunc(P, F);
+        
+        int i = 0, j = 0;
+        
+        while (i < n) {
+            if (T[i] == P[j]) {
+                if (j == m - 1) return i - m + 1;
+                ++ i, ++ j;
+            }
+            else if (j > 0) {
+                j = F[j - 1];
+            }
+            else {
+                ++ i;
+            }
+        }
+        
+        return -1;
+    }
+    
+    void getFailureFunc(char * P, vector<int> & F) {
+        int m = strlen(P);
+        F[0] = 0;
+        int i = 1, j = 0;
+
+        while (i < m) {
+            if (P[i] == P[j]) {
+                F[i] = j + 1;
+                ++ i, ++ j;
+            }
+            else if (j > 0) {
+                j = F[j - 1];
+            }
+            else {
+                F[i] = 0;
+                ++ i;
+            }
+        }
     }
 };
