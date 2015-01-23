@@ -1,6 +1,37 @@
 #include <iostream>
 using namespace std;
 
+// This works too. Is most succinct.
+// Idea is: for "  w1   w2   w3 ", in each cycle, ignore space, until wn is found,
+// when getting wn, reverse it on the way, and add wn_reverse to final string t: 
+// if t is empty, add as wn_reverse; else, add as " " + wn_reverse.
+// This saves the trouble of a removeSpace() function.
+// Finally, reverse entire string t.
+class Solution3 {
+public:
+    void reverseWords(string &s) {
+        string t;
+        int n = s.length();
+        
+        for (int i = 0; i < n; ) {
+            for (; s[i] == ' ' && i < n; ++ i) {}
+            
+            string tmp;
+            for (; s[i] != ' ' && i < n; ++ i) {
+                tmp = s[i] + tmp; // reverse current word.
+            }
+            if (tmp == "") continue;
+            
+            if (t == "") t = tmp;
+            else t += " " + tmp;
+        }
+        
+        reverse(t.begin(), t.end());
+        s = t;
+    }
+};
+
+// This works.
 class Solution {
 public:
     void reverseWords(string &s) {
