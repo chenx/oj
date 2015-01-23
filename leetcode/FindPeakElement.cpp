@@ -17,7 +17,7 @@ public:
             else if (num[M] > num[M-1] && num[M] > num[M+1]) { return M; }
             
             if (num[M] < num[M + 1]) L = M + 1;
-            else R = M - 1; // num[M] > num[M - 1]
+            else R = M - 1; // same as: else if (num[M] < num[M - 1]) R = M - 1;
         }
         
         return 0;
