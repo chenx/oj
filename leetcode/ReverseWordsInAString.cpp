@@ -7,6 +7,7 @@ using namespace std;
 // if t is empty, add as wn_reverse; else, add as " " + wn_reverse.
 // This saves the trouble of a removeSpace() function.
 // Finally, reverse entire string t.
+// By: X.C., 01/22/2015.
 class Solution3 {
 public:
     void reverseWords(string &s) {
