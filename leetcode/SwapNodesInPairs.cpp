@@ -115,6 +115,32 @@ public:
     }
 };
 
+// This also works. 
+// Note the use of a local variable dummy, which does not need manual delete.
+class Solution4 {
+public:
+    ListNode *swapPairs(ListNode *head) {
+        if (! head || ! head->next) return head;
+        
+        ListNode dummy(0);
+        ListNode * prev = & dummy;
+        prev->next = head;
+        ListNode * p = head;
+        
+        while (p && p->next) {
+            ListNode * tmp = p->next;
+            prev->next = tmp;
+            p->next = tmp->next;
+            tmp->next = p;
+            
+            prev = p;
+            p = prev->next;
+        }
+        
+        return dummy.next;
+    }
+};
+
 /*
 Problem:
 
