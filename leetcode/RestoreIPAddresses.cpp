@@ -5,6 +5,44 @@
 // @Last modified: 12/27/2012
 //
 
+// This works too. Is more clear.
+class Solution3 {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> ans;
+        
+        for (int i = 1; i <= 3; ++ i) {
+            for (int j = 1; j <= 3; ++ j) {
+                for (int k = 1; k <= 3; ++ k) {
+                    int L4 = s.length() - i - j - k;
+                    if (L4 <= 0 || L4 >= 4) continue; // note this.
+
+                    string s1 = s.substr(0, i);
+                    string s2 = s.substr(i, j);
+                    string s3 = s.substr(i+j, k);
+                    string s4 = s.substr(i+j+k);
+
+                    if (isValid(s1) && isValid(s2) && isValid(s3) && isValid(s4)) {
+                        string ip = s1 + "." + s2 + "." + s3 + "." + s4;
+                        ans.push_back(ip);
+                    }
+                }
+            }
+        }
+        
+        return ans;
+    }
+    
+    bool isValid(string ip) {
+        int v = 0;
+        for (int i = 0, len = ip.length(); i < len; ++ i) {
+            if (v == 0 && ip[i] == '0' && i < len-1) return false; // note this. No "023" etc.
+            v = v * 10 + ip[i] - '0';
+        }
+        return v < 256;
+    }
+};
+
 class Solution {
 public:
     vector<string> restoreIpAddresses(string s) {
