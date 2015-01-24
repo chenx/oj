@@ -48,6 +48,8 @@ public:
 // This works too, and is much shorter.
 // From: http://www.mitbbs.com/article_t/JobHunting/32576307.html
 // --> However, this is a memory leak on dummyHead. Should delete it before return.
+// --> No, this is not a memory leak, because dummyHead is a local variable.
+// This basically inserts each node in give list to a new list starting with dummyHead.
 class Solution4 {
 public:
     ListNode *insertionSortList(ListNode *head) {
