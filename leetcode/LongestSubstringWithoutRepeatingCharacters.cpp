@@ -8,6 +8,34 @@
 #include <iostream>
 using namespace std;
 
+// This works too.
+// Removed array ct[] from previous solutions, which is redundant from pos[].
+// use pos[c] == 0 to denote not-exist.
+// Better than previous solutions. 1-24-2015.
+class Solution6 {
+public:
+    int lengthOfLongestSubstring(string s) {
+        const int SIZE = 256;
+        int pos[SIZE];
+        memset(pos, 0, sizeof(int) * SIZE);
+        int maxLen = 0, len = 0;
+        
+        for (int i = 0, n = s.length(); i < n; ++ i) {
+            if (pos[s[i]] == 0) {
+                pos[s[i]] = i + 1;
+                ++ len;
+                maxLen = max(maxLen, len);
+            }
+            else {
+                len = 0;
+                i = pos[s[i]] - 1;
+                memset(pos, 0, sizeof(int) * SIZE);
+            }
+        }
+        
+        return maxLen;
+    }
+}
 
 // This works too. 
 // Note update value of maxlen either at the 2 places as below, or at single place of commented-out.
