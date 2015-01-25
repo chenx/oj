@@ -5,6 +5,60 @@
 // @Last modified: 12/24/2012
 //
 
+// This works too.
+// Every time when duplicate is found, go all the way to end of duplicates,
+// and delete entire duplicated section.
+class Solution2 {
+public:
+    ListNode *deleteDuplicates(ListNode *head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode *prev = NULL, *p = head;
+
+        while (p != NULL && p->next != NULL) {
+            if (p->val != p->next->val) { // remove p->next.
+                prev = p;
+                p = p->next;
+            } else { // duplicate found: p and p->next.
+                ListNode * tail = p->next;
+                while (tail->next != NULL && p->val == tail->next->val) { tail = tail->next; }
+
+                // duplicates go all the way to list end. Remove from p to list end.
+                if (tail == NULL) { // last node
+                    if (prev == NULL) {
+                        deleteList(head);
+                        head = NULL;
+                    }
+                    else {
+                        deleteList(p);
+                        prev->next = NULL;
+                    }
+                    p = NULL;
+                    break;
+                }
+                else { // remove duplicated nodes p to tail.
+                    ListNode * n = tail->next;
+                    tail->next = NULL;
+                    deleteList(p);
+                    
+                    if (prev == NULL) { head = p = n; }
+                    else { prev->next = p = n; }
+                }
+            }
+        }
+        
+        return head;
+    }
+    
+    void deleteList(ListNode * n) {
+        while (n != NULL) {
+            ListNode * tmp = n->next;
+            delete n;
+            n = tmp;
+        }
+    }
+};
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
