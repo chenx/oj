@@ -5,6 +5,34 @@
 // @Last modified: 12/24/2012
 //
 
+// This works too. Is clear.
+class Solution3 {
+public:
+    int uniquePathsWithObstacles(vector<vector<int> > &obstacleGrid) {
+        if (obstacleGrid.size() == 0 || obstacleGrid[0].size() == 0) return 0;
+        
+        int M = obstacleGrid.size(), N = obstacleGrid[0].size();
+        vector<vector<int> > p(M, vector<int>(N, 0));
+        
+        for (int j = 0; j < N; ++ j) {
+            if (obstacleGrid[0][j] == 1) break;
+            p[0][j] = 1;
+        }
+        for (int i = 0; i < M; ++ i) { // note here i should start from 0. 1 won't work.
+            if (obstacleGrid[i][0] == 1) break;
+            p[i][0] = 1;
+        }
+
+        for (int i = 1; i < M; ++ i) {
+            for (int j = 1; j < N; ++ j) {
+                p[i][j] = obstacleGrid[i][j] == 1 ? 0 : p[i-1][j] + p[i][j-1];
+            }
+        }
+        
+        return p[M-1][N-1];
+    }
+};
+
 // This works too and is more clear. 10-26-2014
 class Solution2 {
 public:
