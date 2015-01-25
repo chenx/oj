@@ -8,7 +8,7 @@
 //
 // What is different from solution1 and solution2 is the handling of overflow:
 // input: -2147483648, -1
-// expected: 2147483648, but this overflowed, so set it to 2147483647
+// expected: 2147483648, but this overflowed, so return 2147483647.
 // This is leetcode's recent change. However there is issue with this:
 // If input is (2147483647, 1), then expected output is 2147483647, so
 // there is no way to tell this apart from the overflow case.
@@ -17,6 +17,7 @@ class Solution3 {
 public:
     int divide(int dividend, int divisor) {
         if (divisor == 0) return 0;
+        if (dividend == INT_MIN && divisor == -1) return INT_MAX; // overflow        
         
         long long a = dividend;
         long long b = divisor;
@@ -39,7 +40,6 @@ public:
         }
         
         if (neg) q = -q; 
-        else if (q == INT_MIN) return INT_MAX; // overflow 
 
         return q;
     }
