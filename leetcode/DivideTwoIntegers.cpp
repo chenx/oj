@@ -5,8 +5,48 @@
 // @Last modified: 1/9/2013
 //
 
+//
+// What is different from solution1 and solution2 is the handling of overflow:
+// input: -2147483648, -1
+// expected: 2147483648, but this overflowed, so set it to 2147483647
+// This is leetcode's recent change. However there is issue with this:
+// If input is (2147483647, 1), then expected output is 2147483647, so
+// there is no way to tell this apart from the overflow case.
+//
+class Solution3 {
+public:
+    int divide(int dividend, int divisor) {
+        if (divisor == 0) return 0;
+        
+        long long a = dividend;
+        long long b = divisor;
+        bool neg = (a > 0 && b < 0) || (a < 0 && b > 0);
+        
+        if (a < 0) a = -a;
+        if (b < 0) b = -b;
+        
+        int d = 0;
+        while ((b << d) <= a) ++ d;
+        -- d;
+        
+        int q = 0;
+        for (; d >= 0; -- d) {
+            long long tmp = b << d;
+            if (tmp <= a) {
+                a -= tmp;
+                q += 1 << d;
+            }
+        }
+        
+        if (neg) q = -q; 
+        else if (q == INT_MIN) return INT_MAX; // overflow 
+
+        return q;
+    }
+};
+
 // Adapted from Solution1. This works.
-class Solution {
+class Solution2 {
 public:
     int divide(int dividend, int divisor) {
         if (divisor == 0) return 0;
