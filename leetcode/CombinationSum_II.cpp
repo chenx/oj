@@ -4,6 +4,9 @@
 // @Created on: 1/9/2013
 // @Last modified: 1/9/2013
 //
+// Note: one more optimization for this is:
+// when target is larger than the sum of all elements in num, then always return empty set.
+//
 
 // Modified from the solution of CombinationSum.
 // From: https://github.com/anson627/leetcode/blob/master/CombinationSum/CombinationSum.cpp
