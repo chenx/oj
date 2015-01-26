@@ -117,6 +117,8 @@ public:
     }
 };
 
+// This works.
+// By: X. C.
 class Solution {
 public:
     vector<string> fullJustify(vector<string> &words, int L) {
