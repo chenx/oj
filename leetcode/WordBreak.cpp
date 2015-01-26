@@ -13,6 +13,35 @@
 #include <set>
 using namespace std;
 
+// This works too.
+// Use 1-D array, instead of 2-D array.
+// X. C. 1/25/2015
+class Solution2 {
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        int n = s.length();
+        vector<int> dp(n);
+        fill(dp.begin(), dp.end(), 0);
+        
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.find(t) != dict.end()) {
+                dp[i-1] = 1;
+            }
+            else {
+                for (int j = 1; j < i; ++ j) {
+                    string u = s.substr(j, i - j);
+                    if (dp[j-1] && dict.find(u) != dict.end()) {
+                        dp[i-1] = 1;
+                        break;
+                    }
+                }
+            }
+        }
+        return dp[n-1];
+    }
+};
+
 class Solution {
 public:
     //bool wordBreak(string s, unordered_set<string> &dict) {
