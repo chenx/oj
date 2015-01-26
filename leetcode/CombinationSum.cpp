@@ -95,6 +95,7 @@ public:
                 if (w.size() > 0) {
                     for (int k = 0; k < w.size(); ++ k) {
                         w[k].push_back(candidates[j]);
+                        // Note: you must sort here, because find() considers [1,2] and [2,1] different.
                         sort(w[k].begin(), w[k].end());
                         
                         if (find(row.begin(), row.end(), w[k]) == row.end()) {
