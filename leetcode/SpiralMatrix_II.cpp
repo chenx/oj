@@ -47,6 +47,8 @@ public:
         for (int i = 0; i < n; ++ i) {
             m[i] = vector<int>(n);
         }
+        // Note: Initialization above can simplify to:
+        // vector<vector<int> > m(n, vector<int>(n, 0));
         
         int x = 0, X = n-1, i, j, ct = 0;
         while (x <= X) {
