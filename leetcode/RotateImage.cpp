@@ -43,10 +43,25 @@ public:
 };
 
 
-//
-// This also works and is much clearer. From CCI (Cracking the Coding Interview) 5ed, p189.
-// Note the use of layer, first, last and offset. Can draw a image on board before going on.
-//
+/**
+ * This also works and is much clearer. From CCI (Cracking the Coding Interview) 5ed, p189.
+ * Note the use of layer, first, last and offset. Can draw a image on board before going on.
+
+  ------------------------
+  |   | i |              |
+  ------------------------
+  |   |              | i |
+  |   |              |   |
+  |   |              |   |
+  |   |                  |
+  | i |                  |
+  ------------------------
+  |              | i |   |
+  ------------------------
+  
+  the coordinates of the 4 cells are (note first == layer):
+  (layer, i), (last-offset, layer), (last, last-offset), (i, last)
+*/
 class Solution2 {
 public:
     void rotate(vector<vector<int> > &matrix) {
