@@ -385,6 +385,7 @@ public:
 
 */
 
+// This works. 
 // This is adapted from above, not use C++11 feature.
 class Solution4 {
 public:
@@ -565,6 +566,7 @@ int main() {
 
 
 /*
+This does not work yet.
 The version using unordered_set:
     
 class WW {
