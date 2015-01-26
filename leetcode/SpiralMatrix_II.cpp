@@ -5,6 +5,34 @@
 // @Last modified: 4/6/2013
 //
 
+//
+// This works too.
+// This has the same structure as the solution to SprialMtraix.
+// This applies with final matrix's row and column are not equal.
+// This obviously can be simplified since here row and column are equal.
+// So here Solution2 is still the best.
+//
+class Solution3 {
+public:
+    vector<vector<int> > generateMatrix(int n) {
+        vector<vector<int> > v(n, vector<int>(n, 0));
+        if (n == 0) return v;
+        
+        int x = 0, X = n - 1, y = 0, Y = n - 1, i, j;
+        int k = 1;
+        
+        while (x <= X && y <= Y) {
+            for (i = x, j = y; j <= Y; ++ j) v[i][j] = k ++;
+            for (i = x + 1, j = Y; i <= X; ++ i) v[i][j] = k ++;
+            for (i = X, j = Y - 1; j >= y && i > x; -- j) v[i][j] = k ++;
+            for (i = X - 1, j = y; i > x && j < Y; -- i) v[i][j] = k ++;
+            
+            ++ x, ++ y, -- X, -- Y;
+        }
+        
+        return v;        
+    }
+};
 
 //
 // This works too. This is much better than the first solution!
