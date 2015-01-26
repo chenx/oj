@@ -4,6 +4,37 @@
 #include <vector>
 using namespace std;
 
+// This should work.
+// Although didn't pass large test cases, reports "Memory Limit Exceeded".
+// Conceptually this is easier to understand than previous solutions.
+// X.C. 1/25/2015
+class Solution3 {
+public:
+    vector<string> wordBreak(string s, unordered_set<string> &dict) {
+        int n = s.length();
+        vector<vector<string> > ans(n);
+
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.find(t) != dict.end()) {
+                ans[i-1].push_back(t);
+            }
+            
+            for (int j = 1; j < i; ++ j) {
+                vector<string> &v = ans[j-1];
+                string u = s.substr(j, i - j); // check substrings start at j, ends at i.
+                if (v.size() > 0 && dict.find(u) != dict.end()) {
+                    for (int k = 0; k < v.size(); ++ k) {
+                        ans[i-1].push_back(v[k] + " " + u);
+                    }
+                }
+            }
+        }
+        
+        return ans[n-1];        
+    }        
+};
+
 // This works, and passes large input.
 // This saves time by using wordBreak_ok() to rule out infeasible solutions.
 class Solution2 {
