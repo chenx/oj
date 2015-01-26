@@ -16,10 +16,53 @@
 #include <string>
 using namespace std;
 
+// This should work, but Timeout for large input at this time.
+// 1/25/2015
+class Solution3 {
+public:
+    int minCut(string s) {
+        int n = s.length();
+        int ans[n];
+        for (int i = 0; i < n; ++ i) ans[i] = i;
+
+        for (int i = 1; i <= n; ++ i) {
+            string a = s.substr(0, i);
+            if (isPalindrome(a)) { 
+                ans[i-1] = 0;
+            }
+            else {
+                for (int j = 1; j < i; ++ j) {
+                //for (int j = i-1; j >= 1; -- j) {
+                    if (1 + ans[j-1] >= ans[i-1]) continue; // cut branch
+                    
+                    string b = s.substr(j, i - j); // check each substring starts at j, ends at i.
+                    if (isPalindrome(b)) {
+                        if (ans[i-1] > 1 + ans[j-1]) {
+                            ans[i-1] = 1 + ans[j-1];
+                            if (ans[i-1] == 1) break;
+                        }
+                    }
+                }                            
+            }
+        }
+        
+        return ans[n-1];
+    }
+    
+    bool isPalindrome(string s) {
+        int L = 0, R = s.length() - 1;
+        while (L < R) {
+            if (s[L] != s[R]) return false;
+            ++ L, -- R;
+        }
+        return true;
+    }
+};
+
 //
 // This works.
 //
-class Solution {
+class Solution2 {
 public:
     int minCut(string s) {
         int len = s.length();
@@ -67,7 +110,7 @@ public:
 //
 // This works but causes Memory Limit Exceeded error.
 //
-class Solution2 {
+class Solution {
 public:
     int minCut(string s) {
         // Start typing your C/C++ solution below
