@@ -1,3 +1,9 @@
+//
+// Note that WordBreak, WordBreak_II, PalindromePartitioning, PalindromePartitioning_II are
+// actually different aspects of the same problem. Just that one uses a dictionary for valid
+// words, one uses the rule of palindrome. X.C.
+//
+
 #include <iostream>
 #include <string>
 #include <set>
