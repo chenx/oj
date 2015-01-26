@@ -1,7 +1,11 @@
 //
 // Note that WordBreak, WordBreak_II, PalindromePartitioning, PalindromePartitioning_II are
 // actually different aspects of the same problem. Just that one uses a dictionary for valid
-// words, one uses the rule of palindrome. X.C.
+// words, one uses the rule of palindrome. 
+//
+// Solution: most intuitive is DFS, next is DP.
+//
+// X.C.
 //
 
 #include <iostream>
