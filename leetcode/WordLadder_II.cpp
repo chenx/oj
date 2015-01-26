@@ -6,78 +6,95 @@
 #include <queue>
 using namespace std;
 
+
+// This works!
+// Modified/Optimized from Solution4.
+class Solution5 {
+public:
+    vector<vector<string>> findLadders(string start, string end, unordered_set<string> &dict) {
+        vector<vector<string> > ans;
+        if (start == end) return ans;
+        
+        map<string, vector<string> > rev; // reverse mapping.
+
+        queue<pair<string, int> > q;
+        q.push(pair<string, int>(start, 1));
+
+        set<string> used;
+        used.insert(start);
+        
+        int min_len = 0;
+
+        while (! q.empty()) {
+            string t = q.front().first;
+            string t2 = t; // backup.
+            int d = q.front().second;
+            q.pop();
+            
+            for (int i = 0, n = end.length(); i < n; ++ i) {
+                char c = t[i];
+                for (int j = 0; j < 26; ++ j) {
+                    if (c == j + 'a') continue;
+                    t[i] = j + 'a';
+                    
+                    if (t == end) { //cout << "found. min_len = " << d+1 << endl;
+                        if (min_len == 0 || min_len > d + 1) { 
+                            min_len = d + 1; 
+                            rev[end].clear();
+                            rev[end].push_back(t2);
+                        } 
+                        else if (min_len == d + 1) {
+                            rev[end].push_back(t2);
+                        }
+                    }
+                    else if (dict.find(t) != dict.end()) {
+                        if (used.find(t) == used.end()) {
+                            q.push(pair<string, int>(t, d+1));
+                            used.insert(t);    
+                            rev[t].push_back(t2);            
+                        } 
+                        else if (find(rev[t].begin(), rev[t].end(), t2) == rev[t].end()
+                                && find(rev[t2].begin(), rev[t2].end(), t) == rev[t2].end()) { /* avoid cycle. */
+                            rev[t].push_back(t2); // t has been used. But relation t2->t was not recorded.
+                        }
+                    }
+                } // end for
+                t[i] = c; // recover t. Don't forget this!
+            }
+        }
+        
+        vector<string> path;
+        path.push_back(end);
+        getAllPath(ans, rev, path, start, end, min_len);
+        
+        return ans;
+    }
+    
+    void getAllPath(vector<vector<string> > &ans, map<string, vector<string> > &rev, 
+           vector<string> path, string start, string s, int min_len) {
+        if (s == start) {
+            ans.push_back(path);
+            return;
+        }
+        if (min_len == 1) return;
+        
+        for (int i = 0; i < rev[s].size(); ++ i) {
+            string x = rev[s][i];
+            vector<string> p = path;
+            p.insert(p.begin(), x);
+            getAllPath(ans, rev, p, start, x, min_len - 1);
+        }
+    }
+};
+
+
+
 class WW {
 public:
     string w;
     WW * prev;
     set<WW *> prevs;
     WW(string _w, WW * p) : w(_w), prev(p) { }
-};
-
-// not work yet.
-class Solution {
-public:
-    vector<vector<string> > findLadders(string start, string end, set<string> &dict) {
-        vector<vector<string> > ans;
-        //if (start == end) return ans;
-        
-        queue<WW *> words;
-        set<string> words_used, words_cur;
-        set<string> onPath;
-        int min_len = INT_MAX;
-        
-        words.push(new WW(start, NULL));
-        words_cur.insert(start);
-        
-        while (words.size() > 0) {
-            WW * z = words.front();
-            words.pop();
-            words_cur.erase(words_cur.find(z->w));
-            words_used.insert(z->w);
-            string w = z->w;
-            
-            int len = w.length();
-            for (int i = 0; i < len; ++ i) {
-                char c = w[i];
-                for (int j = 0; j < 26; ++ j) {
-                    if (c == 'a' + j) continue;
-                    
-                    w[i] = 'a' + j;
-                    if (w == end) {
-                        vector<string> a;
-                        a.insert(a.begin(), end);
-
-                        for (WW * x = z; x->prev; x = x->prev) {
-                            a.insert(a.begin(), x->w);
-                            onPath.insert(x->w);
-                        }
-                        a.insert(a.begin(), start);
-                        
-                        if (min_len >= a.size()) {
-                            if (min_len > a.size()) {
-                                ans.clear();
-                                min_len = a.size();
-                            }
-                            ans.push_back(a);
-                        }
-                        break;
-                    }
-                    else {
-                        if (dict.find(w) != dict.end() 
-                            && words_used.find(w) == words_used.end() 
-                            && words_cur.find(w) == words_cur.end() ) {
-                            words.push(new WW(w, z));
-                            words_cur.insert(w);
-                        }
-                    }
-                    
-                } // end of for
-                w[i] = c;
-            } // end of for
-        }
-        
-        return ans;
-    }
 };
 
 // works. But memory limit exceeded.
