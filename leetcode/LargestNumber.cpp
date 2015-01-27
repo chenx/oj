@@ -4,6 +4,29 @@
 #include <sstream>
 using namespace std;
 
+// Solution 3. This works.
+bool comp3(int a, int b) {
+    string x = to_string(a);
+    string y = to_string(b);
+    
+    return x + y > y + x;
+}
+
+class Solution {
+public:
+    string largestNumber(vector<int> &num) {
+        sort(num.begin(), num.end(), comp3);
+        
+        string s;
+        int n = num.size(), i = 0;
+        for (; i < n && num[i] == 0; ++ i) {} // ignore starting 0s.
+        for (; i < n; ++ i) { s += to_string(num[i]); }
+        if (s == "") s = "0";
+        
+        return s;
+    }
+};
+
 // Solution 2. This works too.
 // Function to_string() convert int to string.
 // See: http://www.cplusplus.com/reference/string/to_string/
