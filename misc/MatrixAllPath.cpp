@@ -1,5 +1,5 @@
 /**
- * Give a matrix, one can go down or right. Print out all paths. FB.
+ * Given a matrix, one can go down or right. Print out all paths. FB.
  * By: X.C. 1/27/2015
  */
 #include <iostream>
