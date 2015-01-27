@@ -1,6 +1,15 @@
-
+//
 // This works.
 // From: https://oj.leetcode.com/discuss/18731/accepted-cpp-solution-with-explainations
+// Note: 
+// - string& insert (size_t pos, size_t n, char c);
+//   Inserts n consecutive copies of character c.
+//   See: http://www.cplusplus.com/reference/string/string/insert/
+// - int64_t, can be replaced by long long.
+//   If you need a type with exactly 64 bits, use (u)int64_t, 
+//   if you need at least 64 bits, (unsigned) long long is perfectly fine, as would be (u)int_least64_t.
+//   See: http://stackoverflow.com/questions/12468281/should-i-use-long-long-or-int64-t-for-portable-code
+//
 string fractionToDecimal(int64_t n, int64_t d) {
     // zero numerator
     if (n == 0) return "0";
