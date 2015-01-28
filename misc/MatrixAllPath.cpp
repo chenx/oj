@@ -1,5 +1,6 @@
 /**
  * Given a matrix, one can go down or right. Print out all paths. FB.
+ * For solutions below, getPath() and getPath6() are the best.
  * By: X.C. 1/27/2015
  */
 #include <iostream>
@@ -17,7 +18,7 @@ public:
     
         vector<vector<char> > paths;
         vector<char> path;
-        getPaths(matrix, path, 0, 0);
+        getPaths6(matrix, path, 0, 0);
     }
     
     // Compared to getPath2(), this passes path as reference, saves memory, better.
@@ -65,6 +66,106 @@ public:
         }
         cout << endl;
     }
+    
+    // Different from getPath() and getPath2() that the end condition test
+    // is put to front.
+    void getPaths3(const vector<vector<char> > &matrix, vector<char> path, int x, int y) {
+        if (x == matrix.size()-1 && y == matrix[0].size()-1) {
+            path.push_back(matrix[x][y]);
+            printPath(path);
+            //path.pop_back();
+            return;
+        }
+        else if (x == matrix.size() || y == matrix[0].size()) {
+            return;
+        }
+
+        path.push_back(matrix[x][y]);
+    
+        if (x < matrix.size()) { // go to next row.
+            getPaths3(matrix, path, x + 1, y);
+        }
+    
+        if ( y < matrix[0].size()) { // go to next column.
+            getPaths3(matrix, path, x, y + 1);
+        }
+           
+        // erase last element.
+        //path.erase(path.end() - 1); // this works too.
+        //path.pop_back();
+    }
+    
+    // Same as getPath3(), but optimized by passing path as reference 
+    // to save space, correspondingly you need to pop_back() from path.
+    void getPaths4(const vector<vector<char> > &matrix, vector<char> &path, int x, int y) {
+        if (x == matrix.size()-1 && y == matrix[0].size()-1) {
+            path.push_back(matrix[x][y]);
+            printPath(path);
+            path.pop_back();
+            return;
+        }
+        else if (x == matrix.size() || y == matrix[0].size()) {
+            return;
+        }
+
+        path.push_back(matrix[x][y]);
+    
+        if (x < matrix.size()) { // go to next row.
+            getPaths4(matrix, path, x + 1, y);
+        }
+    
+        if ( y < matrix[0].size()) { // go to next column.
+            getPaths4(matrix, path, x, y + 1);
+        }
+           
+        // erase last element.
+        //path.erase(path.end() - 1); // this works too.
+        path.pop_back();
+    }       
+    
+    // This is optimized from getPath4(). This works too! Better.
+    void getPaths5(const vector<vector<char> > &matrix, vector<char> path, int x, int y) {
+        if (x == matrix.size()-1 && y == matrix[0].size()-1) {
+            path.push_back(matrix[x][y]);
+            printPath(path);
+            return;
+        }
+
+        path.push_back(matrix[x][y]);
+    
+        if (x < matrix.size() - 1) { // go to next row.
+            getPaths5(matrix, path, x + 1, y);
+        }
+    
+        if ( y < matrix[0].size() - 1) { // go to next column.
+            getPaths5(matrix, path, x, y + 1);
+        }
+    }     
+    
+    // This works too. Optimized from getPath5() by passing path as reference
+    // and saving memory.
+    void getPaths6(const vector<vector<char> > &matrix, vector<char> &path, int x, int y) {
+        if (x == matrix.size()-1 && y == matrix[0].size()-1) {
+            path.push_back(matrix[x][y]);
+            printPath(path);
+            path.pop_back();
+            return;
+        }
+
+        path.push_back(matrix[x][y]);
+    
+        if (x < matrix.size() - 1) { // go to next row.
+            getPaths6(matrix, path, x + 1, y);
+        }
+    
+        if ( y < matrix[0].size() - 1) { // go to next column.
+            getPaths6(matrix, path, x, y + 1);
+        }
+           
+        // erase last element.
+        //path.erase(path.end() - 1); // this works too.
+        path.pop_back();
+    }         
 };
 
 int main() {
