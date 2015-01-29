@@ -85,6 +85,24 @@ public:
             getAllPath(ans, rev, p, start, x, min_len - 1);
         }
     }
+    
+    // getAllPath2() is optimized from getAllPath() by passing path as reference,
+    // and use only 1 copy of path in the process. This saves space. X.C. 1/28/2015
+    void getAllPath2(vector<vector<string> > &ans, map<string, vector<string> > &rev, 
+           vector<string> &path, string start, string s, int min_len) {
+        if (s == start) {
+            ans.push_back(path);
+            return;
+        }
+        if (min_len == 1) return;
+        
+        for (int i = 0; i < rev[s].size(); ++ i) {
+            string x = rev[s][i];
+            path.insert(path.begin(), x);
+            getAllPath2(ans, rev, path, start, x, min_len - 1);
+            path.erase(path.begin());
+        }
+    }    
 };
 
 
