@@ -33,7 +33,7 @@ struct Node {
     Node(int v): val(v), left(NULL), right(NULL) {}
 };
 
-
+// This works.
 void printT(Node * n, map<int, vector<int> > & m, int col, int &mi, int &ma) {
     if (n == NULL) return;
 
