@@ -31,6 +31,7 @@ void output(stack<int> s) {
     cout << tmp << " ";
 }
 
+// This works. But iterative version seems not easy.
 void printT(Node * n, stack<int> & s) {
     if (n == NULL) return;
 
