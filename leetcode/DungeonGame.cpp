@@ -6,7 +6,7 @@ using namespace std;
 // This works. Is more clear than Solution2 on why.
 // O(mn) space, O(mn) time.
 class Solution3 {
-    int calculateMinimumHP(vector<vector<int> > &dungeon) {
+     int calculateMinimumHP(vector<vector<int> > &dungeon) {
         int row = dungeon.size();
         int col = dungeon[0].size();
         int A[row][col];
@@ -16,26 +16,26 @@ class Solution3 {
     
         // 2. in the last column, bottom-up;
         for(int i = row - 2; i >= 0; --i) {
-            int aboveValue = A[i+1][col-1] - dungeon[i][col-1];
-            A[i][col-1]  = aboveValue > 0 ? aboveValue : 1;
+            A[i][col-1]  = getVal(A[i+1][col-1] - dungeon[i][col-1]); // aboveValue
         }
     
         // 3. in the last row, from right to left
         for(int j = col - 2; j >= 0; --j) {
-            int leftValue = A[row-1][j+1] - dungeon[row-1][j];
-            A[row-1][j]  = leftValue > 0 ? leftValue : 1;
+            A[row-1][j]  = getVal(A[row-1][j+1] - dungeon[row-1][j]); // leftValue
         }
     
         // 4. in other areas, from bottom-right to upper-left
         for(int i = row - 2; i >=0; --i) {
             for(int j = col - 2; j >= 0; --j) {
-                int rightValue = (A[i][j+1]-dungeon[i][j] > 0) ? A[i][j+1]-dungeon[i][j] : 1;
-                int belowValue = (A[i+1][j]-dungeon[i][j] > 0) ? A[i+1][j]-dungeon[i][j] : 1;
+                int rightValue = getVal(A[i][j+1]-dungeon[i][j]);
+                int belowValue = getVal(A[i+1][j]-dungeon[i][j]);
                 A[i][j] = min(rightValue, belowValue);
             }
         }
         return A[0][0];
     }
+    
+    int getVal(int v) { return v > 0 ? v : 1; }
 };
 
 // This works. 
