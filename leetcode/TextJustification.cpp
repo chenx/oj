@@ -126,11 +126,9 @@ public:
         int len = words.size();
         if (len == 0) return vs;
         
-        string s;
         int space_ct, len_sum = 0, start, end;
         for (int i = 0; i < len; i ++) { // assume each word len < L.
-            //if (words[i].length() > L) break; //
-            
+            //if (words[i].length() > L) break; // should not happen.
             if (len_sum == 0) {
                 len_sum = words[i].length();
                 start = i;
@@ -144,8 +142,7 @@ public:
                     }
                     end = i;
                     space_ct = (end - start) + L - len_sum;
-                    s = output(words, start, end, space_ct, L);
-                    vs.push_back( s );
+                    vs.push_back( output(words, start, end, space_ct, L) );
                     len_sum = 0;
                 }
             }
@@ -154,41 +151,26 @@ public:
         if (len_sum >= 0) { // last words. Note: need to use ">=" here! to cover case of empty string.
             end = len - 1;
             space_ct = (end - start);
-            s = output(words, start, end, space_ct, L);
-            vs.push_back( s );
+            vs.push_back( output(words, start, end, space_ct, L) );
         }
         
         return vs;
     }
     
     // Note: Need to fill the end with padding of spaces.
-    string output(vector<string> & words, 
-                  int start, int end, int space_ct, int L) {
-        if (start == end) {
-            string s = words[start];
-            int len = s.length();
-            for (int i = 0; i < L - len; i ++) s += " "; // padding
-            return s;
-        }
-        int q = space_ct / (end - start); // quotient.
-        int r = space_ct % (end - start); // remainder.
+    string output(vector<string> & words, int start, int end, int space_ct, int L) {
         string s = "";
-        
-        // First r intervals each has q+1 spaces,
-        // rest intervals each has q spaces.
-        int i;
-        for (i = start; i < end; ++ i) {
+        if (start == end) { s = words[start]; }
+        else { // First r intervals each has q+1 spaces, rest intervals each has q spaces.
+            int q = space_ct / (end - start); // quotient.
+            int r = space_ct % (end - start); // remainder.
+            int i = start;
+            for (; i < end && r > 0; ++ i, -- r) s += words[i] + string(q + 1, ' ');
+            for (; i < end; ++ i) s += words[i] + string(q, ' ');
             s += words[i];
-            for (int j = 0; j < q; ++ j) s += " ";
-            if (r > 0) {
-                s += " ";
-                -- r;
-            }
         }
-        s += words[i]; // last word. 
-        int len = s.length();
-        for (i = 0; i < L - len; i ++) s += " "; // padding last word.
-        
+        s += string(L - s.length(), ' '); // last word. 
+
         return s;
     }
 };
