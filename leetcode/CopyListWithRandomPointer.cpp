@@ -18,6 +18,19 @@ void dump(RandomListNode * n) {
 
 // 1->2 => 1->1'->2->2'. 1'->random = 1->random->next.
 // This works, improved from copyListWithRandomPtr2.
+//
+// Note, to split the 2 lists, can use this too:
+/* RandomListNode * new_head = head->next, *tail = new_head;
+   // split the new list from the old list.
+   for (RandomListNode * n = head; n != NULL; ) {
+       n->next = tail->next;
+       n = n->next;
+       if (n != NULL) {
+           tail->next = n->next;
+           tail = tail->next;
+       }
+    }
+*/
 RandomListNode* copyListWithRandomPtr(RandomListNode *head) {
     if (! head) return NULL;
     
@@ -79,49 +92,6 @@ RandomListNode* copyListWithRandomPtr2(RandomListNode *head) {
     return new_head;
 }
  
-
-// This does NOT work.         
-RandomListNode* copyListWithRandomPtr_not_work(RandomListNode *head) {
-    if (! head) return NULL;
-    
-    RandomListNode *h2 = NULL, *t2 = NULL, *h = head, *h_prev = NULL; // h2/t2: copy
-    
-    
-    while (h != NULL) {
-        if (h2 == NULL) {
-            h2 = t2 = new RandomListNode(h->label+10);
-            t2->random = h;
-            t2->next = NULL;
-            
-            h_prev = h;
-            h = h->next;
-            h_prev->next = t2;
-        }
-        else {
-            t2->next = new RandomListNode(h->label+10);
-            t2 = t2->next;
-            t2->next = NULL;
-            
-            t2->random = h;
-            h_prev = h;
-            h = h->next;
-            h_prev->next = t2;
-        }
-    }
-    
-    for (h = head, t2 = h2; t2 != NULL; ) {
-        t2->random = t2->random->random->next;
-        
-        if (h->next->next == NULL) h->next = NULL;
-        else h->next = h->next->next->random;
-        
-        h = h->next;
-        t2 = t2->next;
-    }
-    
-    return h2;
-}
-
 
 void test1() {
     cout << "test1" << endl;
