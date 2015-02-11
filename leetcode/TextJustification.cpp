@@ -123,37 +123,35 @@ class Solution {
 public:
     vector<string> fullJustify(vector<string> &words, int L) {
         vector<string> vs;
-        int len = words.size();
-        if (len == 0) return vs;
+        int n = words.size();
+        if (n == 0) return vs;
         
-        int space_ct, len_sum = 0, start, end;
-        for (int i = 0; i < len; i ++) { // assume each word len < L.
-            //if (words[i].length() > L) break; // should not happen.
+        int space_ct, len_sum = 0, start = 0, end;
+        for (int i = 0; i < n; i ++) { 
+            //if (words[i].length() > L) break; // assume each word length < L..
             if (len_sum == 0) {
                 len_sum = words[i].length();
                 start = i;
             }
             else {
                 len_sum += 1 + words[i].length();
-                if (len_sum >= L) {
+                if (len_sum >= L) { 
                     if (len_sum > L) {
                         len_sum -= 1 + words[i].length();                        
-                        -- i; // Can't move this above the above statement.
+                        -- i; 
                     }
                     end = i;
                     space_ct = (end - start) + L - len_sum;
                     vs.push_back( output(words, start, end, space_ct, L) );
-                    len_sum = 0;
+                    len_sum = 0;                
                 }
             }
         } // end of for
         
-        if (len_sum >= 0) { // last words. Note: need to use ">=" here! to cover case of empty string.
-            end = len - 1;
-            space_ct = (end - start);
-            vs.push_back( output(words, start, end, space_ct, L) );
-        }
-        
+        end = n - 1; // last line.
+        space_ct = (end - start); // left alignment.
+        vs.push_back( output(words, start, end, space_ct, L) );
+
         return vs;
     }
     
@@ -176,6 +174,5 @@ public:
 };
 
 int main() {
-    
     return 0;
 }
