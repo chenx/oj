@@ -15,7 +15,7 @@ public:
         int i;
         for (i = 0; i < n; ++ i) {
             while (A[i] != i + 1 && 
-                   A[i] > 0 && A[i] <= n - 1 && A[i] != A[A[i] - 1]) {
+                   A[i] > 0 && A[i] <= n && A[i] != A[A[i] - 1]) {
                 swap(A[i], A[A[i]-1]); // move A[i] to A[A[i] - 1].
              }
         }
