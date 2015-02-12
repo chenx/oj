@@ -101,9 +101,7 @@ public:
 
 
 /*
-
 Single Number II
-Total Accepted: 3090 Total Submissions: 10327
 
 Given an array of integers, every element appears three times except for one. Find that single one.
 
