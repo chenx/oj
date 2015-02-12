@@ -126,7 +126,7 @@ public:
         int n = words.size();
         if (n == 0) return vs;
         
-        int space_ct, len_sum = 0, start = 0, end;
+        int space_ct, len_sum = 0, start = -1, end = -1;
         for (int i = 0; i < n; i ++) { 
             //if (words[i].length() > L) break; // assume each word length < L..
             if (len_sum == 0) {
@@ -148,10 +148,12 @@ public:
             }
         } // end of for
         
-        end = n - 1; // last line.
-        space_ct = (end - start); // left alignment.
-        vs.push_back( output(words, start, end, space_ct, L) );
-
+        if (end < n-1) {
+            end = n - 1; // last line.
+            space_ct = (end - start); // left alignment.
+            vs.push_back( output(words, start, end, space_ct, L) );
+        }
+        
         return vs;
     }
     
