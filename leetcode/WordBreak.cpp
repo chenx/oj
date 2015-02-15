@@ -14,7 +14,7 @@
 using namespace std;
 
 // This works too. Most short and clean so far. 2/15/2015. X.C.
-class Solution {
+class Solution3 {
 public:
     bool wordBreak(string s, unordered_set<string> &dict) {
         int n = s.length();
