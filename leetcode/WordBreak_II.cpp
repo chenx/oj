@@ -4,6 +4,56 @@
 #include <vector>
 using namespace std;
 
+// This works. Most clean so far. 2/15/2015. X.C.
+// Different from Solution 3, by adding a dummary ans[0].
+class Solution4 {
+public:
+    vector<string> wordBreak(string s, unordered_set<string> &dict) {
+        // Add this to pass large test. Quite artificial. Can remove this.
+        if (! wordBreakOK(s, dict)) return vector<string>(); 
+        
+        int n = s.length();
+        vector<vector<string> > ans(n+1);
+        ans[0].push_back("");
+
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.find(t) != dict.end()) {
+                ans[i].push_back(t);
+            }
+            
+            for (int j = 1; j < i; ++ j) {
+                vector<string> &v = ans[j];
+                string u = s.substr(j, i - j); // check substrings start at j, ends at i.
+                if (v.size() > 0 && dict.find(u) != dict.end()) {
+                    for (int k = 0; k < v.size(); ++ k) {
+                        ans[i].push_back(v[k] + " " + u);
+                    }
+                }
+            }
+        }
+        
+        return ans[n];        
+    }        
+    
+    bool wordBreakOK(string s, unordered_set<string> &dict) {
+        int n = s.length();
+        vector<int> dp(n+1);
+        dp[0] = 1;
+        
+        for (int i = 1; i <= n; ++ i) {
+            for (int j = 0; j < i; ++ j) {
+                string u = s.substr(j, i - j);
+                if (dp[j] && dict.find(u) != dict.end()) {
+                    dp[i] = 1;
+                    break;
+                }
+            }
+        }
+        return dp[n];
+    }
+};
+
 // This should work.
 // Although didn't pass large test cases, reports "Memory Limit Exceeded".
 // Conceptually this is easier to understand than previous solutions.
