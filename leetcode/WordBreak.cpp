@@ -13,6 +13,27 @@
 #include <set>
 using namespace std;
 
+// This works too. Most short and clean so far. 2/15/2015. X.C.
+class Solution {
+public:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        int n = s.length();
+        vector<int> dp(n+1);
+        dp[0] = 1;
+        
+        for (int i = 1; i <= n; ++ i) {
+            for (int j = 0; j < i; ++ j) {
+                string u = s.substr(j, i - j);
+                if (dp[j] && dict.find(u) != dict.end()) {
+                    dp[i] = 1;
+                    break;
+                }
+            }
+        }
+        return dp[n];
+    }
+};
+    
 // This works too.
 // Use 1-D array, instead of 2-D array.
 // X. C. 1/25/2015
