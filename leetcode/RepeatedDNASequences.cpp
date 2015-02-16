@@ -1,3 +1,25 @@
+// This works! So short. Slightly modified from: 
+// https://oj.leetcode.com/discuss/24710/can-anyone-tell-me-how-get-ac-result-below-50ms-using-c
+// Use rolling hash m, which contains a space of 20 digits.
+// note s[i] >> 1 & 3 will label a letter in A (65: 1000001), C(67: 1000011), G(71: 1000111), T(84: 1010100).
+// which will result in: A - 00, C - 01, G - 11, T - 10.
+class Solution2 {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        vector<string> r;
+        int t = 0, i = 0, len = s.size(), m[1 << 20] = {0};
+        while (i < 9) {
+            t = t << 2 | s[i++] >> 1 & 3;
+        }
+        while (i < len) {
+            if (m[t = t << 2 & 0xFFFFF | s[i++] >> 1 & 3]++ == 1) {
+                r.push_back(s.substr(i - 10, 10));
+            }
+        }
+        return r;
+    }
+};
+
 // This should work. Although time out for very large test case.
 // Use brutal force match. O(n^2). 2/15/2015.
 class Solution {
