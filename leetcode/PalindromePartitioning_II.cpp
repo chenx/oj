@@ -17,7 +17,7 @@
 using namespace std;
 
 // Should work. Although time out for large input.
-// Most clean version so far.
+// Most clean version so far. 2/15/2015. XC.
 class Solution4 {
 public:
     int minCut(string s) {
