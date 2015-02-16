@@ -8,7 +8,7 @@ public:
         
         if (n < 20) return ans;
         
-        for (int i = 0; i <= n - 10; ++ i) {
+        for (int i = 0; i <= n - 20; ++ i) {
             string p = s.substr(i, 10);
             if (strstr(s.c_str() + i + 10, p.c_str()) != NULL) {
                 ans.push_back(p);
