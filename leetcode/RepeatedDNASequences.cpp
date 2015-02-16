@@ -6,7 +6,7 @@ public:
         vector<string> ans;
         int n = s.length();
         
-        if (n < 10) return ans;
+        if (n < 20) return ans;
         
         for (int i = 0; i <= n - 10; ++ i) {
             string p = s.substr(i, 10);
