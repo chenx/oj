@@ -1,3 +1,24 @@
+// This works too!
+// From: https://oj.leetcode.com/discuss/24478/i-did-it-in-10-lines-of-c
+// Also use rolling hash, but much more readable than Solution2.
+class Solution3 {
+public:
+    int str2int(string s) {
+        int str=0;
+        for (int i = 0; i < s.size(); ++i)
+            str = (str<<3) +(s[i]&7);
+        return str;
+    }
+    vector<string> findRepeatedDnaSequences(string s) {
+        vector<string> res;
+        unordered_map<int,int> coll;
+        for (int i = 0; i+10 <= s.size(); ++i)
+            if (coll[str2int(s.substr(i,10))]++ == 1)
+                res.push_back(s.substr(i,10));
+        return res;
+    }
+};
+
 // This works! So short. Slightly modified from: 
 // https://oj.leetcode.com/discuss/24710/can-anyone-tell-me-how-get-ac-result-below-50ms-using-c
 // Use rolling hash m, which contains a space of 20 digits.
