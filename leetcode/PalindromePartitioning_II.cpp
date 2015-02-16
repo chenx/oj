@@ -16,6 +16,44 @@
 #include <string>
 using namespace std;
 
+// Should work. Although time out for large input.
+// Most clean version so far.
+class Solution4 {
+public:
+    int minCut(string s) {
+        int n = s.length();
+        int ans[1 + n];
+
+        for (int i = 1; i <= n; ++ i) {
+            string w = s.substr(0, i);
+            if (isPalindrome( w )) { 
+                ans[i] = 0;
+                continue;
+            }
+            
+            ans[i] = i - 1; // max cuts for a string of length i.
+            for (int j = 1; j < i; ++ j) {
+                string w = s.substr(j, i - j); // check each substring starts at j, ends at i.
+                if (isPalindrome( w ) && ans[i] > 1 + ans[j]) {
+                    ans[i] = 1 + ans[j];
+                    if (ans[i] == 1) break;
+                }
+            }
+        }
+        
+        return ans[n];
+    }
+    
+    bool isPalindrome(string s) {
+        int L = 0, R = s.length() - 1;
+        while (L < R) {
+            if (s[L] != s[R]) return false;
+            ++ L, -- R;
+        }
+        return true;
+    }
+};
+
 // This should work, but Timeout for large input at this time.
 // 1/25/2015
 class Solution3 {
