@@ -31,13 +31,14 @@ string fractionToDecimal(int64_t n, int64_t d) {
 
     unordered_map<int, int> map;
 
-    // simulate the division process
+    // simulate the division process.
+    // This also works: for (long long r = n; r != 0; r %= d) {
     for (int64_t r = n % d; r; r %= d) {
 
         // meet a known remainder
         // so we reach the end of the repeating part
         if (map.count(r) > 0) {
-            res.insert(map[r], 1, '(');
+            res.insert(map[r], 1, '('); // This also works: res.insert(map[r], "(");
             res += ')';
             break;
         }
