@@ -29,6 +29,7 @@ struct TreeNode {
 
 // This works! Passes all tests. Is very concise and clean.
 // Bottom up. From leetcode solution.
+// Compared to Solution3, this basically combines the getH() step into findMax().
 class Solution4 {
 public:
     int maxPathSum(TreeNode *root) {
