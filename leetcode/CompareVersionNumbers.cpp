@@ -1,3 +1,36 @@
+// This works too. 2/16/2015
+class Solution2 {
+public:
+    int compareVersion(string version1, string version2) {
+        const char * s1 = version1.c_str(), 
+                   * s2 = version2.c_str();
+        int v1, v2;
+        while (*s1 && *s2) {
+            v1 = getV(s1); 
+            v2 = getV(s2);
+            if (v1 < v2) return -1;
+            if (v1 > v2) return 1;
+        }
+        
+        v1 = (*s1) ? getV(s1) : 0;
+        v2 = (*s2) ? getV(s2) : 0;
+
+        if (v1 < v2) return -1;
+        if (v1 > v2) return 1;
+        
+        return 0;
+    }
+    
+    int getV(const char *& s) {
+        if (*s == '.') ++ s;
+        int v = 0;
+        for (; *s >= '0' && *s <= '9'; ++ s) {
+            v = v * 10 + (*s - '0');
+        }
+        return v;
+    }
+};
+
 /**
  * This works.
  * Be careful when one ends, but the other got more section.
