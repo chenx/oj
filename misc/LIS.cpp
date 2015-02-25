@@ -16,7 +16,7 @@ void dumpVec(vector<int> &v, string name) {
 
 //
 // Returns the length of the Longest Increasing Subsequence.
-// Also can print out one such LIS sequence.
+// Also can print out one such LIS sequence (information stored in arrays I and P).
 // O(nlog(n)) solution. Uses Patience Sort.
 //
 int LIS(int A[], int n) {
