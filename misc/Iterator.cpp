@@ -5,6 +5,7 @@
  *  - In iterator, initialize, then do the first getNext() call.
  *  - In hasNext(), just return hasNextVal.
  *  - In next(), store current nextVal, do a getNext(), then return the stored nextVal.
+ *  - Finally, you may want a mechanism in next() to avoid out-of-boundary issue when hasNext() is false.
  *
  * In code below, Iterator2 and Iterator3 comply with this and works well.
  * Iterator1 does not comply and is kind of tricky to get right, by using i < size as judgement of hasNext(),
@@ -97,7 +98,15 @@ public:
     }
 
     bool hasNext() { return hasNextVal; }
-    int next() { int v = nextVal; getNext(); return v; }
+    
+    int next() { 
+        if (! hasNext()) {
+            //cout << "hasNext() == false" << endl;
+            //throw exception();
+            return -1;
+        }
+        int v = nextVal; getNext(); return v; 
+    }
 };
 
 
