@@ -1,6 +1,14 @@
 /**
  * Given a BST and a value K, return all pairs of nodes whose value sum is K. (GG)
  *
+ * Method 1: convert BST to an array, apply the two sum algorithm. O(n) time, O(n) space.
+ * Method 2: use 2 iterators from head and tail, similar to two sum. O(n) time, O(log(n)) space.
+ * Method 3: assume there is a parent pointer in Node, directly get the next smallest/largest node 
+ *           as in the two sum algorihtm. O(n) time, O(1) space. This is how Solution below is done.
+ * 
+ * Discussion: Here we assume Node has a pointer to parent to get the solution.
+ * If there is no parent pointer, is a O(n) solution possible?
+ * 
  * By: X.C.
  * On: 2/25/2015
  */
@@ -18,6 +26,11 @@ public:
     Node(int v) : val(v), left(NULL), right(NULL), parent(NULL) {}
 };
 
+//
+// This works for test1().
+// Assume there is a parent pointer in Node, directly get the next smallest/largest node 
+// as in the two sum algorihtm. O(n) time, O(1) space. 
+//
 class Solution {
 public:
   vector<pair<Node *, Node *> > getSumNodes(Node * root, int sum) {
