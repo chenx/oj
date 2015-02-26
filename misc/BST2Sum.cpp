@@ -62,16 +62,12 @@ private:
   }
 
   Node * getSmallest(Node * n) {
-    while (n->left != NULL) {
-        n = n->left;
-    }
+    while (n->left) n = n->left; 
     return n;
   }
 
   Node * getLargest(Node * n) {
-    while (n->right != NULL) {
-        n = n->right;
-    }
+    while (n->right) n = n->right;
     return n;
   }
 
@@ -86,7 +82,7 @@ private:
   */
   Node * getNextSmallest(Node * n) {
     if (! n) return NULL;
-    if (n->right != NULL) {
+    if (n->right) {
         Node * m = n->right;
         if (m->left == NULL) return m;
         else {
@@ -94,21 +90,21 @@ private:
             return m;
         }
     }
-    else if (n->parent != NULL) return n->parent;
+    else if (n->parent) return n->parent;
     else return NULL;
   }
 
   Node * getNextLargest(Node * n) {
     if (! n) return NULL;
-    if (n->left != NULL) {
+    if (n->left) {
         Node * m = n->left;
-        if (m->right == NULL) return m; //c1;
+        if (m->right == NULL) return m;
         else {
             for (m = m->right; m->right; m = m->right) ;
             return m;
         }
     }
-    else if (n->parent != NULL) return n->parent;
+    else if (n->parent) return n->parent;
     else return NULL;
   }
 };
