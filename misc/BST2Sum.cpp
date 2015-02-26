@@ -90,8 +90,10 @@ private:
             return m;
         }
     }
-    else if (n->parent) return n->parent;
-    else return NULL;
+    //else if (n->parent) return n->parent;
+    //else return NULL;
+    // The above 2 statements can be simplified to this:
+    return n->parent;
   }
 
   Node * getNextLargest(Node * n) {
@@ -104,8 +106,10 @@ private:
             return m;
         }
     }
-    else if (n->parent) return n->parent;
-    else return NULL;
+    //else if (n->parent) return n->parent;
+    //else return NULL;
+    // The above 2 statements can be simplified to this:
+    return n->parent;
   }
 };
 
