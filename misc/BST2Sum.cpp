@@ -2,8 +2,12 @@
  * Given a BST and a value K, return all pairs of nodes whose value sum is K. (GG)
  *
  * Method 1: convert BST to an array, apply the two sum algorithm. O(n) time, O(n) space.
- * Method 2: use 2 iterators from head and tail, similar to two sum. O(n) time, O(log(n)) space.
- * Method 3: assume there is a parent pointer in Node, directly get the next smallest/largest node 
+ * Method 2: convert BST to a doubly linked list, apply the 2 sum algorithm. O(n) time, 
+ *           O(log(n)) space (for recursively converting BST to DLL). But you changed the BST here.
+ * Method 3: use 2 iterators from head and tail, similar to two sum. O(n) time, O(log(n)) space.
+ *           Note that you may use an external iterator, or can do it directly in loop like this:
+ *           http://www.geeksforgeeks.org/find-a-pair-with-given-sum-in-bst/
+ * Method 4: assume there is a parent pointer in Node, directly get the next smallest/largest node
  *           as in the two sum algorihtm. O(n) time, O(1) space. This is how Solution below is done.
  * 
  * Discussion: Here we assume Node has a pointer to parent to get the solution.
