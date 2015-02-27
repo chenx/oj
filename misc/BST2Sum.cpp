@@ -7,6 +7,7 @@
  * Method 3: use 2 iterators from head and tail, similar to two sum. O(n) time, O(log(n)) space.
  *           Note that you may use an external iterator, or can do it directly in loop like this:
  *           http://www.geeksforgeeks.org/find-a-pair-with-given-sum-in-bst/
+ *           Note for a backward iterator, you switch n->left and n->right in the forward iterator.
  * Method 4: assume there is a parent pointer in Node, directly get the next smallest/largest node
  *           as in the two sum algorihtm. O(n) time, O(1) space. This is how Solution below is done.
  * 
