@@ -82,6 +82,8 @@ private:
   */
   Node * getNextSmallest(Node * n) {
     if (! n) return NULL;
+    
+    // n's right sub-tree is not empty.
     if (n->right) {
         Node * m = n->right;
         if (m->left == NULL) return m;
@@ -90,10 +92,17 @@ private:
             return m;
         }
     }
-    //else if (n->parent) return n->parent;
-    //else return NULL;
-    // The above 2 statements can be simplified to this:
-    return n->parent;
+
+    // n's parent is not empty.
+    if (n->parent) {
+        if (n == n->parent->left) return n->parent;
+        else { // n == n->parent->right
+            for (n = n->parent; n->parent && n == n->parent->right; n = n->parent) ;
+            return n->parent; // n is parent's left child.
+        }
+    }
+    
+    return NULL;
   }
 
   Node * getNextLargest(Node * n) {
@@ -106,10 +115,16 @@ private:
             return m;
         }
     }
-    //else if (n->parent) return n->parent;
-    //else return NULL;
-    // The above 2 statements can be simplified to this:
-    return n->parent;
+
+    // n's parent is not empty.
+    if (n->parent) {
+        if (n == n->parent->right) return n->parent;
+        else { // n == n->parent->right
+            for (n = n->parent; n->parent && n == n->parent->left; n = n->parent) ;
+            return n->parent; // n is parent's left child.
+        }
+    }
+    return NULL;
   }
 };
 
