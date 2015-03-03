@@ -5,6 +5,31 @@
 // @Last modified: 12/24/2012
 //
 
+// This works too. O(1)space, O(n) time. From CC150 5ed. Page 226. 
+// This also works when a node's value can be INT_MIN or INT_MAX.
+// Basically, NULL value of prev is used to handle the case when left node's value is INT_MIN.
+// This is equivalent to another O(n) solution: do inorder traversal, verify "<" relation of adjacent elements.
+class Solution2 {
+public:
+    bool isValidBST(TreeNode *root) {
+        TreeNode * prev = NULL;
+        return valid(root, prev);
+    }
+    
+    bool valid(TreeNode * n, TreeNode *& prev) {
+        if (! n) return true;
+        
+        if (! valid(n->left, prev)) return false;
+        
+        if (prev && prev->val >= n->val) return false;
+        prev = n;
+        
+        if (! valid(n->right, prev)) return false;
+        
+        return true;
+    }
+};
+
 /**
  * Definition for binary tree
  * struct TreeNode {
