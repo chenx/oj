@@ -34,6 +34,7 @@ public:
 
     }
 
+    // iterative version. This works.
     TreeNode * convert(TreeNode * root) {
         if (! root) return NULL;
 
@@ -66,6 +67,35 @@ public:
         
         return head;
     }
+    
+    // recursive version. This works too.
+    TreeNode * convert_recursive(TreeNode * root) {
+        if (! root) return NULL;
+        TreeNode * head = NULL, * tail = NULL, * prev = NULL;
+        get(root, head, tail, prev);
+        if (head) {
+            head->left = tail;
+            tail->right = head;
+        }
+        return head;
+    }
+
+    void get(TreeNode * root, TreeNode *& head, TreeNode *& tail, TreeNode *& prev) {
+        if (! root) return;
+
+        get(root->left, head, tail, prev);
+        if (! prev) {
+            head = tail = root;
+        }
+        else {
+            tail->right = root;
+            root->left = tail;
+            tail = root;
+        }
+        prev = root;
+        get(root->right, head, tail, prev);
+    }
+    
     
     void dumpDll(TreeNode * head) {
         if (! head) return;
