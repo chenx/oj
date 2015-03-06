@@ -76,7 +76,7 @@ public:
                  << n->val 
                  << "[" << (n->right ? n->right->val : 0) << "] ";
             n = n->right;
-        } while (n != head);
+        } while (n && n != head); // use "n &" to guard against the case Dll is not circular.
         cout << endl;
     }
 };
