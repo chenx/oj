@@ -17,16 +17,16 @@
          T := ();
          while (! IDList.empty()) {
              t = ((), ()); // ((id list), (email list))
-             G1(IDs, EMs, t, IDs.begin);
+             G1(IDs, EMs, t, IDs.begin); // pass t by reference.
              T.add(t);
          }
      }
 
    - G1(IDs, EMs, t, id) {
          add id to t.first;
-         IDs_id = IDs[id];
+         id_ems = IDs[id]; // get emails associated with id.
          remove id from IDs;
-         foreach (em in IDs[id]) {
+         foreach (em in id_ems) {
              if (em not in t.second()) {
                  G2(IDs, EMs, t, em);
              }
@@ -35,9 +35,9 @@
 
    - G2(IDs, EMs, t, em) {
          add em to t.second;
-         EMs_s = EMs[em];
+         em_ids = EMs[em]; // get ids associated with email.
          remove em from EMs;
-         foreach (id in EMs[em]) {
+         foreach (id in em_ids) {
              if (id not in t.first()) {
                  G1(IDs, EMs, t, id);
              }
@@ -66,7 +66,7 @@
                   c -> (2) stop
                        4 -> (c) stop
                             d -> 3 -> (d) stop
-                              -> (4) stop
+                                 (4) stop
    In the end, output is:
    (1, 2) (a, b, c, d)
    (5) (e, f)
