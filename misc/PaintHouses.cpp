@@ -64,6 +64,7 @@ void test1() {
     int cost[3] = {1,2,3};
     for (int i = 1; i <= 10; ++ i) {
         cout << "i = " << i << ": cost = " << so.getCost(cost, i) << endl;
+        cout << "i = " << i << ": cost2 = " << so.getCost2(cost, i) << endl;
     }
 }
 
