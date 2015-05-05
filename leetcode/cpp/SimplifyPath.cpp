@@ -1,0 +1,154 @@
+//
+// http://www.leetcode.com/onlinejudge#
+// @Author: Xin Chen
+// @Created on: 12/25/2012
+// @Last modified: 12/25/2012
+//
+
+class Solution {
+public:
+    // use a stack to hold all dir names. Pop when ".." is found, Ignore "/" and ".".
+    string simplifyPath(string path) {
+        stack<string> dirs;
+        string d = "";
+        
+        for (int i = 0; i < path.length(); i ++) {
+            if (path[i] == '/') {
+                if (d != "" && d != ".") dirs.push(d); // don't forget d != ""
+                d = "";
+            } 
+            else if (path[i] == '.') {
+                if (d == ".") {
+                    if (dirs.size() > 0) dirs.pop(); // w/o "if (dirs.size() > 0)", may throw exception.
+                    d = "";
+                }
+                else { d = "."; } // don't forget else { d = "."; }
+            }
+            else {
+                d += path[i]; 
+            }
+        }
+        if (d != "" && d != ".") dirs.push(d); // don't forget d != ""
+        
+        d = "";
+        while (dirs.size() > 0) {
+            if (d == "") d = dirs.top();
+            else d = dirs.top() + "/" + d;
+            dirs.pop();
+        }
+        d = "/" + d;
+        
+        return d;
+    }
+};
+
+
+//
+// This works too. This is better than Solution above:
+// 1) the logic is more clear.
+// 2) this allows 3 or more dots: "...". This is valid dir/file name. 
+//
+// Note: if don't allow 3 or more dots, can do this in Solution3.
+//
+class Solution2 {
+public:
+    string simplifyPath(string path) {
+        int n = path.length();
+        if (n == 0) return "";
+        
+        stack<string> s;
+        string d;
+        
+        for (int i = 0; i < n; ++ i) {
+            if (path[i] == '/') process(s, d);
+            else d += path[i];
+        }
+        process(s, d);
+        
+        d = "";
+        while (! s.empty()) {
+            if (d == "") d = s.top();
+            else d = s.top() + "/" + d;
+            s.pop();
+        }
+        d = "/" + d;
+        
+        return d;
+    }
+    
+    inline void process(stack<string> &s, string &d) {
+        if (d == ".") {
+            // do nothing.
+        }
+        else if (d == "..") {
+            if (! s.empty()) s.pop();
+        }
+        else if (d != "") {
+            s.push(d);
+        }
+        d = "";
+    }
+};
+
+
+//
+// This shows how to not allow 3 or more dots.
+//
+class Solution3 {
+public:
+    string simplifyPath(string path) {
+        int n = path.length();
+        if (n == 0) return "";
+        
+        stack<string> s;
+        string d;
+        
+        int dots = 0;
+        for (int i = 0; i < n; ++ i) {
+            if (path[i] == '/') process(s, d);
+            else {
+                dots = (path[i] == '.') ? (dots + 1) : 0;
+                if (dots == 3) { 
+                    cout << "3 dots detected at position " << i << endl;
+                    break;
+                }
+                d += path[i];
+            }
+        }
+        process(s, d);
+        
+        d = "";
+        while (! s.empty()) {
+            if (d == "") d = s.top();
+            else d = s.top() + "/" + d;
+            s.pop();
+        }
+        d = "/" + d;
+        
+        return d;
+    }
+    
+    inline void process(stack<string> &s, string &d) {
+        if (d == ".") {
+            // do nothing.
+        }
+        else if (d == "..") {
+            if (! s.empty()) s.pop();
+        }
+        else if (d != "") {
+            s.push(d);
+        }
+        d = "";
+    }
+};
+
+
+/*
+Problem:
+
+Given an absolute path for a file (Unix-style), simplify it.
+
+For example,
+path = "/home/", => "/home"
+path = "/a/./b/../../c/", => "/c"
+ */
