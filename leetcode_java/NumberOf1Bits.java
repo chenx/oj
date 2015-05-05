@@ -1,3 +1,16 @@
+/**
+ * This works.
+ * 
+ * Note BigInteger is not supported by leetcode OJ.
+ * BigInteger can be used this way:
+ * 
+ * BigInteger sum = BigInteger.valueOf(0);
+ * for(int i = 2; i < 5000; i++) {
+ *     if (isPrim(i)) {
+ *         sum.add(BigInteger.valueOf(i));
+ *     }
+ * }
+ */
 public class Solution {
     // you need to treat n as an unsigned value
     public int hammingWeight(int n) {
