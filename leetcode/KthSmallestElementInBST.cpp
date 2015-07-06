@@ -47,12 +47,8 @@ public:
         
         getKth(root->left, ct, k, val);
         ++ ct;
-        if (ct == k) {
-            val = root->val;
-            return;
-        }
-        
-        getKth(root->right, ct, k, val);
+        if (ct == k) { val = root->val; }
+        else if (ct < k) { getKth(root->right, ct, k, val); }
     }
 };
 
