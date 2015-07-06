@@ -7,10 +7,37 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+ 
+// This works too, and should be more efficient.
+class Solution2 {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int ct = 0;
+        TreeNode * n = getKth(root, ct, k);
+        return n ? n->val : -1;
+    }
+    
+    TreeNode * getKth(TreeNode * root, int & ct, int k) {
+        if (! root) return NULL;
+        
+        TreeNode * L = getKth(root->left, ct, k);
+        if (L != NULL) return L;
+        
+        ++ ct;
+        if (ct == k) {
+            return root;
+        }
+        
+        return getKth(root->right, ct, k); 
+    }
+};
+
+ 
+// This works.
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
-        int ct = 0, val = 0;
+        int ct = 0, val = -1;
         getKth(root, ct, k, val);
         return val;
     }
