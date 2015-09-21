@@ -76,7 +76,7 @@ public class Solution {
     }
     
     private void add(int thesum) {
-        if (thesum > 1) {
+        if (thesum > 1) { // note by change value "1" here, you can adapt this to base-n addition.
             sum = thesum - 2;
             carry = 1;
         }
