@@ -14,6 +14,7 @@ public class Solution {
         StringBuffer s = new StringBuffer("");
         
         int ia = a.length() - 1, ib = b.length() - 1;
+        carry = 0;
         
         for (; ia >= 0 && ib >= 0; -- ia, -- ib) {
             s.append("" + add(a.charAt(ia) - '0' + b.charAt(ib) - '0' + carry));
