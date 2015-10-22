@@ -1,3 +1,14 @@
+-- length
+array: int[] a = {1,2}; int len = a.length;
+string: string s = "abc"; int len = s.length();
+list: List<int> t = new ArrayList<int>(); int len = t.size();
+
+
+-- String functions.
+String s;
+char[] s_array = s.toCharArray(); // convert to char array.
+
+
 -- Initialize Array
 http://mangstacular.blogspot.com/2013/04/4-ways-to-initialize-list-in-java.html
 
