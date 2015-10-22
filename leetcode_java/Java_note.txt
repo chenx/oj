@@ -1,0 +1,91 @@
+-- Initialize Array
+http://mangstacular.blogspot.com/2013/04/4-ways-to-initialize-list-in-java.html
+
+4 ways:
+
+1)
+List<String> list = Collections.emptyList();
+2)
+List<String> list = Arrays.asList("one", "two", "three");
+3)
+List<String> list = new ArrayList<String>(){{add("one"); add("two"); add("three");}}
+4)
+List<String> list = new ArrayList<String>();
+list.add("one");
+list.add("two");
+list.add("three");
+
+-- 4 ways you can iterate through List.
+http://crunchify.com/how-to-iterate-through-java-list-4-way-to-iterate-through-loop/
+
+package com.crunchify;
+ 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+ 
+/**
+ * @author Crunchify.com
+ */
+ 
+public class CrunchifyIterateThroughList {
+ 
+	public static void main(String[] argv) {
+ 
+		// create list 
+		List<String> CrunchifyList = new ArrayList<String>();
+ 
+		// add 4 different values to list
+		CrunchifyList.add("eBay");
+		CrunchifyList.add("Paypal");
+		CrunchifyList.add("Google");
+		CrunchifyList.add("Yahoo");
+ 
+		// iterate via "for loop"
+		System.out.println("==> For Loop Example.");
+		for (int i = 0; i < CrunchifyList.size(); i++) {
+			System.out.println(CrunchifyList.get(i));
+		}
+ 
+		// iterate via "New way to loop"
+		System.out.println("\n==> Advance For Loop Example..");
+		for (String temp : CrunchifyList) {
+			System.out.println(temp);
+		}
+ 
+		// iterate via "iterator loop"
+		System.out.println("\n==> Iterator Example...");
+		Iterator<String> CrunchifyIterator = CrunchifyList.iterator();
+		while (CrunchifyIterator.hasNext()) {
+			System.out.println(CrunchifyIterator.next());
+		}
+ 
+		// iterate via "while loop"
+		System.out.println("\n==> While Loop Example....");
+		int i = 0;
+		while (i < CrunchifyList.size()) {
+			System.out.println(CrunchifyList.get(i));
+			i++;
+		}
+	}
+}
+
+
+-- clone a list
+http://stackoverflow.com/questions/54909/how-do-i-clone-a-generic-list-in-java
+
+1)
+List list = new ArrayList();
+List list2 = ((List) ( (ArrayList) list).clone());
+2)
+public static <T extends Object> List<T> cloneList(List<T> list) {
+    return ((List<T>) ((ArrayList<T>) list).clone());
+}
+
+
+-- Java List API
+http://docs.oracle.com/javase/7/docs/api/java/util/List.html
+http://docs.oracle.com/javase/tutorial/collections/interfaces/list.html
+
+
