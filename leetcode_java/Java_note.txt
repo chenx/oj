@@ -1,3 +1,19 @@
+-- String, char, int
+String nString = "5";
+char n = nString.charAt(0);
+System.out.println(n - '0');
+System.out.println(n - 48);
+System.out.println(Character.getNumericValue(n));
+System.out.println(new Integer(nString));
+System.out.println(Integer.valueOf(nString));
+System.out.println(Integer.parseInt(nString));
+System.out.println(new BigInteger(nString)); 
+
+// max/min integer:
+Integer.MIN_VALUE
+Integer.MAX_VALUE
+
+
 -- length
 array: int[] a = {1,2}; int len = a.length;
 string: string s = "abc"; int len = s.length();
