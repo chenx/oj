@@ -123,3 +123,5 @@ int first = v.getFirst();
 v.removeFirst();
 
 // Note, for int, must use LinkedList<Integer>.
+-- Java LinkedList and others API
+-- http://www.tutorialspoint.com/java/util/java_util_linkedlist.htm
