@@ -1,3 +1,25 @@
+// This works. More clear on what happens.
+class Solution2 {
+public:
+    string getHint(string secret, string guess) {
+        int A = 0, B = 0;
+        vector<int> cnt(10);
+        for (int i = 0; i < secret.length(); ++ i) {
+            if (secret[i] == guess[i]) ++ A;
+            else {
+                int s = secret[i] - '0';
+                int g = guess[i]  - '0';
+                ++ cnt[s];
+                -- cnt[g];
+                if (cnt[s] <= 0) ++ B;
+                if (cnt[g] >= 0) ++ B;
+            }
+        }
+        return to_string(A) + "A" + to_string(B) + "B";
+    }
+};
+
+// This works.
 class Solution {
 public:
     string getHint(string secret, string guess) {
