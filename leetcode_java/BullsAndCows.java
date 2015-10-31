@@ -1,5 +1,25 @@
-// This works. Although not so clean.
+// This works. 
+// From: 
+// [1] https://leetcode.com/discuss/67071/clean-and-clear-java-o-n-solution
+// [2] https://leetcode.com/discuss/67031/one-pass-java-solution
+// Increment cows (B) when either number from secret was already seen in guest or vice versa.
 public class Solution {
+    public String getHint(String secret, String guess) {
+        int A = 0, B = 0;
+        int[] cnt = new int[10];
+        for(int i=0; i<secret.length(); ++i){
+            if(secret.charAt(i) == guess.charAt(i)) ++A;
+            else{
+                if(++cnt[secret.charAt(i)-'0'] <= 0) ++B;
+                if(--cnt[guess.charAt(i)-'0']  >= 0) ++B;
+            }
+        }
+        return A + "A" + B + "B";
+    }
+}
+
+// This works too. Although not so clean.
+public class Solution2 {
     public String getHint(String secret, String guess) {
         int len = secret.length();
         
