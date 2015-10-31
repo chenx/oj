@@ -18,8 +18,28 @@ public class Solution {
     }
 }
 
+// This works too. More clear than Solution.
+public class Solution {
+    public String getHint(String secret, String guess) {
+        int A = 0, B = 0;
+        int[] cnt = new int[10];
+        for (int i = 0; i < secret.length(); ++ i) {
+            if (secret.charAt(i) == guess.charAt(i)) ++ A;
+            else {
+                int s = secret.charAt(i) - '0';
+                int g = guess.charAt(i)  - '0';
+                ++ cnt[s];
+                -- cnt[g];
+                if (cnt[s] <= 0) ++ B;
+                if (cnt[g] >= 0) ++ B;
+            }
+        }
+        return A + "A" + B + "B";
+    }
+}
+
 // This works too. Although not so clean.
-public class Solution2 {
+public class Solution3 {
     public String getHint(String secret, String guess) {
         int len = secret.length();
         
