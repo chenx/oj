@@ -17,7 +17,7 @@ public:
 
 /**
 Move Zeroes
-Total Accepted: 26463 Total Submissions: 63777 Difficulty: Easy
+Difficulty: Easy
 
 Given an array nums, write a function to move all 0's to the end of it 
 while maintaining the relative order of the non-zero elements.
