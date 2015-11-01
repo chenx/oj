@@ -7,10 +7,10 @@ public class Solution {
         for (int i = 0; i < n; ++ i) arr[i] = i + 1;
         
         int i = 1;
-        while (i < n) {
+        while (i < n) { // Optimization 1: use i up to sqrt(n): while (i * i < n) {
             if (arr[i] == -1) ++ i;
             else {
-                for (int v = arr[i], j = 2 * v; j <= n; j += v) {
+                for (int v = arr[i], j = 2 * v; j <= n; j += v) { // Optimization 2: initialize: j = v * v
                     arr[j - 1] = -1;
                 }
                 ++ i;
