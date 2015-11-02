@@ -1,6 +1,5 @@
 public class Solution {
-    private int rows;
-    private int cols;
+    private int rows, cols;
     
     public int numIslands(char[][] grid) {
         if (grid.length == 0 || grid[0].length == 0) return 0;
