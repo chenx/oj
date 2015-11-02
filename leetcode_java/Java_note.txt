@@ -125,3 +125,9 @@ v.removeFirst();
 // Note, for int, must use LinkedList<Integer>.
 -- Java LinkedList and others API
 -- http://www.tutorialspoint.com/java/util/java_util_linkedlist.htm
+
+
+// Convert list to array
+List<Integer> coinsList = new ArrayList<Integer>(); // Use ArrayList<Integer> coinsList also works.
+...
+Integer[] coins = coinsList.toArray(new Integer[coinsList.size()]);
