@@ -18,8 +18,8 @@ public:
     }
 
 private:
-    int rows;
-    int cols;
+    int rows, cols;
+    
     void flip(vector<vector<char>>& grid, int i, int j) {
         grid[i][j] = '0';
         
