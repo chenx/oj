@@ -28,12 +28,8 @@ public class Codec {
     
     
     private String ser(TreeNode root) {
-        if (null == root) {
-            return "null,";
-        }
-        
-        //return ser(root.left) + (root.val) + "," + ser(root.right);    
-        return root.val + "," + ser(root.left) + ser(root.right);
+        if (null == root) return "null,";
+        else return root.val + "," + ser(root.left) + ser(root.right);
     }
     
     // Use this in equivalence to passing parameter by reference in C++.
