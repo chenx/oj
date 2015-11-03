@@ -23,7 +23,9 @@ list: List<int> t = new ArrayList<int>(); int len = t.size();
 -- String functions.
 String s;
 char[] s_array = s.toCharArray(); // convert to char array.
-
+// substring: http://www.tutorialspoint.com/java/java_string_substring.htm
+public String substring(int beginIndex)
+public String substring(int beginIndex, int endIndex)
 
 -- Initialize Array
 http://mangstacular.blogspot.com/2013/04/4-ways-to-initialize-list-in-java.html
