@@ -49,3 +49,10 @@ public:
         return neg ? 1 / R : R;
     }
 };
+
+/**
+Pow(x, n)
+Difficulty: Medium
+
+Implement pow(x, n). 
+ */
