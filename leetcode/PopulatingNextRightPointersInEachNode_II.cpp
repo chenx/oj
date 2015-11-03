@@ -53,7 +53,7 @@ public:
 };
 
 
-// This works too, and is the best!
+// This works too, and is better!
 class Solution2 {
 public:
     void connect(TreeLinkNode *root) {
@@ -83,6 +83,30 @@ public:
         return getSC(n->next);
     }
     
+};
+
+// This works too, and is the best!
+class Solution3 {
+public:
+    void connect(TreeLinkNode *root) {
+        conn(root, NULL);
+    }
+    
+    void conn(TreeLinkNode *root, TreeLinkNode *next) {
+        if (! root) return;
+        root->next = next;
+        
+        TreeLinkNode *n = getNext(next);
+        conn(root->right, n);
+        conn(root->left, root->right ? root->right : n);
+    }
+    
+    TreeLinkNode *getNext(TreeLinkNode *next) {
+        if (! next) return NULL;
+        if (next->left) return next->left;
+        if (next->right) return next->right;
+        return getNext(next->next);
+    }
 };
 
 /*
