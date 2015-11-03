@@ -29,6 +29,8 @@ public:
 };
 
 // This works too, and is probably better.
+// Note: cannot use: if (n < 0) return 1 / myPow(x, -n);
+// If do want to use it, change function signature to: pow(double x, long long n)
 class Solution2 {
 public:
     double pow(double x, int n) {
