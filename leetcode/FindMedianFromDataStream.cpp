@@ -1,6 +1,10 @@
 // Keep 2 priority queues: maxQ, minQ. 
 // All elements in maxQ are less than elements in minQ.
 // Insert new element to corresponding side, then balance the size of the 2 queues.
+// References:
+// http://www.cplusplus.com/reference/queue/priority_queue/priority_queue/
+// http://www.cplusplus.com/reference/functional/greater/
+// http://www.cplusplus.com/reference/functional/less/
 class MedianFinder {
 public:
     // Adds a number into the data structure.
