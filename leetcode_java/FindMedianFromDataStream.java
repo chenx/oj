@@ -65,8 +65,8 @@ class MedianFinder {
      *  Reference: http://stackoverflow.com/questions/11003155/change-priorityqueue-to-max-priorityqueue
      */
     public MedianFinder() {
-        maxQ = new PriorityQueue<Integer>(10, Collections.reverseOrder());
-        minQ = new PriorityQueue<Integer>(10);
+        maxQ = new PriorityQueue<Integer>(Collections.reverseOrder());
+        minQ = new PriorityQueue<Integer>(); // can also add a initial size parameter: P.Q.<Integer>(10);
     }
     
     private PriorityQueue<Integer> minQ;
