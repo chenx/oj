@@ -1,4 +1,6 @@
-
+// Keep 2 priority queues: maxQ, minQ. 
+// All elements in maxQ are less than elements in minQ.
+// Insert new element to corresponding side, then balance the size of the 2 queues.
 class MedianFinder {
 
     // Adds a number into the data structure.
