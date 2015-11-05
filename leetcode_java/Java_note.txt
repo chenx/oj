@@ -133,3 +133,22 @@ v.removeFirst();
 List<Integer> coinsList = new ArrayList<Integer>(); // Use ArrayList<Integer> coinsList also works.
 ...
 Integer[] coins = coinsList.toArray(new Integer[coinsList.size()]);
+
+
+-- Java Queue
+// http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html
+Queue<Integer> q = new LinkedList<Integer>();
+boolean empty = q.isEmpty(); // true
+q.add(1);
+q.add(2);
+int top = q.peek();
+top = q.remove(); // return 1.
+
+-- Java Stack
+// http://docs.oracle.com/javase/7/docs/api/java/util/Stack.html
+Stack<Integer> s = new Stack<Integer>();
+boolean empty = s.isEmpty(); // true
+empty = s.empty(); // true.
+s.push(1);
+int top = s.peek();
+s.pop();
