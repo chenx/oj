@@ -6,9 +6,27 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
- 
+
+// Iterative. This works too.
+class Solution3 {
+public:
+    ListNode* reverseList(ListNode* head) {
+        //if (head == NULL || head->next == NULL) return head; // not necessary.
+        ListNode *h = NULL, *tmp;
+        
+        while (head != NULL) {
+            tmp = head;
+            head = head->next;
+            tmp->next = h;
+            h = tmp;
+        }
+        
+        return h;
+    }
+};
+
 // Iterative version. This works.
-class Solution {
+class Solution2 {
 public:
     ListNode* reverseList(ListNode* head) {
         ListNode * h = NULL;
