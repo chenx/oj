@@ -24,7 +24,7 @@ class MyStack {
 
     // Get the top element.
     public int top() {
-        if (empty()) return null; // underflow.
+        if (empty()) return -1; // underflow.
         return q1.peek();
     }
 
