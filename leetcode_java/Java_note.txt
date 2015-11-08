@@ -152,3 +152,36 @@ empty = s.empty(); // true.
 s.push(1);
 int top = s.peek();
 s.pop();
+
+-- Java HashMap
+// http://java67.blogspot.com/2013/02/10-examples-of-hashmap-in-java-programming-tutorial.html
+HashMap<Integer, Integer> h = new HashMap<Integer, Integer>();
+h.put(1, 3);
+boolean exists = h.containsKey(1); // true
+h.containsValue(2); // false
+h.isEmpty(); // false
+int value = h.get(1); // 3
+
+Hashtable<Integer, Integer> source = new Hashtable<Integer,Integer>();
+h = new HashMap(source);
+
+// Iterate through.
+Iterator<Integer> keySetIterator = h.keySet().iterator();
+while(keySetIterator.hasNext()){
+  Integer key = keySetIterator.next();
+  System.out.println("key: " + key + " value: " + map.get(key));
+}
+
+h.size();
+h.clear();
+
+Integer key = 1;
+Object value = h.remove(key); // key: 1
+
+// sort
+System.out.println("Unsorted HashMap: " + map);
+TreeMap sortedHashMap = new TreeMap(map);     
+System.out.println("Sorted HashMap: " + sortedHashMap); 
+
+
+
