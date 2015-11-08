@@ -6,8 +6,51 @@
 // @Last modified: 12/13/2012
 //
 
+// Improved from Solution_good. This is good, and passes all tests.
+class Solution_good2 {
+public:
+    vector<vector<int>> threeSum(vector<int>& num) {
+        vector<vector<int> > result;
+        sort(num.begin(), num.end());
+        int len = num.size();
+        int sum;
+        
+        for (int L = 0; L < len - 2; ++ L) {
+            if (L > 0 && num[L] == num[L - 1]) continue;
+            // search [L+1, len - 1] for 2 numbers whose sum = -num[L].
+            for (int M = L + 1, R = len - 1; M < R; ) {
+                sum = num[M] + num[R] + num[L];
+                if (sum == 0) {
+                    vector<int> x = getV(num[L], num[M], num[R]);
+                    if (find(result.begin(), result.end(), x) == result.end()) {
+                        result.push_back(x);
+                    }
+                    
+                    ++ M; -- R;
+                    while(M < R && num[M] == num[M - 1])  M ++;
+                    while(M < R && num[R] == num[R + 1])  R --;
+                } else if (sum < 0) {
+                    ++ M;
+                } else {
+                    -- R;
+                }
+            }
+        }
+        return result;  
+    }
+    
+    vector<int> getV(int a, int b, int c) {
+        vector<int> v;
+        v.push_back(a);
+        v.push_back(b);
+        v.push_back(c);
+        return v;
+    }    
+};
+
 // This one works without artificial hash! Just use find() method of <algorithm>:
 //     if (find(result.begin(), result.end(), x) == result.end()) { ... }
+// well, in most recent version, this will time out.
 class Solution_good {
 public:
     vector<vector<int> > threeSum(vector<int> &num) {
