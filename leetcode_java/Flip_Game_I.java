@@ -13,6 +13,7 @@ public class Solution {
     }
 };
 
+// See: https://leetcode.com/discuss/oj/flip-game
 // This works too. Is shorter.
 public List<String> generatePossibleNextMoves(String s) {
     List list = new ArrayList();
