@@ -1,3 +1,4 @@
+// See: https://leetcode.com/discuss/oj/flip-game
 class Solution {
 public:
     vector<string> generatePossibleNextMoves(string s) {
