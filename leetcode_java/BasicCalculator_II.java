@@ -1,4 +1,9 @@
 // See: classic solution: http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
+// EBNF:
+// E = T | { T +- T }
+// T = F | { F */ F }
+// F = (E) | num
+// This works for both Basic Calculator I and II.
 public class Solution {
     public int calculate(String s) {
         this.s = s;
