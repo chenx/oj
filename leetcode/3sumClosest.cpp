@@ -6,6 +6,41 @@
 // @Last modified: 1/9/2013
 //
 
+// This works too. Avoid dupliate entries by statements labeled with "//<-"
+class Solution2 {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        if (nums.size() <= 2) return 0;
+        int msum = 0, mdiff = INT_MAX;
+        sort(nums.begin(), nums.end());
+        
+        for (int L = 0, len = nums.size(); L < len - 2; ++ L) {
+            if (L > 0 && nums[L] == nums[L - 1]) ++ L; //<-
+            
+            for (int M = L + 1, R = len - 1; M < R; ) {
+                int sum = nums[L] + nums[M] + nums[R];
+                int diff = abs(sum - target);
+                
+                if (diff < mdiff) {
+                    mdiff = diff;
+                    msum = sum;
+                }
+                
+                if (sum <= target) {
+                    ++ M;
+                    if (M < R && nums[M] == nums[M-1]) ++ M; //<-
+                }
+                else {
+                    -- R;
+                    if (M < R && nums[R] == nums[R+1]) -- R; //<-
+                }
+            }
+        }
+        
+        return msum;
+    }
+};
+
 // This works.
 class Solution {
 public:
