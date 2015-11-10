@@ -98,3 +98,37 @@ public:
         return true;
     }
 };
+
+// This works. Iterative version.
+// From: https://leetcode.com/discuss/59888/my-concise-c-solution-without-using-recursion
+class Solution3 {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> result(1);
+        for(int i = 0, n = nums.size(); i < n; ++ i){
+            int size = result.size();
+            int m = result[0].size();
+            for(int j = 0; j < size; ++ j){
+                result[j].push_back(nums[i]);
+                for(int k = 0; k < m; ++ k){
+                    vector<int> v = result[j];
+                    swap(v[k], v[m]);
+                    result.push_back(v);
+                }
+            }     
+        }
+        return result;
+    }
+};
+
+
+/**
+Permutations
+Difficulty: Medium
+
+Given a collection of numbers, return all possible permutations.
+
+For example,
+[1,2,3] have the following permutations:
+[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1]. 
+ */
