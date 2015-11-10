@@ -1,3 +1,4 @@
+// Recursive version.
 public class Solution {
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> list = new ArrayList<List<Integer>>();
@@ -28,7 +29,7 @@ public class Solution {
 
 // This works too. Iterative version.
 // From: https://leetcode.com/discuss/67405/java-my-iterative-13ms-and-recursive-7ms-solutions
-public class Solution {
+public class Solution2 {
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> list = new ArrayList<List<Integer>>();
         List<Integer> kind = new ArrayList<Integer>();
@@ -47,6 +48,32 @@ public class Solution {
             }
         }
         return list;
+    }
+}
+
+// This works too. Another iterative version.
+// From: https://leetcode.com/discuss/63109/short-iterative-c-answer-8ms
+public class Solution3 {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        int[] p = new int[n];
+        for (int i = 0; i < n; ++ i) p[i] = 0;
+        
+        int i = 0;
+        while (i >= 0) {
+            p[i] ++;
+            if (p[i] > n) -- i;
+            else if (i == k - 1) { // note Arrays.asList(int []) won't work here.
+                List<Integer> q = new ArrayList<Integer>();
+                for (int j = 0; j < k; ++ j) q.add(p[j]);
+                result.add(q);
+            }
+            else {
+                ++ i;
+                p[i] = p[i - 1];
+            }
+        }
+        return result;      
     }
 }
 
