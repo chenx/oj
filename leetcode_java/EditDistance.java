@@ -22,6 +22,24 @@ public class Solution {
     }
 }
 
+// This also works, but times out for large input, 
+// since it does not store intermediate result.
+public class Solution2 {
+    public int minDistance(String word1, String word2) {
+        return minD(word1, word2, 0, 0);
+    }
+    
+    private int minD(String word1, String word2, int p1, int p2) {
+        if (p1 == word1.length()) return word2.length() - p2;
+        if (p2 == word2.length()) return word1.length() - p1;
+        
+        int ins = minD(word1, word2, p1 + 1, p2) + 1;
+        int del = minD(word1, word2, p1, p2 + 1) + 1;
+        int rep = minD(word1, word2, p1 + 1, p2 + 1) + (word1.charAt(p1) == word2.charAt(p2) ? 0 : 1);
+        return Math.min(rep, Math.min(ins, del));
+    }
+}
+
 /**
 Edit Distance
 Difficulty: Hard
