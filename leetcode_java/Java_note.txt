@@ -135,6 +135,22 @@ List<Integer> coinsList = new ArrayList<Integer>(); // Use ArrayList<Integer> co
 Integer[] coins = coinsList.toArray(new Integer[coinsList.size()]);
 
 
+-- Sort list (with customized comparator)
+List<Interval> intervals = new ArrayList<Interval>();
+Collections.sort(intervals, new Comp());
+
+class Comp implements Comparator<Interval> {
+    @Override
+    public int compare(Interval a, Interval b) {
+        if (a.start == b.start) {
+            if (a.end == b.end) return 0; // this is neede!
+            return a.end < b.end ? -1 : 1;
+        }
+        return a.start < b.start ? -1 : 1;
+    }
+}
+
+
 -- Java Queue
 // http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html
 Queue<Integer> q = new LinkedList<Integer>();
