@@ -211,8 +211,58 @@ public:
     }
 };
 
+// This also works.
+class Solution6 {
+public:
+    string countAndSay(int n) {
+        if (n <= 0) return "";
+        string s = "1";
+        
+        for (int i = 2; i <= n; ++ i) {
+            string t = "";
+            
+            char c = s[0];
+            int ct = 1;
+            for (int j = 1, lenj = s.length(); j < lenj; ++ j) {
+                if (c == s[j]) {
+                    ++ ct;
+                }
+                else {
+                    t += to_string(ct);
+                    t += c;
+                    
+                    c = s[j];
+                    ct = 1;
+                }
+            }
+            t += to_string(ct);
+            t += c;
+            
+            s = t;
+        }
+        
+        return s;        
+    }
+};
+
 int main() {
     Solution s;
     cout << s.countAndSay(4) << endl;
     return 0;
 }
+
+/**
+Count and Say
+Difficulty: Easy
+
+The count-and-say sequence is the sequence of integers beginning as follows:
+1, 11, 21, 1211, 111221, ...
+
+1 is read off as "one 1" or 11.
+11 is read off as "two 1s" or 21.
+21 is read off as "one 2, then one 1" or 1211.
+
+Given an integer n, generate the nth sequence.
+
+Note: The sequence of integers will be represented as a string. 
+ */
