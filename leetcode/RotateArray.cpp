@@ -18,6 +18,39 @@ public:
     }
 };
 
+// This works too.
+class Solution2 {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int len = nums.size();
+        k %= len; // this is needed!
+        reverse(nums, 0, len - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, len - 1);
+    }
+    
+    void reverse(vector<int>& A, int L, int R) {
+        while (L < R) {
+            int tmp = A[L];
+            A[L] = A[R];
+            A[R] = tmp;
+            ++ L; -- R;
+        }
+    }
+};
+
+// This works too.
+class Solution3 {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int len = nums.size();
+        k %= len;
+        reverse(nums.begin(), nums.end());
+        reverse(nums.begin(), nums.begin() + k); // note this is k, not k-1 !
+        reverse(nums.begin() + k, nums.end());
+    }
+};
+
 /**
 Rotate Array.
 
