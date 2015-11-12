@@ -19,6 +19,26 @@ public class Solution {
     }
 }
 
+// This works too.
+public class Solution2 {
+    public void rotate(int[] nums, int k) {
+        int len = nums.length;
+        k %= len; // this is needed!
+        reverse(nums, 0, len - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, len - 1);
+    }
+    
+    private void reverse(int[] A, int L, int R) {
+        while (L < R) {
+            int tmp = A[L];
+            A[L] = A[R];
+            A[R] = tmp;
+            ++ L; -- R;
+        }
+    }
+}
+
 /**
 Rotate Array.
 
