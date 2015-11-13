@@ -1,7 +1,7 @@
 // This works. 
 // Modified from: https://leetcode.com/discuss/67701/simple-solution-in-java
 // There are many ways to solving this. 
-// E.g., sort first, but that's O(nlogn). 
+// E.g., sort first, but that's O(nlogn). Or use a hash to count occurences, but space is O(n).
 // Key is to find a property to separate the 2 numbers.
 class Solution {
 public:
