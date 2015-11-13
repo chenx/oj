@@ -201,3 +201,12 @@ System.out.println("Sorted HashMap: " + sortedHashMap);
 
 
 
+==========================
+= C++ notes
+==========================
+
+-- convert string to int:
+string s = "123";
+istringstream iss(s);
+int val;
+iss >> val;
