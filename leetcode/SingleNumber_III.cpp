@@ -24,6 +24,46 @@ public:
     }
 };
 
+// This also works. 
+// From https://leetcode.com/discuss/61036/20-ms-c-solution
+class Solution2 {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        int xXor = nums[0];
+        for (int i = 1; i<nums.size(); i++) {
+            xXor = xXor ^ nums[i];
+        }
+    
+        // another way to get marker.
+        int marker = 1; 
+        while ((marker & xXor) != marker) {
+            marker = marker << 1;
+        }
+    
+        int resultX = 0;
+        for (int i = 0; i<nums.size(); i++) {
+            if (nums[i] & marker) {
+                resultX = resultX^nums[i];
+            }
+        }
+    
+        int resultY = resultX^xXor;
+    
+        return vector<int>{resultX, resultY};       
+    }
+};
+
+// This works too.
+// From: https://leetcode.com/discuss/58189/3-line-c-o-1-space-o-n-time
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        int a = 0, b = 0, s = accumulate(nums.begin(), nums.end(), 0, bit_xor<int>());
+        for (auto n : nums) (n & s & -s) ? a ^= n : b ^= n;
+        return vector<int>{a, b};
+    }
+};
+
 /**
 Single Number III
 Difficulty: Medium
