@@ -150,6 +150,8 @@ class Comp implements Comparator<Interval> {
     }
 }
 
+-- Java Deque
+https://docs.oracle.com/javase/7/docs/api/java/util/Deque.html
 
 -- Java Queue
 // http://docs.oracle.com/javase/7/docs/api/java/util/Queue.html
