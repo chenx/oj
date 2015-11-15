@@ -1,9 +1,53 @@
 //
 // http://www.leetcode.com/onlinejudge#
-// @Author: Xin Chen
+// @Author: X. Chen
 // @Created on: 12/27/2012
-// @Last modified: 12/27/2012
 //
+
+// This works too. More clear. 11/15/2015
+// The key is to find head and tail of each segment to reverse, and keep prev and next.
+class Solution2 {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if (head == NULL || head->next == NULL || k == 1) return head;
+        
+        ListNode *h = head, *prev = NULL, *t, *next;
+        int ct;
+        
+        while (h != NULL) {
+            for (t = h, ct = k - 1; ct > 0 && t != NULL; -- ct, t = t->next) {}
+            if (t == NULL) break; // less than k nodes. be carefull of this!
+            
+            next = t->next; // prev, next are nodes before/after the segment to reverse.
+            rev(h, t);
+            
+            if (prev == NULL) head = h;
+            else prev->next = h;
+
+            prev = t; // don't forget this!
+            h = t->next = next;
+        }
+        
+        return head;
+    }
+    
+    // reverse list h to t.
+    void rev(ListNode *&h, ListNode *&t) {
+        ListNode * new_tail = h;
+        t->next = NULL;
+        t = NULL;
+        
+        while (h != NULL) {
+            ListNode *tmp = h->next;
+            h->next = t;
+            t = h;
+            h = tmp;
+        }
+        
+        h = t;
+        t = new_tail;
+    }
+};
 
 /**
  * Definition for singly-linked list.
@@ -65,8 +109,9 @@ public:
 };
 
 /*
-Problem:
-        
+Reverse Nodes in k-Group
+Difficulty: Hard
+
 Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
 
 If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
