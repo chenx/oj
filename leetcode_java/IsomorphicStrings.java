@@ -1,3 +1,6 @@
+// This works.
+// No need to get signature, just check match situation:
+// verify that each char in s matches 1 and only 1 char in t, and vice versa.
 public class Solution {
     public boolean isIsomorphic(String s, String t) {
         return check(s, t) && check(t, s);        
