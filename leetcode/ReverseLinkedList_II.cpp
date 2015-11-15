@@ -60,9 +60,53 @@ public:
     }
 };
 
+// This works too. 11/15/2015
+class Solution2 {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (head == NULL || head->next == NULL || m >= n) return head;
+        
+        ListNode *h, *t, *prev, *next;
+        n -= m; // will count second node starting from first node.
+        
+        for (h = head, prev = NULL; m > 1 && h != NULL; -- m, prev = h, h = h->next) {}
+        if (h == NULL) return head;
+        
+        for (t = h->next; n > 1 && t != NULL; -- n, t = t->next) {}
+        if (t == NULL) return head;
+        
+        next = t->next;
+        
+        rev(h, t);
+
+        if (prev == NULL) head = h;
+        else prev->next = h;
+        
+        t->next = next;
+
+        return head;
+    }
+    
+    void rev(ListNode *&h, ListNode *&t) {
+        ListNode *newTail = h;
+        t->next = NULL;
+        t = NULL;
+        
+        while (h != NULL) {
+            ListNode *tmp = h->next;
+            h->next = t;
+            t = h;
+            h = tmp;
+        }
+        
+        h = t;
+        t = newTail;
+    }
+};
 
 /*
-Problem:
+Reverse Linked List II
+Difficulty: Medium
 
 Reverse a linked list from position m to n. Do it in-place and in one-pass.
 
@@ -73,6 +117,5 @@ return 1->4->3->2->5->NULL.
 
 Note:
 Given m, n satisfy the following condition:
-1 ¡Ü m ¡Ü n ¡Ü length of list.
-
+1 â‰¤ m â‰¤ n â‰¤ length of list. 
  */
