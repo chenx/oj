@@ -1,6 +1,59 @@
 #include <iostream>
 using namespace std;
 
+// This works too.
+class Solution4 {
+public:
+    void reverseWords(string &s) {
+        string t = "";
+        trim(s); 
+
+        char * p = (char *) s.c_str(), * p1 = p, * q, * next;
+        
+        // reverse entire string.
+        for (q = p; *q; ++ q) {}
+        -- q;
+        rev(p1, q); 
+        
+        // reverse each substring.
+        while (*p) {
+            if (*p == ' ') ++ p;
+            if (! *p) break;
+            
+            for (q = p; *q && *q != ' '; ++ q) {}
+            next = q; // next non empty char, or end of string.
+            -- q;
+            
+            rev((char *) p, (char *) q);
+            
+            p = next;
+        }
+        
+    }
+    
+    void trim(string &s) {
+        char * p = (char *) s.c_str(), * head = p, * i = p;
+
+        while (1) {
+            while (*i == ' ') ++ i;
+            if (! *i) { *p = '\0'; break; }
+            if (p != head) *p ++ = ' '; 
+            while (*i && *i != ' ') *p ++ = *i ++;
+        }
+
+        s = s.c_str();
+    }
+    
+    void rev(char * p, char * q) {
+        while (p < q) {
+            char c = *p;
+            *p = *q;
+            *q = c;
+            ++ p, -- q;
+        }
+    }
+};
+
 // This works too. Is most succinct.
 // Idea is: for "  w1   w2   w3 ", in each cycle, ignore space, until wn is found,
 // when getting wn, reverse it on the way, and add wn_reverse to final string t: 
