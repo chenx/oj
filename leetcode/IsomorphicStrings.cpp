@@ -1,3 +1,23 @@
+// This works too. Is better.
+// No need to get signature, just check match situation.
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        return check(s, t) && check(t, s);        
+    }
+    
+    bool check(string s, string t) {
+        unordered_map<char, char> m;
+        int len = s.length();
+        
+        for (int i = 0; i < len; ++ i) {
+            if (m.find(s[i]) == m.end()) m[s[i]] = t[i];
+            else if (m[s[i]] != t[i]) return false;
+        }
+        return true;
+    }
+};
+
 // This works.
 class Solution {
 public:
