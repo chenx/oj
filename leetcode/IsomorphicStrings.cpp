@@ -1,5 +1,6 @@
 // This works too. Is better.
-// No need to get signature, just check match situation.
+// No need to get signature, just check match situation:
+// verify that each char in s matches 1 and only 1 char in t, and vice versa.
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
