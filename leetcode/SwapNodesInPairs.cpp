@@ -141,6 +141,30 @@ public:
     }
 };
 
+// This works too. Seems like the best so far. 11/15/2015
+class Solution5 {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode *h = head, *prev = NULL;
+        
+        while (h != NULL && h->next != NULL) {
+            ListNode *tmp = h->next;
+            h->next = tmp->next;
+            tmp->next = h;
+            
+            if (prev == NULL) head = tmp;
+            else prev->next = tmp;
+            
+            prev = h;
+            h = prev->next;
+        }
+        
+        return head;        
+    }
+};
+
 /*
 Problem:
 
