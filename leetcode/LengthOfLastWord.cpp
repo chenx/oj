@@ -77,3 +77,22 @@ public:
         return end - s;
     }
 };
+
+// This works too.
+// Modified from Java version. May be the best, as no pointer is used.
+class Solution4 {
+public:
+    int lengthOfLastWord(string s) {
+        int p = s.length() - 1;
+        
+        for (; p >= 0 && s[p] == ' '; -- p) {}
+        if (p < 0) return 0; // all spaces.
+        
+        // now s[p] is last non-space char.
+        int q = p;
+        for (; q >= 0 && s[q] != ' '; -- q) {}
+        ++ q; // always increment q, no matter q < 0 or s[q] is space.
+        
+        return p - q + 1;        
+    }
+};
