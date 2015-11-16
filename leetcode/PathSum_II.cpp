@@ -60,6 +60,7 @@ public:
             if (root->val == sum) {
                 path.push_back(root->val);
                 ans.push_back(path);
+                path.erase(path.end() - 1); // let path use linear space.
             }
             return;
         }
@@ -67,6 +68,8 @@ public:
         path.push_back(root->val);
         hasPath(ans, path, root->left, sum - root->val);
         hasPath(ans, path, root->right, sum - root->val);
+
+        path.erase(path.end() - 1); // let path use linear space.
     }
 };
 
