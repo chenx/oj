@@ -6,6 +6,32 @@
 //
 
 // This works too.
+class Solution4 {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> list;
+        if (numRows == 0) return list;
+
+        vector<int> ls;
+        ls.push_back(1);
+        list.push_back(ls);
+        
+        for (int i = 1; i < numRows; ++ i) {
+            vector<int> ls;
+            ls.push_back(1);
+            vector<int> &ls0 = list[i-1];
+            for (int j = 1; j < i; ++ j) { // be careful of boundary: j < i
+                ls.push_back(ls0[j-1] + ls0[j]);
+            }
+            ls.push_back(1);
+            list.push_back(ls);
+        }
+        
+        return list;        
+    }
+};
+
+// This works too.
 class Solution3 {
 public:
     vector<vector<int> > generate(int numRows) {
