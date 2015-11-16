@@ -214,6 +214,28 @@ while (it.hasNext()) {
     System.out.println(it.next());
 }
 
+-- Java PriorityQueue
+
+
+Comparator<ListNode> comp = new MyComp();
+PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(comp);
+
+ListNode n = new ListNode(1);
+q.add(n);
+ListNode top = q.peek();
+q.remove();
+q.isEmpty(); // true.
+
+class MyComp implements Comparator<ListNode> {
+    @Override
+    public int compare(ListNode a, ListNode b) {
+        if (a.val == b.val) return 0;
+        if (a.val < b.val) return -1; // min head
+        return 1;
+    }
+}
+
+
 
 ==========================
 = C++ notes
