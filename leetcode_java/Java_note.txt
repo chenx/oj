@@ -224,3 +224,20 @@ string s = "123";
 istringstream iss(s);
 int val;
 iss >> val;
+
+-- priority_queue
+
+class cmp {
+public:
+    bool operator()(const ListNode *a, const ListNode *b) const {
+        return a->val > b->val; // min heap.
+    }
+};
+
+priority_queue<ListNode *, vector<ListNode *>, cmp> q;
+ListNode * n = new ListNode(1);
+q.push(n);
+ListNode * tmp = q.top();
+q.pop();
+
+
