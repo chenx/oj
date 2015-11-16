@@ -160,6 +160,49 @@ public:
     }
 };
 
+// This works too.
+class Solution4 {
+public:
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
+        if (beginWord == endWord) return 1;
+        queue<pair<string, int>> q; // <string, distance>
+        unordered_set<string> used;
+        int dist = 0;
+        
+        q.push(pair<string, int>(beginWord, 1));
+        used.insert(beginWord);
+        
+        while (! q.empty()) {
+            string s = q.front().first;
+            int d = q.front().second;
+            q.pop();
+            
+            for (int i = 0, len = s.length(); i < len; ++ i) {
+                char c = s[i];
+                for (int j = 0; j < 26; ++ j) {
+                    if (c == 'a' + j) continue;
+
+                    s[i] = 'a' + j;
+                    
+                    if (s == endWord) {
+                        if (dist == 0 || dist > 1 + d) dist = 1 + d;
+                    }
+                    else {
+                        if (wordList.find(s) != wordList.end() 
+                            && used.find(s) == used.end()) {
+                            q.push(pair<string, int>(s, 1 + d));
+                            used.insert(s);
+                        }
+                    }
+                } // end of for 
+                s[i] = c; // recover s[i].
+            } // end of for
+        } // end of while
+        
+        return dist;
+    }
+};
+
 /*
 Problem:
         
