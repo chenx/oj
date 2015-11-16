@@ -202,6 +202,18 @@ TreeMap sortedHashMap = new TreeMap(map);
 System.out.println("Sorted HashMap: " + sortedHashMap); 
 
 
+-- Java HashSet
+
+HashSet<Integer> h = new HashSet<Integer>();
+h.add(1);
+h.contains(1); // true
+h.remove(1);
+
+Iterator it = h.iterator();
+while (it.hasNext()) {
+    System.out.println(it.next());
+}
+
 
 ==========================
 = C++ notes
