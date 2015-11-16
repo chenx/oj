@@ -4,10 +4,11 @@ public class Solution {
         if (word.length() == 0) return true;
         int rows = board.length, cols = board[0].length;
         
+        boolean[][] used = initUsedMatrix(rows, cols); // it works here.
         for (int i = 0; i < rows; ++ i) {
             for (int j = 0; j < cols; ++ j) {
                 if (board[i][j] == word.charAt(0)) {
-                    boolean[][] used = initUsedMatrix(rows, cols);
+                    //boolean[][] used = initUsedMatrix(rows, cols); // no need here.
                     if (search(board, i, j, used, word, 0)) return true;
                 }
             }
