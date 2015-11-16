@@ -5,6 +5,7 @@
 // @Last modified: 12/25/2012
 //
 
+// complexity: (n1 + n2 + .. + nk) * log(k)
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -290,3 +291,12 @@ int main() {
     
     return 0;
 }
+
+
+/**
+Merge k Sorted Lists
+Difficulty: Hard
+
+Merge k sorted linked lists and return it as one sorted list. 
+Analyze and describe its complexity. 
+ */
