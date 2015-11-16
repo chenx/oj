@@ -7,6 +7,34 @@
 
 #include <iostream>
 using namespace std;
+// This works too, although not so obvious why.
+// From: https://leetcode.com/discuss/65622/simple-c-solution
+class Solution4 {
+public:
+    bool canJump(vector<int>& nums) {
+        int u = 1;
+        for (int i = 0; i < nums.size(); i ++){
+            if (-- u < 0) return false;
+            u = max(nums[i], u);
+        }
+        return true;
+    }
+};
+
+// This works too. 
+// From: https://leetcode.com/discuss/69187/simple-c-solution
+class Solution3 {
+public:
+    bool canJump(vector<int>& nums) {
+        int target = nums.size() - 1;
+
+        for (int i = target - 1; i >= 0; -- i){
+            if (nums[i] + i >= target) target = i;
+        }
+
+        return target == 0;
+    }
+}
 
 // Added 2/19/2013. Better solution. Uses DP.
 // Fill can[] table backward.
