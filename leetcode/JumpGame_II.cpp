@@ -8,6 +8,35 @@
 #include <iostream>
 using namespace std;
 
+// This works too.
+class Solution7 {
+public:
+    int jump(vector<int>& nums) {
+        int len = nums.size();
+        vector<int> ct(len, -1);
+        ct[len - 1] = 0;
+        
+        for (int i = len - 2; i >= 0; -- i) {
+            if (nums[i] + i >= len - 1) {
+                ct[i] = 1;
+                continue;
+            }
+            for (int j = nums[i]; j > 0; -- j) {
+                if (ct[i + j] >= 0) {
+                    if (ct[i] == -1) ct[i] = 1 + ct[i + j];
+                    else {
+                        ct[i] = min(ct[i], 1 + ct[i + j]);
+                    }
+
+                    if (ct[i] == 2) break;
+                }
+            }
+        }
+        
+        return ct[0];
+    }
+};
+
 // This works. 11/9/2014
 class Solution6 {
 public:
