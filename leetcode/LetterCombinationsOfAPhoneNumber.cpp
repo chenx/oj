@@ -10,7 +10,7 @@ public:
     vector<string> letterCombinations(string digits) {
         vector<string> v;
         if (digits == "") {
-            v.push_back("");
+            //v.push_back("");
             return v;
         }
         
@@ -43,6 +43,7 @@ class Solution2 {
 public:
     vector<string> letterCombinations(string digits) {
         vector<string> ans;
+        if (digits == "") return ans;
         string s;
         getComb(ans, s, digits, 0);
         
@@ -90,8 +91,9 @@ public:
         
         char c = digits[pos];
         if (c >= '2' && c <= '9') {
-            for (int i = 0, len = m[c - '2'].length(); i < len; ++ i) {
-                getComb(ans, digits, pos + 1, s + m[c - '2'][i]);
+            string v = m[c - '2'];
+            for (int i = 0, len = v.length(); i < len; ++ i) {
+                getComb(ans, digits, pos + 1, s + v[i]);
             }
         } 
         else {
