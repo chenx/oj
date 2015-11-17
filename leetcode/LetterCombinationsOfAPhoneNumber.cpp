@@ -66,3 +66,36 @@ public:
         }
     }
 };
+
+
+// This works too. 11/16/2015
+class Solution3 {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        if (digits == "") return ans;
+        
+        string s = "";
+        getComb(ans, digits, 0, s);
+        return ans;
+    }
+    
+    void getComb(vector<string> &ans, string &digits, int pos, string s) {
+        if (pos == digits.length()) {
+            ans.push_back(s);
+            return;
+        }
+        
+        static string m[] = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        
+        char c = digits[pos];
+        if (c >= '2' && c <= '9') {
+            for (int i = 0, len = m[c - '2'].length(); i < len; ++ i) {
+                getComb(ans, digits, pos + 1, s + m[c - '2'][i]);
+            }
+        } 
+        else {
+            getComb(ans, digits, pos + 1, s + digits[pos]);
+        }
+    }
+};
