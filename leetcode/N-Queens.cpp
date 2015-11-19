@@ -196,7 +196,7 @@ public:
     
     bool conflict(vector<int> &v, int pos) {
         for (int i = 0; i < pos; ++ i) {
-            if (v[i] == v[pos] || abs(pos - i) == abs(v[pos] - v[i])) return true;
+            if (v[i] == v[pos] || pos - i == abs(v[pos] - v[i])) return true;
         }
         return false;
     }
