@@ -35,7 +35,7 @@ public class Solution {
     
     private boolean conflict(int[] v, int level) {
         for (int i = 0; i < level; ++ i) {
-            if (v[i] == v[level] || Math.abs(level - i) == Math.abs(v[level] - v[i])) return true;
+            if (v[i] == v[level] || level - i == Math.abs(v[level] - v[i])) return true;
         }
         return false;
     }
