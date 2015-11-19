@@ -167,6 +167,41 @@ public:
     }
 };
 
+// This works too. Seems best so far.
+class Solution4 {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<int> v(n, 0);
+        solve(ans, v, 0, n);
+        return ans;
+    }
+    
+    void solve(vector<vector<string>> &ans, vector<int> &v, int pos, int n) {
+        if (pos == n) {
+            vector<string> u;
+            for (int i = 0; i < n; ++ i) { // string(int n, char c): cc..c
+                string s = string(v[i] - 1, '.') + "Q" + string(n - v[i], '.');
+                u.push_back(s);
+            }
+            ans.push_back(u);
+            return;
+        }
+        
+        for (int i = 0; i < n; ++ i) {
+            v[pos] = i + 1;
+            if (! conflict(v, pos)) solve(ans, v, pos + 1, n);
+        }
+    }
+    
+    bool conflict(vector<int> &v, int pos) {
+        for (int i = 0; i < pos; ++ i) {
+            if (v[i] == v[pos] || abs(pos - i) == abs(v[pos] - v[i])) return true;
+        }
+        return false;
+    }
+};
+
 int main() {
     Solution s;
     vector<vector<string> > r = s.solveNQueens(4);
@@ -181,3 +216,33 @@ int main() {
 
     return 0;
 }
+
+
+/**
+N-Queens
+Difficulty: Hard
+
+The n-queens puzzle is the problem of placing n queens on an n×n chessboard 
+such that no two queens attack each other.
+
+Given an integer n, return all distinct solutions to the n-queens puzzle.
+
+Each solution contains a distinct board configuration of the n-queens' placement, 
+where 'Q' and '.' both indicate a queen and an empty space respectively.
+
+For example,
+There exist two distinct solutions to the 4-queens puzzle:
+
+[
+ [".Q..",  // Solution 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // Solution 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+ */
+ 
