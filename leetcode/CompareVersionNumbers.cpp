@@ -1,3 +1,40 @@
+// This works. Is best. 11/17/2015
+class Solution3 {
+public:
+    int compareVersion(string version1, string version2) {
+        int v1, v2, p1 = 0, p2 = 0, 
+            n1 = version1.length(), n2 = version2.length();
+            
+        while (p1 < n1 && p2 < n2) {
+            v1 = getV(version1, n1, p1); 
+            v2 = getV(version2, n2, p2);
+            if (v1 < v2) return -1;
+            if (v1 > v2) return 1;
+        }
+        
+        while (p1 < n1) {
+            v1 = getV(version1, n1, p1);
+            if (v1 > 0) return 1;
+        }
+        while (p2 < n2) {
+            v2 = getV(version2, n2, p2);
+            if (v2 > 0) return -1;
+        }
+        
+        return 0;
+    }
+    
+    int getV(string s, int n, int &p) {
+        if (p < n && s[p] == '.') ++ p;
+        int v = 0;
+        for (; p < n && s[p] != '.'; ++ p) {
+            v = v * 10 + (s[p] - '0');
+        }
+        return v;
+    }
+};
+
+// This no longer works, for test case like "1.0.1" v.s. "1". 11/17/2015
 // This works too. 2/16/2015
 class Solution2 {
 public:
@@ -31,6 +68,7 @@ public:
     }
 };
 
+// This no longer works, for test case like "1.0.1" v.s. "1". 11/17/2015
 /**
  * This works.
  * Be careful when one ends, but the other got more section.
