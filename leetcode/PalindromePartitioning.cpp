@@ -12,6 +12,50 @@
 //
 
 // This works too.
+// Different from Solution2 only in index position.
+// X.C. 11/26/2015
+class Solution3 {
+public:
+    vector<vector<string>> partition(string s) {
+        int n = s.length();
+        vector<vector<vector<string>>> ans(1 + n);
+        if (n == 0) return ans[0];
+        
+        for (int i = 0; i < n; ++ i) {
+            // check substring s.substr(0, i+1).
+            string t = s.substr(0, i + 1);
+            if (isPalindrome(t)) {
+                vector<string> v(1);
+                v[0] = t;
+                ans[i].push_back(v);
+            }
+            
+            for (int j = i; j > 0; -- j) {
+                string t = s.substr(j, i - j + 1);
+                if (isPalindrome(t)) {
+                    vector<vector<string>> v = ans[j - 1]; 
+                    for (int k = 0; k < v.size(); ++ k) {
+                        v[k].push_back(t);
+                        ans[i].push_back(v[k]);
+                    }
+                }
+            }
+        }
+        
+        return ans[n-1];
+    }
+    
+    bool isPalindrome(string t) {
+        int L = 0, R = t.size() - 1;
+        while (L < R) {
+            if (t[L] != t[R]) return false;
+            ++ L; -- R;
+        }
+        return true;
+    }
+};
+
+// This works too.
 // Different from Solution only in index position.
 // X.C. 1/25/2015
 class Solution2 {
