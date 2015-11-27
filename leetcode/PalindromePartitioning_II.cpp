@@ -16,6 +16,40 @@
 #include <string>
 using namespace std;
 
+// This works. 
+// The Manancher-like solution scan the array from left to right (for i loop) 
+// and only check those sub-strings centered at s[i]; once a non-palindrome 
+// string is found, it will stop and move to i+1. Same as the DP solution, 
+// minCUTS[i] is used to save the minimum cuts for s[0:i-1]. For each i, we 
+// do two for loops (for j loop) to check if the substrings s[i-j .. i+j] 
+// (odd-length substring) and s[i-j-1.. i+j] (even-length substring) are palindrome.
+// By increasing j from 0, we can find all the palindrome sub-strings centered 
+// at i and update minCUTS accordingly. Once we meet one non-palindrome sub-string, 
+// we stop for-j loop since we know there no further palindrome substring centered 
+// at i. This helps us avoid unnecessary palindrome substring checks, as we did 
+// in the DP algorithm. Therefore, this version is faster. 
+// From: https://leetcode.com/discuss/47140/two-versions-given-one-28ms-one-manancher-like-algorithm-10
+class Solution5 {
+public:
+    int minCut(string s) {
+        const int N = s.size();
+        if(N<=1) return 0;
+
+        int i, j, minCUTS[N+1];
+        for(i=0; i<=N; ++i) minCUTS[i] = i-1;
+
+        for(i=1;i<N;i++)
+        {
+            for(j=0;(i-j)>=0 && (i+j)<N && s[i-j]== s[i+j]; ++j) // odd-length substrings 
+                minCUTS[i+j+1] = min(minCUTS[i+j+1], 1 + minCUTS[i-j]);
+
+            for(j=0;(i-j-1)>=0 && (i+j)<N && s[i-j-1]== s[i+j]; ++j) // even-length substrings
+                minCUTS[i+j+1] = min(minCUTS[i+j+1], 1 + minCUTS[i-j-1]);
+        }
+        return minCUTS[N];
+    }
+}    
+    
 // Should work. Although time out for large input.
 // Most clean version so far. 2/15/2015. XC.
 class Solution4 {
