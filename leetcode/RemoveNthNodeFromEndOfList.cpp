@@ -20,6 +20,34 @@
  * 4) release memory of the deleted node.
  */
 
+// This works too. Is most clear.
+// Just be careful of case when n == list.length, i.e., remove first node.
+class Solution3 {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *first = head, *last = head;
+        
+        for (; n > 0; -- n) first = first->next;
+        if (first == NULL) { // remove head node.
+            ListNode *tmp = head;
+            head = head->next;
+            delete tmp;
+        }
+        else {
+            while (first->next != NULL) {
+                first = first->next;
+                last  = last->next;
+            }
+            
+            ListNode *tmp = last->next;
+            last->next = tmp->next;
+            delete tmp;
+        }
+        
+        return head;
+    }
+};
+
 // This works too. 10/26/2014
 class Solution2 {
 public:
@@ -93,7 +121,8 @@ public:
 };
 
 /*
-Problem:
+Remove Nth Node From End of List
+Difficulty: Easy
 
 Given a linked list, remove the nth node from the end of list and return its head.
 
@@ -102,8 +131,8 @@ For example,
    Given linked list: 1->2->3->4->5, and n = 2.
 
    After removing the second node from the end, the linked list becomes 1->2->3->5.
+
 Note:
 Given n will always be valid.
-Try to do this in one pass.
-
+Try to do this in one pass. 
  */
