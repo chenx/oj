@@ -59,9 +59,35 @@ public:
     }
 };
 
+// This works too.
+class Solution3 {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> v;
+        if (matrix.size() == 0 || matrix[0].size() == 0) return v;
+        int x = 0, y = 0, X = matrix.size() - 1, Y = matrix[0].size() - 1, i, j;
 
-/*
-Problem:
+        while (x <= X && y <= Y) {
+            for (i = x, j = y; j <= Y; ++ j) v.push_back(matrix[i][j]);
+
+            for (-- j, ++ i; i <= X; ++ i) v.push_back(matrix[i][j]);
+
+            if (-- i == x) break; // be careful here.
+            for (-- j; j >= y; -- j) v.push_back(matrix[i][j]);
+
+            if (++ j == Y) break; // be careful here.
+            for (-- i; i > x; -- i) v.push_back(matrix[i][j]);
+
+            ++ x; -- X; ++ y; -- Y;
+        }
+        
+        return v;
+    }
+};
+
+/**
+Spiral Matrix
+Difficulty: Medium
 
 Given a matrix of m x n elements (m rows, n columns), 
 return all elements of the matrix in spiral order.
@@ -74,5 +100,6 @@ Given the following matrix:
  [ 4, 5, 6 ],
  [ 7, 8, 9 ]
 ]
-You should return [1,2,3,6,9,8,7,4,5].
+
+You should return [1,2,3,6,9,8,7,4,5]. 
  */
