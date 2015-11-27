@@ -4,41 +4,32 @@
 // @Created on: 12/18/2012
 // @Last modified: 12/18/2012
 //
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
  
- * Special conditions to consider:
- * - if list length L < k, rotate (k % L) right.
- * - if L == k, don't rotate.
- */
-class Solution {
+// This works too. And seem more clear.
+class Solution3 {
 public:
-    ListNode *rotateRight(ListNode *head, int k) {
-        if (NULL == head || k == 0) return head;
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == NULL || head->next == NULL) return head;
         
-        ListNode * n1 = head, * n2 = head;
-        int ct = 0;
-        while (n2 != NULL && ct < k) {
-            n2 = n2->next;
-            ct ++;
+        int len = 0;
+        ListNode *h = head, *t = NULL; // t is tail node.
+        while (h != NULL) {
+            t = h;
+            h = h->next;
+            ++ len;
         }
-        if (ct < k) return rotateRight(head, k % ct);
-        if (n2 == NULL) return head;
         
-        while(n2->next != NULL) {
-            n2 = n2->next;
-            n1 = n1->next;
-        }
-        n2->next = head;
-        head = n1->next;
-        n1->next = NULL;
+        k = k % len;
+        if (k == 0) return head;
         
-        return head;
+        k = len - 1 - k;
+        for (h = head; k > 0; -- k) h = h->next; // h becomes new tail node.
+        
+        t->next = head;
+        head = h->next;
+        h->next = NULL;
+        
+        return head;        
     }
 };
 
@@ -69,6 +60,44 @@ public:
         n1->next = head;
         head = n2->next;
         n2->next = NULL;
+        
+        return head;
+    }
+};
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ * Special conditions to consider:
+ * - if list length L < k, rotate (k % L) right.
+ * - if L == k, don't rotate.
+ */
+class Solution {
+public:
+    ListNode *rotateRight(ListNode *head, int k) {
+        if (NULL == head || k == 0) return head;
+        
+        ListNode * n1 = head, * n2 = head;
+        int ct = 0;
+        while (n2 != NULL && ct < k) {
+            n2 = n2->next;
+            ct ++;
+        }
+        if (ct < k) return rotateRight(head, k % ct);
+        if (n2 == NULL) return head;
+        
+        while(n2->next != NULL) {
+            n2 = n2->next;
+            n1 = n1->next;
+        }
+        n2->next = head;
+        head = n1->next;
+        n1->next = NULL;
         
         return head;
     }
