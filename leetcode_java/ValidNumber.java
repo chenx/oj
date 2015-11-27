@@ -1,3 +1,5 @@
+// Number := [ ]*(+|-)Real(e(+|-)[\d]+)[ ]*
+// Real := [\d]+[\.][\d]+ or [\d]+[\.] or [\.][\d]+
 public class Solution {
     public boolean isNumber(String s) {
         p = 0; 
