@@ -318,6 +318,45 @@ public:
     }
 };
 
+// This works too.
+class Solution5 {
+public:
+    bool isNumber(string s) {
+        int p = 0, len = s.length();
+        
+        while (isspace(s[p])) ++ p;
+        if (p == len) return false;
+        
+        if (s[p] == '-' || s[p] == '+') ++ p;
+        
+        if (isdigit(s[p])) {
+            while (isdigit(s[p])) { ++ p; }
+            if (s[p] == '.') ++ p;
+            while (isdigit(s[p])) { ++ p; }
+        }
+        else if (s[p] == '.') {
+            ++ p;
+            if (! isdigit(s[p])) return false;
+            while (isdigit(s[p])) { ++ p; }
+        }
+        else { return false; }
+        
+        if (s[p] == 'e') {
+            ++ p;
+            if (s[p] == '+' || s[p] == '-') ++ p;
+            if (! isdigit(s[p])) return false;
+            while (isdigit(s[p])) { ++ p; }
+        }
+        
+        while (isspace(s[p])) ++ p;
+        return p == len;
+    }
+    
+    bool isdigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+};
+
 
 int main() {
     return 0;
