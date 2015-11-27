@@ -12,7 +12,7 @@
 // This obviously can be simplified since here row and column are equal.
 // So here Solution2 is still the best.
 //
-class Solution3 {
+class Solution4 {
 public:
     vector<vector<int> > generateMatrix(int n) {
         vector<vector<int> > v(n, vector<int>(n, 0));
@@ -28,6 +28,26 @@ public:
             for (i = X - 1, j = y; i > x && j < Y; -- i) v[i][j] = k ++;
             
             ++ x, ++ y, -- X, -- Y;
+        }
+        
+        return v;        
+    }
+};
+
+// This works too.
+class Solution3 {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> v(n, vector<int>(n));
+        int k = 0, x = 0, X = n-1, i, j;
+        
+        while (x <= X) {
+            for (i = x, j = x; j <= X; ++ j) v[i][j] = ++ k;
+            for (-- j, ++ i; i <= X; ++ i) v[i][j] = ++ k;
+            for (-- i, -- j; j >= x; -- j) v[i][j] = ++ k;
+            for (++ j, -- i; i > x; -- i) v[i][j] = ++ k;
+            
+            ++ x; -- X;
         }
         
         return v;        
@@ -123,8 +143,9 @@ public:
 };
 
 /*
-Problem:
-        
+Spiral Matrix II
+Difficulty: Medium
+
 Given an integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
 
 For example,
@@ -136,5 +157,4 @@ You should return the following matrix:
  [ 8, 9, 4 ],
  [ 7, 6, 5 ]
 ]
-
  */
