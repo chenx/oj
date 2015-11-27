@@ -8,6 +8,9 @@
 #include <iostream>
 using namespace std;
 
+// Number := [ ]*(+|-)Real(e(+|-)[\d]+)[ ]*
+// Real := [\d]+[\.][\d]+ or [\d]+[\.] or [\.][\d]+
+
 class Solution {
 public:
     bool isNumber(const char *s) {
