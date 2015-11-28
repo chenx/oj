@@ -41,15 +41,15 @@ class Solution2 {
             // Start typing your C/C++ solution below  
             // DO NOT write int main() function      
             if (*p == '\0') return *s == '\0';  
-            if (*(p+1) == '*') // Ä£Ê½´®µÄÏÂÒ»¸ö×Ö·ûÊÇ'*'  
+            if (*(p+1) == '*') // æ¨¡å¼ä¸²çš„ä¸‹ä¸€ä¸ªå­—ç¬¦æ˜¯'*'  
             {  
                 while(*p == *s || (*p == '.' && *s != '\0'))  
                 {  
-                    //×Ö·û´®ÓëÄ£Ê½´®Æ¥Åä0/1/2...¸ö×Ö·ûµÄÇé¿ö  
+                    //å­—ç¬¦ä¸²ä¸æ¨¡å¼ä¸²åŒ¹é…0/1/2...ä¸ªå­—ç¬¦çš„æƒ…å†µ  
                     if (isMatch(s++, p+2))  
                         return true;  
                 }  
-                // ×Ö·û´®ÓëÄ£Ê½´®²»ÄÜÆ¥Åä  
+                // å­—ç¬¦ä¸²ä¸æ¨¡å¼ä¸²ä¸èƒ½åŒ¹é…  
                 return isMatch(s, p+2);  
             }  
             else  
@@ -83,29 +83,25 @@ class Solution2 {
                 return false;  
             }  
         }          
-
-    // This works too, modified from isMatch3.
-    bool isMatch3(const char *s, const char *p) {
-        if (!s && !p) return true;
-        if (!s || !p) return false;
-
-        if (!*p) return !*s;
-        
-        if (*(p+1) == '*') {
-            if (*s == *p || (*p == '.' && *s)) {
-                return isMatch(s, p+2) || isMatch(s+1, p);   
+    
+        // This works too, modified from isMatch2.
+        // Best answer!!!
+        bool match3(const char *s, const char *p) {
+            if (!*p) return !*s;
+            
+            if (*(p+1) == '*') {
+                if (*s == *p || (*p == '.' && *s)) {
+                    return isMatch(s, p+2) || isMatch(s+1, p);   
+                }
+                return isMatch(s, p+2);
+            }
+            else if (*s == *p || (*p == '.' && *s)) {
+                return isMatch(s+1, p+1);
             }
             else {
-                return isMatch(s, p+2);
-            }            
+                return false;
+            }
         }
-        else if (*s == *p || (*p == '.' && *s)) {
-            return isMatch(s+1, p+1);
-        }
-        else {
-            return false;
-        }
-    }
 };  
     
     
