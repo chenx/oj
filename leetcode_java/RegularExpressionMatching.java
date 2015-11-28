@@ -4,14 +4,13 @@ public class Solution {
     }
     
     boolean match(String s, int is, String p, int ip) {
-        if (is == s.length() && ip == p.length()) return true;
-        if (ip == p.length()) return false;
+        if (ip == p.length()) return is == s.length();
         
         if (ip < p.length() - 1 && p.charAt(ip + 1) == '*') {
             if (is < s.length() && (p.charAt(ip) == s.charAt(is) || p.charAt(ip) == '.')) {
                 return match(s, is + 1, p, ip) || match(s, is, p, ip + 2);
             }
-            else return match(s, is, p, ip + 2);
+            return match(s, is, p, ip + 2);
         }
         else if (is < s.length() && (p.charAt(ip) == s.charAt(is) || p.charAt(ip) == '.')) {
             return match(s, is + 1, p, ip + 1);
