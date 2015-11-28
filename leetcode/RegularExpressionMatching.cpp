@@ -85,8 +85,7 @@ class Solution2 {
         }          
     
         // This works too, modified from isMatch2.
-        // Best answer!!!
-        bool match3(const char *s, const char *p) {
+        bool isMatch3(const char *s, const char *p) {
             if (!*p) return !*s;
             
             if (*(p+1) == '*') {
@@ -102,6 +101,25 @@ class Solution2 {
                 return false;
             }
         }
+        
+        // Modified from match3.
+        // This works too. Best answer!!!
+        bool isMatch4(const char *s, const char *p) {
+            if (!*p) return !*s;
+            
+            if (*(p+1) == '*') {
+                if (*s && (*s == *p || *p == '.')) {
+                    return isMatch(s, p+2) || isMatch(s+1, p);   
+                }
+                return isMatch(s, p+2);
+            }
+            else if (*s && (*s == *p || *p == '.')) {
+                return isMatch(s+1, p+1);
+            }
+            else {
+                return false;
+            }
+        }        
 };  
     
     
