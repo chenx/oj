@@ -1,6 +1,80 @@
 #include <iostream>
 using namespace std;
 
+// This works too. Modified from Solution4.
+class Solution5 {
+public:
+    bool isMatch(string s, string p) {
+        int ip0 = 0, is0 = 0, ip = 0, is = 0;
+        bool starFound = false;
+        
+        while (true) {
+            if (is == s.length()) {
+                while (p[ip] == '*') ++ ip;
+                return ip == p.length();
+            }
+
+            if (p[ip] == '?' || p[ip] == s[is]) {
+                ++ ip; 
+                ++ is;
+            }
+            else if (p[ip] == '*') {
+                ip0 = ip; 
+                is0 = is;
+                starFound = true;
+                ++ ip;
+            }
+            else {
+                if (starFound) {
+                    ip = ip0;
+                    is = ++ is0;
+                    ++ ip;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }
+};
+
+// This works too. Modified from Java version.
+class Solution4 {
+public:
+    bool isMatch(string s, string p) {
+        int ip0 = 0, is0 = 0, ip = 0, is = 0;
+        bool starFound = false;
+        
+        while (true) {
+            if (is == s.length()) {
+                while (ip < p.length() && p[ip] == '*') ++ ip;
+                return ip == p.length();
+            }
+
+            if (ip < p.length() && (p[ip] == '?' || p[ip] == s[is])) {
+                ++ ip; 
+                ++ is;
+            }
+            else if (ip < p.length() && p[ip] == '*') {
+                ip0 = ip; 
+                is0 = is;
+                starFound = true;
+                ++ ip;
+            }
+            else {
+                if (starFound) {
+                    ip = ip0;
+                    is = ++ is0;
+                    ++ ip;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }
+};
+
 // This works too, pass both small and large test sets.
 // Probably better than Solution, since the code is simpler.
 class Solution3 {
