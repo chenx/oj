@@ -19,7 +19,7 @@ public:
             else R = M - 1;
         }
         
-        int row = R; // <- !!!
+        int row = R; // <- Or: L-1
         if (row < 0) return false;
         
         L = 0, R = matrix[0].size() - 1;
