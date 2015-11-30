@@ -10,13 +10,13 @@
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int len = nums1.size() + nums2.size();
+        int m = nums1.size(), n = nums2.size(), len = m + n;
         if (len & 1 == 1) {
-            return getKth(nums1, 0, nums1.size(), nums2, 0, nums2.size(), 1 + len/2);
+            return getKth(nums1, 0, m, nums2, 0, n, 1 + len/2);
         }
         else {
-            return (getKth(nums1, 0, nums1.size(), nums2, 0, nums2.size(), len/2) +
-                getKth(nums1, 0, nums1.size(), nums2, 0, nums2.size(), 1 + len/2)) / 2.0;
+            return (getKth(nums1, 0, m, nums2, 0, n, len/2) +
+                    getKth(nums1, 0, m, nums2, 0, n, 1 + len/2)) / 2.0;
         }
     }
     
