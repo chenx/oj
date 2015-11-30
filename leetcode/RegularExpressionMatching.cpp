@@ -1,6 +1,31 @@
 #include <iostream>
 using namespace std;
 
+// This works. Modified from Java version.
+class Solution4 {
+public:
+    bool isMatch(string s, string p) {
+        return m(s, 0, p, 0);
+    }
+    
+    bool m(string s, int is, string p, int ip) {
+        if (ip == p.length()) return is == s.length();
+        
+        if (ip < p.length() - 1 && p[ip+1] == '*') {
+            if (is < s.length() && (p[ip] == s[is] || p[ip] == '.')) {
+                return m(s, is+1, p, ip) || m(s, is, p, ip+2);
+            }
+            return m(s, is, p, ip+2);
+        }
+        else if (is < s.length() && (p[ip] == s[is] || p[ip] == '.')) {
+            return m(s, is+1, p, ip+1);
+        }
+        else {
+            return false;
+        }        
+    }
+};
+
 // No ****** in a row.
 class Solution {
 public:
