@@ -5,6 +5,28 @@
 // @Last modified: 12/24/2012
 //
 
+// This works too. Modified from Solution2. 11/29/2015
+class Solution3 {
+public:
+    string intToRoman(int num) {
+        string s;
+        string roman[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int val[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        
+        for (int i = 0, len = sizeof(val) / sizeof(int); i < len; ++ i) {
+            eval(num, s, val[i], roman[i]);
+        }
+        return s;
+    }
+    
+    void eval(int &num, string &s, int v, string roman) {
+        while (num >= v) {
+            s += roman;
+            num -= v;
+        }
+    }
+};
+
 // This works too. 11/7/2014
 class Solution2 {
 public:
