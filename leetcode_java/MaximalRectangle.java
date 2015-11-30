@@ -1,4 +1,45 @@
-// This should work. But times out for large input.
+// This works. Passed all tests.
+// Seems only 1 cycle is needed. So it's O(mn).
+public class Solution2 {
+    public int maximalRectangle(char[][] matrix) {
+        if(matrix == null || matrix.length == 0) return 0;
+    
+        int rows = matrix.length, cols = matrix[0].length;
+        int[] v = new int[cols+1];
+        Arrays.fill(v,0);
+        int max = 0;
+    
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                v[j] = matrix[i][j] == '1' ? 1 + v[j] : 0;
+            }
+            max = Math.max(max, hist(v));
+        }
+        return max;
+    }
+    
+    int hist(int[] height) {
+        //height.push_back(0);
+        int i = 0, len = height.length, area, marea = 0;
+        Stack<Integer> h = new Stack<Integer>();
+
+        while (i < len) {
+            if (h.empty() || height[i] >= height[h.peek()]) {
+                h.push(i);
+                ++ i;
+            }
+            else {
+                int ht = height[h.peek()];
+                h.pop();
+                marea = Math.max(marea, ht * (h.empty() ? i : i - 1 - h.peek()));
+            }
+        }
+        
+        return marea;        
+    }
+}
+
+// This should work. But times out for large input. O(mmn).
 public class Solution {
     public int maximalRectangle(char[][] matrix) {
         if (matrix.length == 0 || matrix[0].length == 0) return 0;
