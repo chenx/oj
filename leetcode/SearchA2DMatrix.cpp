@@ -5,6 +5,35 @@
 // @Last modified: 1/4/2013
 //
 
+// This works too.
+class Solution2 {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if (matrix.size() == 0 || matrix[0].size() == 0) return false;
+        
+        int L = 0, R = matrix.size() - 1, M;
+        while (L <= R) {
+            M = L + (R-L)/2;
+            if (matrix[M][0] == target) return true;
+            else if (matrix[M][0] < target) L = M + 1;
+            else R = M - 1;
+        }
+        
+        int row = R; // <- !!!
+        if (row < 0) return false;
+        
+        L = 0, R = matrix[0].size() - 1;
+        while (L <= R) {
+            M = L + (R-L)/2;
+            if (matrix[row][M] == target) return true;
+            else if (matrix[row][M] < target) L = M + 1;
+            else R = M - 1;
+        }
+        
+        return false;
+    }
+};
+
 class Solution {
 public:
     // log(row) + log(column) solution.
