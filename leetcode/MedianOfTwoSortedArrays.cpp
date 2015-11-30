@@ -5,9 +5,41 @@
 // @Last modified: 1/8/2013
 //
 
+// This also works. 11/29/2015
+// Signature is changed, so use offset here. This is easier to adapt for Java. 
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int len = nums1.size() + nums2.size();
+        if (len & 1 == 1) {
+            return getKth(nums1, 0, nums1.size(), nums2, 0, nums2.size(), 1 + len/2);
+        }
+        else {
+            return (getKth(nums1, 0, nums1.size(), nums2, 0, nums2.size(), len/2) +
+                getKth(nums1, 0, nums1.size(), nums2, 0, nums2.size(), 1 + len/2)) / 2.0;
+        }
+    }
+    
+    int getKth(vector<int>& nums1, int offset1, int m, vector<int>& nums2, int offset2, int n, int k) {
+        if (m > n) return getKth(nums2, offset2, n, nums1, offset1, m, k);
+        if (m == 0) return nums2[offset2 + k-1];
+        if (k == 1) return min(nums1[offset1], nums2[offset2]);
+        
+        int p1 = min(k/2, m);
+        int p2 = k - p1;
+        
+        if (nums1[offset1 + p1 - 1] < nums2[offset2 + p2 - 1]) {
+            return getKth(nums1, offset1 + p1, m - p1, nums2, offset2, n, k - p1);
+        }
+        else {
+            return getKth(nums1, offset1, m, nums2, offset2 + p2, n - p2, k - p2);
+        }
+    }
+};
+
 // This works! And so simple!
 // From: http://blog.csdn.net/sunjilong/article/details/8254130
-class Solution {  
+class Solution2 {  
 public:  
      double findKth(int a[], int m, int b[], int n, int k)  
      {  
