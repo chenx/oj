@@ -128,14 +128,13 @@ public:
         if (matrix.size() == 0 || matrix[0].size() == 0) return 0;
         int rows = matrix.size(), cols = matrix[0].size();
         
+        vector<int> v(cols+1, 0); // extra 0, avoid H.push_back(0) in hist().
         int marea = 0;
         
-        vector<int> v(cols);
-        for (int j = 0; j < cols; ++ j) v[j] = matrix[0][j] - '0';
-        marea = max(marea, hist(v));
-            
-        for (int i = 1; i < rows; ++ i) {
-            for (int j = 0; j < cols; ++ j) v[j] = ( matrix[i][j] == '0' ? 0 : v[j] + 1 );
+        for (int i = 0; i < rows; ++ i) {
+            for (int j = 0; j < cols; ++ j) {
+                v[j] = ( matrix[i][j] == '0' ? 0 : v[j] + 1 );
+            }
             marea = max(marea, hist(v));
         }
         return marea;
@@ -143,7 +142,7 @@ public:
     
     int hist(vector<int> & H) {
         stack<int> s;
-        H.push_back(0);
+        //H.push_back(0);
         int i = 0, ma = 0;
         
         while (i < H.size()) {
