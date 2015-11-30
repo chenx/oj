@@ -12,12 +12,8 @@
 class Solution2 {
 public:
     int romanToInt(string s) {
-        int n = s.size();
-        if (n == 0) return 0;
-        
-        int cur, prev = getV(s[0]), sum = 0;
-
-        for (int i = 1; i < n; ++ i) {
+        int cur, prev = 0, sum = 0;
+        for (int i = 0, n = s.size(); i < n; ++ i) {
             cur = getV(s[i]);
             sum += (cur > prev) ? - prev : prev;
             prev = cur;
