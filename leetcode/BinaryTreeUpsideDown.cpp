@@ -16,6 +16,27 @@ public:
     TreeNode(int v) : val(v), left(NULL), right(NULL) {}
 };
 
+class Solution2 {
+public:
+    /**
+     *  Bottom up method. Much more simple.
+     * At any p, you want to do: 
+     * p->left = parent->right, p->right = parent.
+     */
+    
+    TreeNode * upsideDown(TreeNode *root) {
+        return dfs(root, NULL);
+    }
+    
+    TreeNode * dfs(TreeNode *p, TreeNode * parent) {
+    If (p == NULL) return parent;
+        TreeNode * root = dfs(p->left, p);
+        p->left = parent != NULL ? parent->right : NULL;
+        p->right = parent;
+        return root;
+    }
+}
+
 // This works. Use a stack, 2 steps.
 class Solution {
 public:
