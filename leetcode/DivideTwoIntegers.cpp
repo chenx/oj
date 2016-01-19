@@ -5,6 +5,38 @@
 // @Last modified: 1/9/2013
 //
 
+// Has similar ambiguous issue of Solution3.
+class Solution4 {
+public:
+    int divide(int dividend, int divisor) {
+        if (divisor == 0) return 0;
+        
+        long long a = dividend, b = divisor;
+        
+        bool neg = (a > 0 && b < 0) || (a < 0 && b > 0);
+        if (a < 0) a = -a;
+        if (b < 0) b = -b;
+        
+        int d = 0;
+        while (b << d <= a) ++ d;
+        -- d;
+        
+        long long q = 0;
+        for (; d >= 0; -- d) {
+            long long tmp = b << d;
+            if (tmp <= a) {
+                a -= tmp;
+                q += 1 << d;
+            }
+        }
+        
+        q = neg ? -q : q;
+        if (q == INT_MIN) q = INT_MAX; // overflow.
+
+        return q;
+    }
+};
+
 //
 // What is different from solution1 and solution2 is the handling of overflow:
 // input: -2147483648, -1
