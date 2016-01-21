@@ -6,6 +6,32 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+// Works too. Maybe better.
+class Solution2 {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if (head == NULL || head->next == NULL) return NULL;
+        
+        ListNode *slow = head, *fast = head->next;
+        while (fast != NULL && fast->next != NULL) {
+            if (slow == fast) {
+                slow = head;
+                fast = fast->next;
+                while (fast != slow) {
+                    fast = fast->next;
+                    slow = slow->next;
+                }
+                return fast;
+            }
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        return NULL;
+    }
+};
+
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
