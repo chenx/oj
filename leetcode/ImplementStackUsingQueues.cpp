@@ -1,3 +1,43 @@
+// This works and uses only standard queue operations.
+// Key is to keep only 1 element in q1, so top() and pop() are both easy.
+// When pop, after pop q1, push all q2 elements again.
+// 1/20/2016
+class Stack {
+public:
+    // Push element x onto stack.
+    void push(int x) {
+        if (! q1.empty()) {
+            q2.push(q1.front()); 
+            q1.pop();
+        }
+        q1.push(x);
+    }
+
+    // Removes the element on top of the stack.
+    void pop() {
+        if (q1.empty()) return;
+        
+        q1.pop();
+        for (int i = 0, len = q2.size(); i < len; ++ i) {
+            push(q2.front());
+            q2.pop();
+        }
+    }
+
+    // Get the top element.
+    int top() {
+        return q1.front();
+    }
+
+    // Return whether the stack is empty.
+    bool empty() {
+        return q1.empty() && q2.empty();
+    }
+private:
+    queue<int> q1, q2;
+};
+
+// Although works, this uses q.back(), which is non-standard.
 class Stack {
 public:
     // Push element x onto stack.
