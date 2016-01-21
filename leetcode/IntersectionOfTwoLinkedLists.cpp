@@ -7,6 +7,28 @@
  * };
  */
  
+// Works.
+class Solution2 {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        // if (! headA || ! headB) return NULL; // Good but not necessary.
+        int lena = 0, lenb = 0;
+        
+        for (ListNode * n = headA; n != NULL; n = n->next) ++ lena;
+        for (ListNode * n = headB; n != NULL; n = n->next) ++ lenb;
+        
+        while (lena > lenb) { headA = headA->next; -- lena; }
+        while (lena < lenb) { headB = headB->next; -- lenb; }
+        
+        while (headA != headB) {
+            headA = headA->next;
+            headB = headB->next;
+        }
+
+        return headA;
+    }
+};
+
 //
 // This works. O(n+m) time, O(1) space.
 // Concept: first find length of both lists, then start from where 
