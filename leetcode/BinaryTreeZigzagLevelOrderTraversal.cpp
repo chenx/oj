@@ -182,3 +182,37 @@ public:
         return ans;        
     }
 };
+
+
+// Works. Even better than Solution4.
+class Solution5 {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if (! root) return ans;
+        
+        queue<TreeNode *> q;
+        q.push(root);
+        int ct = 1;
+        bool odd = true;
+        
+        while (! q.empty()) {
+            vector<int> v;
+            for (; ct > 0; -- ct) {
+                TreeNode * n = q.front();
+                q.pop();
+                if (odd) v.push_back(n->val);
+                else v.insert(v.begin(), n->val);
+                
+                if (n->left != NULL) q.push(n->left);
+                if (n->right != NULL) q.push(n->right);
+            }
+            
+            ans.push_back(v);
+            ct = q.size();
+            odd = ! odd;
+        }
+        
+        return ans;
+    }
+};
