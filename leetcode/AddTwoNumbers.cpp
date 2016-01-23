@@ -14,6 +14,52 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+// This works too.
+class Solution2 {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int sum = 0, carry = 0;
+        ListNode * head = NULL, * tail = NULL;
+        
+        for (; l1 && l2; l1 = l1->next, l2 = l2->next) {
+            add(l1->val + l2->val + carry, sum, carry, head, tail);
+        }
+        for (; l1; l1 = l1->next) {
+            add(l1->val + carry, sum, carry, head, tail);
+        }
+        for (; l2; l2 = l2->next) {
+            add(l2->val + carry, sum, carry, head, tail);
+        }
+        
+        if (carry > 0) {
+            add(carry, sum, carry, head, tail);
+        }
+        
+        return head;
+    }
+    
+    void add(int v, int &sum, int &carry, ListNode *& head, ListNode *& tail) {
+        if (v >= 10) {
+            sum = v - 10;
+            carry = 1;
+        }
+        else {
+            sum = v;
+            carry = 0;
+        }
+        
+        if (head == NULL) {
+            head = tail = new ListNode(sum);
+        }
+        else {
+            tail->next = new ListNode(sum);
+            tail = tail->next;
+        }
+    }
+};
+
+
 class Solution {
 public:
     ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
@@ -133,3 +179,16 @@ public:
     }
 };
 */
+
+
+/**
+Add Two Numbers
+Difficulty: Medium
+
+You are given two linked lists representing two non-negative numbers. 
+The digits are stored in reverse order and each of their nodes contain 
+a single digit. Add the two numbers and return it as a linked list.
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+ */
