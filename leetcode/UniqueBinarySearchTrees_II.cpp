@@ -20,6 +20,10 @@
 class Solution {
 public:
     vector<TreeNode *> generateTrees(int n) {
+        if (n == 0) { // This branch is needed by new version of leetcode.
+            vector<TreeNode *> v;
+            return v;
+        }        
         return g(1, n);
     }
     
