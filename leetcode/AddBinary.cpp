@@ -153,6 +153,45 @@ public:
     }
 };
 
+// This works.
+class Solution4 {
+public:
+    string addBinary(string a, string b) {
+        int lena = a.length() - 1, lenb = b.length() - 1;
+        int sum = 0, carry = 0;
+        
+        string v = "";
+        for (; lena >= 0 && lenb >= 0; -- lena, -- lenb) {
+            add(a[lena] - '0', b[lenb] - '0', sum, carry);
+            v = to_string(sum) + v;
+        }
+        for (; lena >= 0; -- lena) {
+            add(a[lena] - '0', 0, sum, carry);
+            v = to_string(sum) + v;
+        }
+        for (; lenb >= 0; -- lenb) {
+            add(0, b[lenb] - '0', sum, carry);
+            v = to_string(sum) + v;
+        }
+
+        if (carry > 0) {
+            v = to_string(carry) + v;
+        }
+        
+        return v;
+    }
+    
+    void add(int a, int b, int &sum, int &carry) {
+        sum = a + b + carry;
+        if (sum > 1) {
+            sum -= 2;
+            carry = 1;
+        }
+        else {
+            carry = 0;
+        }
+    }
+};
 
 /* 
 // First version. This works.
