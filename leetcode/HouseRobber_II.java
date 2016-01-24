@@ -9,14 +9,14 @@ public:
         vector<int> v1(n);
         v1[0] = 0;
         v1[1] = nums[0];
-        for (int i = 2; i <= n-1; ++ i) {
+        for (int i = 2; i < n; ++ i) {
             v1[i] = max(v1[i-1], v1[i-2] + nums[i-1]);
         }
         
         vector<int> v2(n);
         v2[0] = 0;
         v2[1] = nums[1];
-        for (int i = 2; i <= n-1; ++ i) {
+        for (int i = 2; i < n; ++ i) {
             v2[i] = max(v2[i-1], v2[i-2] + nums[i]);
         }
         
