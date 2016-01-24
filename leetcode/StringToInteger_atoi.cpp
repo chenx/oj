@@ -78,6 +78,41 @@ public:
     }
 };
 
+// This works too.
+class Solution3 {
+public:
+    int myAtoi(string str) {
+        int v = 0, v0, i = 0;
+        bool neg = false;
+        
+        if (str == "") return 0;
+        while (str[i] == ' ') ++ i;
+
+        if (str[i] == '-') {
+            neg = true; 
+            ++ i;
+        }
+        else if (str[i] == '+') {
+            ++ i;
+        }
+        
+        if (i == str.length() || ! isDigit(str[i])) return 0;
+        
+        for (int n = str.length(); i < n && isDigit(str[i]); ++ i) {
+            v0 = v;
+            v = v * 10 + (str[i] - '0');
+            if (v0 != v/10) return neg ? INT_MIN : INT_MAX;
+        }
+        
+        if (neg) v = -v;
+        
+        return v;
+    }
+    
+    bool isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+};
 
 /*
 Problem:
