@@ -1,3 +1,31 @@
+// This works.
+class Solution4 {
+public:
+    bool isPalindrome(int x) {
+        return x == 0 || (x > 0 && x == reverse(x));
+    }
+    
+    // Note, this is soluton to Reverse Integer, 
+    // but comment out code to check negative value.
+    // It's fine to include such code, but more clean without.
+    int reverse(int x) {
+        //bool neg = (x < 0);
+        //if (neg) x = -x;
+        
+        int y = 0, y0;
+        while (x > 0) {
+            y0 = y;
+            y = y * 10 + x % 10;
+            if (y/10 != y0) return 0; // overflow.
+            x /= 10;
+        }
+        
+        //if (neg) y = -y;
+        
+        return y;
+    }    
+};
+
 //
 // http://www.leetcode.com/onlinejudge#
 // 3sum.
