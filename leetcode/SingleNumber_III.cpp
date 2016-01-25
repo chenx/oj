@@ -11,7 +11,7 @@ public:
             x ^= nums[i];
         }
         
-        int mask = x & ~(x - 1); // or x & (~x + 1)
+        int mask = x & ~(x - 1); // or x & (~x + 1) // or (1 + (u^(u-1))) >> 1
         vector<int> v(2, 0); // initialize to 0.
         
         for (int i = 0; i < len; ++ i) {
