@@ -5,6 +5,54 @@
 // @Last modified: 12/24/2012
 //
 
+// This works too. 1/24/2016.
+class Solution3 {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (m == n) return head;
+        
+        ListNode * hm = NULL, * hn = NULL;
+        if (m == 1) {
+            for (hn = head; n > 1; -- n) hn = hn->next;
+            ListNode *tmp = hn->next;
+            hn->next = NULL;
+            
+            ListNode *t = NULL;
+            head = rev(head, t);
+            t->next = tmp;
+            return head;
+        }
+        else {
+            // hm->next is m-th node, hn is n-th node.
+            for (hm = head; m > 2; -- m) hm = hm->next;
+            for (hn = head; n > 1; -- n) hn = hn->next;
+            
+            ListNode *tmp = hn->next;
+            hn->next = NULL;
+            
+            ListNode *t = NULL;
+            hm->next = rev(hm->next, t);
+            t->next = tmp;
+            
+            return head;
+        }
+    }
+    
+    ListNode* rev(ListNode *h, ListNode *&t) {
+        if (h == NULL || h->next == NULL) {
+            t = h;
+            return h;
+        }
+        
+        ListNode * tmp = h;
+        h = rev(h->next, t);
+        t->next = tmp;
+        t = tmp;
+        t->next = NULL;
+        return h;
+    }  
+};
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
