@@ -7,6 +7,23 @@
  * };
  */
 
+// Iterative version. This works too.
+class Solution4 {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode * h = NULL;
+        
+        while (head != NULL) {
+            ListNode * tmp = h;
+            h = head;
+            head = head->next;
+            h->next = tmp;
+        }
+        
+        return h;
+    }
+};
+
 // Iterative. This works too.
 class Solution3 {
 public:
