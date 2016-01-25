@@ -6,6 +6,35 @@
 //
 
 // This works too.
+// getRow() is solution to Pascal's Triangle II.
+class Solution5 {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> v(rowIndex + 1);
+        
+        v[0] = 1;
+        if (rowIndex == 0) return v;
+        
+        for (int i = 1; i <= rowIndex; ++ i) {
+            v[i] = 1;
+            for (int j = i - 1; j > 0; -- j) {
+                v[j] = v[j] + v[j-1];
+            }
+        }
+        
+        return v;
+    }
+
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans;
+        for (int i = 0; i < numRows; ++ i) {
+            ans.push_back(getRow(i));
+        }   
+        return ans;
+    }
+}    
+    
+// This works too.
 class Solution4 {
 public:
     vector<vector<int>> generate(int numRows) {
