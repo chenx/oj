@@ -24,7 +24,36 @@ struct TreeNode {
       TreeNode *right;
       TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
- 
+
+// This works too. Use preorder traversal.
+class Solution3 {
+public:
+    void flatten(TreeNode* root) {
+        if (root == NULL) return;
+        
+        TreeNode *tail = NULL; // there is no need to use a head pointer.
+        stack<TreeNode *> s;
+        s.push(root);
+        
+        while (! s.empty()) {
+            TreeNode * n = s.top();
+            s.pop();
+            
+            if (n->right != NULL) s.push(n->right);
+            if (n->left  != NULL) s.push(n->left);
+            
+            if (n == root) {
+                tail = n;
+            } else {
+                tail->right = n;
+                tail = n;
+            }
+            tail->left = NULL;
+        }
+        
+    }
+};
+
 // This works too. 11/4/2014.
 class Solution2 {
 public:
