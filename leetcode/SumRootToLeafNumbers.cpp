@@ -15,7 +15,30 @@
  */
 
 // This works too.
-class Solution {
+class Solution5 {
+public:
+    int sumNumbers(TreeNode* root) {
+        int ans = 0;
+        getSum(root, ans, 0);
+        return ans;
+    }
+    
+    void getSum(TreeNode *root, int &ans, int sum) {
+        if (! root) return;
+
+        sum = sum * 10 + root->val;
+        if (root->left == NULL && root->right == NULL) {
+            ans += sum;
+            return;
+        }
+        
+        getSum(root->left, ans, sum);
+        getSum(root->right, ans, sum);
+    }
+};
+
+// This works too.
+class Solution4 {
 public:
     int sumNumbers(TreeNode *root) {
         return getsum(root, 0);
@@ -33,7 +56,7 @@ public:
 
 
 // This works too, and is better.
-class Solution2 {
+class Solution3 {
 public:
     int sumNumbers(TreeNode *root) {
         return dfs(root, 0);
