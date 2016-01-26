@@ -5,6 +5,33 @@
 // @Last modified: 12/24/2012
 //
 
+// This works too. Modified from solution of I. 1/25/2016.
+class Solution3 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.size() == 0) return 0;
+        int n = nums.size();
+        
+        int v = nums[0], k = 1, ct = 1;
+        for (int i = 1; i < n; ++ i) {
+            if (nums[i] == v) { 
+                if (ct == 1) { 
+                    nums[k ++] = v;
+                    ++ ct;
+                } else {
+                    ++ ct;
+                }
+            }
+            else {
+                v = nums[k ++] = nums[i];
+                ct = 1;
+            }
+        }
+        
+        return k;        
+    }
+};
+
 class Solution {
 public:
     int removeDuplicates(int A[], int n) {
