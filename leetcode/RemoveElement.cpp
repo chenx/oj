@@ -12,6 +12,19 @@
 // Solution3 always better than 1, but code too complex.
 // Solution4 is the best.
 
+// This works too! Shortest so far. 1/25/2016.
+class Solution5 {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int L = 0, R = nums.size() - 1;
+        while (L <= R) {
+            if (nums[L] == val) swap(nums[L], nums[R --]);
+            else ++ L;
+        }
+        
+        return L;
+    }
+};
 
 // This works too!
 class Solution4 {
