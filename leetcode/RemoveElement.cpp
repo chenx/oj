@@ -22,7 +22,7 @@ public:
             else ++ L;
         }
         
-        return L;
+        return L; // or R+1
     }
 };
 
