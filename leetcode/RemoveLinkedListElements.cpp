@@ -6,6 +6,31 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+ 
+// This works too.
+// Use a dummy node to simplify the code.
+class Solution2 {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode dummy(0);
+        dummy.next = head;
+        ListNode * h = & dummy;
+        
+        while (h->next != NULL) {
+            if (h->next->val == val) {
+                ListNode * tmp = h->next;
+                h->next = tmp->next;
+                delete tmp;
+            }
+            else {
+                h = h->next;
+            }
+        }
+        
+        return dummy.next;
+    }
+};
+
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
