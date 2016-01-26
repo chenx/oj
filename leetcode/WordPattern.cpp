@@ -1,3 +1,46 @@
+// This works too.
+class Solution2 {
+public:
+    bool wordPattern(string pattern, string str) {
+        vector<string> a = splitPattern(pattern);
+        vector<string> b = splitStr(str);
+        return checkEqual(a, b) && checkEqual(b, a);
+    }
+    
+    bool checkEqual(vector<string> &a, vector<string> &b) {
+        if (a.size() != b.size()) return false;
+        
+        unordered_map<string, string> m;
+        for (int i = 0, n = a.size(); i < n; ++ i) {
+            if (m.find(a[i]) == m.end()) m[a[i]] = b[i];
+            if (m[a[i]] != b[i]) return false;
+        }
+        return true;
+    }
+    
+    vector<string> splitPattern(string str) {
+        vector<string> v;
+        for (int i = 0; i < str.size(); ++ i) {
+            v.push_back(str.substr(i, 1));
+        }
+        return v;
+    }
+    
+    vector<string> splitStr(string str) {
+        vector<string> v;
+        istringstream iss(str);
+
+        while(iss)
+        {
+            string sub;
+            iss >> sub;
+            if (sub == "") break;
+            v.push_back(sub);
+        };
+        return v;
+    }
+};
+
 class Solution {
 public:
     bool wordPattern(string pattern, string str) {
