@@ -84,7 +84,7 @@ public:
         for (int i = 0; i <= target; ++ i) {
             vector<vector<int> > row;
             for (int j = 0; j < candidates.size(); ++ j) {
-                if (i < candidates[j]) continue;
+                if (i < candidates[j]) break;
                 if (i == candidates[j]) {
                     vector<int> v;
                     v.push_back(i);
@@ -126,7 +126,7 @@ public:
         for (int i = 0; i <= target; ++ i) {
             vector<vector<int> > row;
             for (int j = 0; j < candidates.size(); ++ j) {
-                if (i < candidates[j]) continue;
+                if (i < candidates[j]) break;
                 if (i == candidates[j]) {
                     vector<int> v;
                     v.push_back(i);
