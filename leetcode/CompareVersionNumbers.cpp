@@ -1,3 +1,41 @@
+// This works too. 1/26/2016.
+class Solution4 {
+public:
+    int compareVersion(string version1, string version2) {
+        const char * ver1 = version1.c_str(), * ver2 = version2.c_str();
+        int v1, v2;
+        while (* ver1 && * ver2) {
+            v1 = getVersion(ver1);
+            v2 = getVersion(ver2);
+            if (v1 > v2) return 1;
+            if (v1 < v2) return -1;
+        }
+        
+        while (* ver1) { // e.g. 1 v.s. 1.0.0, 1.0.1
+            v1 = getVersion(ver1);
+            if (v1 > 0) return 1;
+        }
+        while (* ver2) {
+            v2 = getVersion(ver2);
+            if (v2 > 0) return -1;
+        }
+        
+        return 0;
+    }
+    
+    int getVersion(const char *& v) {
+        if (! *v) return 0; // -1 is fine too.
+        if (*v == '.') ++ v;
+        
+        int val = 0;
+        while (*v >= '0' && *v <= '9') {
+            val = val * 10 + (*v - '0');
+            ++ v;
+        }
+        return val;
+    }
+};
+
 // This works. Is best. 11/17/2015
 class Solution3 {
 public:
