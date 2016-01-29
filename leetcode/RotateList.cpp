@@ -4,6 +4,36 @@
 // @Created on: 12/18/2012
 // @Last modified: 12/18/2012
 //
+
+// This works too.
+class Solution4 {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        // find list length, normalize k.
+        int n = 0; // list length
+        ListNode * h = head;
+        for (; h != NULL; h = h->next) ++ n;
+        k = k % n;
+        if (k == 0) return head;
+        
+        // find new tail node.
+        ListNode * t = head;
+        for (int i = n - k - 1; i > 0; -- i) t = t->next;
+        // now t is the new tail node.
+        
+        h = head; // save old head node.
+        head = t->next; // new head node.
+        t->next = NULL;
+        
+        // find tail of old list, link it to old head.
+        for (t = head; t->next != NULL; t = t->next) ;
+        t->next = h; 
+        
+        return head;
+    }
+};
  
 // This works too. And seem more clear.
 class Solution3 {
