@@ -23,34 +23,33 @@
  * };
  */
  
-// List will be destroyed.
-// If not to destroy list, may use a counter.
 
-class Solution {
+// This works too.
+class Solution3 {
 public:
-    TreeNode *sortedListToBST(ListNode *head) {
+    TreeNode* sortedListToBST(ListNode* head) {
         if (head == NULL) return NULL;
-        if (head->next == NULL) return new TreeNode(head->val);
-        
-        ListNode *n1_prev = NULL, * n1 = head, * n2 = head->next;
-        
-        while (n2 != NULL) {
-            n1_prev = n1;
-            n1 = n1->next;
-            n2 = n2->next;
-            if (n2 == NULL) break;
-            n2 = n2->next;
+
+        ListNode *prev = NULL, *slow = head, *fast = head->next;
+        while (fast != NULL && fast->next != NULL) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
         }
+        // now slow is middle node.
         
-        // now n1 is middle of list.
-        TreeNode *n = new TreeNode(n1->val); // no need to create new node, just n = n1.
+        TreeNode * root = new TreeNode(slow->val);
         
-        if (n1_prev != NULL) n1_prev->next = NULL; // break list.
-        n->left = sortedListToBST(head);
-        
-        n->right = sortedListToBST(n1->next);
-        
-        return n;
+        if (prev == NULL) {
+            root->left = NULL;
+            root->right = sortedListToBST(slow->next);
+        }
+        else {
+            prev->next = NULL;
+            root->left = sortedListToBST(head);
+            root->right = sortedListToBST(slow->next);
+        }
+        return root;
     }
 };
 
@@ -85,3 +84,42 @@ public:
         return n;
     }
 };
+
+// List will be destroyed.
+// If not to destroy list, may use a counter.
+class Solution {
+public:
+    TreeNode *sortedListToBST(ListNode *head) {
+        if (head == NULL) return NULL;
+        if (head->next == NULL) return new TreeNode(head->val);
+        
+        ListNode *n1_prev = NULL, * n1 = head, * n2 = head->next;
+        
+        while (n2 != NULL) {
+            n1_prev = n1;
+            n1 = n1->next;
+            n2 = n2->next;
+            if (n2 == NULL) break;
+            n2 = n2->next;
+        }
+        
+        // now n1 is middle of list.
+        TreeNode *n = new TreeNode(n1->val); // no need to create new node, just n = n1.
+        
+        if (n1_prev != NULL) n1_prev->next = NULL; // break list.
+        n->left = sortedListToBST(head);
+        
+        n->right = sortedListToBST(n1->next);
+        
+        return n;
+    }
+};
+
+
+/**
+Convert Sorted List to Binary Search Tree
+Difficulty: Medium
+
+Given a singly linked list where elements are sorted in ascending order, 
+convert it to a height balanced BST.
+ */
