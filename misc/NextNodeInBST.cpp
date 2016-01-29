@@ -1,6 +1,7 @@
 /**
  * Find the next successor of a node in a BST. 
  * From: Cracking the Coding Interview, 5th Ed. Q4.6, page 229.
+ * Note this require a parent pointer on each node.
  */
  
 TreeNode * inorderSucc(TreeNode * n) {
