@@ -1,3 +1,54 @@
+// This also works. Although maybe Solution looks better.
+class Solution2 {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> s;
+        for (int i = 0; i < tokens.size(); ++ i) {
+            if (! isOp(tokens[i])) s.push(toInt(tokens[i]));
+            else {
+                int b = s.top(); s.pop();
+                int a = s.top(); s.pop();
+                s.push(calc(a, b, tokens[i]));
+            }
+        }
+        return s.top();
+    }
+    
+    int calc(int a, int b, string op) {
+        if (op == "+") return a + b;
+        if (op == "-") return a - b;
+        if (op == "*") return a * b;
+        if (op == "/") return b == 0 ? 0 : a / b;
+        return 0;
+    }
+    
+    // Another way to convert string to int. 
+    int toInt2(string s) {
+        istringstream iss(s);
+        int val;
+        iss >> val;
+        return val;
+    }
+    
+    int toInt(string s) {
+        int val = 0, i = 0;
+        bool neg = s[0] == '-';
+        if (neg) ++ i;
+        else if (s[0] == '+') ++ i;
+        
+        for (; i < s.length(); ++ i) {
+            val = val * 10 + s[i] - '0';
+        }
+        
+        if (neg) val = - val;
+        return val;
+    }
+    
+    bool isOp(string s) {
+        return s == "+" || s == "-" || s == "*" || s == "/";
+    }
+};
+
 //
 // This works.
 //
