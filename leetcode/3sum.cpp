@@ -6,6 +6,46 @@
 // @Last modified: 12/13/2012
 //
 
+// This works. Improved from Solution_good2.
+class Solution_good3 {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int L, R, M, len = nums.size();
+        
+        sort(nums.begin(), nums.end());
+        for (L = 0; L < len - 2; ++ L) {
+            if (L > 0 && nums[L] == nums[L - 1]) continue;
+            
+            for (M = L + 1, R = len - 1; M < R; ) {
+                int sum = nums[L] + nums[M] + nums[R];
+                    
+                if (sum == 0) {
+                    ans.push_back( getV(nums[L], nums[M], nums[R]) );
+                    while (nums[M] == nums[++ M] && M < R) ;
+                    while (nums[R] == nums[-- R] && M < R) ;
+                }
+                else if (sum < 0) {
+                    while (nums[M] == nums[++ M] && M < R) ;
+                }
+                else {
+                    while (nums[R] == nums[-- R] && M < R) ;
+                }
+            }
+        }
+        
+        return ans;
+    }
+    
+    vector<int> getV(int a, int b, int c) {
+        vector<int> v(3);
+        v[0] = a; 
+        v[1] = b; 
+        v[2] = c;
+        return v;
+    }
+};
+
 // Improved from Solution_good. This is good, and passes all tests.
 class Solution_good2 {
 public:
