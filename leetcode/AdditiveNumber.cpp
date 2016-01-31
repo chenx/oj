@@ -1,3 +1,5 @@
+// Works. 
+// Modified from: https://leetcode.com/discuss/82185/c-straightforward-solution
 class Solution {
 public:
     bool isAdditiveNumber(string num, string last1, string last2) {
