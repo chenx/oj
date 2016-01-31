@@ -1,3 +1,4 @@
+// 1^2, 2^2, 3^2, ... n.
 class Solution {
 public:
     int bulbSwitch(int n) {
