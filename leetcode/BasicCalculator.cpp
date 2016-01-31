@@ -203,7 +203,7 @@ public:
 // E = T | { T +- T }
 // T = F | { F */ F }
 // F = (E) | num
-class Solution {
+class Solution4 {
 public:
     int calculate(string s) {
         const char *p = s.c_str();
@@ -249,6 +249,65 @@ public:
             char c = *p;
             string chr = string(&c);
             MyEx( "F(): unknown char '" + chr + "'" );
+        }
+    }
+    
+    int T(const char *& p) {
+        int v = F(p);
+    
+        ignoreSpace(p);
+        while (*p == '*' || *p == '/') {
+            char op = *p;
+            int u = F(++ p);
+            if (op == '*') v *= u;
+            else if (op == '/') v /= u;
+            ignoreSpace(p);
+        }
+        return v;
+    }  
+    
+    int E(const char *& p) {
+        int v = T(p);
+    
+        ignoreSpace(p);
+        while (*p == '+' || *p == '-') {
+            char op = *p;
+            int u = T(++ p);
+            if (op == '+') v += u;
+            else if (op == '-') v -= u;
+            ignoreSpace(p);
+        }
+        return v;
+    }
+};
+
+// Works. Simplified from Solution4, assuming string is valid.
+class Solution5 {
+public:
+    int calculate(string s) {
+        const char *p = s.c_str();
+        return E(p);
+    }
+
+    void ignoreSpace(const char*& p) { while (isspace(*p)) ++ p; }
+    bool is_num(const char c) { return c >= '0' && c <= '9'; }
+    
+    int num(const char*& p) {
+        ignoreSpace(p);
+        int v = 0;
+        while (is_num(*p)) { v = v * 10 + (*p - '0'); ++ p; }
+        return v;
+    }
+
+    int F(const char *& p) {
+        ignoreSpace(p);
+        if (*p == '(') {
+            int v = E(++ p);
+            ++ p; // ignore ')'
+            return v; 
+        }
+        else if (is_num(*p)) {
+            return num(p);
         }
     }
     
