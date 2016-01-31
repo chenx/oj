@@ -282,6 +282,9 @@ public:
 };
 
 // Works. Simplified from Solution4, assuming string is valid.
+//    E = T | T + T | T - T
+//    T = F | F * F | F / F
+//    F = (E) | num
 class Solution5 {
 public:
     int calculate(string s) {
