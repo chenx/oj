@@ -1,3 +1,5 @@
+// Works.
+// https://leetcode.com/discuss/81433/simple-explanation-based-basic-math-state-machine-attached
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -5,11 +7,11 @@ public:
         if(n <= 1) return 0;
         vector<int> dp(n + 1);
         int maxv = - prices[0];
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < n; ++ i) {
             dp[i + 1] = max(dp[i], maxv + prices[i]);
             maxv = max(dp[i - 1] - prices[i], maxv);
         }
-    
+
         return dp[n];
     }
 };
