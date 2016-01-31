@@ -45,7 +45,7 @@ public:
         int right = findMax(p->right, maxSum);
         maxSum = max(p->val + left + right, maxSum);
         int ret = p->val + max(left, right);
-        return ret >= 0 ? ret : 0;
+        return ret >= 0 ? ret : 0; // or: if (ret < 0) { ret = 0; } return ret;
     }
 };
  
