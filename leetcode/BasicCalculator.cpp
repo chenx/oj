@@ -215,11 +215,11 @@ public:
         throw exception();
     }
 
-    void getToken(const char*& p) { while (isspace(*p)) ++ p; }
+    void ignoreSpace(const char*& p) { while (isspace(*p)) ++ p; }
     bool is_num(const char c) { return c >= '0' && c <= '9'; }
     
     int num(const char*& p) {
-        getToken(p);
+        ignoreSpace(p);
         if (*p == '0') {
             ++ p;
             if (is_num(*p)) MyEx("num(): number does not start with 0");
@@ -236,7 +236,7 @@ public:
     }
 
     int F(const char *& p) {
-        getToken(p);
+        ignoreSpace(p);
         if (*p == '(') {
             int v = E(++ p);
             if (*p == ')') { ++ p; return v; }
@@ -255,13 +255,13 @@ public:
     int T(const char *& p) {
         int v = F(p);
     
-        getToken(p);
+        ignoreSpace(p);
         while (*p == '*' || *p == '/') {
             char op = *p;
             int u = F(++ p);
             if (op == '*') v *= u;
             else if (op == '/') v /= u;
-            getToken(p);
+            ignoreSpace(p);
         }
         return v;
     }  
@@ -269,13 +269,13 @@ public:
     int E(const char *& p) {
         int v = T(p);
     
-        getToken(p);
+        ignoreSpace(p);
         while (*p == '+' || *p == '-') {
             char op = *p;
             int u = T(++ p);
             if (op == '+') v += u;
             else if (op == '-') v -= u;
-            getToken(p);
+            ignoreSpace(p);
         }
         return v;
     }
