@@ -21,7 +21,7 @@ public:
         v[L][R] = val;
         return val;
     }
-}    
+}
     
 // This works. From: https://leetcode.com/discuss/83802/neat-java-solution
 // DP. Iterative.
@@ -100,4 +100,47 @@ Return 167
     nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
    coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
 
+ */
+
+
+/**
+Note:
+
+This Bust Balloons problem (BB) is similar to matrix multiplication problem (MM). 
+The elimination process is the same for both.
+
+The difference is:
+1) the MM problem finds the min value of the process.
+   the BB problem finds the max value.
+2) when there are only 3 elements a, b, c,
+   the MM problem just returns a*b*c
+   the BB problem returns a*b*c + a*c  + max(a, c)
+   
+E.g., input is [3,1,5,8], MM returns 64 (eliminate 5 first), BB returns 167 (eliminate 1 first).
+
+The algorithm for MM is (from https://en.wikipedia.org/wiki/Matrix_chain_multiplication):
+
+    int MM(vector<int>& p) {
+        if (p.size() == 0) return 0;
+        if (p.size() == 1) return p[0];
+        
+        int n = p.size() - 1;
+        vector<vector<int>> m(n, vector<int>(n, 0));
+        vector<vector<int>> s(n, vector<int>(n, 0));
+
+        for (int ii = 1; ii < n; ii++) {
+            for (int i = 0; i < n - ii; i++) {
+                int j = i + ii;
+                m[i][j] = INT_MAX;
+                for (int k = i; k < j; k++) {
+                    int q = m[i][k] + m[k+1][j] + p[i]*p[k+1]*p[j+1];
+                    if (q < m[i][j]) {
+                        m[i][j] = q;
+                        s[i][j] = k;
+                    }
+                }
+            }
+        }
+        return m[0][n-1];
+    }
  */
