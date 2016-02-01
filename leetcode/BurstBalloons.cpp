@@ -11,7 +11,19 @@ public:
         return getMC(nums, v, 0, n-1);
     }
     
+    // slightly modified from getMC_v0. 
+    // Shorter but maybe slower due to more array access.
     int getMC(vector<int>& nums, vector<vector<int>> &v, int L, int R) {
+        if (L + 1 == R) return 0;  // || L == R
+        if (v[L][R] > 0) return v[L][R];
+        for (int i = L + 1; i < R; ++ i) {
+            v[L][R] = max(v[L][R], nums[i] * nums[L] * nums[R] + getMC(nums, v, L, i) + getMC(nums, v, i, R));
+        }
+        return v[L][R];
+    }
+    
+    // This works too.
+    int getMC_v0(vector<int>& nums, vector<vector<int>> &v, int L, int R) {
         if (L + 1 == R) return 0;
         if (v[L][R] > 0) return v[L][R];
         int val = 0;
