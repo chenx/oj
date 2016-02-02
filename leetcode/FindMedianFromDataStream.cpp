@@ -1,3 +1,44 @@
+// This works too. Slightly modified from MedianFinder.
+// Note minQ elements are all larger than maxQ elements.
+class MedianFinder2 {
+public:
+    // Adds a number into the data structure.
+    void addNum(int num) {
+        int v1 = maxQ.empty() ? INT_MIN : maxQ.top();
+        int v2 = minQ.empty() ? INT_MAX : minQ.top();
+        
+        if (num <= v1) { maxQ.push(num); }
+        else { minQ.push(num); }
+
+        if (maxQ.size() - minQ.size() == 2) { // note: ">= 2" won't work. why?
+            minQ.push(maxQ.top());
+            maxQ.pop();
+        }
+        else if (minQ.size() - maxQ.size() == 2) {
+            maxQ.push(minQ.top());
+            minQ.pop();
+        }
+    }
+
+    // Returns the median of current data stream
+    double findMedian() {
+        if (maxQ.size() == minQ.size()) {
+            if (maxQ.size() == 0) return -1;  // underflow.
+            return (maxQ.top() + minQ.top()) / 2.0;
+        }
+        else if (maxQ.size() >= minQ.size()) {
+            return maxQ.top();
+        }
+        else {
+            return minQ.top();
+        }
+    }
+private:
+    priority_queue<int, vector<int>, std::greater<int>> minQ;
+    priority_queue<int, vector<int>, std::less<int>> maxQ;
+};
+
+
 // Keep 2 priority queues: maxQ, minQ. 
 // All elements in maxQ are less than elements in minQ.
 // Insert new element to corresponding side, then balance the size of the 2 queues.
