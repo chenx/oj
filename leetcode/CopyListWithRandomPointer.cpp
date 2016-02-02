@@ -8,7 +8,7 @@ struct RandomListNode {
 };
 
 
-// This works. Best solution so far.
+// This works. Best solution so far. 2/1/2016
 // Pay attention to how split is done.
 class Solution3 {
 public:
@@ -30,7 +30,7 @@ public:
         }
         
         // split.
-        RandomListNode * h = head->next, * t = h, * tail = head; // head/tail -> h/t
+        RandomListNode * tail = head, * h = head->next, * t = h; // head/tail -> h/t
         while (true) {
             tail->next = t->next;
             tail = tail->next;
