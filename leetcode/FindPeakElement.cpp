@@ -34,11 +34,11 @@ public:
             else if (M == n - 1) { if (nums[M] > nums[M-1]) return n - 1; }
             else if (nums[M] > nums[M-1] && nums[M] > nums[M+1]) { return M; }
             
-            if (nums[M] < nums[M + 1]) L = M + 1;
+            if (M < n - 1 && nums[M] < nums[M + 1]) L = M + 1;
             else R = M - 1; // same as: else if (num[M] < num[M - 1]) R = M - 1;
             
-            // this does not work.
-            //if (nums[M] < nums[M - 1]) R = M - 1;
+            // This works too. 
+            //if (M > 0 && nums[M] < nums[M - 1]) R = M - 1;
             //else L = M + 1;
         }
         
@@ -47,8 +47,7 @@ public:
 };
 
 //
-// This got error.
-// E.g., input is: [-2147483648,-2147483647]. Output will be 0. But 1 is expected.
+// This works.
 //
 class Solution {
 public:
@@ -65,7 +64,7 @@ public:
             else if (M == n - 1 && num[M] > num[M-1]) { return n - 1; }
             else if (num[M] > num[M-1] && num[M] > num[M+1]) { return M; }
             
-            if (num[M] < num[M + 1]) L = M + 1;
+            if (M < n - 1 && num[M] < num[M + 1]) L = M + 1;
             else R = M - 1; // same as: else if (num[M] < num[M - 1]) R = M - 1;
         }
         
