@@ -1,3 +1,30 @@
+// Works too. My version.
+// Note: stoi(string), atoi(const char *).
+class Solution {
+public:
+    vector<int> diffWaysToCompute(string input) {
+        vector<int> ans;
+        for (int i = 0, n = input.length(); i < n; ++ i) {
+            if (ispunct(input[i])) {
+                vector<int> vl = diffWaysToCompute(input.substr(0, i)), 
+                            vr = diffWaysToCompute(input.substr(i+1));
+        
+                for (int L : vl) {
+                    for (int R : vr) {
+                        switch(input[i]) {
+                            case '+': ans.push_back(L + R); break;
+                            case '-': ans.push_back(L - R); break;
+                            case '*': ans.push_back(L * R); break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (ans.size() == 0) ans.push_back(stoi(input));
+        return ans;
+    }
+};
 
 // Works too. Similar to Solution. 
 // From: https://leetcode.com/discuss/81431/concise-recursive-solution-in-c
