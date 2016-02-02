@@ -7,8 +7,7 @@ public:
         string s = "";
         
         while (n > 0) {
-            int m = (n - 1) % 26;
-            char c = m + 'A';
+            char c = (n - 1) % 26 + 'A';
             s = c + s; // be careful here. If use string(c), will have error: cannot convert char to const char *.
             n = (n - 1) / 26;
         }
