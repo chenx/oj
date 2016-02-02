@@ -8,6 +8,42 @@ struct RandomListNode {
 };
 
 
+// This works. Best solution so far.
+// Pay attention to how split is done.
+class Solution3 {
+public:
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        if (head == NULL) return NULL;
+        
+        // duplicate.
+        for (RandomListNode * h = head; h != NULL; ) {
+            RandomListNode * n = new RandomListNode(h->label);
+            n->next = h->next;
+            h->next = n;
+            h = n->next;
+        }
+        
+        // get random ptr.
+        for (RandomListNode * h = head; h != NULL; ) {
+            h->next->random = h->random == NULL ? NULL : h->random->next;
+            h = h->next->next;
+        }
+        
+        // split.
+        RandomListNode * h = head->next, * t = h, * tail = head; // head/tail -> h/t
+        while (true) {
+            tail->next = t->next;
+            tail = tail->next;
+            if (tail == NULL) break;
+            t->next = tail->next;
+            t = t->next;
+        }
+        
+        return h;
+    }
+};
+
+
 void dump(RandomListNode * n) {
     while (n) {
         cout << n->label << "(" << n->random->label << ")" << " -> ";
