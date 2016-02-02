@@ -1,3 +1,6 @@
+// For another method, see: https://leetcode.com/discuss/74994/nlogn-divide-and-conquer-java-solution-based-bit-comparison
+
+
 // Works too. Passes all tests. Uses BST with a "smaller" index. 
 // From: https://leetcode.com/discuss/75586/14-line-44ms-c-building-bst
 class Solution {
