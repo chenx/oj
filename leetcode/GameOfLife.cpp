@@ -1,3 +1,60 @@
+// This works too. In place, O(1) in space.
+class Solution2 {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+        if (board.size() == 0 || board[0].size() == 0) return;
+        
+        int m = board.size(), n = board[0].size();
+        
+        for (int i = 0; i < m; ++ i) 
+            for (int j = 0; j < n; ++ j)
+                board[i][j] += (board[i][j] << 1);
+        
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                int ct = 0;
+                
+                for (int x = -1; x <= 1; ++ x) {
+                    for (int y = -1; y <= 1; ++ y) {
+                        //if (x == 0 && y == 0) continue;
+                        ct += val(board, i + x, j + y, i, j);
+                    }
+                } 
+                
+                if ((board[i][j] >> 1) == 1) {
+                    if (ct < 2) board[i][j] = 2; // 10
+                    else if (ct == 2 || ct == 3) board[i][j] = 3; // 11
+                    else board[i][j] = 2; // 10
+                } 
+                else {
+                    if (ct == 3) board[i][j] = 1; // 01
+                }
+            }
+        }
+        
+        for (int i = 0; i < m; ++ i) 
+            for (int j = 0; j < n; ++ j)
+                board[i][j] &= 1; // clear position 1.
+    }
+    
+    int val(vector<vector<int>>& board, int i, int j, int i0, int j0) {
+        // Uncomment this if consider wrap around.
+        /*if (i == -1) i = board.size() - 1;
+        if (i == board.size()) i = 0;
+        if (j == -1) j = board[0].size() - 1;
+        if (j == board[0].size()) j = 0;*/
+
+        // Comment out this if consider wrap around.
+        if (i == -1 || i == board.size()) return 0;
+        if (j == -1 || j == board[0].size()) return 0;
+        
+        if (i == i0 && j == j0) return 0; // don't add self.
+
+        return board[i][j] >> 1;
+    }
+};
+
+
 /**
  * This works.
  * If consider board as infinite, and wrap around borders, then use these 3 functions instead:
