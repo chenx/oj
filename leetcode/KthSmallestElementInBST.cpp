@@ -8,6 +8,43 @@
  * };
  */
  
+ 
+// Works. Use iterative inorder traversal to find kth element. 2/4/2016.
+// O(h) space, O(k) time.
+class Solution3 {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        if (root == NULL) return -1;
+        
+        stack<TreeNode *> s;
+        TreeNode *n = root;
+        int ct = 0;
+        
+        while (true) {
+            while (n != NULL) {
+                s.push(n);
+                n = n->left;
+            }
+            
+            if (s.empty()) { 
+                break;
+            }
+            else {
+                ++ ct;
+                n = s.top();
+                s.pop();
+                
+                if (ct == k) return n->val;
+                
+                n = n->right;
+            }
+        }
+        
+        return -1;
+    }
+};
+
+ 
 // This works too, and should be more efficient.
 class Solution2 {
 public:
@@ -56,19 +93,21 @@ public:
 /*
 Kth Smallest Element in a BST 
 
-Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
+Given a binary search tree, write a function kthSmallest to 
+find the kth smallest element in it.
 
 Note:
 You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
 
 Follow up:
-What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? 
-How would you optimize the kthSmallest routine?
+What if the BST is modified (insert/delete operations) often 
+and you need to find the kth smallest frequently? 
+How would you optimize the kthSmallest routine? (how?)
 
 Hint:
 
     Try to utilize the property of a BST.
-    What if you could modify the BST node's structure?
+    What if you could modify the BST node's structure? (store lessThan count in node).
     The optimal runtime complexity is O(height of BST).
 
  */
