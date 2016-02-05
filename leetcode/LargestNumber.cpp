@@ -4,6 +4,36 @@
 #include <sstream>
 using namespace std;
 
+
+
+// This works too. Note how the compare function can be a static class member.
+class Solution4 {
+public:
+    string largestNumber(vector<int>& nums) {
+        int n = nums.size();
+        vector<string> v(n);
+        for (int i = 0 ; i < n; ++ i) {
+            v[i] = to_string(nums[i]);
+        }
+        
+        sort(v.begin(), v.end(), comp);
+        
+        string s = "";
+        int i = 0;
+        for (; i < n && v[i] == "0"; ++ i) ;
+        for (; i < n; ++ i) s += v[i];
+        if (s == "") s = "0";
+        
+        return s;
+    }
+    
+private:
+    static bool comp(const string &a, const string &b) {
+        return a + b > b + a;
+    }
+};
+
+
 // Solution 3. This works.
 bool comp3(int a, int b) {
     string x = to_string(a);
