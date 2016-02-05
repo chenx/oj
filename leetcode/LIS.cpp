@@ -1,3 +1,29 @@
+// Works too. Intuitively based on Patience Sort, but not as good as Solution.
+class Solution2 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size(), L, R, M;
+        if (n == 0) return 0;
+        
+        vector<int> v;
+        v.push_back(nums[0]);
+
+        for (int i = 1; i < n; ++ i) { // search for nums[i] in v;
+            for (L = 0, R = v.size() - 1; L <= R; ) {
+                M = L + (R - L)/2;
+                if (nums[i] == v[M]) break;
+                if (nums[i] < v[M]) R = M - 1;
+                else L = M + 1;
+            }
+            
+            if (L == v.size()) v.push_back(nums[i]);
+            else if (nums[i] != v[M]) v[L] = nums[i];
+        }
+        
+        return v.size();
+    }
+};
+
 // O(n log(n))
 class Solution {
 public:
