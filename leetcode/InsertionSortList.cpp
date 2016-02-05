@@ -8,6 +8,29 @@ struct ListNode {
 };
 
 
+// This works too. Best so far. Improved from Solution4.
+class Solution6 {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        ListNode dummy(0);
+
+        while (head != NULL) {
+            ListNode * n = & dummy;
+            while (n->next != NULL && n->next->val < head->val) {
+                n = n->next;
+            }
+            // insert after n.
+            ListNode * tmp = head->next;
+            head->next = n->next;
+            n->next = head;
+            
+            head = tmp;
+        }
+        
+        return dummy.next;
+    }
+};
+
 // This works too.
 // start from head, find insertion point and insert.
 // Considerations: 1) insert before head, 2) no move, 3) insert between head and current position.
