@@ -1,6 +1,38 @@
 #include <iostream>
 using namespace std;
 
+// This works too. 2/5/2016
+class Solution5 {
+public:
+    void reverseWords(string &s) {
+        string r = "", t = "";
+        bool inWord = false;
+        
+        for (int i = 0; i < s.length(); ++ i) {
+            if (isspace(s[i])) {
+                if (inWord) {
+                    r = (r == "") ? t : (t + " " + r);
+                    t = "";
+                    inWord = false;
+                }
+            }
+            else {
+                if (! inWord) {
+                    inWord = true;
+                    t = s[i];
+                }
+                else {
+                    t += s[i];
+                }
+            }
+        }
+
+        if (t != "") r = (r == "") ? t : (t + " " + r);
+
+        s = r;
+    }
+};
+
 // This works too.
 class Solution4 {
 public:
