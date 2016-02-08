@@ -9,6 +9,61 @@
 #include <vector>
 using namespace std;
 
+
+// This works too. 2/7/2016.
+class Solution4 {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for (int i = 0; i < 9; ++ i) {
+            if (! validateRow(board, i)) return false;
+        }
+        for (int i = 0; i < 9; ++ i) {
+            if (! validateCol(board, i)) return false;
+        }
+        for (int i = 0; i < 3; ++ i) {
+            for (int j = 0; j < 3; ++ j) {
+                if (! validateSquare(board, 3*i, 3*j)) return false;
+            }
+        }
+        return true;
+    }
+    
+    bool validateRow(vector<vector<char>>& board, int row) {
+        vector<int> ct(9, 0);
+        for (int j = 0; j < 9; ++ j) {
+            if (board[row][j] == '.') continue;
+            int v = board[row][j] - '0' - 1;
+            if (ct[v] == 1) return false;
+            ct[v] = 1;
+        }
+        return true;
+    }
+    
+    bool validateCol(vector<vector<char>>& board, int col) {
+        vector<int> ct(9, 0);
+        for (int j = 0; j < 9; ++ j) {
+            if (board[j][col] == '.') continue;
+            int v = board[j][col] - '0' - 1;
+            if (ct[v] == 1) return false;
+            ct[v] = 1;
+        }
+        return true;
+    }
+    
+    bool validateSquare(vector<vector<char>>& board, int row, int col) {
+        vector<int> ct(9, 0);
+        for (int i = 0; i < 3; ++ i) {
+            for (int j = 0; j < 3; ++ j) {
+                if (board[row + i][col + j] == '.') continue;
+                int v = board[row + i][col + j] - '0' - 1;
+                if (ct[v] == 1) return false;
+                ct[v] = 1;
+            }
+        }
+        return true;
+    }
+};
+
 // This works too, and is clear. 10-26-2014.
 class Solution3 {
 public:
