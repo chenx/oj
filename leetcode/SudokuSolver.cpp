@@ -5,6 +5,78 @@
 // @Last modified: 1/3/2013
 //
 
+// This works too.
+class Solution2 {
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        solve(board, 0, 0);
+    }
+    
+    bool solve(vector<vector<char>>& board, int row, int col) {
+        if (! getNextCell(board, row, col)) return true;
+
+        vector<char> v = getOptions(board, row, col);
+        for (int i = 0; i < v.size(); ++ i) {
+            board[row][col] = v[i];
+            if (solve(board, row, col + 1)) return true;
+        }
+        
+        board[row][col] = '.';
+        return false;
+    }
+    
+    vector<char> getOptions(vector<vector<char>>& board, int row, int col) {
+        vector<bool> v(9, true);
+        for (int i = 0; i < 9; ++ i) {
+            if (i == row) continue;
+            char c = board[i][col];
+            if (isDigit(c)) v[c - '1'] = false;
+        }
+
+        for (int j = 0; j < 9; ++ j) {
+            if (j == col) continue;
+            char c = board[row][j];
+            if (isDigit(c)) v[c - '1'] = false;
+        }
+        
+        for (int i = 0; i < 3; ++ i) {
+            for (int j = 0; j < 3; ++ j) {
+                if ((i == row && j == col)) continue;
+                char c = board[(row/3) * 3 + i][(col/3)*3 + j];
+                if (isDigit(c)) v[c - '1'] = false;
+            }
+        }
+        
+        vector<char> ans;
+        for (int i = 0; i < 9; ++ i) {
+            if (v[i]) ans.push_back('1' + i);
+        }
+        return ans;
+    }
+    
+    bool isDigit(char c) { return c >= '1' && c <= '9'; }
+    
+    bool getNextCell(vector<vector<char>>& board, int &row, int &col) {
+        for (int j = col; j < 9; ++ j) {
+            if (board[row][j] == '.') {
+                col = j;
+                return true;
+            }
+        }
+        for (int i = row+1; i < 9; ++ i) {
+            for (int j = 0; j < 9; ++ j) {
+                if (board[i][j] == '.') {
+                    row = i;
+                    col = j;
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
+
 // For each ".", find out all possible values, and do DFS search.
 class Solution {
 public:
@@ -100,7 +172,7 @@ You may assume that there will be only one unique solution.
    is not present in current row, current column and current 3X3 subgrid. 
    After checking for safety, we assign the number, and recursively check 
    whether this assignment leads to a solution or not. If the assignment 
-   does¡t lead to a solution, then we try next number for current empty cell. 
+   doesÂ¡t lead to a solution, then we try next number for current empty cell. 
    And if none of number (1 to 9) lead to solution, we return false.
  */
 
