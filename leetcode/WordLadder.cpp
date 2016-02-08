@@ -185,7 +185,7 @@ public:
                     s[i] = 'a' + j;
                     
                     if (s == endWord) {
-                        if (dist == 0 || dist > 1 + d) dist = 1 + d;
+                        if (dist == 0 || dist > 1 + d) dist = 1 + d; // return 1 + d also works.
                     }
                     else {
                         if (wordList.find(s) != wordList.end() 
