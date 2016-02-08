@@ -1,3 +1,48 @@
+// This works too. 
+class Solution2 {
+public:
+    int nthUglyNumber(int n) {
+        if (n <= 0) return 0;
+        if (n == 1) return 1;
+        
+        vector<long long> v2;
+        vector<long long> v3;
+        vector<long long> v5;
+        v2.push_back(2);
+        v3.push_back(3);
+        v5.push_back(5);
+        
+        long long next = 1;
+        for (int i = 2; i <= n; ++ i) {
+            long long n2 = v2.empty() ? INT_MAX : v2[0],
+                      n3 = v3.empty() ? INT_MAX : v3[0],
+                      n5 = v5.empty() ? INT_MAX : v5[0];
+            
+            next = min(n2, min(n3, n5));
+            if (next == n2) {
+                v2.erase(v2.begin());
+                
+                v2.push_back(next * 2);
+                v3.push_back(next * 3);
+                v5.push_back(next * 5);
+            }
+            else if (next == n3) {
+                v3.erase(v3.begin());
+
+                v3.push_back(next * 3);
+                v5.push_back(next * 5);
+            }
+            else {
+                v5.erase(v5.begin());
+
+                v5.push_back(next * 5);
+            }
+        }
+        
+        return next;
+    }
+};
+
 class Solution {
 public:
     int nthUglyNumber(int n) {
