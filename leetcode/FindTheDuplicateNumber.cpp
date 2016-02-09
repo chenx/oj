@@ -1,6 +1,7 @@
 // All 3 methods below are O(N) time, O(1) space.
 class Solution {
 public:
+    // Works. Tested.
     // Similar to the problem "Find first missing positive".
     int findDuplicate3(vector<int>& A) {
         int len = A.size(), i;
@@ -10,9 +11,10 @@ public:
             }
             if (A[i] != i + 1 && A[A[i] - 1] == A[i]) return A[i];
         }
-        return n; // actually this doesn't matter. will always return above.
+        return len; // actually this doesn't matter. will always return above.
     }
     
+    // Works. Tested.
     // From: https://leetcode.com/discuss/68501/java-o-n-solution
     int findDuplicate2(vector<int>& nums) {
         int len = nums.size();
@@ -30,6 +32,7 @@ public:
         return i;
     }
 
+    // Works. Tested.
     // Similar to find cycle in loop.
     // From: https://leetcode.com/discuss/69766/share-my-solution-o-n-time-o-1-space-12-ms
     int findDuplicate(vector<int>& nums) {
