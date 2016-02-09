@@ -1,4 +1,4 @@
-// Avoid duplicates by statements commented by "//<-", but not necessary.
+// This works. Tested.
 class Solution {
 public:
     int threeSumSmaller(vector<int>& nums, int target) {
@@ -7,24 +7,22 @@ public:
         sort(nums.begin(), nums.end());
         
         for (int L = 0, len = nums.size(); L < len - 2; ++ L) {
-            if (L > 0 && nums[L] == nums[L - 1]) ++ L; //<-
+            // It's asking for index triplets, not unique value triplets.
+            //if (L > 0 && nums[L] == nums[L - 1]) ++ L; 
+            int M = L + 1, R = len - 1;
             
-            for (int M = L + 1, R = len - 1; M < R; ) {
-                int sum = nums[L] + nums[M] + nums[R];
-                
-                if (sum <= target) {
-                    if (sum < target) ++ ct;
+            while(M < R){
+                if(nums[L] + nums[M] + nums[R] < target){
+                    ct += R - M;
                     ++ M;
-                    if (M < R && nums[M] == nums[M-1]) ++ M; //<-
                 }
-                else {
+                else{
                     -- R;
-                    if (M < R && nums[R] == nums[R+1]) -- R; //<-
                 }
             }
         }
         
-        return ct;           
+        return ct;
     }
 };
 
