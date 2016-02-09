@@ -7,7 +7,7 @@
  * [3] http://www.mitbbs.com/article_t/JobHunting/32810997.html
  */
 
-// Should work. Although not tested.
+// Work. Tested.
 int read(char * buf, int n) {
     int read_ct = 0;
     char * buf4 = new char[4]; // or (char *) malloc(sizeof(char) * 4
