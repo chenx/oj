@@ -1,5 +1,6 @@
 // bool knows(int a, int b);
 
+// Works. Tested.
 // References: 
 // http://www.cnblogs.com/jcliBlogger/p/4787588.html
 // https://www.cs.princeton.edu/courses/archive/spring13/cos423/problem0-1.pdf
