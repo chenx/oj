@@ -4,7 +4,7 @@
 class comp {
 public:
     bool operator()(const pair<double, int> &a, const pair<double, int> &b) {
-        return a.first < b.first;   // "<" for min heap.
+        return a.first < b.first;   // "<" for max heap.
     }
 };
  
@@ -14,8 +14,8 @@ public:
         vector<int> ans;
         if (root == NULL) return ans;
         
-        // min heap.
-        priority_queue<pair<double, int>, vector<pair<double, int>>, comp> minQ;
+        // max heap.
+        priority_queue<pair<double, int>, vector<pair<double, int>>, comp> maxQ;
 
         stack<TreeNode *> s;
         s.push(root);
@@ -25,21 +25,21 @@ public:
             s.pop();
             
             double dist = abs(target - n->val);
-            if (minQ.size() < k) {
-                minQ.push(pair<double, int>(dist, n->val));
+            if (maxQ.size() < k) {
+                maxQ.push(pair<double, int>(dist, n->val));
             }
-            else if (dist < minQ.top().first) {
-                minQ.push(pair<double, int>(dist, n->val));
-                minQ.pop();
+            else if (dist < maxQ.top().first) {
+                maxQ.push(pair<double, int>(dist, n->val));
+                maxQ.pop(); // pop value with the max distance from target.
             }
             
             if (n->right != NULL) s.push(n->right);
             if (n->left != NULL) s.push(n->left);
         }
         
-        while (! minQ.empty()) {
-            ans.push_back(minQ.top().second);
-            minQ.pop();
+        while (! maxQ.empty()) {
+            ans.push_back(maxQ.top().second);
+            maxQ.pop();
         }
         
         return ans;
