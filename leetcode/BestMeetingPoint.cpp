@@ -1,4 +1,4 @@
-// Works. 
+// Works. Tested.
 // The best meeting point is the median.
 // for odd numbers, it's the center one; 
 // for even numbers, any point between the middle two will do, 
