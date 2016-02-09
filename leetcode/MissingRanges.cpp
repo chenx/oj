@@ -1,9 +1,9 @@
-// This works. 
+// This works. Tested.
 // From: http://www.danielbit.com/blog/puzzle/leetcode/leetcode-missing-ranges
 class Solution {
 public:
-    vector<string> MissingRanges(int A[], int n, int start, int end) {
-        vector<string> ranges;
+    vector<string> findMissingRanges(vector<int>& A, int start, int end) {
+        int n = A.size();
         int prev = start - 1, cur;
         for (int i = 0; i <= n; ++ i) {
             cur = (i == n ? end + 1 : A[i]);
