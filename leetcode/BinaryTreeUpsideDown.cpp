@@ -16,6 +16,7 @@ public:
     TreeNode(int v) : val(v), left(NULL), right(NULL) {}
 };
 
+// Works. Tested.
 class Solution2 {
 public:
     /**
@@ -29,7 +30,7 @@ public:
     }
     
     TreeNode * dfs(TreeNode *p, TreeNode * parent) {
-    If (p == NULL) return parent;
+        if (p == NULL) return parent;
         TreeNode * root = dfs(p->left, p);
         p->left = parent != NULL ? parent->right : NULL;
         p->right = parent;
@@ -37,7 +38,8 @@ public:
     }
 }
 
-// This works. Use a stack, 2 steps.
+// Tested and NOT work yet. Input: [1,2], Output: [2,1], Expected: [2,null,1]
+// Use a stack, 2 steps.
 class Solution {
 public:
     TreeNode * upsideDown(TreeNode * root) {
@@ -123,7 +125,8 @@ int main() {
 /**
  * Binary Tree Upside Down.
  *
- * Given a binary tree where all the right nodes are leaf nodes, flip it upside down and turn it into a tree with left leaf nodes. 
+ * Given a binary tree where all the right nodes are leaf nodes, flip it upside down 
+ * and turn it into a tree with left leaf nodes. 
  *
  * Keep in mind: ALL RIGHT NODES IN ORIGINAL TREE ARE LEAF NODE.
  *
