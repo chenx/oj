@@ -1,4 +1,4 @@
-// Should work. But not tested.
+// Works. Tested.
 class Solution {
     bool IsOneEditDistance(string s, string t) {
         int lens = s.length(), lent = t.length();
