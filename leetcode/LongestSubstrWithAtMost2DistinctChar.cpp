@@ -1,4 +1,4 @@
-// This works.
+// This works. Tested.
 // From leetcode solution.
 // Note: 1) it's easy to extend from 2 to k. 2) to find minlen is also easy.
 int LongestSubstrWithAtMost2DistinctChar(string s) {
