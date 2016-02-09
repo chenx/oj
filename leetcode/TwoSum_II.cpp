@@ -1,4 +1,4 @@
-// This works.
+// Works. Tested.
 vector<int> twoSum(vector<int>& numbers, int target) {
     vector<int> ans(2);
     int L = 0, R = numbers.size() - 1;
@@ -14,7 +14,7 @@ vector<int> twoSum(vector<int>& numbers, int target) {
     return ans;
 }
 
-// This works too. 
+// Works. Tested.
 // From https://leetcode.com/discuss/33192/a-simple-o-n-solution
 vector<int> twoSum(vector<int>& numbers, int target) {
     int lo=0, hi=numbers.size()-1;
