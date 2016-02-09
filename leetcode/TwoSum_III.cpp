@@ -3,7 +3,7 @@
 #include <set>
 using namespace std;
 
-// This works.
+// This should work. But times out for large input.
 class TwoSum {
 public:
         void add(int number) {
