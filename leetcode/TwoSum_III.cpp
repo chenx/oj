@@ -1,9 +1,80 @@
+// This works. Tested. 
+// From: https://leetcode.com/discuss/59376/fast-and-concise-c-multiset-solution
+/**
+ * Multiple-key set
+ * Multisets are containers that store elements following a specific order, 
+ * and where multiple elements can have equivalent values.
+ * 
+ * In a multiset, the value of an element also identifies it (the value is 
+ * itself the key, of type T). The value of the elements in a multiset 
+ * cannot be modified once in the container (the elements are always const), 
+ * but they can be inserted or removed from the container.
+ * 
+ * Internally, the elements in a multiset are always sorted following a 
+ * specific strict weak ordering criterion indicated by its internal 
+ * comparison object (of type Compare).
+ * 
+ * multiset containers are generally slower than unordered_multiset 
+ * containers to access individual elements by their key, but they 
+ * allow the direct iteration on subsets based on their order.
+ * 
+ * Multisets are typically implemented as binary search trees.
+ */
+class TwoSum3 {
+    unordered_multiset<int> nums;
+public:
+    void add(int number) {
+        nums.insert(number);
+    }
+    bool find(int value) {
+        for (int i : nums) {
+            int count = (value == 2 * i) ? 2 : 1;
+            if (nums.count(value - i) > count) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+
+// Should work. But times out for large input. Tested.
+class TwoSum2 {
+public:
+    void add(int number) {
+        // a little optimization, to avoid adding repeated number.
+        if (std::find(nums.begin(), nums.end(), number) != nums.end()) {
+            sumFound.insert(number * 2);
+            return;
+        }
+        
+        nums.push_back(number);
+        if (nums.size() == 1) return;
+        
+        for (int i = 0, len = nums.size() - 1; i < len; ++ i) {
+            int v = nums[i] + number;
+            if (sumFound.find(v) == sumFound.end()) {
+                sumFound.insert(v);
+            }
+        }
+    }
+    
+    bool find(int value) {
+        return sumFound.find(value) != sumFound.end();
+    }
+
+private:
+    vector<int> nums; // store numbers added.
+    unordered_set<int> sumFound;  // store values that are sum of 2 numbers added.
+};
+
+
 #include <iostream>
 #include <vector>
 #include <set>
 using namespace std;
 
-// This should work. But times out for large input.
+// This should work. But times out for large input. Tested.
 class TwoSum {
 public:
         void add(int number) {
