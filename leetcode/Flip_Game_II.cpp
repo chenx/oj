@@ -2,8 +2,23 @@
 // - https://leetcode.com/discuss/64344/theory-matters-from-backtracking-128ms-to-dp-0ms
 // - https://leetcode.com/discuss/oj/flip-game-ii
 
-// DFS.
-class Solution {
+// DFS, Recursive. This works too. Tested.
+class Solution3 {
+public:
+    bool canWin(string s) {
+        for (int i = 0, len = s.length() - 1; i < len; ++ i) {
+            if (s[i] == '+' && s[i+1] == '+') {
+                s[i] = s[i+1] = '-';
+                if (! canWin(s)) return true; // works too if move this 1 line below.
+                s[i] = s[i+1] = '+';
+            }
+        }
+        return false;
+    }
+};
+
+// DFS. Works. Tested.
+class Solution2 {
 public:
     int len;
     string ss;
@@ -18,7 +33,7 @@ public:
                 ss[is] = '-'; ss[is+1] = '-';
                 bool wins = !canWin(); 
                 ss[is] = '+'; ss[is+1] = '+';
-                if (wins) return true;
+                if (wins) return true; // note: if move this one line above, it won't work. Why?
             }
         }
         return false;
@@ -26,7 +41,7 @@ public:
 };
 
 // DP. Works.
-class Solution2 {
+class Solution {
 public:
     int firstMissingNumber(unordered_set<int> lut) {
         int m = lut.size();
