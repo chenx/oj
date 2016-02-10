@@ -8,6 +8,32 @@
 #include <iostream>
 using namespace std;
 
+// This works too. Slightly better than Solution6.
+class Solution7 {
+public:
+    int lengthOfLongestSubstring(string s) {
+        const int SIZE = 256;
+        int pos[SIZE] = {0};
+        int len = 0, mlen = 0;
+        
+        for (int i = 0, n = s.length(); i < n; ++ i) {
+            if (pos[s[i]] == 0) {
+                pos[s[i]] = i + 1;
+                ++ len;
+            }
+            else {
+                mlen = max(len, mlen);
+                len = 0;
+                i = pos[s[i]] - 1;
+                memset(pos, 0, SIZE * sizeof(int));
+            }
+        }
+        mlen = max(len, mlen); // need this since now get mlen only when pos[s[i]] != 0.
+         
+        return mlen;
+    } 
+};
+
 // This works too.
 // Removed array ct[] from previous solutions, which is redundant from pos[].
 // use pos[c] == 0 to denote not-exist.
