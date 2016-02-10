@@ -81,7 +81,7 @@ public:
  
  /**
  Flip Game II
-Difficulty: Easy
+Difficulty: Medium
 
 Given a string that contains only + or - characters, 
 each player takes turn to flip two consecutive "++" to "--".
