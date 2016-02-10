@@ -59,6 +59,7 @@ public:
         }
     }
 
+    /* // Exact search. Not needed here.
     // Returns if the word is in the trie.
     bool search(string word) {
         TrieNode * current = root;
@@ -70,7 +71,7 @@ public:
         }
     
         return current->wordMarker();
-    }
+    }*/
 
     bool search_dot(string word) {
         if (word.length() == 0) return false;
