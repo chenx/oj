@@ -1,3 +1,40 @@
+// This works. Much better than Solution! Recurive. O(log(n)) space.
+// Improved from: https://leetcode.com/discuss/73367/c-merge-sort-solution
+class Solution2 {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode *fast = head->next->next, *slow = head;
+        while(fast && fast->next) {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+        ListNode *r = sortList(slow->next);
+        slow->next = NULL;
+        ListNode *l = sortList(head);
+        return merge(l, r);
+    }
+    
+    ListNode *merge(ListNode *l, ListNode *r) {
+        ListNode dummy(0);
+        ListNode *n = &dummy;
+        while (l && r) {
+            if (l->val < r->val) {
+                n->next = l;
+                l = l->next;
+            } else {
+                n->next = r;
+                r = r->next;
+            }
+            n = n->next;
+        }
+        n->next = l ? l : r;
+        return dummy.next;
+    }
+};
+
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -7,7 +44,7 @@
  * };
  */
  
-// This works. Can be simplified though.
+// This works. Can be simplified though. O(1) space. Iterative.
 class Solution {
 public:
     ListNode *sortList(ListNode *head) {
