@@ -1,3 +1,31 @@
+// This works too! Tested.
+class TwoSum4 {
+public:
+    void add(int number) {
+        ++ nums[number];
+    }
+    
+    bool find(int value) {
+        for (unordered_map<int, int>::iterator it = nums.begin(); 
+                it != nums.end(); ++ it) {
+            int i = it->first; //(*it).first; // key, inserted number.
+            int count = (value == 2 * i) ? 2 : 1;
+            if (nums.find(value - i) != nums.end() && nums[value - i] >= count) return true;
+            
+            // note: code below fails. Because if x does not exist in nums, 
+            // use of nums[x] will insert x into nums where value nums[x] = -1. 
+            // This changes the nums map and it will fail.
+            //if (nums[value - i] >= count) return true;
+        }
+        
+        return false;
+    }
+    
+private:
+    unordered_map<int, int> nums;  // store values that are sum of 2 numbers added.
+};
+
+
 // This works. Tested. 
 // From: https://leetcode.com/discuss/59376/fast-and-concise-c-multiset-solution
 /**
@@ -74,7 +102,7 @@ private:
 #include <set>
 using namespace std;
 
-// This should work. But times out for large input. Tested.
+// This fails.
 class TwoSum {
 public:
         void add(int number) {
@@ -84,7 +112,7 @@ public:
         bool find(int value) {
             if (sumFound.find(value) != sumFound.end()) return true;
             
-            set<int> m;
+            set<int> m; // why use this? 
             for (int i = 0; i < nums.size(); ++ i) {
                 if (m.find(nums[i]) == m.end()) {
                     m.insert(value - nums[i]);
