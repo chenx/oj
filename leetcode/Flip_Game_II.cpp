@@ -28,11 +28,11 @@ public:
         return canWin();
     }
     bool canWin() {
-        for (int is = 0; is <= len-2; ++is) {
-            if (ss[is] == '+' && ss[is+1] == '+') {
-                ss[is] = '-'; ss[is+1] = '-';
+        for (int i = 0; i <= len-2; ++ i) {
+            if (ss[i] == '+' && ss[i+1] == '+') {
+                ss[i] = '-'; ss[i+1] = '-';
                 bool wins = !canWin(); 
-                ss[is] = '+'; ss[is+1] = '+';
+                ss[i] = '+'; ss[i+1] = '+';
                 if (wins) return true; // note: if move this one line above, it won't work. Why?
             }
         }
