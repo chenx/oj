@@ -40,7 +40,7 @@ public:
     } 
 };
 
-// DP. Works.
+// DP. Works. Tested. But long, complex and hard to understand.
 class Solution {
 public:
     int firstMissingNumber(unordered_set<int> lut) {
