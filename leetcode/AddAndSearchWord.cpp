@@ -59,20 +59,6 @@ public:
         }
     }
 
-    /* // Exact search. Not needed here.
-    // Returns if the word is in the trie.
-    bool search(string word) {
-        TrieNode * current = root;
-    
-        for (int i = 0; i < word.length(); ++ i) {
-            TrieNode * tmp = current->findChild(word[i]);
-            if (! tmp) return false;
-            current = tmp;
-        }
-    
-        return current->wordMarker();
-    }*/
-
     bool search_dot(string word) {
         if (word.length() == 0) return false;
         return search_dot_helper(word, 0, root);
@@ -96,6 +82,22 @@ public:
         }
     }
 
+
+    /* // Exact search. Not needed here.
+    // Returns if the word is in the trie.
+    bool search(string word) {
+        TrieNode * current = root;
+    
+        for (int i = 0; i < word.length(); ++ i) {
+            TrieNode * tmp = current->findChild(word[i]);
+            if (! tmp) return false;
+            current = tmp;
+        }
+    
+        return current->wordMarker();
+    }*/
+    
+    /*
     // Returns if there is any word in the trie
     // that starts with the given prefix.
     bool startsWith(string prefix) {
@@ -108,7 +110,7 @@ public:
         }
     
         return true;
-    }
+    }*/
 
 private:
     TrieNode* root;
