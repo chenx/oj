@@ -1,19 +1,44 @@
+// Works too. Slightly better than Solution.
+class Solution2 {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> ans;
+        deque<int> Q;
+        
+        for (int i = 0; i < k; ++ i) {
+            while (! Q.empty() && nums[i] >= nums[Q.back()]) Q.pop_back();
+            Q.push_back(i);
+        }
+        
+        for (int i = k, len = nums.size(); i < len; ++ i) {
+            ans.push_back(nums[Q.front()]);
+            while (! Q.empty() && (i - Q.front() >= k)) Q.pop_front();
+            while (! Q.empty() && nums[i] >= nums[Q.back()]) Q.pop_back();
+            Q.push_back(i);
+        }
+        if (! Q.empty()) ans.push_back(nums[Q.front()]);
+        
+        return ans;
+    }
+};
+
+
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         vector<int> ans;
         deque<int> Q;
-        int mv = INT_MIN, len = nums.size(), i;
+        int len = nums.size(), i;
         
         for (i = 0; i < k; ++ i) {
             while (! Q.empty() && nums[i] >= nums[Q.back()]) Q.pop_back();
             Q.push_back(i);
         }
 
-        for (i = k; i < len; ++ i) {
+        for (; i < len; ++ i) {
             ans.push_back(nums[Q.front()]);
             while (! Q.empty() && nums[i] >= nums[Q.back()]) Q.pop_back();
-            while (! Q.empty() && Q.front() <= i - k) Q.pop_front();
+            while (! Q.empty() && i - Q.front() >= k) Q.pop_front();
             Q.push_back(i);
         }
         if (! Q.empty()) ans.push_back(nums[Q.front()]);
