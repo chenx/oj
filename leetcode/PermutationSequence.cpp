@@ -6,6 +6,41 @@
 #include <iostream>
 using namespace std;
 
+// Works too.
+class Solution4 {
+public:
+    string getPermutation(int n, int k) {
+        int F[n+1];
+        F[0] = 1;
+        for (int i = 1; i <= n; ++ i) F[i] = i * F[i-1];
+        
+        vector<int> A(n);
+        for (int i = 0; i < n; ++ i) A[i] = i + 1;
+        
+        int pos = 0;
+        while (true) {
+            if (k == 1) break;
+            if (k == F[n]) {
+                reverse(A.begin() + pos, A.end());
+                break;
+            }
+            
+            int i = pos + (k-1) / F[n-1];
+            int tmp = A[i];
+            for (int j = i-1; j >= pos; -- j) A[j+1] = A[j];
+            A[pos] = tmp;
+            
+            k = (k - 1) % F[n-1] + 1;
+            ++ pos;
+            -- n;
+        }
+        
+        string s;
+        for (int i = 0; i < A.size(); ++ i) s += to_string(A[i]);
+        return s;
+    }
+};
+
 class Solution {
 public:
     string getPermutation(int n, int k) {
@@ -197,7 +232,7 @@ int main() {
 /*
 Problem:
 
-The set [1,2,3,…,n] contains a total of n! unique permutations.
+The set [1,2,3,â€¦,n] contains a total of n! unique permutations.
 
 By listing and labeling all of the permutations in order,
 We get the following sequence (ie, for n = 3):
