@@ -1,4 +1,24 @@
+// Works. From: https://leetcode.com/discuss/85460/c-using-counter
+// Why?
+class Solution2 {
+public:
+    bool isValidSerialization(string preorder) {
+        replace(preorder.begin(),preorder.end(),',',' ');
+        stringstream ss(preorder);
+        string value;
+        int nbTreeToRead = 1;
+        while(ss >> value)
+        {
+            if (nbTreeToRead == 0) return false;
+            if (value == "#") nbTreeToRead --;
+            else nbTreeToRead++;
+        }
+        return (nbTreeToRead == 0);
+    }
+};
+
 // works. why?
+// From: https://leetcode.com/discuss/85616/11-lines-concise-and-easy-understand-c-solution
 class Solution {
 public:
     bool isValidSerialization(string preorder) {
