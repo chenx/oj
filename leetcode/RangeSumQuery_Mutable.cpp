@@ -1,3 +1,89 @@
+// Works. From: https://leetcode.com/discuss/80849/recommend-beginners-implementation-detailed-explaination
+// Why?
+class NumArray3 {
+    private:
+        vector<int> _nums;
+        vector<int> bit;
+
+        int lower_bit(int i){
+            return i&-i;
+        }
+
+        int query(int i){
+            i++;
+            int sum=0;
+            while(i>0){
+                sum+=bit[i];
+                i-=lower_bit(i);
+            }
+            return sum;
+        }
+
+        void add(int i, int val){
+            i++;
+            while(i<bit.size()){
+                bit[i]+=val;
+                i+=lower_bit(i);
+            }
+        }
+
+    public:
+        NumArray(vector<int> &nums) : _nums(nums) {
+            bit.resize(nums.size()+1);
+            for(int i=0; i<nums.size(); i++){
+                add(i, nums[i]);
+            }
+        }
+
+        void update(int i, int val) {
+            if(val!=_nums[i]){
+                add(i, val-_nums[i]);
+                _nums[i]=val;
+            }
+        }
+
+        int sumRange(int i, int j) {
+            return query(j)-query(i-1);
+        }
+};
+    
+    
+// Works. From: https://leetcode.com/discuss/78240/sharing-my-c-code-using-the-treelike-array-clean-and-fast
+// Why?
+class NumArray2 {
+public:
+    int t[100000]={0};
+    int len;
+    vector<int> tmp;        //remain the value of the array
+    NumArray(vector<int> &nums) {
+        len = nums.size();
+        for(int i = 0;i<len;i++)
+            tmp.push_back(0);
+        for(int i = 0;i<len;i++)
+            update(i,nums[i]);
+    }
+    int lowbit(int x){
+        return x&(-x);
+    }
+    void update(int i, int val) {
+        int x = val-tmp[i];
+        tmp[i] = val;
+        i++;
+        for(;i<=len;i+=lowbit(i))
+            t[i] += x;
+    }
+    int sum(int i){         //get the sum
+        int res = 0;
+        for(;i>0;i-=lowbit(i))
+            res += t[i];
+        return res;
+    }
+    int sumRange(int i, int j) {
+        return sum(j+1)-sum(i);
+    }
+};
+
+
 // Should work. But times out for large input.
 class NumArray {
 public:
