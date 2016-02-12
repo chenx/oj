@@ -39,7 +39,7 @@ public:
         
         return ans;
     }
-    
+};    
     
     // Code below use preorder and inorder traversals.
     // Although it outputs correctly on the first level,
@@ -101,8 +101,9 @@ public:
             ans.push_back(m[i]);
         }
         
-        return ans;*/
-};
+        return ans;
+*/
+
 
 
 /**
