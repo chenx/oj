@@ -29,21 +29,22 @@ public:
         
         queue<TreeNode *> q;
         q.push(root);
-        int ct = 1;
-        
+
         while (! q.empty()) {
             vector<int> v;
-            for (; ct > 0; -- ct) {
+            int ct = q.size();
+            while (ct > 0) {
                 TreeNode * n = q.front();
                 q.pop();
-                v.push_back(n->val);
+                -- ct;
                 
+                v.push_back(n->val);
+
                 if (n->left != NULL) q.push(n->left);
                 if (n->right != NULL) q.push(n->right);
             }
             
             ans.push_back(v);
-            ct = q.size();
         }
         
         return ans;
@@ -81,3 +82,26 @@ public:
         return ans;
     }
 };
+
+
+/**
+Binary Tree Level Order Traversal 
+Difficulty: Easy
+
+Given a binary tree, return the level order traversal of its 
+nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree {3,9,20,#,#,15,7},
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its level order traversal as:
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+ */
