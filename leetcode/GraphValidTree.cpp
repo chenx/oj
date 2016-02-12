@@ -1,3 +1,31 @@
+// Works. Tested. Modified from Solution.
+// Better, more clear, by moving check of edges.size() to the beginning.
+class Solution2 {
+public:
+    bool validTree(int n, vector<pair<int, int>>& edges) {
+        if (n <= 1) return true;
+        if (edges.size() != n - 1) return false;
+        
+        vector<int> parent(n);
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+        for (auto edge : edges) {
+            int x = find(parent, edge.first);
+            int y = find(parent, edge.second);
+            if (x == y) return false;
+            parent[y] = x;
+        }
+
+        return true; //edges.size() == n - 1;
+    }
+
+    int find(vector<int> parent, int i) {
+        while (i != parent[i]) i = parent[i];
+        return parent[i];
+    }
+};
+
 // Works. Tested. 
 // Modified from: https://leetcode.com/discuss/85859/simple-1ms-java-union-find-solution
 class Solution {
