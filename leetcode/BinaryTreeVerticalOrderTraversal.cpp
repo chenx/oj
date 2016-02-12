@@ -6,7 +6,7 @@ public:
         vector<vector<int>> ans;
         if (root == NULL) return ans;
         
-        unordered_map<int, vector<int>> m;
+        unordered_map<int, vector<int>> m; // (level/column, nodes on this level/column).
         int level = 0, minLevel = INT_MAX, maxLevel = INT_MIN;
         
         queue<pair<int, TreeNode *>> q;
