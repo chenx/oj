@@ -13,7 +13,8 @@ public:
         for (int i=0; i<n; i++) {
             for (int j=0; j<m; j++) {
                 if (grid[j][i]==1) {
-                    vector<pair<int, int>> bfs(1, make_pair(j, i)), bfs2;
+                    // make_pair(j, i): same as: pair<int, int>(j, i).
+                    vector<pair<int, int>> bfs(1, make_pair(j, i)), bfs2; 
                     int level=1;
                     ans=INT_MAX;
                     while (!bfs.empty()) {
