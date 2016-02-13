@@ -27,6 +27,7 @@ public:
 };
 
 // Works. Tested. O(n). Great Solution.
+// Key is to keep track of earliest end time, and compare to start time of new meeting.
 // From: https://leetcode.com/discuss/64686/concise-c-solution-with-min_heap-sort-greedy
 class Solution {
 public:
