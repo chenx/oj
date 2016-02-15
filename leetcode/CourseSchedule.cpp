@@ -65,12 +65,14 @@ public:
             pair<int, int> pair = prereq[i];
             in[pair.first] ++; // get in-degree.
             pre[pair.second].push_back(pair.first); // get courses dependent on pair.second.
-            //pre[pair.first].push_back(pair.second);
         }
 
         set<int> courses;
         for (int i = 0; i < numCourses; ++ i) courses.insert(i);
 
+        // in loop, each time remove courses whose in-degree is 0, and
+        // decrease the in-degree of those courses dependent on this course.
+        // Standard topological sort procedure.
         while (! courses.empty()) {
             bool found = false;
             for (set<int>::iterator it = courses.begin(); it != courses.end(); ++ it) {
