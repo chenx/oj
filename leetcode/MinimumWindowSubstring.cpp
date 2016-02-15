@@ -5,6 +5,43 @@
 // @Last modified: 1/9/2013
 //
 
+// Works too. Basically same as Solution, with shorter var names.
+class Solution2 {
+public:
+    string minWindow(string s, string t) {
+        unordered_map<char, int> toFind, found;
+        for (char c : t) toFind[c] ++;
+        
+        int ct = t.length(), found_ct = 0,
+            minB = -1, minE = -1, minLen = s.length() + 1;
+        for (int begin = 0, end = 0; end < s.length(); ++ end) {
+            char c = s[end];
+            if (toFind[c] == 0) continue;
+
+            found[c] ++;
+            if (found[c] <= toFind[c]) ++ found_ct;
+
+            if (found_ct == ct) {
+                char b = s[begin];
+                while (toFind[b] == 0 || found[b] > toFind[b]) {
+                    if (found[b] > toFind[b]) -- found[b];
+                    ++ begin;
+                    b = s[begin];
+                }
+                    
+                if (end - begin + 1 < minLen) {
+                    minLen = end - begin + 1;
+                    minB = begin; 
+                    minE = end;
+                }
+            }  
+        }
+        
+        if (minB == -1) return "";
+        else return s.substr(minB, minE - minB + 1);
+    }
+};
+
 // This works! O(n), since begin and end are advanced at most n times each.
 // From: http://leetcode.com/2010/11/finding-minimum-window-in-s-which.html
 class Solution {
