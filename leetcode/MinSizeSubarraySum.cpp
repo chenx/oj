@@ -1,3 +1,27 @@
+// Works too. By: XC. O(n).
+class Solution2 {
+public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+        if (nums.size() == 0) return 0;
+        
+        int i = 0, j = 0, sum = nums[0], minLen = INT_MAX;
+        
+        while (true) {
+            if (sum < s) {
+                if (j == nums.size() - 1) break;
+                else sum += nums[++ j];
+            }
+            else {
+                minLen = min(minLen, j - i + 1);
+                sum -= nums[i ++];
+            }
+        }
+
+        if (minLen == INT_MAX) minLen = 0;
+        return minLen;
+    }
+};
+
 class Solution {
 public:
     int minSubArrayLen(int s, vector<int>& nums) {
