@@ -56,7 +56,7 @@ public:
             return ans;
         }
         
-        vector<set<int>> adj(n);
+        vector<set<int>> adj(n); // unordered_set works too.
         for (auto edge : edges) {
             adj[edge.first].insert(edge.second);
             adj[edge.second].insert(edge.first);
