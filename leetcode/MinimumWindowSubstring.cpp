@@ -15,11 +15,11 @@ public:
         int ct = t.length(), found_ct = 0,
             minB = -1, minE = -1, minLen = s.length() + 1;
         for (int begin = 0, end = 0; end < s.length(); ++ end) {
-            char c = s[end];
-            if (toFind[c] == 0) continue;
+            char e = s[end];
+            if (toFind[e] == 0) continue;
 
-            found[c] ++;
-            if (found[c] <= toFind[c]) ++ found_ct;
+            found[e] ++;
+            if (found[e] <= toFind[e]) ++ found_ct;
 
             if (found_ct == ct) {
                 char b = s[begin];
@@ -130,3 +130,25 @@ public:
         }        
     }
 };
+
+
+/**
+Minimum Window Substring
+Difficulty: Hard
+
+Given a string S and a string T, find the minimum window in S 
+which will contain all the characters in T in complexity O(n).
+
+For example,
+S = "ADOBECODEBANC"
+T = "ABC"
+
+Minimum window is "BANC".
+
+Note:
+If there is no such window in S that covers all characters in T, 
+return the empty string "".
+
+If there are multiple such windows, you are guaranteed that 
+there will always be only one unique minimum window in S. 
+ */
