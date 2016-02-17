@@ -1,3 +1,22 @@
+/*
+Comment from: https://leetcode.com/discuss/52616/easy-c-manacher
+
+The idea is to find the longest palindromic substring of s that begins with s[0]. 
+Then take the remaining susbtring, reverse it and append it to the beginning of s.
+
+For example, given s = "aacecaaa", the longest palindromic substring beginning 
+with s[0] = 'a' is "aacecaa" and the remaining substring is "a". Reverse it and 
+append it to the beginning of s gives "aaacecaaa".
+
+For s = "abcd", the longest palindromic substring beginning with s[0] = 'a' is 
+"a" and the remaining substring is "bcd". Reverse it and append it to the 
+beginning of s gives "dcbabcd".
+
+The most difficult part is to implement the Manacher's algorithm to find the 
+longest palindromic substring starting with s[0]. Please refer to this nice 
+article if you want to know how it works. 
+ */
+
 // Works. Tested. Y?
 // From: https://leetcode.com/discuss/81299/c-4ms-manacher
 class Solution {
