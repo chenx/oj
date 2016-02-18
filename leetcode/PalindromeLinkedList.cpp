@@ -1,3 +1,67 @@
+// Works. Tested. O(1) space, O(n) time.
+// Idea: find mid point, reverse 2nd half (slow->next), compare with 1st half.
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if (head == NULL || head->next == NULL) return true;
+        
+        ListNode * slow = head, * fast = slow->next;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        ListNode * head2 = rev(slow->next); // 2nd half.
+
+        while (head2 != NULL) {
+            if (head->val != head2->val) return false;
+            head = head->next;
+            head2 = head2->next;
+        }
+        return true;
+    }
+    
+    // improved from isPalindrome(). This works too.
+    bool isPalindrome2(ListNode* head) {
+        if (head == NULL || head->next == NULL) return true;
+        
+        ListNode * slow = head, * fast = slow->next;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        for (ListNode * head2 = rev(slow->next); 
+             head2 != NULL; head = head->next, head2 = head2->next) {
+            if (head->val != head2->val) return false;
+        }
+        return true;
+    }
+    
+    // reverse a linked list.
+    ListNode * rev(ListNode * head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode * h = NULL;
+        while (head != NULL) {
+            ListNode * tmp = head->next;
+            head->next = h;
+            h = head;
+            head = tmp;
+        }
+        
+        return h;
+    }
+};
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
