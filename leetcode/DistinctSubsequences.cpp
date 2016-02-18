@@ -53,7 +53,7 @@ public:
 // DP: i for pos in T, j for pos in S:
 // DP[i][j] = DP[i-1][j-1] + DP[i][j-1], if T[i] = S[j]; i.e., S advances by 1, or both advances by 1.
 //            DP[i][j-1], otherwise. i.e., S advances by 1.
-class Solution {
+class Solution3 {
 public:
     int numDistinct(string S, string T) {
         if (S[0] == '\0') return 0;
@@ -75,6 +75,32 @@ public:
         }
         
         return DP[T.length()][S.length()];
+    }
+};
+
+// This works too.
+class Solution4 {
+public:
+    int numDistinct(string s, string t) {
+        int lens = s.length(), lent = t.length();
+        
+        vector<vector<int>> dp(lens + 1, vector<int>(lent + 1, 0));
+        
+        for (int j = 0; j <= lent; ++ j) dp[0][j] = 0;
+        for (int i = 0; i <= lens; ++ i) dp[i][0] = 1;
+
+        for (int i = 0; i < lens; ++ i) {
+            for (int j = 0; j < lent; ++ j) {
+                if (s[i] == t[j]) {
+                    dp[i+1][j+1] = dp[i][j] + dp[i][j+1];
+                }
+                else {
+                    dp[i+1][j+1] = dp[i][j+1];
+                }
+            }
+        }
+        
+        return dp[lens][lent];
     }
 };
 
