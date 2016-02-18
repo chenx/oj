@@ -1,3 +1,28 @@
+// Works too. Slightly modified from Solution3.
+class Solution4 {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        vector<string> ans;
+        unordered_map<int, int> m;
+        for (int i = 0; i + 10 <= s.length(); ++ i) {
+            string t = s.substr(i, 10);
+            int key = str2int(t);
+            if (m[key] == 1) ans.push_back(t);
+            m[key] ++;
+        }
+        return ans;
+    }
+
+private:
+    int str2int(string s) {
+        int v = 0;
+        for (int i = 0; i < s.length(); ++ i) {
+            v = (v << 3) + (s[i] & 7);
+        }
+        return v;
+    }
+};
+
 // This works too!
 // From: https://oj.leetcode.com/discuss/24478/i-did-it-in-10-lines-of-c
 // Also use rolling hash, but much more readable than Solution2.
