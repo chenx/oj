@@ -1,6 +1,6 @@
 // Works. Tested. Much simpler.
 // From: https://leetcode.com/discuss/84035/c-easy-understand-solution
-class Solution {
+class Solution3 {
 public:
     int shortestDistance(vector<string>& words, string word1, string word2) {
         int index1 = -1, index2 = -1, min_distance = INT_MAX;
@@ -13,6 +13,30 @@ public:
                 min_distance = min(min_distance, abs(index1 - index2));
         }
         return min_distance;
+    }
+};
+
+
+// This works. Tested. 
+// Modified from https://leetcode.com/discuss/86267/sharing-my-60ms-c-solution
+class Solution2 {
+public:
+    int shortestDistance(vector<string>& words, string word1, string word2) {
+        unordered_map<string, vector<int>> myMap;
+
+        int n = words.size();
+        int i, j;
+        for(i=0; i<n; i++)
+            myMap[words[i]].push_back(i);
+
+        vector<int> index1=myMap[word1];
+        vector<int> index2=myMap[word2];
+        int distance = INT_MAX;
+        for(i=0; i<index1.size(); i++)
+            for(j=0; j<index2.size(); j++)
+                distance = min(distance, abs(index1[i]-index2[j]));
+
+        return distance;
     }
 };
 
