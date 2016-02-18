@@ -1,3 +1,48 @@
+// Works too. Tested. By: XC
+// Can push all gates, before update distance.
+class Solution2 {
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        if (rooms.size() == 0 || rooms[0].size() == 0) return;
+        int m = rooms.size(), n = rooms[0].size(), INF = 2147483647;;
+        vector<pair<int, int>> d = {make_pair(1, 0), make_pair(-1, 0), make_pair(0, 1), make_pair(0, -1)};
+        
+        queue<vector<int>> q;
+        
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (rooms[i][j] == 0) {
+                    q.push(make_v3(i, j, 0));
+                }
+            }
+        }
+        
+        while (! q.empty()) {
+            vector<int> & t = q.front();
+            int x = t[0], y = t[1], dist = t[2] + 1;
+            q.pop();
+            
+            for (int i = 0; i < d.size(); ++ i) {
+                int dx = x + d[i].first, dy = y + d[i].second;
+                if (dx >= 0 && dx < m && dy >= 0 && dy < n && 
+                    (rooms[dx][dy] == INF || (rooms[dx][dy] > dist))) {
+                    rooms[dx][dy] = dist;
+                    q.push(make_v3(dx, dy, dist));
+                }
+            }
+        }
+    }
+    
+    // update when: new cell is INF, or current dist is greater than new dist. 
+    
+private:
+    vector<int> make_v3(int a, int b, int c) {
+        vector<int> v(3);
+        v[0] = a; v[1] = b; v[2] = c;
+        return v;
+    }
+};
+
 // Works. Tested. By: XC
 class Solution {
 public:
