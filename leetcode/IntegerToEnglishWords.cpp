@@ -1,4 +1,5 @@
 // Works. Tested.
+// From: https://leetcode.com/discuss/76029/c-solution-easy-understanding
 class Solution {
 public:
     string readThousand(int input) {
