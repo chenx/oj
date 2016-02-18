@@ -1,3 +1,41 @@
+// Works too. Slightly modified from Solution.
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+        
+        int ct = 0;
+        rows = grid.size(), cols = grid[0].size();
+        for (int i = 0; i < rows; ++ i) {
+            for (int j = 0; j < cols; ++ j) {
+                if (grid[i][j] == '1') {
+                    ++ ct;
+                    flip(grid, i, j);
+                }
+            }
+        }
+
+        return ct;
+    }
+
+private:
+    int rows, cols;
+    vector<pair<int, int>> d = {make_pair(1, 0), make_pair(-1, 0), make_pair(0, 1), make_pair(0, -1)};
+    
+    void flip(vector<vector<char>>& grid, int i, int j) {
+        grid[i][j] = '0';
+        
+        for (int k = 0; k < d.size(); ++ k) {
+            int dx = i + d[k].first, dy = j + d[k].second;
+            if (dx >= 0 && dx < rows && dy >= 0 && dy < cols && grid[dx][dy] == '1') {
+                flip(grid, dx, dy);
+            }
+        }
+    }
+};
+
+
+// Works.
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
