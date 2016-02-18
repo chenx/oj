@@ -1,3 +1,41 @@
+// Works. Tested.
+class Solution {
+public:
+    string readThousand(int input) {
+        assert(input < 1000);
+        string res;
+        vector<string> digitToStr = {"", " One", " Two", " Three", " Four", " Five", " Six", " Seven", " Eight", " Nine"};
+        vector<string> teensToStr = {" Ten", " Eleven", " Twelve", " Thirteen", " Fourteen", " Fifteen", " Sixteen", " Seventeen", " Eighteen", " Nineteen"};
+        vector<string> tysToStr = {"", "", " Twenty", " Thirty", " Forty", " Fifty", " Sixty", " Seventy", " Eighty", " Ninety"};
+        int hun = input / 100;
+        if (hun >= 1) res += digitToStr[hun] + " Hundred";
+        input %= 100;
+        int tens = input / 10;
+        input %= 10;
+    //    cout << "input here is " << input << endl;
+        if (tens == 1) {res += teensToStr[input]; return res; }
+        if (tens > 1) res += tysToStr[tens];
+        res += digitToStr[input];
+        return res;
+    }
+    
+    string numberToWords(int num) {
+        vector<int> parts(4, 0);
+        string res;
+        vector<string> thous = {"", " Thousand", " Million", " Billion"};
+        for (int i = 0; i < 4; i++) {
+            parts[i] = num % 1000;
+            if (parts[i] > 0) res = readThousand(parts[i]) + thous[i] + res;
+            num /= 1000;
+            if (num == 0) break;
+        }
+        if (res.empty()) return "Zero";
+        return res.substr(1);
+    }
+
+};
+
+// Works. Just too long.
 class Solution {
 public:
     string numberToWords(int num) {
