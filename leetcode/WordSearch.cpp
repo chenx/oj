@@ -5,6 +5,46 @@
 // @Last modified: 10/26/2014
 //
 
+// Works too. Improved from Solution2.
+class Solution3 {
+    vector<pair<int, int>> dirs = {make_pair(1,0), make_pair(-1,0), make_pair(0,1), make_pair(0,-1)};
+    int M, N;
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        if (board.size() == 0 || board[0].size() == 0) { return word.size() == 0; }
+        if (word.size() == 0) return true;
+        
+        M = board.size(), N = board[0].size();
+        vector<vector<int> > used(M, vector<int>(N, 0));
+        for (int i = 0; i < M; ++ i) {
+            for (int j = 0; j < N; ++ j) {
+                if (board[i][j] == word[0]) {
+                    if (match(board, used, i, j, word.c_str())) return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    bool match(vector<vector<char> > &b, vector<vector<int> > &used, int i, int j, const char * w) {
+        ++ w;
+        if (*w == '\0') return true;
+
+        used[i][j] = 1;
+        
+        for (auto dir : dirs) {
+            int x = i + dir.first, y = j + dir.second;
+            if (x >= 0 && x < M && y >= 0 && y < N && 
+                !used[x][y] && *w == b[x][y] && match(b, used, x, y, w))
+                return true;
+        }
+        
+        used[i][j] = 0; // MUST use this to clear search path!
+        return false;
+    }
+};
+
+
 // This works too, and is clearer. 10-26-2014
 class Solution2 {
 public:
