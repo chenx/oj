@@ -1,5 +1,59 @@
 // Works. Tested. Better than Solution.
 // From: https://leetcode.com/discuss/83660/recommend-beginners-implementation-detailed-explanation
+
+/*
+// Note: a better implementation of the Trie class is below.
+// In a more space effecient Trie implementation, children is vector<TrieNode *>,
+// then it's needed to add the char to the TreeNode to specify what char it is for.
+// In the implementation here, it uses a fixed size array for children, and
+// use the index number to specify which char it is for. So there is no need
+// for a char variable. On the other hand, there is no need to add "word" to
+// every intermediate TrieNode, only the last TrieNode needs this information.
+class TrieNode{
+    public:
+        TrieNode() : isWord(false), word("") {
+            memset(children, 0, sizeof(children));
+        }
+    public:
+        // store-the-root-cur-pos-word 
+        string word;
+        bool isWord;
+        TrieNode* children[MAX_CHARS];
+};
+
+class TrieTree{
+    public:
+        TrieTree():root(new TrieNode()) {}
+        ~TrieTree(){ freeTree(root); }
+        TrieNode* getRoot(){
+            return root;
+        }
+
+        void addWord(string& s){
+            TrieNode* node=root;
+
+            for(int i=0; i<s.size(); i++){
+                if(node->children[s[i]-'a']==NULL){
+                    node->children[s[i]-'a']=new TrieNode();
+                }
+                node=node->children[s[i]-'a'];
+            }
+            node->isWord=true;
+            node->word = s;
+        }
+    private:
+        void freeTree(TrieNode* node){
+            for(int i=0; i<MAX_CHARS; i++){
+                if(node->children[i]!=NULL){
+                    freeTree(node->children[i]);
+                }
+            }
+            delete node;
+        }
+        TrieNode* root;
+};
+*/
+
 const int MAX_CHARS=26;
 
 class TrieNode{
@@ -26,9 +80,9 @@ class TrieTree{
             TrieNode* node=root;
             string t;
             for(int i=0; i<s.size(); i++){
-                t+=s[i];
+                t+=s[i]; // this is not necessary
                 if(node->children[s[i]-'a']==NULL){
-                    node->children[s[i]-'a']=new TrieNode(t);
+                    node->children[s[i]-'a']=new TrieNode(t); 
                 }
                 node=node->children[s[i]-'a'];
             }
