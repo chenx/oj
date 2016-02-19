@@ -1,18 +1,56 @@
+// Works too. Tested.
+// From: https://leetcode.com/discuss/69276/c-implementation-dynamic-programming
+class Solution2 {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        int n = prices.size();
+        if(n<=1 || k<1) return 0;
+
+        int temp = 0;
+        int count = 0;
+        int i;
+        for(i=1; i<n; i++) {
+            if(prices[i] - prices[i-1] > 0) {
+                temp = temp + prices[i] - prices[i-1];
+                count = count + 1;
+            }
+        }
+
+        if(count < k) return temp; 
+        // When k is big, DP might be time consuming
+
+        vector<int> curProfit(n, 0);
+        vector<int> preProfit(n, 0);
+
+        for(int j=0, lowCost; j<k; j++)
+        {
+            lowCost = prices[0];
+            for(i=1; i<n; i++)
+            {
+                if(curProfit[i-1] < prices[i] - lowCost)
+                    curProfit[i] = prices[i] - lowCost;
+                else
+                    curProfit[i] = curProfit[i-1];
+
+                if(prices[i]-preProfit[i-1] < lowCost)
+                    lowCost = prices[i]-preProfit[i-1];
+            }
+            preProfit = curProfit;
+        }
+        return curProfit[n-1];
+    }
+};
+
 
 /*
-if k >= n/2, we can have transactions any time, it can be solved by O(n).
+If k >= n/2, we can have transactions any time, it can be solved by O(n).
+else, we can do it in DP. It can be solved by O(kn).
 
-else, we can do it in DP.
-
-use dp[k][i+1] represents, The max profit of using [0,i] data and k transactions.
-
+Use dp[k][i+1] represents, The max profit of using [0,i] data and k transactions.
 So we have:
 
 dp[k][i+1] = max(dp[k-1][i+1], dp[k][i], max( dp[k-1][j] + prices[i] - prices[j] ))
-
-= max(dp[k-1][i+1], dp[k][i], prices[i] + max( dp[k-1][j] - prices[j] )) { 0 <= j < i }
-
-it can be solved by O(kn).
+  = max(dp[k-1][i+1], dp[k][i], prices[i] + max( dp[k-1][j] - prices[j] )) { 0 <= j < i }
 */
 
 // This works. 
@@ -46,12 +84,16 @@ public:
 };
 
 /**
-Best Time to Buy and Sell Stock IV 
+Best Time to Buy and Sell Stock IV
+Difficulty: Hard
 
-Say you have an array for which the ith element is the price of a given stock on day i.
+Say you have an array for which the ith element is the 
+price of a given stock on day i.
 
-Design an algorithm to find the maximum profit. You may complete at most k transactions.
+Design an algorithm to find the maximum profit. You may 
+complete at most k transactions.
 
 Note:
-You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+You may not engage in multiple transactions at the same 
+time (ie, you must sell the stock before you buy again).
  */
