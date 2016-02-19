@@ -1,4 +1,4 @@
-// Works. Tested. 
+// Works. Tested. Union Find.
 // From: https://leetcode.com/discuss/78856/c-union-find-solution-with-path-compression
 class Solution {
 public:
@@ -17,7 +17,7 @@ public:
                     int rootNew = findRoot(idx_new), rootPos = findRoot(idx_p);
                     if (rootPos != rootNew) {
                         roots[rootPos] = rootNew;
-                        //roots[idx_new] = rootPos; // this does not work.
+                        //roots[rootNew] = rootPos;  // this works too.
                         --island;
                     }
                 }
