@@ -1,3 +1,31 @@
+// Works too. Tested. By: XC
+// This is more clear than Solution.
+class Solution2 {
+public:
+    string rangeToStr(vector<int> &nums, int start, int end) {
+         return (start == end) ? to_string(nums[start]) : 
+                (to_string(nums[start]) + "->" + to_string(nums[end]));
+    }
+    
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> ans;
+        int L = 0, len = nums.size();
+        if (len == 0) return ans;
+        
+        for (int i = 1; i < len; ++ i) {
+            if (nums[i] > nums[i-1] + 1) {
+                ans.push_back( rangeToStr(nums, L, i-1) );
+                L = i;
+            }
+        }
+        
+        ans.push_back( rangeToStr(nums, L, len-1) );
+
+        return ans;
+    }
+};
+
+
 #include <iostream>
 #include <sstream>
 #include <vector>
