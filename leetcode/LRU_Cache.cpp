@@ -41,7 +41,7 @@ public:
         }
         else if (_size == _capacity) {
             remove(_back);
-            addFront(k, v); // no need to return here, since front is updated by addFront(), and can be returned below.
+            _front = addFront(k, v); // no need to return here, since front is updated by addFront(), and can be returned below.
         }
         else { // add to front.
             Node * n = new Node(k, v);
@@ -228,7 +228,7 @@ public:
         }
         else if (_size == _capacity) {
             remove(_back);
-            addFront(k, v);
+            _front = addFront(k, v);
         }
         else {
             Node * n = new Node(k, v);
