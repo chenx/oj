@@ -13,6 +13,37 @@
 #include <set>
 using namespace std;
 
+
+// Works too. 
+class Solution4 {
+public:
+    bool wordBreak(string s, unordered_set<string>& wordDict) {
+        int lens = s.length();
+        if (lens == 0) return false;
+        
+        vector<bool> can(lens, false);
+        
+        for (int i = 0; i < lens; ++ i) {
+            string t = s.substr(0, i+1);
+            if (wordDict.find(t) != wordDict.end()) {
+                can[i] = true;
+                continue;
+            }
+            
+            for (int j = i; j > 0; -- j) {
+                string t = s.substr(j, i-j+1);
+                if (wordDict.find(t) != wordDict.end() && can[j-1]) {
+                    can[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return can[lens-1];
+    }
+};
+
+
 // This works too. Most short and clean so far. 2/15/2015. X.C.
 class Solution3 {
 public:
