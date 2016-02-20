@@ -1,3 +1,70 @@
+// Works too. Tested. Simplified form Solution.
+struct comp { // to compare equality of Point.
+    bool operator() (const Point &a, const Point &b) {
+        if (a.x == b.x) return a.y < b.y;
+        return a.x < b.x;
+    }
+};
+
+class Solution2 {
+public:
+    int maxPoints(vector<Point> &points) {
+        int n = points.size();
+
+        // Remove duplicate points.
+        map<Point, int, comp> count;
+        vector<Point> pts;
+        for (int i = 0; i < n; ++ i) {
+            ++ count[points[i]];
+            if (count[points[i]] == 1) { pts.push_back(points[i]); }
+        }
+        if (pts.size() == 1) { return count[points[0]]; }
+        
+        map<vector<double>, vector<Point> > mpt; // first param: Line. second param: points on line.
+        map<vector<double>, int> mct; // first param: line, second param: count of points on line.
+        for (int i = 0, n = pts.size(); i < n-1; ++ i) {
+            for (int j = i+1; j < n; ++ j) {
+                Point &a = pts[i];
+                Point &b = pts[j];
+            
+                vector<double> L(2);
+                if (a.x == b.x) {
+                    L[0] = INT_MAX; 
+                    L[1] = a.x;
+                }
+                else {
+                    double delta = (a.y - b.y) * 1.0/(a.x - b.x); // Must cast to double.
+                    L[0] = delta;
+                    L[1] = b.y - b.x * delta;
+                }
+
+                if (find(mpt[L], a) == false) {
+                    mpt[L].push_back(a);
+                    mct[L] += count[a];
+                }
+                if (find(mpt[L], b) == false) {
+                    mpt[L].push_back(b);
+                    mct[L] += count[b];
+                }
+            }
+        }
+        
+        int num = 0;
+        for (auto ct : mct) num = max(num, ct.second);
+
+        return num;
+    }
+    
+    static bool find(vector<Point> s, Point p) {
+        for (Point pt : s) {
+            if (pt.x == p.x && pt.y == p.y) return true;
+        }
+        
+        return false;
+    }
+};
+// End of Solution 2.
+
 
 #include <iostream>
 #include <vector>
