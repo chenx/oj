@@ -1,3 +1,59 @@
+// Works. Improved from Codec. More clean.
+class Codec2 {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string s;
+        ser(root, s);
+        return s;
+    }
+    
+    void ser(TreeNode * root, string &s) {
+        if (! root) {
+            //s += (s == "" ? "" : "," + "null"; // does not compile
+            s += (s == "" ? "null" : ",null");
+            return;
+        }
+        
+        s += (s == "" ? "" : ",") + to_string(root->val);
+        ser(root->left, s);
+        ser(root->right, s);
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        TreeNode * root;
+        
+        vector<string> vals;
+        split(data, vals, ",");
+        
+        int p = 0;
+        des(root, vals, p);
+        return root;
+    }
+    
+    void des(TreeNode *& root, vector<string> &vals, int &p) {
+        if (p == vals.size() || vals[p] == "null") {
+            root == NULL;
+            return;
+        }
+        
+        root = new TreeNode(stoi(vals[p++]));
+        des(root->left, vals, p);
+        des(root->right, vals, p);
+    }
+    
+    void split(string data, vector<string> &vals, string delim) {
+        stringstream ss(data);
+        string val;
+        while (getline(ss, delim) >> val) {
+            vals.push_back(val);
+        }
+    }
+};
+
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
