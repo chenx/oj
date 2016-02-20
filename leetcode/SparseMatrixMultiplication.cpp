@@ -1,3 +1,19 @@
+// Basically same as Solution3, but more clean.
+// From: http://www.cnblogs.com/jcliBlogger/p/5015959.html
+class Solution4 {
+public:
+    vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
+        int m = A.size(), n = B.size(), p = B[0].size();
+        vector<vector<int>> C(m, vector<int>(p, 0));
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
+                if (A[i][j])
+                    for (int k = 0; k < p; k++)
+                        C[i][k] += A[i][j] * B[j][k];
+        return C;
+    }
+};
+
 // Works. Tested.
 // From: https://leetcode.com/discuss/84193/java-easy-version-to-understand
 class Solution3 {
@@ -10,7 +26,7 @@ public:
                 if (A[i][j] == 0)
                     continue;
                 for (int k = 0; k < B_Columns; k++) {
-                    if (B[j][k] == 0)
+                    if (B[j][k] == 0) // not necessary. this saves only 1 multiplication.
                         continue;
                     C[i][k] += A[i][j] * B[j][k];
                 }
