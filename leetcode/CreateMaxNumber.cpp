@@ -1,54 +1,50 @@
-
 // Works. Tested. Not as fast as Solution, but easier to understand.
-// From: https://leetcode.com/discuss/75995/easy-to-understand-c-solution-to-create-maximum-number
+// Modified From: https://leetcode.com/discuss/75995/easy-to-understand-c-solution-to-create-maximum-number
 /*
 To get the maximal number out of two vector, we can split the problem into:
 1) create the maximal number of length i from one vector
 2) merge number1 of length(i) and number2 of length(k-i)
 */
 class Solution2 {
-public:
-    //return the maximal number of len k
-    vector<int>MaxNumLenk(vector<int>nums, int k)
+public:    
+    vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) 
     {
-        int maxDrop = nums.size()-k;
-        vector<int>res;
-        for(auto n:nums){
-            //insert nums[i] and make sure nums[i] is the smallest 
-            while(maxDrop && res.size() && res.back() < n){
+        int n1 = nums1.size(), n2 = nums2.size();
+        //vector<int>maxNum(k, INT_MIN); // works too.
+        vector<int>maxNum;
+        for(int i = max(k-n2, 0); i<= min(n1,k); i++){
+            maxNum = max(maxNum, Merge(MaxNumLenk(nums1, i), MaxNumLenk(nums2, k-i)));
+        }
+        return maxNum;
+    }
+    
+private:
+    // return the maximal number of len k
+    vector<int> MaxNumLenk(vector<int>nums, int k)
+    {
+        int drop = nums.size() - k;
+        vector<int> res;
+        for(int n : nums) { //insert smallest nums[i]
+            while (drop && res.size() && res.back() < n){
                 res.pop_back();
-                maxDrop--;
+                drop --;
             }
             res.push_back(n);
         }
-        res.resize(k);
+        res.resize(k); // remove useless tail elements.
         return res;
     }
-    //merge two vector to get the maximal number of lengtg k
+    
+    // merge two vectors to get the maximal number of length k
     vector<int> Merge(vector<int>nums1, vector<int>nums2)
     {
-        vector<int>res;
-        while(nums1.size() + nums2.size()){
-            //lexi compare
-            vector<int>& temp = nums1>nums2?nums1:nums2;
+        vector<int> res;
+        while(nums1.size() + nums2.size()) { //lexi compare
+            vector<int>& temp = nums1 > nums2 ? nums1 : nums2;
             res.push_back(temp[0]);
             temp.erase(temp.begin());
         }
         return res;
-    }
-    
-    vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) 
-    {
-        int n1 = nums1.size(), n2 = nums2.size();
-        vector<int>maxNum(k,INT_MIN), temp1, temp2, merged;
-        for(int i = max(k-n2, 0); i<= min(n1,k); i++){
-            // i element from nums1, k-i from nums2
-            temp1 = MaxNumLenk(nums1, i);
-            temp2 = MaxNumLenk(nums2, k-i);
-            merged = Merge(temp1, temp2);
-            maxNum = max(maxNum, merged);
-        }
-        return maxNum;
     }
 };
 
