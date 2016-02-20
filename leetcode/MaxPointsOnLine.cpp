@@ -1,65 +1,61 @@
 // Works too. Tested. Simplified form Solution.
-struct comp { // to compare equality of Point.
-    bool operator() (const Point &a, const Point &b) {
+struct Comp {
+    bool operator()(const Point & a, const Point & b) {
         if (a.x == b.x) return a.y < b.y;
         return a.x < b.x;
     }
 };
 
-class Solution2 {
+class Solution {
 public:
     int maxPoints(vector<Point> &points) {
-        int n = points.size();
-
-        // Remove duplicate points.
-        map<Point, int, comp> count;
-        vector<Point> pts;
-        for (int i = 0; i < n; ++ i) {
-            ++ count[points[i]];
-            if (count[points[i]] == 1) { pts.push_back(points[i]); }
-        }
-        if (pts.size() == 1) { return count[points[0]]; }
+        if (points.size() <= 1) return points.size();
         
-        map<vector<double>, vector<Point> > mpt; // first param: Line. second param: points on line.
-        map<vector<double>, int> mct; // first param: line, second param: count of points on line.
-        for (int i = 0, n = pts.size(); i < n-1; ++ i) {
-            for (int j = i+1; j < n; ++ j) {
-                Point &a = pts[i];
-                Point &b = pts[j];
-            
-                vector<double> L(2);
+        vector<Point> pts;
+        map<Point, int, Comp> ptsCount;
+        for (auto p : points) {
+            ptsCount[p] ++;
+            if (ptsCount[p] == 1) pts.push_back(p);
+        }
+        if (pts.size() == 1) return points.size();
+        
+        int len = pts.size();
+        map<vector<double>, vector<Point>> mpt; // line(slope, y-interception), points on line.
+        map<vector<double>, int> mct; // line, count of points on line.
+        for (int i = 0; i < len - 1; ++ i) {
+            for (int j = i + 1; j < len; ++ j) {
+                Point &a = pts[i], &b = pts[j];
+                
+                vector<double> line(2);
                 if (a.x == b.x) {
-                    L[0] = INT_MAX; 
-                    L[1] = a.x;
+                    line[0] = INT_MAX;
+                    line[1] = a.x;
                 }
                 else {
-                    double delta = (a.y - b.y) * 1.0/(a.x - b.x); // Must cast to double.
-                    L[0] = delta;
-                    L[1] = b.y - b.x * delta;
+                    line[0] = 1.0 * (a.y - b.y) / (a.x - b.x);
+                    line[1] = a.y - line[0] * a.x;
                 }
-
-                if (find(mpt[L], a) == false) {
-                    mpt[L].push_back(a);
-                    mct[L] += count[a];
+                
+                if (! find(mpt[line], a)) {
+                    mpt[line].push_back(a);
+                    mct[line] += ptsCount[a];
                 }
-                if (find(mpt[L], b) == false) {
-                    mpt[L].push_back(b);
-                    mct[L] += count[b];
+                if (! find(mpt[line], b)) {
+                    mpt[line].push_back(b);
+                    mct[line] += ptsCount[b];
                 }
             }
         }
         
-        int num = 0;
-        for (auto ct : mct) num = max(num, ct.second);
-
-        return num;
+        int maxCount = 0;
+        for (auto ct : mct) maxCount = max(maxCount, ct.second);
+        return maxCount;
     }
     
-    static bool find(vector<Point> s, Point p) {
-        for (Point pt : s) {
-            if (pt.x == p.x && pt.y == p.y) return true;
+    bool find(vector<Point> & pts, Point & p) {
+        for (auto pt : pts) {
+            if (p.x == pt.x && p.y == pt.y) return true;
         }
-        
         return false;
     }
 };
