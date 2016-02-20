@@ -1,3 +1,45 @@
+// Works too. O(n). Improved from Solution.
+class Solution2 {
+public:
+    int maximumGap(vector<int>& nums) {
+        int len = nums.size();
+        if (len < 2) return 0;
+        
+        // get min and max values in the array.
+        int minv = INT_MAX, maxv = INT_MIN;
+        for (int i = 0; i < len; ++ i) {
+            minv = min(minv, nums[i]);
+            maxv = max(maxv, nums[i]);
+        }
+        if (minv == maxv) return 0;
+        
+        // put nums elements into bins.
+        double binSize = (maxv - minv) * 1.0 / (len - 1); // len-1 !
+        vector<int> bin(2 * len, -1);
+        
+        for (int i = 0; i < len; ++ i) {
+            int index = 2 * (nums[i] - minv) / binSize;
+            bin[index] = (bin[index] == -1) ? nums[i] : min(nums[i], bin[index]);
+            bin[index+1] = (bin[index+1] == -1) ? nums[i] : max(nums[i], bin[index+1]);
+        }
+        
+        // get max gap from the bins.
+        int maxGap = 0, i = 0, j, lenBin = 2 * len;
+        while (true) {
+            for (; i < lenBin && bin[i] == -1; ++ i) {}
+            if (i == lenBin) break;
+
+            for (j = i + 1; j < lenBin && bin[j] == -1; ++ j) {}
+            if (j == lenBin) break;
+
+            maxGap = max(maxGap, bin[j] - bin[i]);
+            i = j;
+        }
+
+        return maxGap;        
+    }
+};
+
 //
 // This works. O(n).
 // Idea is similar to bucket sort.
