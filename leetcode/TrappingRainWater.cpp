@@ -102,8 +102,7 @@ public:
 class Solution3 {
 public:
     int trap(int A[], int n) {
-        if (n <= 2) return 0;
-        int water = 0;
+        int n = A.size(), water = 0;
         stack<int> h;
 
         for (int i = 0; i < n; ++ i) {
