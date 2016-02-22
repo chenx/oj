@@ -154,7 +154,8 @@ public:
         
         return water;
     }
-    
+};
+
 
 int main() {
     Solution s;
