@@ -1,5 +1,5 @@
 // Works. O(n^2). By: XC
-class Solution {
+class Solution2 {
 public:
     int maxProduct(vector<string>& words) {
         int len = words.size();
