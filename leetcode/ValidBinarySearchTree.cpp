@@ -5,6 +5,24 @@
 // @Last modified: 12/24/2012
 //
 
+// Works. Tested.
+// Use NULL for the 2 extreme cases, to avoid INT_MIN, INT_MAX issue.
+class Solution3 {
+public:
+    bool isValidBST(TreeNode* root) {
+        return validate(root, NULL, NULL);
+    }
+    
+    bool validate(TreeNode * root, TreeNode * left, TreeNode * right) {
+        if (NULL == root) return true;
+        
+        return (left == NULL || left->val < root->val) &&
+               (right == NULL || right->val > root->val) &&
+               validate(root->left, left, root) &&
+               validate(root->right, root, right);
+    }
+};
+
 // This works too. O(1)space, O(n) time. From CC150 5ed. Page 226. 
 // This also works when a node's value can be INT_MIN or INT_MAX.
 // Basically, NULL value of prev is used to handle the case when left node's value is INT_MIN.
@@ -76,3 +94,17 @@ public:
                bst2(root->left, MIN, root->val) && bst2(root->right, root->val, MAX);
     }
 };
+
+
+/**
+Validate Binary Search Tree
+Difficulty: Medium
+
+Given a binary tree, determine if it is a valid binary search tree (BST).
+
+Assume a BST is defined as follows:
+
+    The left subtree of a node contains only nodes with keys less than the node's key.
+    The right subtree of a node contains only nodes with keys greater than the node's key.
+    Both the left and right subtrees must also be binary search trees.
+ */
