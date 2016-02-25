@@ -158,6 +158,32 @@ public:
     }
 };
 
+// Works too. Modified from Solution 4.
+// The 2 changes are labled in code below.
+class Solution5 {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return vector<vector<int>>();
+
+        vector<vector<vector<int>>> ans(n);
+        vector<vector<int>> v0(1, vector<int>(1, nums[0])); // change 1.
+        ans[0] = v0;
+        
+        for (int i = 1; i < n; ++ i) {
+            for (int j = 0, lenj = ans[i-1].size(); j < lenj; ++ j) {
+                vector<int> &v = ans[i-1][j];
+                for (int m = 0; m <= v.size(); ++ m) {
+                    ans[i].push_back(v);
+                    ans[i].back().insert(ans[i].back().begin() + m, nums[i]); // change 2.
+                }
+            }
+        }
+
+        return ans[n-1];
+    }
+};
+
 
 /**
 Permutations
