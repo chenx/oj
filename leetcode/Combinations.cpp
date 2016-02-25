@@ -8,6 +8,41 @@
 #include <vector>
 using namespace std;
 
+// Works. Tested. Iterative. By: XC. 2/24/2016.
+// Intuitive idea: e.g. combine(3, 2), the process is:
+// cycle 1: {1}
+// cycle 2: {1}, {1,2}->add, {2}
+// cycle 3: {1}, {2}, {1,3}->add, {2,3}->add, {3}.
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans, sets;
+        
+        if (k == 0) return ans;
+        if (k == 1) {
+            for (int i = 1; i <= n; ++ i) ans.push_back(vector<int>(1, i));
+            return ans;
+        }
+        
+        for (int i = 1; i <= n; ++ i) {
+            for (int j = 0, lenj = sets.size(); j < lenj; ++ j) {
+                int len = sets[j].size();
+                if (len < k - 1) {
+                    sets.push_back(sets[j]);
+                    sets.back().push_back(i);
+                }
+                else if (len == k - 1) {
+                    ans.push_back(sets[j]);
+                    ans.back().push_back(i);
+                }
+            }
+            sets.push_back(vector<int>(1, i));
+        }
+        
+        return ans;
+    }
+};
+
 // This works too. Iterative version.
 class Solution2 {
 public:
