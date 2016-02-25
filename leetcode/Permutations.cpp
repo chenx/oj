@@ -121,6 +121,43 @@ public:
     }
 };
 
+// Works too. Iterative. By: XC. 2/24/2016
+// Idea:
+// say for n numbers, the permutations are p1, p2, ...
+// then for n+1 numbers, answer is for each of pi, insert (n+1)-th number
+// at each position of pi and add it to result.
+class Solution4 {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return vector<vector<int>>();
+
+        // Generate permutations of (1, 2, ..., n-1).
+        vector<vector<vector<int>>> ans(n);
+        vector<vector<int>> v0(1, vector<int>(1, 0));
+        ans[0] = v0;
+        
+        for (int i = 1; i < n; ++ i) {
+            for (int j = 0, lenj = ans[i-1].size(); j < lenj; ++ j) {
+                vector<int> &v = ans[i-1][j];
+                for (int m = 0; m <= v.size(); ++ m) {
+                    ans[i].push_back(v);
+                    ans[i].back().insert(ans[i].back().begin() + m, i);
+                }
+            }
+        }
+        
+        // replace index with actual value in nums.
+        for (int i = 0; i < ans[n-1].size(); ++ i) {
+            for (int j = 0; j < ans[n-1][i].size(); ++ j) {
+                ans[n-1][i][j] = nums[ans[n-1][i][j]];
+            }
+        }
+
+        return ans[n-1];
+    }
+};
+
 
 /**
 Permutations
