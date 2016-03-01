@@ -8,6 +8,19 @@
  * };
  */
  
+// Works too. Treat BST as a BT. More general. 
+class Solution4 {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root == NULL) return NULL;
+        if (root == p || root == q) return root;
+        TreeNode * L = lowestCommonAncestor(root->left, p, q);
+        TreeNode * R = lowestCommonAncestor(root->right, p, q);
+        if (L && R) return root;
+        return L ? L : R;
+    }
+}; 
+ 
 // Works too. Basically same as Solution2.
 class Solution3 {
 public:
