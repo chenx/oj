@@ -8,6 +8,16 @@
  * };
  */
  
+// Works too. Basically same as Solution2.
+class Solution3 {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root->val < p->val && root->val < q->val) return lowestCommonAncestor(root->right, p, q);
+        if (root->val > p->val && root->val > q->val) return lowestCommonAncestor(root->left, p, q);
+        return root;
+    }
+};
+
 // This works too. Assume root, p, q all not null.
 class Solution2 {
 public:
