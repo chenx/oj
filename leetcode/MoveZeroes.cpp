@@ -1,3 +1,14 @@
+// This works too.
+class Solution2 {
+public:
+    void moveZeroes(vector<int>& nums) {
+        for (int i = 0, k = 0; i < nums.size(); ++ i) 
+            if (nums[i] != 0) 
+                swap(nums[k ++], nums[i]);
+    }
+};
+
+// Works.
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
