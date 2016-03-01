@@ -5,6 +5,29 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution2 {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        n->next = head;
+        
+        while (n->next && n->next->next) {
+            if (n->next->val == n->next->next->val) {
+                ListNode * tmp = n->next;
+                n->next = n->next->next;
+                delete tmp;
+            }
+            else {
+                n = n->next;
+            }
+        }
+        
+        return dummy.next;
+    }
+};
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -35,3 +58,15 @@ public:
         return head;
     }
 };
+
+
+/**
+Remove Duplicates from Sorted List
+Difficulty: Easy
+
+Given a sorted linked list, delete all duplicates such that each element appear only once.
+
+For example,
+Given 1->1->2, return 1->2.
+Given 1->1->2->3->3, return 1->2->3. 
+ */
