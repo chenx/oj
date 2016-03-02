@@ -46,7 +46,7 @@ public:
         bool b1 = b(n->left,  & h1);
         bool b2 = b(n->right, & h2);
         
-        *h = 1 + ( (h1 > h2) ? h1 : h2 );
+        *h = 1 + max(h1, h2);
         
         return b1 && b2 && abs(h1 - h2) <= 1;
     }
