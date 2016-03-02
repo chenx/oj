@@ -8,26 +8,14 @@ public:
     // Removes the element from in front of queue.
     void pop(void) {
         if (empty()) return;
-        
-        if (s2.empty()) {
-            while (! s1.empty()) {
-                s2.push(s1.top());
-                s1.pop();
-            }
-        }
+        mov();
         s2.pop();
     }
 
     // Get the front element.
     int peek(void) {
         if (empty()) return -1; // underflow
-        
-        if (s2.empty()) {
-            while (! s1.empty()) {
-                s2.push(s1.top());
-                s1.pop();
-            }
-        }
+        mov();
         return s2.top();
     }
 
@@ -39,6 +27,14 @@ public:
 private:
     stack<int> s1;
     stack<int> s2;
+    
+    void mov() {
+        if (! s2.empty()) return;
+        while (! s1.empty()) {
+            s2.push(s1.top());
+            s1.pop();
+        }
+    }
 };
 
 /**
