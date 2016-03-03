@@ -1,3 +1,48 @@
+// Works too. Maybe most clean.
+class Solution5 {
+public:
+    int compareVersion(string version1, string version2) {
+        int len1 = version1.length(), len2 = version2.length();
+        int i1 = 0, i2 = 0, v1, v2;
+        
+        while (i1 < len1 && i2 < len2) {
+            v1 = getVer(version1, i1);
+            v2 = getVer(version2, i2);
+            if (v1 > v2) return 1;
+            if (v1 < v2) return -1;
+        }
+        
+        while (i1 < len1) {
+            v1 = getVer(version1, i1);
+            if (v1 > 0) return 1;
+        }
+        while (i2 < len2) {
+            v2 = getVer(version2, i2);
+            if (v2 > 0) return -1;
+        }
+        
+        return 0;
+    }
+    
+    int getVer(const string &version, int &pos) {
+        int len = version.length();
+        if (pos == len) return 0;
+        if (version[pos] == '.') ++ pos;
+        
+        int v = 0;
+        while (isdigit(version[pos])) {
+            v = v * 10 + version[pos] - '0';
+            ++ pos;
+        }
+        
+        return v;
+    }
+    
+    bool isdigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+};
+
 // This works too. 1/26/2016.
 class Solution4 {
 public:
