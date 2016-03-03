@@ -75,6 +75,30 @@ public:
     }
 };
 
+// Works. Best answer.
+class Solution4 {
+public:
+    int countPrimes(int n) {
+        if (n < 2) return 0;
+        
+        vector<bool> v(n, true);
+        
+        for (int i = 2; i*i < n; ++ i) {
+            if (! v[i]) continue;
+            for (int j = i*i; j < n; j += i) {
+                v[j] = false;
+            }
+        }
+        
+        int ct;
+        for (int i = 2; i < n; ++ i) {
+            if (v[i]) ++ ct;
+        }
+        
+        return ct;
+    }
+};
+
 /**
 Count Primes
 Difficulty: Easy
