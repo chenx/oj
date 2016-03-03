@@ -1,3 +1,30 @@
+// Should work. Not tested.
+class ValidWordAbbr2 {
+public:
+    ValidWordAbbr(vector<string> &dictionary) {
+        for (string s : dictionary) 
+            m[getAbbr(s)].push_back(s);
+    }
+
+    // Unique iff: the word's abbreviation is not found in dic, 
+    // or: the word itself is in dic, and is the only one with that abbreviation.
+    bool isUnique(string word) {
+        string abbr = getAbbr(word);
+        if (m.find(abbr) == m.end()) return true;
+        if (m[abbr].size() == 1 && m[abbr][0] == word) return true;
+        return false;
+    }
+    
+private:
+    unordered_map<string, vector<string>> m;
+    
+    string getAbbr(string s) {
+        int len = s.length();
+        if (len <= 2) return s;
+        return s[0] + to_string(len - 2) + s[len - 1];
+    }
+};
+
 // Works. Tested. By: XC
 class ValidWordAbbr {
 public:
