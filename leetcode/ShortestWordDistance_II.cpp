@@ -1,3 +1,29 @@
+// Works. Basically same as WordDistance, but optimized.
+class WordDistance2 {
+private:
+    unordered_map<string, vector<int>> m;
+    
+public:
+    WordDistance(vector<string>& words) {
+        for (int i = 0; i < words.size(); ++ i) {
+            m[words[i]].push_back(i);
+        }
+    }
+
+    int shortest(string word1, string word2) {
+        int minD = INT_MAX;
+        vector<int> &a = m[word1];
+        vector<int> &b = m[word2];
+        
+        for (int i = 0; i < a.size(); ++ i) {
+            for (int j = 0; j < b.size(); ++ j) {
+                minD = min(minD, abs(a[i] - b[j]));
+            }
+        }
+        return minD;
+    }
+};
+
 // Works. Tested. From: https://leetcode.com/discuss/86267/sharing-my-60ms-c-solution
 // This works for ShortestWordDistance.cpp too.
 // The double loop part is actually not so optimal.
