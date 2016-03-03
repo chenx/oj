@@ -18,7 +18,7 @@ public:
         if (q1.empty()) return;
         
         q1.pop();
-        for (int i = 0, len = q2.size(); i < len; ++ i) {
+        for (int i = q2.size(); i > 0; -- i) {
             push(q2.front());
             q2.pop();
         }
