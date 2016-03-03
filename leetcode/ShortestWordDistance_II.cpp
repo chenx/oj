@@ -5,7 +5,7 @@ private:
     
 public:
     WordDistance(vector<string>& words) {
-        for (int i = 0; i < words.size(); ++ i) {
+        for (int i = 0, n = words.size(); i < n; ++ i) {
             m[words[i]].push_back(i);
         }
     }
@@ -15,8 +15,8 @@ public:
         vector<int> &a = m[word1];
         vector<int> &b = m[word2];
         
-        for (int i = 0; i < a.size(); ++ i) {
-            for (int j = 0; j < b.size(); ++ j) {
+        for (int i = 0, m = a.size(); i < m; ++ i) {
+            for (int j = 0, n = b.size(); j < n; ++ j) {
                 minD = min(minD, abs(a[i] - b[j]));
             }
         }
