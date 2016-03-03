@@ -1,3 +1,26 @@
+// Works too. Tested.
+class Solution2 {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return vector<int>(0);
+        
+        vector<int> A(n), B(n), ans(n);
+        
+        A[0] = nums[0];
+        for (int i = 1; i < n; ++ i) A[i] = A[i-1] * nums[i];
+        
+        B[n-1] = nums[n-1];
+        for (int i = n-2; i >= 0; -- i) B[i] = B[i+1] * nums[i];
+        
+        ans[0] = B[1];      // <----- note this!
+        ans[n-1] = A[n-2];  // <----- note this!
+        for (int i = 1; i < n-1; ++ i) ans[i] = A[i-1] * B[i+1];
+        
+        return ans;
+    }
+};
+
 class Solution {
 public:
     // This works. Uses O(2n) extra space, for L[] and R[].
