@@ -1,3 +1,21 @@
+// Works. Tested.
+class Solution3 {
+public:
+    int singleNumber(vector<int>& nums) {
+        int v = 0;
+        
+        for (int i = 0; i < 32; ++ i) {
+            int mask = 1 << i, ct = 0;
+            for (int j = 0; j < nums.size(); ++ j) {
+                if (nums[j] & mask) ++ ct;
+            }
+            if (ct % 3 != 0) v |= mask;
+        }
+        
+        return v;
+    }
+};
+
 //
 // http://www.geeksforgeeks.org/find-the-element-that-appears-once/
 // This works too, and is better, easier to understand.
