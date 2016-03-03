@@ -19,6 +19,33 @@
  * 3) delete n1->next, not n1.
  * 4) release memory of the deleted node.
  */
+ 
+// Works. Tested. Use a dummy node to be clean.
+class Solution4 {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode dummy(0);
+        ListNode * p = & dummy;
+        p->next = head;
+        ListNode * fast = head;
+        
+        for (int i = 0; i < n; ++ i) {
+            fast = fast->next;
+        }
+        
+        while (fast != NULL) {
+            fast = fast->next;
+            p = p->next;
+        }
+        
+        // now remove p->next;
+        ListNode * tmp = p->next;
+        p->next = tmp->next;
+        delete tmp;
+        
+        return dummy.next;
+    }
+};
 
 // This works too. Is most clear.
 // Just be careful of case when n == list.length, i.e., remove first node.
