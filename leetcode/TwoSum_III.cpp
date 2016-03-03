@@ -1,3 +1,22 @@
+// Should work. Note tested.
+class TwoSum5 {
+public:
+    void add(int number) {
+        ++ nums[number];
+    }
+    
+    bool find(int value) {
+        for (auto v : nums) {
+            int val = v.first, ct = v.second;
+            if (value == 2*val && ct >= 2) return true;
+            else if (nums.find(value - val) != nums.end()) return true;
+        }
+        return false;
+    }
+private:
+    unordered_map<int, int> nums; // (num, count)
+};
+
 // This works too! Tested.
 class TwoSum4 {
 public:
