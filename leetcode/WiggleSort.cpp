@@ -1,3 +1,19 @@
+// Should work. Not tested.
+class Solution3 {
+public:
+    void wiggleSort(vector<int>& nums) {
+        int len = nums.size() - 1;
+        for (int i = 0; i < len; ++ i) {
+            if (i & 1 == 0) {
+                if (nums[i] > nums[i+1]) swap(nums[i], nums[i+1]);
+            }
+            else {
+                if (nums[i] < nums[i+1]) swap(nums[i], nums[i+1]);
+            }
+        }
+    }
+};
+
 // Works. Tested. Basically same as Solution. Solution is actually better.
 // Idea:
 // Go through the array once and keep in mind whether we need the 
