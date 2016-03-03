@@ -13,7 +13,6 @@ class Solution2 {
 public:
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> ans;
-        if (root == NULL) return ans;
         getPath(ans, "", root);
         return ans;
     }
