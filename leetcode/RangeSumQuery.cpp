@@ -1,3 +1,27 @@
+// Works. Best answer.
+class NumArray2 {
+public:
+    NumArray(vector<int> &nums) {
+        int len = nums.size();
+        if (len == 0) return;
+        
+        base = nums;
+        sum.resize(len);
+        
+        sum[0] = base[0];
+        for (int i = 1; i < base.size(); ++ i) {
+            sum[i] = sum[i-1] + base[i];
+        }
+    }
+    
+    int sumRange(int i, int j) {
+        return sum[j] - sum[i] + base[i];
+    }
+    
+private:
+    vector<int> base, sum;
+};
+
 class NumArray {
 public:
     NumArray(vector<int> &nums) {
