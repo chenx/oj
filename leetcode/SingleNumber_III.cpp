@@ -1,9 +1,29 @@
+// Works too. Tested.
+class Solution4 {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        int v = 0;
+        for (int n : nums) v ^= n;
+        
+        int mask = v & ~(v-1);
+        
+        vector<int> ans(2, 0);
+        for (int n : nums) {
+            if ((n & mask) != 0) ans[0] ^= n; // MUST use () around "n & mask".
+            // if ((n & mask) == 0) ans[0] ^= n; // works too.
+            else ans[1] ^= n;
+        }
+        
+        return ans;
+    }
+};
+
 // This works. 
 // Modified from: https://leetcode.com/discuss/67701/simple-solution-in-java
 // There are many ways to solving this. 
 // E.g., sort first, but that's O(nlogn). Or use a hash to count occurences, but space is O(n).
 // Key is to find a property to separate the 2 numbers.
-class Solution {
+class Solution3 {
 public:
     vector<int> singleNumber(vector<int>& nums) {
         int x = 0, len = nums.size();
