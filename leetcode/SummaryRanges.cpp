@@ -1,3 +1,30 @@
+// Works too. Same as Solution2, but best answer.
+class Solution3 {
+public:
+    vector<string> summaryRanges(vector<int>& A) {
+        vector<string> ans;
+        int len = A.size();
+        if (len == 0) return ans;
+        
+        int i = 0, j = 1;
+        for (; j < len; ++ j) {
+            // NOTE: cannot use A[j] - A[j-1] > 1, since this may overflow!!!
+            if (A[j] > A[j-1] + 1) { 
+                ans.push_back(addRange(A[i], A[j-1]));
+                i = j;
+            }
+        }
+        ans.push_back(addRange(A[i], A[len-1]));
+        
+        return ans;
+    }
+    
+    string addRange(int a, int b) {
+        if (a == b) return to_string(a);
+        else return to_string(a) + "->" + to_string(b);
+    }
+};
+
 // Works too. Tested. By: XC
 // This is more clear than Solution.
 class Solution2 {
