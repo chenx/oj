@@ -1,3 +1,28 @@
+// Should work. Not tested.
+class Solution3 {
+public:
+    int longestConsecutive(TreeNode* root) {
+        int len = 0, maxLen = 0;
+        helper(root, NULL, len, maxLen);
+        return maxLen;
+    }
+    
+    void helper(TreeNode * root, TreeNode * parent, int & len, int & maxLen) {
+        if (root == NULL) return;
+        
+        if (parent == NULL) ++ len;
+        else {
+            if (root->val == parent->val + 1) ++ len;
+            else len = 1;
+        }
+        
+        maxLen = max(len, maxLen);
+        
+        helper(root->left, root, len, maxLen);
+        helper(root->right, root, len, maxLen);
+    }
+};
+
 // Works too. Tested.
 class Solution2 {
 public:
