@@ -1,3 +1,34 @@
+// Works too. Modified from Solution and Solution2.
+class Solution3 {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        int n = prices.size();
+        if (n < 2 || k == 0) return 0;
+        
+        if (k > n/2) {
+            int mp = 0;
+            for (int i = 1; i < n; ++ i) mp += max(0, prices[i] - prices[i-1]);
+            return mp;
+        }
+        
+        // else
+        vector<int> curProfit(n, 0), prevProfit(n, 0);
+        int minv;
+        
+        for (int i = 0; i < k; ++ i) {
+            minv = prices[0];
+            for (int j = 1; j < n; ++ j) {
+                curProfit[j] = max(curProfit[j-1], prices[j] - minv);
+                minv = min(minv, prices[j] - prevProfit[j-1]); // why so?
+            }
+            prevProfit = curProfit;
+        }
+        
+        return curProfit[n-1];
+    }
+};
+
+
 // Works too. Tested.
 // From: https://leetcode.com/discuss/69276/c-implementation-dynamic-programming
 class Solution2 {
