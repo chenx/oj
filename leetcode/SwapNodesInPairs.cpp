@@ -12,6 +12,30 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+ 
+// Works. Tested.
+// Use a dummy node, significantly simplified code. Best solution!
+class Solution6 {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        n->next = head;
+        
+        for (; n->next && n->next->next; n = n->next->next) {
+            ListNode * n1 = n->next, * n2 = n1->next, * n3 = n2->next;
+            n->next = n2;
+            n2->next = n1;
+            n1->next = n3;
+        }
+        
+        return dummy.next;
+    }
+};
+
+
 class Solution {
 public:
     ListNode *swapPairs(ListNode *head) {
