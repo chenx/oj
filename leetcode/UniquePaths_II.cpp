@@ -18,7 +18,7 @@ public:
             if (obstacleGrid[0][j] == 1) break;
             p[0][j] = 1;
         }
-        for (int i = 0; i < M; ++ i) { // note here i should start from 0. 1 won't work.
+        for (int i = 0; i < M; ++ i) { // note: i starts from 0. 1 won't work. e.g. [[1], [0]].
             if (obstacleGrid[i][0] == 1) break;
             p[i][0] = 1;
         }
