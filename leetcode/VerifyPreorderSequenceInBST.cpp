@@ -37,6 +37,8 @@ public:
         for (int i = 1; i < preorder.size(); i++) {
             if (preorder[i] < minVal) return false;
             //if (preorder[i] > preorder[i - 1]) // no need. st.top is preorder[i-1].
+            // remove all elements on st smaller than preorder[i], 
+            // so st.top() is always the smallest element so far.
             while (!st.empty() && preorder[i] > st.top()) {
                 minVal = st.top();
                 st.pop();
