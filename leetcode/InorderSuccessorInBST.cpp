@@ -1,3 +1,30 @@
+// Should work, not tested. Basically same as Solution.
+class Solution2 {
+public:
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (root == NULL) return NULL;
+        
+        if (p->right != NULL) {
+            for (p = p->right; p->left != NULL; p = p->left) {}
+            return p;
+        }
+        else {
+            TreeNode * suc = NULL;
+            while (root != NULL) {
+                if (root->val > p->val) {
+                    suc = root;
+                    root = root->left;
+                } else if (root->val < p->val) {
+                    root = root->right;
+                } else {
+                    break;
+                }
+            }
+            return suc;
+        }
+    }
+};
+
 // This works. Tested.
 // From: http://www.cnblogs.com/jcliBlogger/p/4829200.html
 // Also see: https://leetcode.com/discuss/questions/oj/inorder-successor-in-bst
