@@ -185,6 +185,42 @@ public:
 };
 
 
+// Works too. Tested.
+// v is passed by reference, so in final step, must use a new vector u.
+// Otherwise will have runtime error.
+class Solution6 {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        vector<int> v(n, 0); // int v[n] = {0}; // works too.
+        perm(nums, ans, v, 0);
+        return ans;
+    }
+    
+    void perm(vector<int> &nums, vector<vector<int>> &ans, vector<int> &v, int pos) {
+        int n = nums.size();
+        if (pos == n) {
+            vector<int> u(n);
+            for (int i = 0; i < n; ++ i) {
+                u[i] = nums[v[i] - 1];
+            }
+            ans.push_back(u);
+            return;
+        }
+        
+        for (int i = 0; i < n; ++ i) {
+            if (v[i] == 0) {
+                v[i] = pos + 1;
+                perm(nums, ans, v, pos + 1);
+                v[i] = 0;
+            }
+        }
+    }
+};
+
 /**
 Permutations
 Difficulty: Medium
