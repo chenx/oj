@@ -5,11 +5,15 @@ public:
         int n = prices.size();
         if (n < 2 || k == 0) return 0;
         
-        if (k > n/2) {
-            int mp = 0;
-            for (int i = 1; i < n; ++ i) mp += max(0, prices[i] - prices[i-1]);
-            return mp;
+        int mp = 0, ct = 0;
+        for (int i = 1; i < n; ++ i) {
+            int p = prices[i] - prices[i-1];
+            if (p > 0) {
+                mp += p;
+                ++ ct;
+            }
         }
+        if (ct <= k) return mp;
         
         // else
         vector<int> curProfit(n, 0), prevProfit(n, 0);
@@ -19,7 +23,7 @@ public:
             minv = prices[0];
             for (int j = 1; j < n; ++ j) {
                 curProfit[j] = max(curProfit[j-1], prices[j] - minv);
-                minv = min(minv, prices[j] - prevProfit[j-1]); // why so?
+                minv = min(minv, prices[j] - prevProfit[j-1]);
             }
             prevProfit = curProfit;
         }
