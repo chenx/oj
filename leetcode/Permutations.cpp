@@ -184,11 +184,37 @@ public:
     }
 };
 
+// Works, tested. Modified from Solution 5. Uses less memory.
+// Best iterative version. Easy to understand.
+class Solution6 {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        ans.push_back(vector<int>(1, nums[0]));
+        for (int i = 1; i < n; ++ i) {
+            vector<vector<int>> v;
+            for (int j = 0; j < ans.size(); ++ j) {
+                vector<int> u = ans[j];
+                for (int k = 0; k <= u.size(); ++ k) {
+                    v.push_back(u);
+                    // insert nums[i] to each position of u.
+                    v.back().insert(v.back().begin() + k, nums[i]);
+                }
+            }
+            ans = v;
+        }
+        
+        return ans;
+    }
+};
 
-// Works too. Tested.
+// Works too. Tested. Almost best recursive version.
 // v is passed by reference, so in final step, must use a new vector u.
 // Otherwise will have runtime error.
-class Solution6 {
+class Solution7 {
 public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ans;
