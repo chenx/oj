@@ -35,6 +35,7 @@ public:
     bool hasNext() {
         if (cur == SIZE) cur = 0;
         if (index[cur] < v[cur].size()) return true;
+        return false;
     }
     
 private:
