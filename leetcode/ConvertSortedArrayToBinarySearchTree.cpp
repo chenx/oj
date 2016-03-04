@@ -14,6 +14,29 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+ 
+// Works too. Tested.
+class Solution2 {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return helper(nums, 0, nums.size() - 1);
+    }
+    
+    TreeNode * helper(vector<int> & nums, int L, int R) {
+        if (L > R) return NULL;
+        
+        int M = L + (R-L)/2;
+        TreeNode * root = new TreeNode(nums[M]);
+        
+        if (L < R) {
+            root->left = helper(nums, L, M-1);
+            root->right = helper(nums, M+1, R);
+        }
+        
+        return root;
+    }
+};
+
 class Solution {
 public:
     TreeNode *sortedArrayToBST(vector<int> &num) {
@@ -33,3 +56,12 @@ public:
         return n;
     }
 };
+
+
+/**
+Convert Sorted Array to Binary Search Tree
+Difficulty: Medium
+
+Given an array where elements are sorted in ascending order, 
+convert it to a height balanced BST.
+ */
