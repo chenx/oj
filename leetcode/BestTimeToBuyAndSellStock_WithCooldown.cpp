@@ -1,3 +1,23 @@
+// Works. Tested. Improved from Solution, but much better to understand.
+// But it's still not very obvious on 2nd statement in for loop.
+class Solution2 {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        if (n <= 1) return 0;
+        
+        vector<int> mp(n+1, 0); // mp[0] = 0.
+        int minv = prices[0];
+        
+        for (int i = 1; i < n; ++ i) {
+            mp[i+1] = max(mp[i], prices[i] - minv);
+            minv = min(minv, prices[i] - mp[i-1]); // why so?
+        }
+        
+        return mp[n];
+    }
+};
+
 // Works.
 // https://leetcode.com/discuss/81433/simple-explanation-based-basic-math-state-machine-attached
 class Solution {
