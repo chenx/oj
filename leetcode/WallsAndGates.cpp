@@ -1,3 +1,38 @@
+// Should work. Not tested.
+class Solution3 {
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        if (rooms.size() == 0 || rooms[0].size() == 0) return;
+        int m = rooms.size(), n = rooms[0].size(), INF = 2147483647;
+        
+        queue<vector<int>> q;
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (rooms[i][j] == 0) q.push({i, j, 0});
+            }
+        }
+        
+        vector<pair<int, int>> dir =
+            {pair<int, int>(-1, 0), pair<int, int>(1, 0), 
+             pair<int, int>(0, -1), pair<int, int>(0, 1)};
+        
+        // update distances.
+        while (! q.empty()) {
+            int x = q.front()[0], y = q.front()[1], dist = q.front()[2];
+            q.pop();
+            
+            for (int i = 0; i < dir.size(); ++ i) {
+                int dx = x + dir[i].first, dy = y + dir[i].second, d = dist + 1;
+                if (dx >= 0 && dx < m && dy >= 0 && dy < n && rooms[dx][dy] != -1) {
+                    rooms[dx][dy] = min(rooms[dx][dy], d);
+                    q.push({dx, dy, d});
+                }
+            }
+        }
+    }
+    
+};
+
 // Works too. Tested. By: XC
 // Can push all gates, before update distance.
 class Solution2 {
@@ -12,7 +47,7 @@ public:
         for (int i = 0; i < m; ++ i) {
             for (int j = 0; j < n; ++ j) {
                 if (rooms[i][j] == 0) {
-                    q.push(make_v3(i, j, 0));
+                    q.push(make_v3(i, j, 0)); // this works too: q.push({i, j, 0});
                 }
             }
         }
