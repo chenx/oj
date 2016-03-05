@@ -1,3 +1,27 @@
+// Works too. Tested.
+class Solution4 {
+public:
+    int findPeakElement(const vector<int> &num) {
+        int n = num.size();
+        if (n <= 1) return n-1;
+        
+        int L = 0, R = n - 1;
+        while (L <= R) {
+            int M = L + (R-L)/2;
+            
+            if (M == 0 && num[0] > num[1]) return 0;
+            if (M == n-1 && num[n-1] > num[n-2]) return n-1;
+            if (num[M-1] < num[M] && num[M] > num[M+1]) return M;
+            
+            //if (M < n-1 && num[M] < num[M+1]) L = M+1; // works too.
+            if (num[M] < num[M+1]) L = M+1;
+            else R = M-1;
+        }
+        
+        return 0;
+    }
+};
+
 // This works too.
 class Solution3 {
 public:
