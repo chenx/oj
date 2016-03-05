@@ -6,10 +6,10 @@ public:
         if (n == 1) return 1;
         
         int m = primes.size();
-        vector<vector<int>> v(m);
+        vector<vector<long long>> v(m);
         for (int i = 0; i < m; ++ i) v[i].push_back(primes[i]);
         
-        int next;
+        long long next;
         for (int i = 2; i <= n; ++ i) {
             next = INT_MAX;
             int minj = 0;
