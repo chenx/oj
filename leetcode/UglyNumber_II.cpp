@@ -1,3 +1,38 @@
+// Works. Tested.
+// Use the solution to SuperUglyNumber. 
+// Have to use "long long " to avoid overflow.
+class Solution3 {
+public:
+    int nthUglyNumber(int n) {
+        if (n <= 0) return 0;
+        if (n == 1) return 1;
+        
+        vector<int> primes = {2,3,5};
+        int m = primes.size();
+        vector<vector<long long>> v(m);
+        for (int i = 0; i < m; ++ i) v[i].push_back(primes[i]);
+        
+        long long next;
+        for (int i = 2; i <= n; ++ i) {
+            next = INT_MAX;
+            int minj = 0;
+            for (int j = 0; j < m; ++ j) {
+                if (next > v[j][0]) {
+                    next = v[j][0];
+                    minj = j;
+                }
+            }
+            
+            v[minj].erase(v[minj].begin());
+            for (int k = minj; k < m; ++ k) {
+                v[k].push_back(next * primes[k]);
+            }
+        }
+        
+        return next;
+    }
+};
+
 // This works too. 
 class Solution2 {
 public:
