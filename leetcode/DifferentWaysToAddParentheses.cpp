@@ -4,6 +4,9 @@ class Solution {
 public:
     vector<int> diffWaysToCompute(string input) {
         vector<int> ans;
+        
+        // this works too. assuming first and last char are digits.
+        //for (int i = 1; i < input.length() - 1; ++ i) { 
         for (int i = 0, n = input.length(); i < n; ++ i) {
             if (ispunct(input[i])) {
                 vector<int> vl = diffWaysToCompute(input.substr(0, i)), 
