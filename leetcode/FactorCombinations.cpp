@@ -1,12 +1,37 @@
+// Should work. Not tested in lc. Self-tested for n = 1 to 100.
+// By: XC. 3/4/2016
+class Solution3 {
+public:
+    vector<vector<int> > getFactors2(int n) {
+        vector<vector<int> > ans;
+        vector<int> v;
+        helper(ans, n, v);
+        return ans;
+    }
+
+    void helper(vector<vector<int> > &ans, int n, vector<int> &v) {
+        for (int i = 2; i * i <= n; ++ i) {
+            if (n % i == 0) {
+                if (! v.empty() && i < v.back()) continue;
+                vector<int> u = v;
+                u.push_back(i);
+                ans.push_back(u);
+                ans.back().push_back(n/i);
+                helper(ans, n/i, u);
+            }
+        }
+    }
+};
+
 // Works. Tested. Simplified from Solution.
+// Easiest to understand so far.
 class Solution2 {
 public:
     vector<vector<int>> getFactors(int n) {
         vector<vector<int> > ans;
         for (int i = 2; i * i <= n; i++) {
-            if (n % i != 0) {
-                continue;
-            }
+            if (n % i != 0) continue;
+
             ans.push_back(vector<int> {i, n / i});
             auto tmp = getFactors(n / i); // tmp: vector<vector<int>>
             for (auto j : tmp) {          // j: vector<int>
