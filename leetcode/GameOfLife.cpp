@@ -1,4 +1,4 @@
-// Works. Tested. Best solution so far. Use high bit to store new life value.
+// Works. Tested. O(1) space. Best solution. Use high bit to store new life value.
 class Solution3 {
 public:
     void gameOfLife(vector<vector<int>>& board) {
