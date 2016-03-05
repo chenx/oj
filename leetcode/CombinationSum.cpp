@@ -219,6 +219,35 @@ public:
     }
 };
 
+// Works. Tested. Most clean so far.
+// Only significant thing different from CombinationSum III, is to use ">=" instead of ">" below.
+class Solution7 {
+public:
+    vector<vector<int>> combinationSum(vector<int>& cand, int n) {
+        vector<vector<vector<int>>> ans(n+1);
+
+        sort(cand.begin(), cand.end());
+
+        for (int i = 1; i <= n; ++ i) {
+            vector<vector<int>> &v = ans[i];
+            for (int j = 0; j < cand.size(); ++ j) {
+                if (cand[j] > i) break;
+                else if (cand[j] == i) v.push_back({i});
+                else {
+                    vector<vector<int>> &u = ans[i - cand[j]];
+                    for (int m = 0; m < u.size(); ++ m) {
+                        if (cand[j] >= u[m].back()) {  // <-- ">=", instead of ">".
+                            v.push_back(u[m]);
+                            v.back().push_back(cand[j]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ans[n];
+    }
+};
 
 /**
 Combination Sum
