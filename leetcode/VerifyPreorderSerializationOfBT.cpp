@@ -1,3 +1,24 @@
+// Works. Tested. Modified from Solution and Solution2.
+class Solution3 {
+public:
+    bool isValidSerialization(string preorder) {
+        istringstream iss(preorder);
+        string val;
+        vector<string> v;
+
+        while (getline(iss, val, ',')) v.push_back(val);
+        
+        int ct = 1;
+        for (int i = 0; i < v.size(); ++ i) {
+            if (ct == 0) return false;
+            if (v[i] == "#") -- ct;
+            else ++ ct;
+        } 
+        
+        return ct == 0;
+    }
+};
+
 // Works. From: https://leetcode.com/discuss/85460/c-using-counter
 // Why?
 class Solution2 {
