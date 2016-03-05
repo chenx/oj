@@ -1,3 +1,60 @@
+// Works. Tested. Also much simpler!
+// Modified from another method of Subsets, only by checking if ans contains v.
+class Solution4 {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+
+        int n = nums.size();
+        if (n == 0) return ans;
+
+        sort(nums.begin(), nums.end());
+        
+        ans.push_back(vector<int>());
+        for (int i = 0; i < n; ++ i) {
+            for (int j = 0, lenj = ans.size(); j < lenj; ++ j) {
+                vector<int> v = ans[j];
+                v.push_back(nums[i]);
+                if (find(ans.begin(), ans.end(), v) == ans.end())
+                    ans.push_back(v);
+            }
+        }
+        
+        return ans;
+    }
+};
+
+// This works too. Tested. Much simpler!
+// Modified from solution of Subsets, by only check if ans contains v.
+//
+// In comparison, Solution and Solution2 are complex because they 
+// handle duplicated and unique elements separately, which avoided
+// checked for duplicate vector here.
+// Here, by using the check for duplicate vector, we handle unique
+// and duplicated elements uniformly, and code is much simpler.
+class Solution3 {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0, len = 1 << n; i < len; ++ i) {
+            vector<int> v;
+            for (int j = 0; j < n; ++ j) {
+                if (i & (1 << j)) v.push_back(nums[j]);
+            }
+            if (find(ans.begin(), ans.end(), v) == ans.end())
+                ans.push_back(v);
+        }
+        
+        return ans;
+    }
+};
+
 /*
 Method:
 Get all the unique elements, get the subsets VS.
