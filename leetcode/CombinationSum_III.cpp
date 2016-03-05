@@ -1,9 +1,47 @@
+// Works. Tested. Cleaned from Solution.
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<vector<int>>> ans(n+1);
+        
+        vector<int> cand(9);
+        for (int i = 0; i < 9; ++ i) cand[i] = i + 1;
+        
+        for (int i = 1; i <= n; ++ i) {
+            vector<vector<int>> &v = ans[i];
+            for (int j = 0; j < cand.size(); ++ j) {
+                if (cand[j] > i) break;
+                else if (cand[j] == i) v.push_back({i});
+                else {
+                    vector<vector<int>> &u = ans[i - cand[j]];
+                    for (int m = 0; m < u.size(); ++ m) {
+                        if (u[m].size() >= k) continue;
+                        
+                        if (cand[j] > u[m].back()) {
+                            v.push_back(u[m]);
+                            v.back().push_back(cand[j]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        vector<vector<int>> res;
+        for (int i = 0; i < ans[n].size(); ++ i) {
+            if (ans[n][i].size() == k) res.push_back(ans[n][i]);
+        }
+        
+        return res;
+    }
+};
+
+
 // This works. 
 // Based on the solution to CombinationSum.
 class Solution {
 public:
     vector<vector<int>> combinationSum3(int k, int n) {
-        vector<int> candidates(9);
+        vector<int> candidates;
         for (int i = 1; i <= 9; ++ i) candidates.push_back(i);
         
         vector<vector<vector<int> > > ans(1 + n);
@@ -26,7 +64,8 @@ public:
                         
                         // 3) use "<" instead of "<=" to avoid duplicated number.
                         if (ans[tmp][m].back() < candidates[j]) { 
-                            ans[i].push_back(vector<int>(ans[tmp][m]));  
+                            //ans[i].push_back(vector<int>(ans[tmp][m]));  // works too.
+                            ans[i].push_back(ans[tmp][m]);
                             ans[i].back().push_back(candidates[j]);  
                         }  
                     }  
