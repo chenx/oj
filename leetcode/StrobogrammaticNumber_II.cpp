@@ -1,3 +1,28 @@
+// Should work. Not tested. Modified from Solution.
+class Solution2 {
+public:
+    vector<string> findStrobogrammatic(int n) {
+        return helper(true, n);
+    }
+    
+    vector<string> helper(bool first, int n) {
+        if (n == 0) return {""};
+        if (n == 1) return {"0", "1", "8"};
+        
+        vector<string> v = helper(false, n - 2), ans;
+        
+        for (int i = 0; i < v.size(); ++ i) {
+            if (! first) ans.push_back("0" + v[i] + "0");
+            ans.push_back("1" + v[i] + "1");
+            ans.push_back("8" + v[i] + "8");
+            ans.push_back("6" + v[i] + "9");
+            ans.push_back("9" + v[i] + "6");
+        }
+        
+        return ans;
+    }
+};
+
 // Works. Tested. 
 // From: https://leetcode.com/discuss/85991/14-lines-concise-and-easy-understand-c-solution
 class Solution {
