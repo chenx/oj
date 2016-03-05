@@ -8,6 +8,30 @@
 // Fast exponentiation, similar to Fibonacci. O(log(n)).
 // Note: 1) be careful of n >>= 1 is not n >> 1, 2) consider n < 0.
 //
+
+// Works. Tested.
+// Note previous solutions failed for e.g.: n = INT_MIN, x = 2.0. -n overflows.
+// Only change is to convert "int n" to "long long m".
+class Solution3 {
+public:
+    double myPow(double x, int n) {
+        long long m = n;
+        bool neg = (m < 0);
+        if (neg) m = -m;
+        
+        double R = 1, F = x;
+        
+        while (m > 0) {
+            if (m & 1) R *= F;
+            F *= F;
+            m >>= 1;
+        }
+        
+        if (neg) R = 1/R;
+        return R;
+    }
+};    
+    
 class Solution {
 public:
     double pow(double x, int n) {
