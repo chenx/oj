@@ -12,6 +12,31 @@
 #include <algorithm>
 using namespace std;
 
+
+// Works. Tested.
+// Similar to the iterative method of Combinations, w/o constraint on k.
+class Solution5 {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> ans;
+
+        int n = nums.size();
+        if (n == 0) return ans;
+
+        sort(nums.begin(), nums.end());
+        
+        ans.push_back(vector<int>());
+        for (int i = 0; i < n; ++ i) {
+            for (int j = 0, lenj = ans.size(); j < lenj; ++ j) {
+                ans.push_back(ans[j]);
+                ans.back().push_back(nums[i]);
+            }
+        }
+        
+        return ans;
+    }
+};
+
 // This works too. Use DFS.
 class Solution4 {
 public:
