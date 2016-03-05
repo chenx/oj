@@ -23,7 +23,34 @@
  * };
  */
  
+// Works. Tested. Use a dummy node to simplify code.
+class Solution4 {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if (head == NULL) return NULL;
 
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        n->next = head;
+        
+        ListNode * prev = n, * slow = head, * fast = head->next;
+        
+        while (fast && fast->next) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        TreeNode * root = new TreeNode(slow->val);
+        prev->next = NULL;
+        
+        root->left = sortedListToBST(dummy.next);
+        root->right = sortedListToBST(slow->next);
+        
+        return root;
+    }
+    
+    
 // This works too.
 class Solution3 {
 public:
