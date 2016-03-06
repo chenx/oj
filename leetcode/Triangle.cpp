@@ -5,6 +5,27 @@
 // @Last modified: 12/18/2012
 //
 
+// Works. Tested. In-place. Top down.
+class Solution3 {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size();
+        
+        for (int i = 1; i < n; ++ i) {
+            triangle[i][0] += triangle[i-1][0];   // first
+            triangle[i][i] += triangle[i-1][i-1]; // last 
+            for (int j = 1; j < i; ++ j) {
+                triangle[i][j] += min(triangle[i-1][j-1], triangle[i-1][j]);
+            }
+        }
+        
+        int v = INT_MAX;
+        for (int i = 0; i < n; ++ i) v = min(v, triangle[n-1][i]);
+        
+        return v;
+    }
+};
+
 // This works too. Use O(n) space. This does not destroy triangle. 11/4/2014.
 class Solution2 {
 public:
