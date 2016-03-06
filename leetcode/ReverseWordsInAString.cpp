@@ -44,6 +44,44 @@ public:
         return t;
     }
     
+    // works too. In-place.
+    string removeSpace2(string s) {
+        int i = 0, h = 0, n = s.length();
+        
+        while (i < n && isspace(s[i])) ++ i;
+        while (i < n) {
+            if (isspace(s[i])) ++ i;
+            else {
+                if (h != 0) s[h ++] = ' ';
+                while (i < n && ! isspace(s[i])) s[h ++] = s[i ++];
+            }
+        }
+        
+        //s[h] = 0; // this does not work.
+        return s.substr(0, h);
+    }
+        
+    // works too. In-place.
+    // remove starting and trailing spaces, combine multiple spaces into one.
+    string removeSpace3(string s) {
+        char * p = (char *) s.c_str(),  // next char to check.
+             * h = p,    // position to add new char.
+             * head = p; // start of final string.
+             
+        while (*p && isspace(*p)) ++ p; // ignore starting spaces.
+
+        while (*p) {
+            if (isspace(*p)) ++ p;
+            else {
+                if (h != head) *h ++ = ' ';     
+                while (*p && ! isspace(*p)) *h ++ = *p ++ ;
+            }
+        }
+        
+        *h = '\0';
+        return string(head);
+    }
+    
     void rev(string &s, int i, int j) {
         for (; i < j; ++ i, -- j) 
             swap(s[i], s[j]);
