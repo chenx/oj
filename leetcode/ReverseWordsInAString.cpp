@@ -13,7 +13,7 @@ public:
             while (i < n && isspace(s[i])) ++ i;
             if (i == n) break;
             
-            j = i + 1; // j = i works too.
+            j = i; // j = i+1 works too.
             while (j < n && ! isspace(s[j])) ++ j;
             -- j;
             rev(s, i, j);
