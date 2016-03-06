@@ -5,6 +5,72 @@
 // @Last modified: 12/27/2012
 //
 
+// NOTE: 
+// for findLeftMost(), ret starts from nums.size();
+// for findRightMost(), ret starts from 0.
+
+// Works. Tested.
+class Solution3 {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> ans(2);
+        
+        ans[0] = findLeftMost(nums, target);
+        ans[1] = findLeftMost(nums, target + 1) - 1;
+        
+        if (ans[0] < 0 || ans[0] >= nums.size() || nums[ans[0]] != target) 
+            ans[0] = ans[1] = -1;
+            
+        return ans;
+    }
+    
+    int findLeftMost(vector<int> &nums, int target) {
+        int L = 0, R = nums.size() - 1, ret = nums.size(); 
+        while (L <= R) {
+            int M = L + (R-L)/2;
+            if (nums[M] >= target) {
+                ret = M;
+                R = M - 1;
+            }
+            else {
+                L = M + 1;
+            }
+        }
+        return ret;
+    }
+};
+
+// Works. Tested.
+class Solution2 {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> ans(2);
+        
+        ans[0] = findRightMost(nums, target - 1) + 1;
+        ans[1] = findRightMost(nums, target);
+
+        if (ans[1] < 0 || ans[1] >= nums.size() || nums[ans[1]] != target) 
+            ans[0] = ans[1] = -1;
+            
+        return ans;
+    }
+    
+    int findRightMost(vector<int> &nums, int target) {
+        int L = 0, R = nums.size() - 1, ret = -1;
+        while (L <= R) {
+            int M = L + (R-L)/2;
+            if (nums[M] <= target) {
+                ret = M;
+                L = M + 1;
+            }
+            else {
+                R = M - 1;
+            }
+        }
+        return ret;
+    }
+};
+
 class Solution {
 public:
     // Find target w/ the largest index x,
