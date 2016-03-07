@@ -19,6 +19,21 @@
             vals.push_back(val);
         }
     }
+    
+- convert int to string
+
+  A quick way: std::to_string(type val)
+  Type can be int, long, double etc. 
+  
+  See: http://www.cplusplus.com/reference/string/to_string/
+  
+- convert string to int/long/long-long:
+
+  stoi(string val)
+  stol(stirng val)
+  stoll(string val)
+  
+  See: http://en.cppreference.com/w/cpp/string/basic_string/stol
 
 - Difference of stringstream, istringstream and ostringstream 
 
