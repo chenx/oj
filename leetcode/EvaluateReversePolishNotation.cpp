@@ -1,3 +1,37 @@
+// Works too. Tested.
+class Solution3 {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> s;
+        for (int i = 0; i < tokens.size(); ++ i) {
+            string t = tokens[i];
+            if (isOp(t)) calc(s, t);
+            else s.push(stoi(t));
+        }
+        
+        return s.top();
+    }
+    
+    bool isOp(string s) {
+        return s == "+" || s == "-" || s == "*" || s == "/";
+    }
+    
+    void calc(stack<int> & s, string op) {
+        if (s.size() < 2) return; // or throw underflow exception.
+        int b = s.top(); s.pop();
+        int a = s.top(); s.pop();
+        
+        if (op == "+") s.push(a + b);
+        else if (op == "-") s.push(a - b);
+        else if (op == "*") s.push(a * b);
+        else if (op == "/") {
+            if (b == 0) s.push(0);  // or throw divideBy0 exception.
+            else s.push(a/b);
+        }
+        else s.push(0); // or throw unknownOp exception.
+    }
+};
+
 // This also works. Although maybe Solution looks better.
 class Solution2 {
 public:
