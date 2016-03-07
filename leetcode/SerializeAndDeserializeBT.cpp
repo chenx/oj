@@ -26,7 +26,7 @@ public:
         TreeNode * root;
         
         vector<string> vals;
-        split(data, vals, ",");
+        split(data, vals, ',');
         
         int p = 0;
         des(root, vals, p);
@@ -35,7 +35,8 @@ public:
     
     void des(TreeNode *& root, vector<string> &vals, int &p) {
         if (p == vals.size() || vals[p] == "null") {
-            root == NULL;
+            root = NULL;
+            ++ p;
             return;
         }
         
@@ -44,10 +45,11 @@ public:
         des(root->right, vals, p);
     }
     
-    void split(string data, vector<string> &vals, string delim) {
+    // Note how split is defined!
+    void split(string data, vector<string> &vals, char delim) {
         stringstream ss(data);
         string val;
-        while (getline(ss, delim) >> val) {
+        while (getline(ss, val, delim)) {
             vals.push_back(val);
         }
     }
