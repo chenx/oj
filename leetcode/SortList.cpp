@@ -36,7 +36,7 @@ public:
         n->next = h;
         n = h;
         h = h->next;
-        n->next = NULL;
+        //n->next = NULL; // ok with this too.
     }
 };
 
