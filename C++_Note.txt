@@ -57,9 +57,9 @@
   
 - convert string to int/long/long-long:
 
-  stoi(string val)
-  stol(stirng val)
-  stoll(string val)
+  std::stoi(string val)
+  std::stol(stirng val)
+  std::stoll(string val)
   
   See: http://en.cppreference.com/w/cpp/string/basic_string/stol
 
