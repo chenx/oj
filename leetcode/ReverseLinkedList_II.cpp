@@ -5,6 +5,42 @@
 // @Last modified: 12/24/2012
 //
 
+// Works. Tested. Use dummy node to simplify code.
+class Solution4 {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        ListNode dummy(0);
+        ListNode * prev = & dummy;
+        prev->next = head;
+        
+        ListNode *h = head, *t = head;
+        for (; m > 1; -- m) { prev = h, h = h->next; }
+        for (; n > 1; -- n) t = t->next;
+        
+        ListNode * tail = t->next;
+        t->next = NULL; // don't forget this!
+        
+        prev->next = rev(h, t);
+        t->next = tail;
+        
+        return dummy.next;
+    }
+    
+    ListNode* rev(ListNode *h, ListNode *&t) {
+        if (h == NULL || h->next == NULL) {
+            t = h;
+            return h;
+        }
+        
+        ListNode * tmp = h;
+        h = rev(h->next, t);
+        t->next = tmp;
+        t = tmp;
+        t->next = NULL;
+        return h;
+    }  
+};
+
 // This works too. 1/24/2016.
 class Solution3 {
 public:
