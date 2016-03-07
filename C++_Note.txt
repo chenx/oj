@@ -1,1 +1,29 @@
-d
+- split function
+
+  1) split with delimiter char.
+  
+    void split(string data, vector<string> &vals, char delim) {
+        stringstream ss(data);
+        string val;
+        while (std::getline(ss, val, delim)) {
+            vals.push_back(val);
+        }
+    }
+
+  2) split with blank space.
+  
+    void split(string data, vector<string> &vals) {
+        stringstream ss(data);
+        string val;
+        while (ss >> val) {
+            vals.push_back(val);
+        }
+    }
+
+- Difference of stringstream, istringstream and ostringstream 
+
+  Stringstream is bigger. The other two make code more readable.
+  They can be interchangeable. 
+  E.g., in the split functions above, replace stringstream with istringstream is ok too.
+  
+  
