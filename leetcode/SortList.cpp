@@ -1,3 +1,45 @@
+// Works too. Similar to Solution2.
+class Solution3 {
+public:
+    ListNode* sortList(ListNode* head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        // split.
+        ListNode * h1 = head, * slow = head, * fast = head->next;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        ListNode * h2 = slow->next;
+        slow->next = NULL;
+        
+        // recursion.
+        h1 = sortList(h1);
+        h2 = sortList(h2);
+        
+        // merge.
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        
+        while (h1 && h2) {
+            if (h1->val < h2->val) add(n, h1);
+            else add(n, h2);
+        }
+        
+        n->next = h1 ? h1 : h2;
+        
+        return dummy.next;
+    }
+    
+    void add(ListNode *& n, ListNode *& h) {
+        n->next = h;
+        n = h;
+        h = h->next;
+        n->next = NULL;
+    }
+};
+
 // This works. Much better than Solution! Recurive. O(log(n)) space.
 // Improved from: https://leetcode.com/discuss/73367/c-merge-sort-solution
 class Solution2 {
