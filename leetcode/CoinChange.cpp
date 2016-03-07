@@ -1,3 +1,62 @@
+// Works too.
+class Solution3 {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if (coins.size() == 0) return -1;
+        
+        sort(coins.begin(), coins.end());
+        vector<int> ans(amount + 1, INT_MAX);
+        ans[0] = 0;
+        
+        for (int i = 1; i <= amount; ++ i) {
+            for (int j = 0; j < coins.size(); ++ j) {
+                if (i < coins[j]) break;
+                else if (i == coins[j]) {
+                    ans[i] = 1; 
+                    break; 
+                }
+                else {
+                    if (ans[i - coins[j]] != INT_MAX) {
+                        ans[i] = min(ans[i], 1 + ans[i - coins[j]]);
+                    }
+                }
+            }
+        }
+        
+        if (ans[amount] == INT_MAX) ans[amount] = -1;
+        return ans[amount];
+    }
+};
+
+// Works too.
+class Solution2 {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if (coins.size() == 0) return -1;
+        
+        sort(coins.begin(), coins.end());
+        vector<int> ans(amount + 1, -1);
+        ans[0] = 0;
+        
+        for (int i = 1; i <= amount; ++ i) {
+            for (int j = 0; j < coins.size(); ++ j) {
+                if (i < coins[j]) break;
+                else if (i == coins[j]) {
+                    ans[i] = 1; 
+                    break; 
+                }
+                else {
+                    if (ans[i - coins[j]] != -1) 
+                        if (ans[i] == -1 || ans[i] > 1 + ans[i - coins[j]]) 
+                            ans[i] = 1 + ans[i - coins[j]];
+                }
+            }
+        }
+        
+        return ans[amount];
+    }
+};
+
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
