@@ -13,7 +13,33 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
- 
+
+// Works. Tested. May be best so far.
+class Solution4 {
+public:
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+        vector<vector<int>> ans;
+        vector<int> path;
+        helper(ans, path, root, sum);
+        return ans;
+    }
+    
+    void helper(vector<vector<int>> &ans, vector<int> &path, TreeNode * root, int sum) {
+        if (! root) return;
+        
+        path.push_back(root->val);
+        sum -= root->val;
+        if (sum == 0 && (! root->left &&  ! root->right)) {
+            ans.push_back(path);
+        }
+        
+        if (root->left) helper(ans, path, root->left, sum);
+        if (root->right) helper(ans, path, root->right, sum);
+        
+        path.pop_back();
+    }
+};
+
 // This works. Best solution so far.
 class Solution3 {
 public:
