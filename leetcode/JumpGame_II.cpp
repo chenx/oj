@@ -8,6 +8,59 @@
 #include <iostream>
 using namespace std;
 
+// Works too. Tested.
+class Solution9 {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return 0;
+        
+        vector<int> ct(n, INT_MAX);
+        ct[n-1] = 0;
+        for (int i = n-2; i >= 0; -- i) {
+            for (int j = nums[i]; j >= 1; -- j) {
+                if (i + j >= n-1) {
+                    ct[i] = 1;
+                    break;
+                }
+                else if (ct[i+j] != INT_MAX) {
+                    ct[i] = min(ct[i], 1 + ct[i+j]);
+                    if (ct[i] == 2) break;
+                }
+            }
+        }
+        
+        return ct[0];
+    }
+};
+
+// Works. Tested.
+class Solution8 {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return 0;
+        
+        vector<int> ct(n, -1);
+        ct[n-1] = 0;
+        for (int i = n-2; i >= 0; -- i) {
+            for (int j = nums[i]; j >= 1; -- j) {
+                if (i + j >= n-1) {
+                    ct[i] = 1;
+                    break;
+                }
+                else if (ct[i+j] >= 0 &&  // note this check must go first!
+                         (ct[i] == -1 || ct[i] > 1 + ct[i+j])) {
+                    ct[i] = 1 + ct[i+j];
+                    if (ct[i] == 2) break;
+                }
+            }
+        }
+        
+        return ct[0];
+    }
+};
+
 // This works too.
 class Solution7 {
 public:
