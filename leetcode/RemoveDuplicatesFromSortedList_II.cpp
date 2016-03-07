@@ -5,6 +5,72 @@
 // @Last modified: 12/24/2012
 //
 
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy(0);
+        ListNode * n = &dummy;
+        bool dup = false;
+
+        for (n->next = head; n->next && n->next->next; ) {
+            while (n->next->next && n->next->val == n->next->next->val) {
+                ListNode * tmp = n->next;
+                n->next = tmp->next;
+                delete tmp;
+                dup = true;
+            }
+            
+            if (dup) {
+                ListNode * tmp = n->next;
+                n->next = tmp->next;
+                delete tmp;
+                dup = false;
+            }
+            else {
+                n = n->next;
+            }
+        }
+        
+        return dummy.next;
+    }
+};
+// Works. Use dummy node to simplify code.
+class Solution3 {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy(0);
+        ListNode * n = &dummy;
+        bool dup = false;
+
+        for (n->next = head; n->next && n->next->next; ) {
+            if (n->next->val == n->next->next->val) {
+                ListNode * tmp = n->next;
+                n->next = tmp->next;
+                delete tmp;
+                dup = true;
+            }
+            else {
+                if (dup) { // remove n->next, last of duplicated nodes.
+                    ListNode * tmp = n->next;
+                    n->next = tmp->next;
+                    delete tmp;
+                    dup = false;
+                }
+                else {
+                    n = n->next;
+                }
+            }
+        }
+        
+        if (n->next && dup) { // remove last node of list.
+            delete n->next;
+            n->next = NULL;
+        }
+        
+        return dummy.next;
+    }
+};
+
 // This works too.
 // Every time when duplicate is found, go all the way to end of duplicates,
 // and delete entire duplicated section.
