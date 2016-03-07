@@ -16,9 +16,7 @@ public:
         
         while (true) {
             ListNode * t = h;
-            
-            int i = 1;
-            for (; i < k && t != NULL; ++ i) t = t->next;
+            for (int i = 1; i < k && t != NULL; ++ i) t = t->next;
             if (t == NULL) break; // less than k nodes left.
             
             ListNode * tail = t->next;
