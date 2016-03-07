@@ -1,3 +1,42 @@
+// Works too. But Solution is more clean.
+class Solution2 {
+public:
+    vector<int> findMinHeightTrees(int n, vector<pair<int, int>>& edges) {
+        vector<int> ans;
+        if (n == 1) {
+            ans.push_back(0);
+            return ans;
+        }
+        
+        unordered_map<int, vector<int>> adj;
+        for (auto e : edges) {
+            adj[e.first].push_back(e.second);
+            adj[e.second].push_back(e.first);
+        }
+        
+        vector<int> leaves;
+        for (auto a : adj) {
+            if (a.second.size() == 1) leaves.push_back(a.first);
+        }
+        
+        while (adj.size() > 2) {
+            vector<int> newLeaves;
+            for (int leaf : leaves) {
+                int n = adj[leaf][0];
+                // remove leaf from the other node's kneighbors.
+                adj[n].erase(find(adj[n].begin(), adj[n].end(), leaf)); 
+                if (adj[n].size() == 1) newLeaves.push_back(n);
+                
+                adj.erase(adj.find(leaf)); // remove leaf
+            }
+            
+            leaves = newLeaves;
+        }
+        
+        return leaves;
+    }
+};
+
 // Works. Tested. From: http://algobox.org/minimum-height-trees/
 /*
 Solution
