@@ -5,7 +5,8 @@
 // @Last modified: 12/24/2012
 //
 
-class Solution {
+// Works too. Tested. Use dummy node. Most clean so far.
+class Solution4 {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         ListNode dummy(0);
@@ -13,6 +14,7 @@ public:
         bool dup = false;
 
         for (n->next = head; n->next && n->next->next; ) {
+            // must check to make sure n->next->next is not NULL here.
             while (n->next->next && n->next->val == n->next->next->val) {
                 ListNode * tmp = n->next;
                 n->next = tmp->next;
@@ -34,6 +36,7 @@ public:
         return dummy.next;
     }
 };
+
 // Works. Use dummy node to simplify code.
 class Solution3 {
 public:
