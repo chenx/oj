@@ -4,6 +4,48 @@
 // @Created on: 12/27/2012
 //
 
+// Works. Tested. More clear. Use dummy node to save code.
+class Solution3 {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if (head == NULL || head->next == NULL || k <= 1) return head;
+        
+        ListNode dummy(0);
+        ListNode * prev = &dummy, * h = head;
+        prev->next = head;
+        
+        while (true) {
+            ListNode * t = h;
+            
+            int i = 1;
+            for (; i < k && t != NULL; ++ i) t = t->next;
+            if (t == NULL) break; // less than k nodes left.
+            
+            ListNode * tail = t->next;
+            t->next = NULL;
+            
+            prev->next = rev(h, t);
+            t->next = tail;
+            
+            prev = t;
+            h = t->next;
+        }
+        
+        return dummy.next;
+    }
+    
+    ListNode* rev(ListNode *h, ListNode *&t) {
+        if (h == NULL || h->next == NULL) return h;
+        
+        ListNode * tmp = h;
+        h = rev(h->next, t);
+        t->next = tmp;
+        t = tmp;
+        t->next = NULL;
+        return h;
+    }  
+};
+
 // This works too. More clear. 11/15/2015
 // The key is to find head and tail of each segment to reverse, and keep prev and next.
 class Solution2 {
