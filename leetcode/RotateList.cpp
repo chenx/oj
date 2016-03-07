@@ -5,6 +5,32 @@
 // @Last modified: 12/18/2012
 //
 
+// Works too. Tested. Use dummy head node.
+class Solution5 {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode dummy(0);
+        ListNode * t = & dummy;
+        t->next = head;
+        
+        int len = 0;
+        for (; t->next; t = t->next) ++ len; // t becomes last node.
+        k %= len;
+        if (k == 0) return dummy.next;
+        
+        ListNode * h = & dummy;
+        for (; k < len; ++ k) h = h->next; // h->next is new head.
+        
+        t->next = dummy.next; // link old tail to old head.
+        dummy.next = h->next; // update new head.
+        h->next = NULL;       // set new tail next to NULL.
+        
+        return dummy.next;
+    }
+};
+
 // This works too.
 class Solution4 {
 public:
