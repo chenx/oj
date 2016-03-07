@@ -1,6 +1,6 @@
 // Works too. Best so far. Recursive descent.
 // Allows num, +-*/()
-// Note ignoreSpace() is called only in num().
+// Note ignoreSpace() is called only in num() and expect().
 class Solution2 {
 public:
     int calculate(string s) {
@@ -64,6 +64,7 @@ public:
     }
     
     void expect(const char *& p, char c) {
+        ignoreSpace(p);
         if (*p == c) {
             ++ p;
             return;
