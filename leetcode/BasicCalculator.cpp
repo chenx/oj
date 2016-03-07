@@ -1,3 +1,76 @@
+// Works. Best answer so far. Simplified from Solution2 of BasicCalculator_II,
+// by removing function F().
+class Solution6 {
+public:
+    /*
+    E = T | T + T | T - T
+    F = (E) | num
+    */
+    int calculate(string s) {
+        const char * p = s.c_str();
+        return E(p);
+    }
+
+    int E(const char *& p) {
+        int n = T(p);
+        while (*p == '+' || *p == '-') {
+            char op = *p;
+            ++ p;
+            int m = T(p);
+            if (op == '+') n += m;
+            else n -= m;
+        }
+        return n;
+    }
+
+    int T(const char *& p) {
+        if (isNum(p)) {
+            return num(p);
+        }
+        else {
+            expect(p, '(');
+            int n = E(p);
+            expect(p, ')');
+            return n;
+        }
+    }
+
+    int num(const char *& p) {
+        ignoreSpace(p);
+
+        int v = 0;
+        while (isDigit(*p)) {
+            v = v * 10 + *p - '0';
+            ++ p;
+        }
+        ignoreSpace(p);
+
+        return v;
+    }
+    
+    void expect(const char *& p, char c) {
+        ignoreSpace(p);
+        if (*p == c) {
+            ++ p;
+            return;
+        }
+        // print error msg.
+        throw exception();
+    }
+    
+    bool isNum(const char * p) {
+        while (isspace(*p)) ++ p;
+        return isdigit(*p);
+    }
+    
+    bool isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+    
+    void ignoreSpace(const char *& p) {
+        while (isspace(*p)) ++ p;
+    }
+};
 
 // E = F | { F +- F }
 // F = (E) | num
