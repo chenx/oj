@@ -11,6 +11,46 @@
 // @Last modified: 3/2/2013
 //
 
+// Works too. Tested. Similar to Solution.
+class Solution4 {
+public:
+    vector<vector<string>> partition(string s) {
+        if (s == "") return vector<vector<string>>();
+
+        int n = s.length();
+        vector<vector<vector<string>>> ans(n);
+        
+        ans[0].push_back(vector<string>(1, s.substr(0, 1)));
+        
+        for (int i = 1; i < n; ++ i) {
+            string t = s.substr(0, i+1);
+            if (isPalindrome(t)) ans[i].push_back(vector<string>(1, t));
+            
+            for (int j = i; j > 0; -- j) {
+            //for (int j = 1; j <= i; ++ j) {  // this works too.
+                string t = s.substr(j, i-j+1);
+                if (isPalindrome(t)) {
+                    vector<vector<string>> & u = ans[j-1];
+                    for (int k = 0; k < u.size(); ++ k) {
+                        ans[i].push_back(u[k]);
+                        ans[i].back().push_back(t);
+                    }
+                }
+            }
+        }
+        
+        return ans[n-1];
+    }
+    
+    bool isPalindrome (string s) {
+        int L = 0, R = s.length() - 1;
+        for (; L < R; ++ L, -- R) {
+            if (s[L] != s[R]) return false;
+        }
+        return true;
+    }
+};
+
 // This works too.
 // Different from Solution2 only in index position.
 // X.C. 11/26/2015
