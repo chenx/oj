@@ -1,4 +1,5 @@
 // Works too. Best so far. Recursive descent.
+// Allows num, +-*/()
 // Note ignoreSpace() is called only in num().
 class Solution2 {
 public:
@@ -62,8 +63,12 @@ public:
         return v;
     }
     
-    void expect(const char * p, char c) {
-        if (*p == c) return;
+    void expect(const char *& p, char c) {
+        if (*p == c) {
+            ++ p;
+            return;
+        }
+        // print error msg.
         throw exception();
     }
     
