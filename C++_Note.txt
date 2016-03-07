@@ -22,10 +22,38 @@
     
 - convert int to string
 
-  A quick way: std::to_string(type val)
+  1) A quick way: std::to_string(type val)
   Type can be int, long, double etc. 
   
   See: http://www.cplusplus.com/reference/string/to_string/
+  
+  2) 
+  
+    int toInt(string s) {
+        stringstream iss(s); // istringstream works too.
+        int val;
+        iss >> val;
+        return val;
+    }
+    
+  3) 
+  
+    int toInt(string s) {
+        int val = 0, i = 0, val0;
+        bool neg = s[0] == '-';
+        if (neg) ++ i;
+        else if (s[0] == '+') ++ i;
+        
+        for (; i < s.length(); ++ i) {
+            val0 = val;
+            val = val * 10 + s[i] - '0';
+            if (val / 10 != val0) throw overflow_error();
+        }
+        
+        if (neg) val = - val;
+        return val;
+    }
+    
   
 - convert string to int/long/long-long:
 
