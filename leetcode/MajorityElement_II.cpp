@@ -17,6 +17,8 @@ public:
         // n1, n2 can be any 2 numbers that are not equal.
         int n1 = 0, n2 = 1, ct1 = 0, ct2 = 0;
         
+        // Note: cannot make "ct1 == 0, ct2 == 0" before "n1 == .., n2 == ..",
+        // otherwise n1 and n2 may be equal, and result wrong. e.g.: {8,8,7,7,7}.
         for (int i = 0; i < len; ++ i) {
             if (n1 == nums[i]) ++ ct1;
             else if (n2 == nums[i]) ++ ct2;
