@@ -20,6 +20,41 @@
         }
     }
     
+    
+- create priority queue
+
+  1) int
+  
+  max heap: priority_queue<int, vector<int>, std::less<int>> maxPQ;
+  min heap: priority_queue<int, vector<int>, std::greater<int>> minPQ;
+  
+  2) node
+  
+  priority_queue<ListNode *, vector<ListNode *>, comp> minPQ;
+  
+  class comp {
+  public:    
+      bool operator()(const ListNode * a, const ListNode * b) const {
+          return a->val > b->val; // min heap.
+      }
+  };
+  
+  3) use make_heap
+  
+  vector<ListNode *> h;
+  make_heap(h.begin(), h.end(), cmp);
+  
+  bool cmp(const ListNode * a, const ListNode * b) {
+      return a->val > b->val;
+  }
+  
+  
+- create pair
+
+  1) pair<int, int> v = pair<int, int>(1, 2);
+  2) auto v = make_pair(1, 2); // note the use of auto keyword.
+  
+
 - convert int to string
 
   1) A quick way: std::to_string(type val)
@@ -62,6 +97,7 @@
   std::stoll(string val)
   
   See: http://en.cppreference.com/w/cpp/string/basic_string/stol
+
 
 - Difference of stringstream, istringstream and ostringstream 
 
