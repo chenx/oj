@@ -1,3 +1,59 @@
+// Works too. From BianChengZhiMei.
+class Solution2 {
+public:
+    // modified from original code.
+    int countDigitOne(int n) {
+        if (n < 1) return 0;
+        long long ct = 0, low = 0, cur = 0, high = 0, m = 1;
+        
+        for (; m <= n; m *= 10) {
+            low = n - (n/m) * m;
+            cur = (n/m) % 10;
+            high = (n/m) / 10;
+            
+            switch (cur) {
+                case 0: 
+                    ct += high * m;
+                    break;
+                case 1:
+                    ct += high * m + low + 1;
+                    break;
+                default:
+                    ct += (high + 1) * m;
+                    break;
+            }
+        }
+        return ct;
+    }
+    
+    // original code from BianChengZhiMei.
+    int countDigitOne2(int n) {
+        if (n<1) return 0;
+        long long ct = 0, f = 1, low = 0, cur = 0, high = 0;
+        
+        while (n / f) {
+            low = n - (n/f)*f;
+            cur = (n/f) % 10;
+            high = n / (f * 10);
+            
+            switch (cur) {
+                case 0: 
+                    ct += high * f;
+                    break;
+                case 1:
+                    ct += high * f + low + 1;
+                    break;
+                default:
+                    ct += (high + 1) * f;
+                    break;
+            }
+            
+            f *= 10;
+        }
+        return ct;
+    }
+};
+
 // From: https://leetcode.com/discuss/61269/0ms-8-lines-c-solution
 class Solution {
 public:
