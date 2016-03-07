@@ -40,8 +40,8 @@ class Solution2 {
 public:
     int largestBSTSubtree(TreeNode* root) {
         int size;
-        isBST(root, NULL, NULL, size);
-        return size;
+        if (isBST(root, NULL, NULL, size)) return size;
+        return max(largestBSTSubtree(root->left), largestBSTSubtree(root->right));
     }
     
     bool isBST(TreeNode * root, TreeNode * L, TreeNode * R, int & size) {
