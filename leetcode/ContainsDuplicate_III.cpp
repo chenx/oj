@@ -1,6 +1,6 @@
 // This works. O(n^2). O(nlog(n)) if nums array is not filled mostly with the same number.
 // See: https://leetcode.com/discuss/74439/c-20-ms-solution-beat-95%25
-class Solution {
+class Solution2 {
 public:
     bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
         if (nums.size() <= 1) return false;
@@ -40,6 +40,21 @@ public:
     }
 };
 
+// This should work? Just timed out.
+class Solution {
+public:
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        int n = nums.size();
+        for (int i = 0; i < n; ++ i) {
+            for (int j = i+1; j < n; ++ j) {
+                if (abs(j - i) > k) break;
+                long d = abs(nums[i] - nums[j]);
+                if (d <= t) return true;
+            }
+        }
+        return false;
+    }
+};
 
 /**
 Contains Duplicate III
