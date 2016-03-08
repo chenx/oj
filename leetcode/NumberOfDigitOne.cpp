@@ -3,7 +3,6 @@ class Solution2 {
 public:
     // modified from original code.
     int countDigitOne(int n) {
-        if (n < 1) return 0;
         long long ct = 0, low = 0, cur = 0, high = 0, m = 1;
         
         for (; m <= n; m *= 10) {
@@ -12,15 +11,9 @@ public:
             high = (n/m) / 10;
             
             switch (cur) {
-                case 0: 
-                    ct += high * m;
-                    break;
-                case 1:
-                    ct += high * m + low + 1;
-                    break;
-                default:
-                    ct += (high + 1) * m;
-                    break;
+                case 0: ct += high * m; break;
+                case 1: ct += high * m + low + 1; break;
+                default: ct += (high + 1) * m; break;
             }
         }
         return ct;
