@@ -1,7 +1,28 @@
+// Works. Tested. Modified from Solution2, easier to understand in while loop.
+class Solution3 {
+public:
+    void wiggleSort(vector<int>& nums) {
+        int n = nums.size();
+        
+        auto midptr = nums.begin() + n/2;
+        nth_element(nums.begin(), midptr, nums.end());
+        int mid = *midptr;
+        
+        #define A(i) nums[(1 + 2*i) % (n|1)]
+        
+        int L = 0, R = n-1, p = 0;
+        while (p <= R) {
+            if (A(p) > mid) swap(A(p ++), A(L ++));
+            else if (A(p) < mid) swap(A(p), A(R --));
+            else ++ p;
+        }
+    }
+};
+
 // Works. Tested. 
 // From: https://leetcode.com/discuss/77133/o-n-o-1-after-median-virtual-indexing
 // Note:
-// 1) nth-element: 
+// 1) nth_element: 
 // void nth_element (RandomAccessIterator first, RandomAccessIterator nth,
 //                   RandomAccessIterator last);
 // Rearranges the elements in the range [first,last), in such a way that the element 
