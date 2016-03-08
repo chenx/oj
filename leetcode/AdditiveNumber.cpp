@@ -1,3 +1,37 @@
+// Works. Tested. Modified from Solution.
+class Solution2 {
+public:
+    bool isAdditiveNumber(string num) {
+        int n = num.length();
+        for (int i = 1; i < n; ++ i) {
+            for (int j = 1; j < n-i; ++ j) {
+                // be careful of index.
+                if (helper(num.substr(0, i), num.substr(i, j), num.substr(i+j)))
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    // expect: a + b == c
+    bool helper(string a, string b, string c) {
+        if (invalid(a) || invalid(b) || invalid(c)) return false;
+        
+        long long sum = stoll(a) + stoll(b);
+        int len = (int)log10(sum) + 1;
+        if (sum != stoll(c.substr(0, len))) return false;
+        if (len == c.length()) return true;
+        
+        return helper(b, c.substr(0, len), c.substr(len));
+    }
+    
+    bool invalid(string s) {
+        if (s.length() > 1 && s[0] == '0') return true;
+        return false;
+    }
+};
+
 // Works. 
 // Modified from: https://leetcode.com/discuss/82185/c-straightforward-solution
 class Solution {
