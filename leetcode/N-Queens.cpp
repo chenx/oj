@@ -1,3 +1,47 @@
+// Works too. Tested.
+class Solution5 {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<int> v(n, 0);
+        solve(ans, v, 0);
+        return ans;
+    }
+    
+    void solve(vector<vector<string>> &ans, vector<int> &v, int pos) {
+        if (pos == v.size()) {
+            ans.push_back(getConfig(v));
+            return;
+        }
+        
+        for (int i = 0; i < v.size(); ++ i) {
+            v[pos] = i+1;
+            if (! conflict(v, pos)) solve(ans, v, pos+1);
+        }
+    }
+    
+    vector<string> getConfig(vector<int> & v) {
+        int n = v.size();
+        vector<string> u;
+        for (int i = 0; i < n; ++ i) {
+            string s;
+            int j = 1;
+            for (; j < v[i]; ++ j) s += ".";
+            s += "Q";
+            for (++ j; j <= n; ++ j) s += ".";
+            u.push_back(s);
+        }
+        return u;
+    }
+    
+    bool conflict(vector<int> & v, int pos) {
+        for (int i = 0; i < pos; ++ i) {
+            if (v[i] == v[pos] || pos - i == abs(v[pos] - v[i])) return true;
+        }
+        return false;
+    }
+};
+
 //
 // http://www.leetcode.com/onlinejudge#
 // 3sum.
