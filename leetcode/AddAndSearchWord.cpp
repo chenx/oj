@@ -82,6 +82,25 @@ public:
         }
     }
 
+    // This works too. Tested.
+    bool search_dot2(string word) {
+        return helper(word, 0, root);
+    }
+    bool helper(string word, int pos, TrieNode * current) {
+        // Must be word.length(), not word.length()-1 !!!
+        if (pos == word.length()) return current->wordMarker();
+
+        if (word[pos] == '.') {
+            for (auto c : current->children()) {
+                if (helper(word, pos+1, c)) return true;
+            }
+        }        
+        else {
+            TrieNode * tmp = current->findChild(word[pos]);
+            if (! tmp) return false;
+            return helper(word, pos+1, tmp);
+        }
+    }
 
     /* // Exact search. Not needed here.
     // Returns if the word is in the trie.
