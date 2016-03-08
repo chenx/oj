@@ -1,5 +1,31 @@
 // Works. Tested. 
 // From: https://leetcode.com/discuss/77133/o-n-o-1-after-median-virtual-indexing
+// Note:
+// 1) nth-element: 
+// void nth_element (RandomAccessIterator first, RandomAccessIterator nth,
+//                   RandomAccessIterator last);
+// Rearranges the elements in the range [first,last), in such a way that the element 
+// at the nth position is the element that would be in that position in a sorted sequence.
+// 
+// The other elements are left without any specific order, except that none of the 
+// elements preceding nth are greater than it, and none of the elements following it are less.
+// 
+// 2) (n|1) means: if n is odd, use it; if n is even, add 1 to it.
+//    i.e.: (n|1) is same as: return (i % 2 == 1) ? n : (n+1)
+// 3) the index wiring is like this:
+/*
+Accessing A(0) actually accesses nums[1].
+Accessing A(1) actually accesses nums[3].
+Accessing A(2) actually accesses nums[5].
+Accessing A(3) actually accesses nums[7].
+Accessing A(4) actually accesses nums[9].
+Accessing A(5) actually accesses nums[0].
+Accessing A(6) actually accesses nums[2].
+Accessing A(7) actually accesses nums[4].
+Accessing A(8) actually accesses nums[6].
+Accessing A(9) actually accesses nums[8].
+*/
+
 class Solution2 {
 public:
     void wiggleSort(vector<int>& nums) {
