@@ -1,4 +1,69 @@
-﻿/**
+// Works. Tested. Use dummy node.
+class Solution2 {
+public:
+    void reorderList(ListNode* head) {
+        if (! head || ! head->next) return;
+        
+        // split.
+        ListNode * slow = head, * fast = head->next;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        ListNode * head2 = slow->next;
+        slow->next = NULL;
+        
+        // reverse 2nd list.
+        head2 = rev(head2);
+        
+        // merge
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        while (head && head2) {
+            append(n, head);
+            append(n, head2);
+        }
+        
+        n->next = head ? head : head2;
+    }
+    
+    void append(ListNode *& n, ListNode *&h) {
+        n->next = h;
+        h = h->next;
+        n = n->next;
+        n->next = NULL;
+    }
+    
+    ListNode * rev(ListNode * head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode * h = NULL;
+        while (head != NULL) {
+            ListNode * tmp = head->next;
+            head->next = h;
+            h = head;
+            head = tmp;
+        }
+        
+        return h;
+    }
+    
+    void add(ListNode *& head, ListNode *& h, ListNode *& t) {
+        if (h == NULL) {
+            h = t = head;
+        }
+        else {
+            t->next = head;
+            t = head;
+        }
+        
+        head = head->next;
+        t->next = NULL;
+    }
+};
+
+/**
  * Definition for singly-linked list.
  * struct ListNode {
  *     int val;
