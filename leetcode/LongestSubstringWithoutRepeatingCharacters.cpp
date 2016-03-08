@@ -34,7 +34,7 @@ public:
     } 
 };
 
-// This works too.
+// This works too. Maybe be best answer so far.
 // Removed array ct[] from previous solutions, which is redundant from pos[].
 // use pos[c] == 0 to denote not-exist.
 // Better than previous solutions. 1-24-2015.
@@ -42,11 +42,12 @@ class Solution6 {
 public:
     int lengthOfLongestSubstring(string s) {
         const int SIZE = 256;
-        int pos[SIZE];
-        memset(pos, 0, sizeof(int) * SIZE);
-        int maxLen = 0, len = 0;
+        int pos[SIZE] = {0}; 
+        //int pos[SIZE];
+        //memset(pos, 0, sizeof(int) * SIZE);
+        int maxLen = 0, len = 0, n = s.length();
         
-        for (int i = 0, n = s.length(); i < n; ++ i) {
+        for (int i = 0; i < n; ++ i) {
             if (pos[s[i]] == 0) {
                 pos[s[i]] = i + 1;
                 ++ len;
