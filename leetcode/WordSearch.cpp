@@ -5,6 +5,56 @@
 // @Last modified: 10/26/2014
 //
 
+// Works too.
+class Solution4 {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        if (board.size() == 0 || board[0].size() == 0) return word == "";
+        m = board.size(), n = board[0].size();
+        
+        vector<vector<bool>> used(m, vector<bool>(n, false));
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (word[0] == board[i][j]) {
+                    if (match(board, used, word, 0, i, j)) return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    bool match(vector<vector<char>>& board, vector<vector<bool>> &used, 
+               string &word, int pos, int i, int j) {
+        ++ pos; // NOTE: increment pos here !!! Otherwise needs word.length()-1 below.
+        if (pos == word.length()) {
+            return true;
+        }
+        
+        used[i][j] = true;
+        
+        for (int k = 0; k < dir.size(); ++ k) {
+            int x = i + dir[k].first, y = j + dir[k].second;
+            if (x >= 0 && x < m && y >= 0 && y < n && 
+                board[x][y] == word[pos] && ! used[x][y]) {
+                if (match(board, used, word, pos, x, y))
+                    return true;
+            }
+        }
+        
+        used[i][j] = false;
+        return false;
+    }
+private:
+    int m, n;
+    vector<pair<int, int>> dir = {
+        pair<int, int>(-1, 0),
+        pair<int, int>(1, 0),
+        pair<int, int>(0, -1),
+        pair<int, int>(0, 1)
+    };
+};
+
 // Works too. Improved from Solution2.
 class Solution3 {
     vector<pair<int, int>> dirs = {make_pair(1,0), make_pair(-1,0), make_pair(0,1), make_pair(0,-1)};
