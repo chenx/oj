@@ -1,3 +1,25 @@
+// Works too. Slighly modified from Solution3.
+class Solution4 {
+    unordered_map<string, multiset<string>> m;
+    vector<string> route;
+    
+public:
+    vector<string> findItinerary(vector<pair<string, string>> tickets) {
+        for (auto t : tickets) m[t.first].insert(t.second);
+        visit("JFK");
+        return route;
+    }
+    
+    void visit(string airport) {
+        while (m[airport].size() > 0) {
+            string next = *m[airport].begin();
+            m[airport].erase(m[airport].begin());
+            visit(next);
+        }
+        route.insert(route.begin(), airport);
+    }
+};
+
 // Works too! Tested. Use recursion.
 // From: https://leetcode.com/discuss/84659/short-ruby-python-java-c
 class Solution3 {
