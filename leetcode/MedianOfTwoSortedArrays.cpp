@@ -11,7 +11,8 @@
 class Solution3 {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        if ((nums1.size() + nums2.size()) & 1) 
+        int total = nums1.size() + nums2.size();
+        if (total & 1) 
             return getKth(nums1, 0, nums2, 0, total/2 + 1);
         else 
             return (getKth(nums1, 0, nums2, 0, total/2) + 
