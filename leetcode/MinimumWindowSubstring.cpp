@@ -13,7 +13,7 @@ public:
         for (char c : t) toFind[c] ++;
         
         int ct = t.length(), found_ct = 0,
-            minB = -1, minE = -1, minLen = s.length() + 1;
+            minStart = -1, minLen = s.length() + 1;
         for (int begin = 0, end = 0; end < s.length(); ++ end) {
             char e = s[end];
             if (toFind[e] == 0) continue;
@@ -31,14 +31,13 @@ public:
                     
                 if (end - begin + 1 < minLen) {
                     minLen = end - begin + 1;
-                    minB = begin; 
-                    minE = end;
+                    minStart = begin; 
                 }
             }  
         }
         
-        if (minB == -1) return "";
-        else return s.substr(minB, minE - minB + 1);
+        if (minStart == -1) return "";
+        else return s.substr(minStart, minLen);
     }
 };
 
