@@ -25,6 +25,34 @@ struct ListNode {
 };
  
 
+// Works too.
+class Solution5 {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<ListNode *, vector<ListNode *>, comp> minQ;
+        for (auto n : lists) {
+            if (n) minQ.push(n);
+        }
+        
+        ListNode dummy(0);
+        ListNode * tail = & dummy;
+        
+        while (! minQ.empty()) {
+            ListNode * n = minQ.top();
+            minQ.pop();
+            
+            if (n->next) minQ.push(n->next);
+            //n->next = NULL; // without this is ok too.
+            
+            tail->next = n;
+            tail = n;
+        }
+        
+        return dummy.next;
+    }
+};
+
+
 //
 // Solution 4. This works too. O(n^2 log(k))
 // Prefer this over Solution 2, for more standard use of priority_queue.
