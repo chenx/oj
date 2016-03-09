@@ -5,9 +5,45 @@
 // @Last modified: 1/8/2013
 //
 
+
+// Works too. Tested.
+// Improved from Solution2. Save for 2 variables m, n, now they are local in getKth().
+class Solution3 {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int m = nums1.size(), n = nums2.size(), len = m + n;
+        if (len & 1) {
+            return getKth(nums1, 0, nums2, 0, len/2 + 1);
+        }
+        else {
+            return (getKth(nums1, 0, nums2, 0, len/2) + 
+                    getKth(nums1, 0, nums2, 0, len/2 + 1)) / 2.0;
+        }
+    }
+    
+    double getKth(vector<int> & A, int offsetA, vector<int> & B, int offsetB, int k) {
+        int m = A.size() - offsetA, n = B.size() - offsetB;
+        
+        if (m > n) return getKth(B, offsetB, A, offsetA, k);
+        if (m == 0) return B[offsetB + k-1];
+        if (k == 1) return min(A[offsetA], B[offsetB]);
+        
+        int pa = min(k/2, m);
+        int pb = k - pa;
+        
+        if (A[offsetA + pa - 1] < B[offsetB + pb - 1]) {
+            return getKth(A, offsetA + pa, B, offsetB, k - pa);
+        }
+        else {
+            return getKth(A, offsetA, B, offsetB + pb, k - pb);
+        }
+    }
+};
+
+
 // This also works. 11/29/2015
 // Signature is changed, so use offset here. This is easier to adapt for Java. 
-class Solution {
+class Solution2 {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         int m = nums1.size(), n = nums2.size(), len = m + n;
@@ -39,7 +75,7 @@ public:
 
 // This works! And so simple!
 // From: http://blog.csdn.net/sunjilong/article/details/8254130
-class Solution2 {  
+class Solution {  
 public:  
      double findKth(int a[], int m, int b[], int n, int k)  
      {  
