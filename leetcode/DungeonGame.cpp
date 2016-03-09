@@ -2,6 +2,35 @@
 #include <iostream>
 using namespace std;
 
+// Works too. Modified from Solution3. Unified cell [m-1][n-1] with the rest.
+// Best so far.
+class Solution4 {
+public:
+    int calculateMinimumHP(vector<vector<int>>& dungeon) {
+        vector<vector<int>> & d = dungeon;
+        if (d.size() == 0 || d[0].size() == 0) return 0;
+        
+        int m = d.size(), n = d[0].size();
+        vector<vector<int>> dp(m, vector<int>(n, 0));
+        
+        dp[m-1][n-1] = getVal(1 - d[m-1][n-1]);
+        
+        for (int i = m-2; i >= 0; -- i) dp[i][n-1] = getVal(dp[i+1][n-1] - d[i][n-1]);
+        for (int j = n-2; j >= 0; -- j) dp[m-1][j] = getVal(dp[m-1][j+1] - d[m-1][j]);
+        
+        for (int i = m-2; i >= 0; -- i) {
+            for (int j = n-2; j >= 0; -- j) {
+                dp[i][j] = getVal( min(dp[i+1][j], dp[i][j+1]) - d[i][j] );
+            }
+        }
+        
+        return dp[0][0];
+    }
+    
+    int getVal(int v) {
+        return v > 0 ? v : 1;
+    }
+};
 
 // This works. Is more clear than Solution2 on why.
 // O(mn) space, O(mn) time.
