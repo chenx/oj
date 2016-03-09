@@ -11,32 +11,26 @@
 class Solution3 {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
-        int m = nums1.size(), n = nums2.size(), len = m + n;
-        if (len & 1) {
-            return getKth(nums1, 0, nums2, 0, len/2 + 1);
-        }
-        else {
-            return (getKth(nums1, 0, nums2, 0, len/2) + 
-                    getKth(nums1, 0, nums2, 0, len/2 + 1)) / 2.0;
-        }
+        if ((nums1.size() + nums2.size()) & 1) 
+            return getKth(nums1, 0, nums2, 0, total/2 + 1);
+        else 
+            return (getKth(nums1, 0, nums2, 0, total/2) + 
+                    getKth(nums1, 0, nums2, 0, total/2 + 1)) / 2.0;
     }
     
-    double getKth(vector<int> & A, int offsetA, vector<int> & B, int offsetB, int k) {
+    double getKth(vector<int>& A, int offsetA, vector<int>& B, int offsetB, int k) {
         int m = A.size() - offsetA, n = B.size() - offsetB;
         
         if (m > n) return getKth(B, offsetB, A, offsetA, k);
-        if (m == 0) return B[offsetB + k-1];
+        if (m == 0) return B[offsetB + k - 1];
         if (k == 1) return min(A[offsetA], B[offsetB]);
         
-        int pa = min(k/2, m);
-        int pb = k - pa;
+        int pa = min(k/2, m), pb = k - pa;
         
-        if (A[offsetA + pa - 1] < B[offsetB + pb - 1]) {
+        if (A[offsetA + pa - 1] < B[offsetB + pb - 1]) 
             return getKth(A, offsetA + pa, B, offsetB, k - pa);
-        }
-        else {
+        else
             return getKth(A, offsetA, B, offsetB + pb, k - pb);
-        }
     }
 };
 
