@@ -10,7 +10,11 @@ public:
         if (num <= v1) { maxQ.push(num); }
         else { minQ.push(num); }
 
-        if (maxQ.size() - minQ.size() == 2) { // note: ">= 2" won't work. why?
+        // note: ">= 2" won't work. why?
+        // answer: might have to do with signed/unsigned auto conversion.
+        // if change to maxQ.size() >= minQ.size() + 2, then ok.
+        // maxQ.size() == minQ.size() + 2 also works.
+        if (maxQ.size() - minQ.size() == 2) { 
             minQ.push(maxQ.top());
             maxQ.pop();
         }
