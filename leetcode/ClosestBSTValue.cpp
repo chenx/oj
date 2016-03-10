@@ -1,3 +1,24 @@
+// Should work. Not tested.
+class Solution2 {
+public:
+    int closestValue(TreeNode* root, double target) {
+        if (root == NULL) return 0;
+        
+        vector<int> v = postorderTraversal(root);
+        
+        double mdiff = abs(v[0] - target), val = v[0];
+        for (int i = 1; i < v.size(); ++ i) {
+            double diff = abs(v[i] - target);
+            if (diff < mdiff) {
+                mdiff = diff;
+                val = v[i];
+            }
+        }
+        
+        return val;
+    }
+};
+
 // Works. Tested.
 class Solution {
 public:
