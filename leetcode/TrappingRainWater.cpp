@@ -80,7 +80,7 @@ public:
                 bot = A[P.top()];
                 P.pop();
                 // width = 0; // not necessary.
-                while (P.size() > 0 && A[P.top()] < A[i]) {
+                while (P.size() > 0 && A[P.top()] < A[i]) {  // <= A[i] also works.
                     width = i - P.top() - 1;
                     Area += width * (A[P.top()] - bot);
                     bot = A[P.top()];
