@@ -1,6 +1,60 @@
 // Works. Tested. Better than Solution.
 // From: https://leetcode.com/discuss/83660/recommend-beginners-implementation-detailed-explanation
 
+// Works. Tested. Use the TrieTree definition in Solution2.
+class Solution3 {
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string> ans;
+        if (board.size() == 0 || board[0].size() == 0) return ans;
+        
+        TrieTree t;
+        for (auto w : words) t.addWord(w);
+        
+        int m = board.size(), n = board[0].size();
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                TrieNode * node = t.getRoot()->children[board[i][j] - 'a'];
+                if (node != NULL) {
+                    find(board, i, j, node, ans);
+                }
+            }
+        }
+        return ans;
+    }
+    
+    void find(vector<vector<char>>& board, int i, int j, TrieNode * n, vector<string> & ans) {
+        if (n->isWord) {
+            ans.push_back(n->word);
+            n->isWord = false; // this modifies the TrieTree. Not too good.
+        }
+        
+        char c = board[i][j];
+        board[i][j] = '*';
+        
+        for (int k = 0; k < dir.size(); ++ k) {
+            int x = i + dir[k].first, y = j + dir[k].second;
+            if (x >= 0 && x < board.size() && y >= 0 && y < board[0].size() 
+                    && board[x][y] != '*') {
+                TrieNode * node = n->children[board[x][y] - 'a'];
+                if (node != NULL) {
+                    find(board, x, y, node, ans);
+                }
+            }
+        }
+        
+        board[i][j] = c;
+    }
+    
+    vector<pair<int, int>> dir = {
+        pair<int, int>(-1, 0),
+        pair<int, int>(1, 0),
+        pair<int, int>(0, -1),
+        pair<int, int>(0, 1)
+    };
+};
+
+
 /*
 // Note: a better implementation of the Trie class is below.
 // In a more space effecient Trie implementation, children is vector<TrieNode *>,
@@ -100,7 +154,7 @@ class TrieTree{
         TrieNode* root;
 };
 
-class Solution {
+class Solution2 {
 public:
     vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
         TrieTree t;
