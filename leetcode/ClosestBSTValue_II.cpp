@@ -1,3 +1,38 @@
+
+// Should work. Not tested. 
+// comp is the same as in Solution.
+class Solution2 {
+public:
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
+        vector<int> ans;
+        if (! root) return ans;
+        
+        priority_queue<pair<double, int>, vector<pair<double, int>>, comp> maxQ;
+        
+        stack<TreeNode *> s;
+        s.push(root);
+        
+        while (! s.empty()) {
+            TreeNode * n = s.top();
+            s.pop();
+            
+            maxQ.push(pair<double, int>(abs(target - n->val), n->val));
+            if (maxQ.size() > k) maxQ.pop();
+            
+            if (n->left) s.push(n->left);
+            if (n->right) s.push(n->right);
+        }
+        
+        for (int i = 0; i < k; ++ i) {
+            ans.push_back(maxQ.top().second);
+            maxQ.pop();
+        }
+        
+        return ans;
+    }
+};
+
+
 // Works. Tested.
 // Note the way of using custom comparator for priority queue.
 
