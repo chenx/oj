@@ -1,5 +1,52 @@
+// Works too. Tested.
+// With memorization, this is more efficient. O(n). ~36ms.
+class Solution2 {
+public:
+    int rob(TreeNode* root) {
+        unordered_map<int, int> ranks;
+        return helper(root, ranks, 1);
+    }
+    
+    int helper(TreeNode *root, unordered_map<int, int> &ranks, int rank) {
+        if (! root) {
+            return 0;
+        }
+        if (! root->left && ! root->right) {
+            ranks[rank] = root->val;
+            return root->val;
+        }
+        
+        // not include root.
+        int v1 = 0;
+        if (root->left) v1 += getNodeRankVal(root->left, ranks, 2 * rank);
+        if (root->right) v1 += getNodeRankVal(root->right, ranks, 2 * rank + 1);
+
+        // include root.
+        int v2 = root->val;
+        if (root->left) {
+            v2 += getNodeRankVal(root->left->left, ranks, 4 * rank) +
+                  getNodeRankVal(root->left->right, ranks, 4 * rank + 1);
+        }
+        if (root->right) {
+            v2 += getNodeRankVal(root->right->left, ranks, 4 * rank + 2) +
+                  getNodeRankVal(root->right->right, ranks, 4 * rank + 3);
+        }
+        
+        ranks[rank] = max(v1, v2);
+        return ranks[rank];
+    }
+    
+    int getNodeRankVal(TreeNode * n, unordered_map<int, int> &ranks, int rank) {
+        if (! n) return 0;
+        if (ranks.find(rank) == ranks.end()) {
+            ranks[rank] = helper(n, ranks, rank);
+        }
+        return ranks[rank];
+    }
+};
+
 // Works. Tested. By: X.C.
-// Just straighforward recursive. 
+// Just straighforward recursive. This is not efficient though. ~ 1600ms.
 class Solution {
 public:
     int rob(TreeNode* root) {
