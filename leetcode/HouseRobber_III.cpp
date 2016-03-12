@@ -1,5 +1,5 @@
 // Works too. Tested.
-// With memorization, this is more efficient. O(n). ~36ms.
+// With memorization, this is more efficient. O(n).
 class Solution2 {
 public:
     int rob(TreeNode* root) {
@@ -46,7 +46,7 @@ public:
 };
 
 // Works. Tested. By: X.C.
-// Just straighforward recursive. This is not efficient though. ~ 1600ms.
+// Just straighforward recursive. This is not efficient though.
 class Solution {
 public:
     int rob(TreeNode* root) {
