@@ -28,13 +28,21 @@ public:
     
     vector<string> splitStr(string str) {
         vector<string> v;
-        istringstream iss(str);
+        stringstream ss(str);
+        string sub;
 
-        while(iss)
-        {
-            string sub;
-            iss >> sub;
-            if (sub == "") break;
+        while(ss >> sub) {
+            v.push_back(sub);
+        };
+        return v;
+    }
+    
+    vector<string> splitStr2(string str) {
+        vector<string> v;
+        stringstream ss(str);
+        string sub;
+
+        while(getline(ss, sub, ' ')) {
             v.push_back(sub);
         };
         return v;
