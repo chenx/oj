@@ -8,12 +8,44 @@
 #include <vector>
 using namespace std;
 
+// Works. Tested. Slightly modified from Solution2.
+class Solution3 {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans, tmp;
+        
+        if (n == 0 || k == 0) return ans;
+        if (k == 1) {
+            for (int i = 1; i <= n; ++ i) {
+                ans.push_back(vector<int>(1, i));
+            }
+            return ans;
+        }
+        
+        for (int i = 1; i <= n; ++ i) {
+            tmp.push_back(vector<int>(1, i));
+            for (int j = 0, len = tmp.size() - 1; j < len; ++ j) {
+                if (tmp[j].size() == k-1) {
+                    ans.push_back(tmp[j]);
+                    ans.back().push_back(i);
+                }
+                else if (tmp[j].size() < k-1) {
+                    tmp.push_back(tmp[j]);
+                    tmp.back().push_back(i);
+                }
+            }
+        }
+        
+        return ans;
+    }
+};    
+    
 // Works. Tested. Iterative. By: XC. 2/24/2016.
 // Intuitive idea: e.g. combine(3, 2), the process is:
 // cycle 1: {1}
 // cycle 2: {1}, {1,2}->add, {2}
 // cycle 3: {1}, {2}, {1,3}->add, {2,3}->add, {3}.
-class Solution {
+class Solution2 {
 public:
     vector<vector<int>> combine(int n, int k) {
         vector<vector<int>> ans, sets;
