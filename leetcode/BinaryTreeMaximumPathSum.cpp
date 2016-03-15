@@ -33,19 +33,22 @@ struct TreeNode {
 class Solution4 {
 public:
     int maxPathSum(TreeNode *root) {
-        if (! root) return 0;
         int maxSum = INT_MIN;
-        findMax(root, maxSum);
+        getMaxSum(root, maxSum);
         return maxSum;
     }
     
-    int findMax(TreeNode * p, int & maxSum) {
-        if (! p) return 0;
-        int left = findMax(p->left, maxSum);
-        int right = findMax(p->right, maxSum);
-        maxSum = max(p->val + left + right, maxSum);
-        int ret = p->val + max(left, right);
-        return ret >= 0 ? ret : 0; // or: if (ret < 0) { ret = 0; } return ret;
+    int getMaxSum(TreeNode *root, int &maxSum) {
+        if (! root) return 0;
+        
+        int L = getMaxSum(root->left, maxSum),
+            R = getMaxSum(root->right, maxSum);
+        
+        maxSum = max(maxSum, root->val + L + R);
+        
+        int ret = root->val + max(L, R);
+        if (ret < 0) ret = 0;
+        return ret;
     }
 };
  
