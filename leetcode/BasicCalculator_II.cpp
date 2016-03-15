@@ -63,6 +63,26 @@ public:
         return v;
     }
     
+    // use this if number can be negative.
+    int num2(const char *& p) {
+        ignoreSpace(p); // can be omitted, since getNextToken() is used.
+
+        bool neg = (*p == '-');
+        if (neg) ++ p;
+        if (! isdigit(*p)) throw exception();
+
+        int v = 0;
+        while (isdigit(*p)) {
+            v = v*10 + *p - '0';
+            ++ p;
+        }
+        if (neg) v = -v;
+
+        ignoreSpace(p);
+        return v;
+    }
+
+    
     void expect(const char *& p, char c) {
         ignoreSpace(p);
         if (*p == c) {
