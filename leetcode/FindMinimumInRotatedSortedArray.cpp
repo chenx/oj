@@ -4,7 +4,7 @@
 // This O(log(n)) solution works too! And is most simple.
 // Modified from the result of FindMinimumInRotatedSortedArray_II.
 //
-class Solution3 {
+class Solution4 {
 public:
     int findMin(vector<int> &num) {
         int L = 0, R = num.size() - 1;
@@ -23,14 +23,31 @@ public:
     }
 };
 
-
+// Works too. Tested. Slightly modified from Solution2.
+class Solution3 {
+public:
+    int findMin(vector<int>& nums) {
+        int L = 0, R = nums.size() - 1;
+        while (L < R) {
+            int M = L + (R-L)/2;
+            
+            if (M < R && nums[M] > nums[M+1]) return nums[M+1];
+            else if (L < M && nums[M-1] > nums[M]) return nums[M];
+            
+            if (nums[M] < nums[R]) R = M-1;
+            else L = M+1;
+        }
+        return nums[L];
+    }
+};
+    
 // 10/16/2014
 // Assumption: sorted ASC.
 // Note the min is the only one less than its immediate left member.
 // Every other element is larger than its immediate left member.
 // This works and is O(log(n)).
 // This works and is optimized from Solution2.
-class Solution {
+class Solution2 {
 public:
     int findMin(vector<int> &num) {
         int L = 0, R = num.size() - 1;
@@ -57,7 +74,7 @@ public:
 // This works.
 // This includes the case that there are duplicates in array.
 // If there is duplicate, it's O(n) and not O(log(n)).
-class Solution2 {
+class Solution {
     int findMin(vector<int> &num) {
         return f(num, 0, num.size() - 1);
     }
@@ -93,3 +110,17 @@ class Solution2 {
         return f(arr, mid+1, high);
     }
 }
+
+
+/**
+Find Minimum in Rotated Sorted Array
+Difficulty: Medium
+
+Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+
+(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+Find the minimum element.
+
+You may assume no duplicate exists in the array.
+ */
