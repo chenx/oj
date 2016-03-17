@@ -1,3 +1,9 @@
+// Note:
+// The solutions below use parent[y] = x,
+// this is guaranteed by the assumption that given edges are arranged 
+// as [small, big]. If it's reversed, then need to use parent[x] = y.
+// E.g., 3 nodes (1, 2, 3) form a cycle.
+
 // Works. Tested. Modified from Solution.
 // Better, more clear, by moving check of edges.size() to the beginning.
 class Solution2 {
@@ -13,7 +19,7 @@ public:
         for (auto edge : edges) {
             int x = find(parent, edge.first);
             int y = find(parent, edge.second);
-            if (x == y) return false;
+            if (x == y) return false; // cycle found.
             parent[y] = x;
         }
 
@@ -39,7 +45,7 @@ public:
         for (auto edge : edges) {
             int x = find(parent, edge.first);
             int y = find(parent, edge.second);
-            if (x == y) return false;
+            if (x == y) return false; // cycle found.
             parent[y] = x;
         }
 
@@ -49,11 +55,13 @@ public:
     int find(vector<int> & parent, int i) {
         /*if (parent[i] != i) { // this works too.
             parent[i] = find(parent, parent[i]);
-        }*/
+        }
+        return parent[i];
+        */
         while (i != parent[i]) {
             i = parent[i];
         }
-        return parent[i];
+        return i;
     }
 };
 
