@@ -1,3 +1,49 @@
+// Works. Tested. Adapted from Solution3 of CourseSchedule.
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        vector<pair<int, int>> pre;
+        for (auto p : prerequisites) {
+            if (find(pre.begin(), pre.end(), p) == pre.end()) {
+                pre.push_back(p);
+            }
+        }
+        
+        unordered_map<int, int> in; // indegrees of course.
+        unordered_map<int, vector<int>> edges; // course dependency
+        
+        for (auto p : pre) {
+            in[p.first] ++;
+            edges[p.second].push_back(p.first); // add course dependent on p.second.
+        }
+        
+        set<int> courses;
+        for (int i = 0; i < numCourses; ++ i) courses.insert(i);
+        
+        vector<int> ans;
+        
+        while (! courses.empty()) {
+            bool found = false;
+            for (auto c : courses) {
+                if (in[c] > 0) continue;
+
+                found = true;
+                ans.push_back(c); // this MUST come before erase!!!
+                courses.erase(c);
+
+                if (edges.find(c) != edges.end()) {
+                    for (auto e : edges[c]) {
+                        if (in[e] > 0) in[e] --;
+                    }
+                }
+            }
+            if (! found) break;
+        }
+        
+        return courses.empty() ? ans : vector<int>(0);
+    }
+};
+
 // Works. Tested. By: XC.
 // Easily modified form solution to Course Schedule.
 class Solution {
