@@ -1,3 +1,17 @@
+// Works too. Tested.
+class Solution2 {
+public:
+    bool isAnagram(string s, string t) {
+        return getSig(s) == getSig(t);
+    }
+    
+    vector<int> getSig(string s) {
+        vector<int> ct(26);
+        for (auto c : s) ct[c - 'a'] ++;
+        return ct;
+    }
+};
+
 class Solution {
 public:
     bool isAnagram(string s, string t) {
