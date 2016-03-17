@@ -1,3 +1,50 @@
+// Works. Tested. 
+// Modified from Solution2. Use unordered_map, and check for existence in while loop.
+class Solution3 {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        // remove duplicates.
+        vector<pair<int, int>> pre;
+        for (auto p : prerequisites) {
+            if (find(pre.begin(), pre.end(), p) == pre.end())
+                pre.push_back(p);
+        }
+        
+        set<int> courses;
+        for (int i = 0; i < numCourses; ++ i) courses.insert(i);
+        
+        // get edges and indegrees.
+        unordered_map<int, vector<int>> edges;
+        unordered_map<int, int> in;
+        
+        for (auto p : pre) {
+            in[p.first] ++;
+            edges[p.second].push_back(p.first);
+        }
+        
+        while (! courses.empty()) {
+            bool found = false;
+            for (auto c : courses) {
+                if (in[c] == 0) {
+                    found = true;
+                    courses.erase(c);
+                    
+                    // need this, otherwise has run time error, when edges[c] not exist.
+                    if (edges.find(c) != edges.end()) {
+                        for (auto e : edges[c]) {
+                            if (in[e] > 0) in[e] --;
+                        }
+                    }
+                }
+            }
+            if (! found) break;
+        }
+        
+        return courses.empty();
+    }
+    
+};
+
 // Works too. Tested. By: XC. 
 // Modified from Solution, by using "auto" data type.
 // Note, have to use set here, instead of unordered_set, or it'll have runtime
