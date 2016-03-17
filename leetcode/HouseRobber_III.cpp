@@ -5,23 +5,20 @@ private:
 public:
     int rob(TreeNode* root) {
         if (! root) return 0;
-
-        // not include root.
-        int v1 = getVal(root->left) + getVal(root->right); 
-
+        
+        int v1 = getV(root->left) + getV(root->right); // no root.
+        
         int v2 = root->val; // include root.
-        if (root->left)
-            v2 += getVal(root->left->left) + getVal(root->left->right);
-        if (root->right)
-            v2 += getVal(root->right->left) + getVal(root->right->right);
+        if (root->left) v2 += getV(root->left->left) + getV(root->left->right);
+        if (root->right) v2 += getV(root->right->left) + getV(root->right->right);
         
         return ranks[root] = max(v1, v2);
     }
     
-    int getVal(TreeNode * n) {
+    int getV(TreeNode * n) {
         if (! n) return 0;
         if (ranks.count(n)) return ranks[n];
-        return ranks[n] = rob(n);
+        return rob(n);
     }
 };
 
