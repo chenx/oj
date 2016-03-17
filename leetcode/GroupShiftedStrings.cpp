@@ -1,3 +1,31 @@
+// Should work. Not tested.
+class Solution2 {
+public:
+    vector<vector<string>> groupStrings(vector<string>& strings) {
+        unordered_map<string, vector<string>> mp;
+        for (auto s : strings) {
+            mp[getKey(s)].push_back(s);
+        }
+        
+        vector<vector<string>> ans;
+        for (auto p : mp) {
+            sort(p.second.begin(), p.second.end());
+            ans.push_back(p.second);
+        }
+        
+        return ans;
+    }
+    
+    // Note: "," is needed, to differentiate cases like 1,10 v.s. 11,0.
+    string getKey(string s) {
+        string k;
+        for (int i = 0; i < s.length(); ++ i) {
+            k += to_string( (s[i] - s[0] + 26) % 26 ) + ","; 
+        }
+        return k;
+    }
+};
+
 // Works. Tested. Key is to create key for each string.
 // From: https://leetcode.com/discuss/70907/c-concise-solution-using-unordered_map
 class Solution {
