@@ -1,8 +1,10 @@
 // Note:
 // The solutions below use parent[y] = x,
 // this is guaranteed by the assumption that given edges are arranged 
-// as [small, big]. If it's reversed, then need to use parent[x] = y.
-// E.g., 3 nodes (1, 2, 3) form a cycle.
+// as [small, big], and it's actually parent[big] = small. 
+// Also it seems to require the edges are sorted.
+// E.g., 3 nodes (1, 2, 3) form a cycle, 3 pairs are:
+// (2,3), (1,3), (1,2). Then this will return true but it should be false.
 
 // Works. Tested. Modified from Solution.
 // Better, more clear, by moving check of edges.size() to the beginning.
