@@ -1,3 +1,97 @@
+// Works. Tested. Simplified from Solution4.
+class Solution5 {
+private:
+    unordered_map<TreeNode *, int> ranks;
+public:
+    int rob(TreeNode* root) {
+        if (! root) return 0;
+
+        // not include root.
+        int v1 = getVal(root->left) + getVal(root->right); 
+
+        int v2 = root->val; // include root.
+        if (root->left)
+            v2 += getVal(root->left->left) + getVal(root->left->right);
+        if (root->right)
+            v2 += getVal(root->right->left) + getVal(root->right->right);
+        
+        return ranks[root] = max(v1, v2);
+    }
+    
+    int getVal(TreeNode * n) {
+        if (! n) return 0;
+        if (ranks.count(n)) return ranks[n];
+        return ranks[n] = rob(n);
+    }
+};
+
+// Works. Tested. Simplified form Solution3.
+class Solution4 {
+public:
+    int rob(TreeNode* root) {
+        unordered_map<TreeNode *, int> ranks;
+        return helper(root, ranks);
+    }
+    
+    int helper(TreeNode *root, unordered_map<TreeNode *, int> &ranks) {
+        if (! root) return 0;
+        
+        int v1 = getNodeVal(root->left, ranks)
+                + getNodeVal(root->right, ranks); // not include root.
+
+        int v2 = root->val; // include root.
+        if (root->left)
+            v2 += getNodeVal(root->left->left, ranks) +
+                  getNodeVal(root->left->right, ranks);
+        if (root->right)
+            v2 += getNodeVal(root->right->left, ranks) +
+                  getNodeVal(root->right->right, ranks);
+        
+        return ranks[root] = max(v1, v2);
+    }
+    
+    int getNodeVal(TreeNode * n, unordered_map<TreeNode *, int> &ranks) {
+        if (! n) return 0;
+        if (ranks.count(n)) return ranks[n];
+        return ranks[n] = helper(n, ranks);
+    }
+};
+
+// Works. Tested. Simplified from Solution2.
+class Solution3 {
+public:
+    int rob(TreeNode* root) {
+        unordered_map<int, int> ranks;
+        return helper(root, ranks, 1);
+    }
+    
+    int helper(TreeNode *root, unordered_map<int, int> &ranks, int rank) {
+        if (! root) return 0;
+        
+        // not include root.
+        int v1 = getNodeVal(root->left, ranks, 2 * rank)
+                + getNodeVal(root->right, ranks, 2 * rank + 1);
+
+        // include root.
+        int v2 = root->val;
+        if (root->left)
+            v2 += getNodeVal(root->left->left, ranks, 4 * rank) +
+                  getNodeVal(root->left->right, ranks, 4 * rank + 1);
+        if (root->right)
+            v2 += getNodeVal(root->right->left, ranks, 4 * rank + 2) +
+                  getNodeVal(root->right->right, ranks, 4 * rank + 3);
+        
+        ranks[rank] = max(v1, v2);
+        return ranks[rank];
+    }
+    
+    int getNodeVal(TreeNode * n, unordered_map<int, int> &ranks, int rank) {
+        if (! n) return 0;
+        if (ranks.count(rank)) return ranks[rank];
+        return ranks[rank] = helper(n, ranks, rank);
+    }
+};
+
 // Works too. Tested.
 // With memorization, this is more efficient. O(n).
 class Solution2 {
