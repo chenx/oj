@@ -1,3 +1,26 @@
+// Works. Tested. Modified from Solution5. But Solution5 is most intuitive.
+class Solution6 {
+private:
+    unordered_map<TreeNode *, int> ranks;
+public:
+    int rob(TreeNode* root) {
+        if (! root) return 0;
+        return ranks[root] = max(robNoRoot(root), 
+            root->val + robNoRoot(root->left) + robNoRoot(root->right));
+    }
+    
+    int robNoRoot(TreeNode * root) { // rob next level, without root.
+        if (! root) return 0;
+        return getV(root->left) + getV(root->right);
+    }
+    
+    int getV(TreeNode * n) { // retrieve cached value
+        if (! n) return 0;
+        if (ranks.count(n)) return ranks[n];
+        return rob(n);
+    }
+};
+
 // Works. Tested. Simplified from Solution4.
 class Solution5 {
 private:
