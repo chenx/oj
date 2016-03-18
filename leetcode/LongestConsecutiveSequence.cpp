@@ -31,6 +31,7 @@ public:
     int getMaxLen(unordered_set<int> &s) {
         int n = *s.begin(), len = 0;
 
+        // Note there ++i, --i should come last.
         for (int i = n; s.count(i); ++ len, s.erase(i), ++ i) ;
         for (int i = n - 1; s.count(i); ++ len, s.erase(i), -- i) ;
         
