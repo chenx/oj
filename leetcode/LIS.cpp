@@ -41,6 +41,10 @@ public:
                 int M = L + (R - L) / 2;
                 if (B[M] < nums[i]) L = M + 1;
                 else R = M - 1;
+                
+                // below works too.
+                //if (nums[i] <= B[M]) R = M - 1;
+                //else L = M + 1;
             }
     
             B[L] = nums[i];
