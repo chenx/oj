@@ -1,3 +1,44 @@
+// Works. Tested.
+class Solution3 {
+public:
+    int longestIncreasingPath(const vector<vector<int>>& matrix) {
+                if (matrix.size() == 0 || matrix[0].size() == 0) return 0;
+        this->m = matrix.size(), this->n = matrix[0].size();
+        
+        vector<vector<int>> dp(m, vector<int>(n, 0));
+        int maxLen = 0;
+        
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                maxLen = max(maxLen, getPath(matrix, dp, i, j));
+            }
+        }
+        
+        return maxLen;
+    }
+    
+private:    
+    vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    int m, n;
+    
+    int getPath(const vector<vector<int>>& matrix, vector<vector<int>> &dp, int x, int y) {
+        if (dp[x][y] > 0) return dp[x][y];
+        
+        int len = 1;
+        
+        for (int i = 0; i < dirs.size(); ++ i) {
+            int dx = x + dirs[i][0], dy = y + dirs[i][1];
+            if (dx >= 0 && dx < m && dy >= 0 && dy < n) {
+                if (matrix[dx][dy] > matrix[x][y]) {
+                    len = max(len, 1 + getPath(matrix, dp, dx, dy));
+                }
+            }
+        }
+        
+        return dp[x][y] = len;
+    }    
+};
+
 // Works. Tested. Modified from: 
 // https://leetcode.com/discuss/84319/clean-c-solution-using-dfs-with-memoization-dp
 class Solution2 {
