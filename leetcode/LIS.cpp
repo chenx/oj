@@ -25,8 +25,10 @@ public:
                 //else R = M-1;
             }
             
-            if (v[M] != nums[i]) v[L] = nums[i];
-            if (L == lenv) ++ lenv;
+            if (nums[i] != v[M]) {
+                v[L] = nums[i];
+                if (L == lenv) ++ lenv;
+            }
         }
         
         return lenv;
