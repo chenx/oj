@@ -9,6 +9,32 @@
  * It's possible to use a Trie, but it seems like a over-kill.
  */
 
+// Works. Tested. Good.
+// This is totally different from previous solutions in approach.
+// This basically is like merge sort. 
+// But time complexity are both O(n), n = strs.size().
+// Previous solutions just use (n-1) string to string comparisons.
+// This solution uses n/2 + n/4 + n/8 + .. comparisons.
+class Solution5 {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.size() == 0) return "";
+        return strs[0].substr(0, getCommonLen(strs, 0, strs.size() - 1));
+    }
+    
+    int getCommonLen(vector<string>& strs, int L, int R) {
+        //if (L > R) return INT_MAX; // no need for this, since strictly L <= M <= R.
+        if (L == R) return strs[L].length();
+        
+        int M = L + (R-L)/2;
+        int len = min( getCommonLen(strs, L, M), getCommonLen(strs, M+1, R) );
+        for (int i = 0; i < len; ++ i) {
+            if (strs[L][i] != strs[R][i]) return i;
+        }
+        return len;
+    }
+};
+
 // This works too. Is best so far. O(nm).
 class Solution4 {
 public:
