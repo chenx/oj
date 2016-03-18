@@ -106,3 +106,17 @@
   E.g., in the split functions above, replace stringstream with istringstream is ok too.
   
   
+- keyword "auto" started in C++11.
+
+
+- set/map/unordered_set/unordered_map contains a "count()" method to judge if an element exists.
+  so instead of using: x.find(e) != x.end()
+  one can now use: x.count(e) > 0
+  
+  
+- string.length() type is: std::basic_string<char>::size_type
+  so max or min(int, string.length()) will report error such as:
+    no matching function for call to ‘min(int&, std::basic_string<char>::size_type)’
+  so you need to do a cast here: min(int, (int) string.length())
+  
+  
