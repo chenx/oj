@@ -1,3 +1,38 @@
+// Works too. Tested. Modified from Solution.
+// To avoid memorizing the detail of >, >=, <, <=,
+// add in 2 places:
+// 1) if (nums[i] == v[M]) break;
+// 2) if (v[M] != nums[i]) v[L] = nums[i];
+class Solution3 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return n;
+        
+        vector<int> v(n);
+        v[0] = nums[0];
+        int lenv = 1, L, R, M;
+        
+        for (int i = 1; i < n; ++ i) {
+            for (L = 0, R = lenv-1; L <= R; ) {
+                M = L + (R-L)/2;
+                if (nums[i] == v[M]) break;
+                else if (nums[i] < v[M]) R = M-1;
+                else L = M+1;
+                
+                // below also works.
+                //else if (nums[i] > v[M]) L = M+1;
+                //else R = M-1;
+            }
+            
+            if (v[M] != nums[i]) v[L] = nums[i];
+            if (L == lenv) ++ lenv;
+        }
+        
+        return lenv;
+    }
+};
+
 // Works too. Intuitively based on Patience Sort, but not as good as Solution.
 class Solution2 {
 public:
@@ -24,7 +59,7 @@ public:
     }
 };
 
-// O(n log(n))
+// Works. Tested. O(n log(n))
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
@@ -43,7 +78,7 @@ public:
                 else R = M - 1;
                 
                 // below works too.
-                //if (nums[i] <= B[M]) R = M - 1;
+                //if (nums[i] <= B[M]) R = M - 1;  // Note: "<="
                 //else L = M + 1;
             }
     
