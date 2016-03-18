@@ -13,8 +13,42 @@
  * @On: 2/18/2013
  */
 
+// Works too. Tested.
+class Solution3 {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int> s;
+        for (auto n: nums) s.insert(n);
+        
+        int maxLen = 0;
+        while (! s.empty()) {
+            maxLen = max(maxLen, getMaxLen(s));
+        }
+        
+        return maxLen;
+    }
+    
+    int getMaxLen(unordered_set<int> &s) {
+        int n = *s.begin(), len = 1;
+        s.erase(n);
+        
+        for (int i = n + 1; s.count(i); ++ i) { // ok to use: s.find(i) != s.end()
+            s.erase(i);
+            ++ len;
+        }
+        
+        for (int i = n - 1; s.count(i); -- i) {
+            s.erase(i);
+            ++ len;
+        }
+        
+        return len;
+    }
+};
+
+
 // This works too. 11/11/2014
-class Solution {
+class Solution2 {
 public:
     int longestConsecutive(vector<int> &num) {
         unordered_set<int> hash;
