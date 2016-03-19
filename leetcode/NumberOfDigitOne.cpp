@@ -27,7 +27,8 @@ class Solution2 {
 public:
     // modified from original code.
     int countDigitOne(int n) {
-        long long ct = 0, low = 0, cur = 0, high = 0, m = 1;
+        long long m = 1;
+        int ct = 0, low = 0, cur = 0, high = 0;
         
         for (; m <= n; m *= 10) {
             low = n - (n/m) * m;
