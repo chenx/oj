@@ -1,4 +1,4 @@
-// Works. Tested. Extended version, work for 1-9, but not 0.
+// Works. Tested. Extended version, works for k = 1-9, but not 0.
 class Solution3 {
 public:
     int countDigitOne(int n) {
