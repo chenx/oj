@@ -1,3 +1,27 @@
+// Works. Tested. Extended version, work for 1-9, but not 0.
+class Solution3 {
+public:
+    int countDigitOne(int n) {
+        if (n < 1) return 0;
+        
+        int k = 1; // k can be 1, 2, 3, ..., 9. Not work for 0.
+        int high, low, cur, ct = 0;;
+        long long m = 1; // avoid overflow when m *= 10.
+        
+        for (; m <= n; m *= 10) {
+            high = (n/m)/10;
+            cur = (n/m) % 10;
+            low = n - (n/m) * m;
+            
+            if (cur < k) ct += high * m;
+            else if (cur == k) ct += high * m + low + 1;
+            else ct += (high + 1) * m;
+        }
+        
+        return ct;
+    }
+};
+
 // Works too. From BianChengZhiMei.
 class Solution2 {
 public:
