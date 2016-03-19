@@ -1,3 +1,17 @@
+// Works. Tested.
+class Solution2 {
+public:
+    int missingNumber(vector<int>& nums) {
+        int v = nums.size();
+        for (int i = 0; i < nums.size(); ++ i) {
+            v ^= i;
+            v ^= nums[i];
+        }
+        return v;
+    }
+};
+
+// Works. Tested.
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
