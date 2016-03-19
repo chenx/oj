@@ -1,3 +1,26 @@
+// Works. Tested.
+class Solution3 {
+public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        
+        int begin = 0, end = 0, sum = 0, minLen = n + 1;
+        while (end < n) {
+            if (sum < s) {
+                sum += nums[end ++];
+            }
+            
+            while (sum >= s) {
+                minLen = min(minLen, end - begin);
+                sum -= nums[begin ++];
+            }
+        }
+        
+        return minLen == n + 1 ? 0 : minLen;        
+    }
+};
+
 // Works too. By: XC. O(n).
 class Solution2 {
 public:
@@ -31,7 +54,7 @@ public:
         int begin = 0, end = 1;
         int sum = nums[0];
         int minLen = 0;
-        while (begin < len && end < len) {
+        while (end < len) {
             if (sum < s) {
                 sum += nums[end ++];
             }
