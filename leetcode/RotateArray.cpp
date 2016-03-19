@@ -43,8 +43,7 @@ public:
 class Solution3 {
 public:
     void rotate(vector<int>& nums, int k) {
-        int len = nums.size();
-        k %= len;
+        k %= nums.size();
         reverse(nums.begin(), nums.end());
         reverse(nums.begin(), nums.begin() + k); // note this is k, not k-1 !
         reverse(nums.begin() + k, nums.end());
