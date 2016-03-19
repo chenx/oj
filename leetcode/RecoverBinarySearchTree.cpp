@@ -5,7 +5,7 @@
 // @Last modified: 12/26/2012
 //
 
-// Works. Tested. Use in-order traversal.
+// Works. Tested. Use in-order traversal. O(h) space, h is tree hight.
 class Solution3 {
 public:
     void recoverTree(TreeNode* root) {
@@ -65,7 +65,7 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-// This works nicely.
+// This works nicely. O(log(n)) space for recursion.
 // http://askmecode.wordpress.com/2012/09/21/recover-binary-search-tree/
 class Solution {
 public:
@@ -278,4 +278,17 @@ public:
         n2->val = temp;
     }
 };
+ */
+
+
+/**
+Recover Binary Search Tree
+Difficulty: Hard
+
+Two elements of a binary search tree (BST) are swapped by mistake.
+
+Recover the tree without changing its structure.
+Note:
+A solution using O(n) space is pretty straight forward. Could you 
+devise a constant space solution? 
  */
