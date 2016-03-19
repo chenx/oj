@@ -1,4 +1,7 @@
 // Works too. Tested. Simplified form Solution.
+// Note:
+// 1) should use map instead of unordered_map, when use custom Comp.
+// 2) line type should be vector<double>, not vector<int>.
 struct Comp {
     bool operator()(const Point & a, const Point & b) {
         if (a.x == b.x) return a.y < b.y;
@@ -16,12 +19,15 @@ public:
         for (auto p : points) {
             ptsCount[p] ++;
             if (ptsCount[p] == 1) pts.push_back(p);
+            // can use below too, but less efficient.
+            //if (! find(pts, p)) pts.push_back(p);
         }
         if (pts.size() == 1) return points.size();
         
         int len = pts.size();
         map<vector<double>, vector<Point>> mpt; // line(slope, y-interception), points on line.
         map<vector<double>, int> mct; // line, count of points on line.
+        
         for (int i = 0; i < len - 1; ++ i) {
             for (int j = i + 1; j < len; ++ j) {
                 Point &a = pts[i], &b = pts[j];
