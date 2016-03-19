@@ -4,6 +4,43 @@
 // @Created on: 12/26/2012
 // @Last modified: 12/26/2012
 //
+
+// Works. Tested. Use in-order traversal.
+class Solution3 {
+public:
+    void recoverTree(TreeNode* root) {
+       TreeNode * L = NULL, * R = NULL, * prev = NULL;
+       
+       stack<TreeNode *> s;
+       TreeNode * n = root;
+       
+       while (true) {
+           while (n) {
+               s.push(n);
+               n = n->left;
+           }
+           
+           if (s.empty()) {
+               break;
+           }
+           else {
+               n = s.top();
+               s.pop();
+               
+               if (prev && prev->val > n->val) {
+                   if (L == NULL) L = prev;
+                   R = n;
+               }
+               prev = n;
+
+               n = n->right;
+           }
+       }
+       
+       if (L && R) swap(L->val, R->val);
+    }
+};
+
 /**
  * Definition for binary tree
  * struct TreeNode {
@@ -37,9 +74,7 @@ public:
         find(root, prev, left, right);
         
         if (left != NULL && right != NULL) {
-            int tmp = left->val;
-            left->val = right->val;
-            right->val = tmp;
+            swap(left->val, right->val);
         }
     }
     
