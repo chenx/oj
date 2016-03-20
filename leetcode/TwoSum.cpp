@@ -113,6 +113,39 @@ public:
 };
 
 
+// Works. Tested.
+// Sort, then run 2 points towards each other. O(nlog(n)).
+// But not recommended, for both efficiency and conciseness.
+class Solution5 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        
+        vector<pair<int, int>> m; // num, index
+        for (int i = 0; i < n; ++ i) {
+            m.push_back(pair<int, int>(nums[i], i));
+        }
+        
+        sort(m.begin(), m.end(), comp);
+        
+        int L = 0, R = n - 1;
+        while (L < R) {
+            int sum = m[L].first + m[R].first;
+            if (sum == target) return vector<int>({m[L].second, m[R].second});
+            else if (sum < target) ++ L;
+            else -- R;
+        }
+        
+        return vector<int>();
+    }
+    
+    static bool comp(const pair<int, int> &a, const pair<int, int> &b) {
+        return a.first < b.first;
+    }
+};
+
+
+
 /**
 Two Sum
 Difficulty: Medium
