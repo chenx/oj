@@ -1,6 +1,50 @@
+// Works. Tested. Slightly modified from Solution2.
+class Solution3 {
+public:
+    string readPart(int input) {
+        vector<string> digits = {"", " One", " Two", " Three", " Four", " Five", " Six", " Seven", " Eight", " Nine"};
+        vector<string> teens = {" Ten", " Eleven", " Twelve", " Thirteen", " Fourteen", " Fifteen", " Sixteen", " Seventeen", " Eighteen", " Nineteen"};
+        vector<string> tens = {"", "", " Twenty", " Thirty", " Forty", " Fifty", " Sixty", " Seventy", " Eighty", " Ninety"};
+        string res;
+
+        string s;
+        int hundred = input / 100; // digit on hundreds.
+        if (hundred != 0) s = digits[hundred] + " Hundred";
+        
+        input %= 100;
+        int ten = input / 10;   // digit on tens.
+        int digit = input % 10; // digit on ones.
+
+        if (ten >= 2) s += tens[ten] + digits[digit];
+        else if (ten == 1) s += teens[digit];
+        else s += digits[digit];
+
+        return s;
+    }
+    
+    string numberToWords(int num) {
+        vector<string> units = {"", " Thousand", " Million", " Billion"};
+
+        string ans;
+        for (int i = 0; i < 4; ++ i) {
+            int part = num % 1000;
+            if (part != 0) { // note this!
+                ans = readPart(part) + units[i] + ans;
+            }
+            num /= 1000;
+            if (num == 0) break;
+        }
+        
+        if (ans == "") ans = "Zero";
+        else ans = ans.substr(1); // remove starting space.
+        
+        return ans;
+    }
+};
+
 // Works. Tested.
 // From: https://leetcode.com/discuss/76029/c-solution-easy-understanding
-class Solution {
+class Solution2 {
 public:
     string readThousand(int input) {
         assert(input < 1000);
