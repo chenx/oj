@@ -92,6 +92,26 @@ public:
     }
 };
 
+// Works. Tested.
+class Solution4 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> m; // num, index
+        
+        for (int i = 0; i < nums.size(); ++ i) {
+            if (! m.count(nums[i])) { 
+            // if (m.find(nums[i]) == m.end()) { // this works too.
+                m[target - nums[i]] = i;
+            }
+            else {
+                return vector<int>({m[nums[i]], i});
+            }
+        }
+        
+        return vector<int>();
+    }
+};
+
 
 /**
 Two Sum
