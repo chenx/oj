@@ -29,6 +29,7 @@ public:
 // Works. Tested. O(n). Great Solution.
 // Key is to keep track of earliest end time, and compare to start time of new meeting.
 // From: https://leetcode.com/discuss/64686/concise-c-solution-with-min_heap-sort-greedy
+// Note: only at most 1 previous interval is popped when adding a new interval.
 class Solution {
 public:
     int minMeetingRooms(vector<Interval>& intervals) {
