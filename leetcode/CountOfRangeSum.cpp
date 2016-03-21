@@ -2,7 +2,10 @@
 // multiset.lower_bound(v): return the iterator of first element >= v.
 // multiset.upper_bound(v): return the iterator of the first element > v.
 // std::distance(it1, it2): find distance of two iterators. 
-//                          use "-" if it is random access, else use "++".
+//          use "operator-" if it is random access, else use "operator++".
+// see: 
+// [1] http://www.cplusplus.com/reference/set/multiset/lower_bound/
+// [2] http://www.cplusplus.com/reference/iterator/distance/
 class Solution3 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
