@@ -1,3 +1,34 @@
+// Works. Tested. Best so far.
+class Solution6 {
+public:
+    int compareVersion(string version1, string version2) {
+        const char * p1 = version1.c_str(), * p2 = version2.c_str();
+        while (*p1 || *p2) {
+            int v1 = getVer(p1), v2 = getVer(p2);
+            if (v1 == -1 && v2 == -1) return 0;
+            
+            if (v1 == -1) v1 = 0;
+            if (v2 == -1) v2 = 0;
+            
+            if (v1 > v2) return 1;
+            if (v1 < v2) return -1;
+        }
+    }
+    
+    int getVer(const char *& p) {
+        if (! *p) return -1;
+        if (*p == '.') ++ p;
+        
+        int v = 0;
+        while (isdigit(*p)) {
+            v = v * 10 + *p - '0';
+            ++ p;
+        }
+        
+        return v;
+    }
+};
+
 // Works too. Maybe most clean.
 class Solution5 {
 public:
