@@ -7,6 +7,7 @@ public:
     Node(int v) : val(v), smaller(0), left(NULL), right(NULL) {}
 };
 
+// This tree allows duplicated value, and store them in different nodes.
 class Tree {
 public:
     Tree() { root = NULL; }
