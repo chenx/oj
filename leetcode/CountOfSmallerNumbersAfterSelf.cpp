@@ -1,9 +1,57 @@
+// Solution3 is modified from Solution2.
+// Works, tested.
+class Node {
+public:
+    int val, smaller;    
+    Node * left, * right;
+    Node(int v) : val(v), smaller(0), left(NULL), right(NULL) {}
+};
+
+class Tree {
+public:
+    Tree() { root = NULL; }
+    int insert(int v) { return insertNode(root, v); }
+    
+private:
+    Node * root;
+
+    int insertNode(Node *& root, int v) {
+        if (! root) {
+            root = new Node(v);
+            return 0;
+        }
+        
+        if (v < root->val) {
+            root->smaller ++;
+            return insertNode(root->left, v);
+        }
+        else { // number of nodes whose value is smaller than v.
+            return insertNode(root->right, v) + root->smaller + (v > root->val ? 1 : 0);
+        }
+    }
+};
+
+class Solution3 {
+public:
+    vector<int> countSmaller(vector<int>& nums) {
+        vector<int> v;
+        Tree t;
+        
+        for (int i = nums.size() - 1; i >= 0; -- i) {
+            v.push_back(t.insert(nums[i]));
+        }
+        
+        reverse(v.begin(), v.end());
+        return v;
+    }
+};
+
 // For another method, see: https://leetcode.com/discuss/74994/nlogn-divide-and-conquer-java-solution-based-bit-comparison
 
 
 // Works too. Passes all tests. Uses BST with a "smaller" index. 
 // From: https://leetcode.com/discuss/75586/14-line-44ms-c-building-bst
-class Solution {
+class Solution2 {
 public:
     // In a tree of this node, duplicated values are in separate nodes.
     struct Node {
