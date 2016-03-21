@@ -1,3 +1,6 @@
+
+
+
 // Works. Tested. Modified from Solution2.
 // multiset.lower_bound(v): return the iterator of first element >= v.
 // multiset.upper_bound(v): return the iterator of the first element > v.
@@ -6,7 +9,7 @@
 // see: 
 // [1] http://www.cplusplus.com/reference/set/multiset/lower_bound/
 // [2] http://www.cplusplus.com/reference/iterator/distance/
-class Solution3 {
+class Solution4 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
         multiset<long long> sumset;
@@ -42,7 +45,7 @@ public:
 // those operations should have complexity of O(logN). So in total, 
 // the complexity is O(NlogN) (except the distance part). 
 // Note: distance is O(N), so it's actually O(N^2logN).
-class Solution2 {
+class Solution3 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
         multiset<long long> pSum;
@@ -77,7 +80,7 @@ public:
   }
 };
 
-class Solution {
+class Solution2 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
         init();
@@ -145,6 +148,26 @@ private:
         else return cur->size-((!cur->rs)?0:cur->rs->size);
     }
 
+};
+
+
+// Should work. But times out for large input.
+// O(n^2)
+class Solution {
+public:
+    int countRangeSum(vector<int>& nums, int lower, int upper) {
+        int n = nums.size(), ct = 0;
+        
+        for (int i = 0; i < n; ++ i) {
+            int sum = 0;
+            for (int j = i; j < n; ++ j) {
+                sum += nums[j];
+                if (sum >= lower && sum <= upper) ++ ct;
+            }
+        }
+        
+        return ct;
+    }
 };
 
 
