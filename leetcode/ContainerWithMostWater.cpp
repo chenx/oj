@@ -5,6 +5,24 @@
 // @Last modified: 1/4/2013
 //
 
+// Works. Tested. Best so far.
+class Solution2 {
+public:
+    int maxArea(vector<int>& height) {
+        int L = 0, R = height.size() - 1, mArea = 0;
+        
+        while (L < R) {
+            int h = min(height[L], height[R]);
+            mArea = max(mArea, h * (R - L));
+            
+            if (h == height[L]) while (height[++ L] < h) ;
+            else while (height[-- R] < h) ;
+        }
+        
+        return mArea;
+    }
+};
+
 class Solution {
 public:
     // This is O(n). Better.
@@ -12,7 +30,7 @@ public:
     int maxArea(vector<int> &height) {
         if (height.size() <= 1) return 0;
         
-        int marea = 0, tmp_area, minh;
+        int marea = 0, area, minh;
         
         for (int i = 0, j = height.size() - 1; i < j; ) {
             minh = min(height[i], height[j]);
