@@ -6,7 +6,69 @@
  *     UndirectedGraphNode(int x) : label(x) {};
  * };
  */
-class Solution {
+
+
+// Works. Tested. So far best BFS.
+class Solution5 {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *root) {
+        if (! root) return NULL;
+        
+        unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> m;
+        m[root] = new UndirectedGraphNode(root->label);
+        
+        queue<UndirectedGraphNode *> q;
+        q.push(root);
+        
+        while (! q.empty()) {
+            UndirectedGraphNode * node = q.front();
+            q.pop();
+            
+            UndirectedGraphNode * copy = m[node];
+            
+            for (int i = 0; i < node->neighbors.size(); ++ i) {
+                UndirectedGraphNode * n = node->neighbors[i];
+                if (m.find(n) != m.end()) copy->neighbors.push_back(m[n]);
+                else {
+                    UndirectedGraphNode * c = new UndirectedGraphNode(n->label);
+                    m[n] = c;
+                    q.push(n);
+                    copy->neighbors.push_back(m[n]);
+                }
+            }
+        }
+        
+        return m[root];
+    }
+};
+
+
+// Works. Tested. So far best DFS.
+class Solution4 {
+public:
+    UndirectedGraphNode *cloneGraph2(UndirectedGraphNode *node) {
+        unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> m;
+        return clone(node, m);
+    }
+    
+    UndirectedGraphNode * clone(UndirectedGraphNode * node, 
+            unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> &m) {
+        if (! node) return NULL;
+        
+        if (m.find(node) != m.end()) return m[node];
+        
+        UndirectedGraphNode * copy = new UndirectedGraphNode(node->label);
+        m[node] = copy;
+        for (int i = 0; i < node->neighbors.size(); ++ i) {
+            copy->neighbors.push_back(clone(node->neighbors[i], m));
+        }
+
+        return copy;
+    }
+};
+
+ 
+class Solution3 {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
         // IMPORTANT: Please reset any member data you declared, as
@@ -32,8 +94,6 @@ public:
         
         return n;
     }
-
-    
 };
 
 
@@ -102,3 +162,34 @@ public:
         return n;
     }
 }
+
+
+/**
+Clone Graph
+Difficulty: Medium
+
+Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
+
+OJ's undirected graph serialization:
+
+Nodes are labeled uniquely.
+We use # as a separator for each node, and , as a separator for node label and each neighbor of the node.
+
+As an example, consider the serialized graph {0,1,2#1,2#2,2}.
+
+The graph has a total of three nodes, and therefore contains three parts as separated by #.
+
+    First node is labeled as 0. Connect node 0 to both nodes 1 and 2.
+    Second node is labeled as 1. Connect node 1 to node 2.
+    Third node is labeled as 2. Connect node 2 to node 2 (itself), thus forming a self-cycle.
+
+Visually, the graph looks like the following:
+
+       1
+      / \
+     /   \
+    0 --- 2
+         / \
+         \_/
+
+ */
