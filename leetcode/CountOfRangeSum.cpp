@@ -9,7 +9,10 @@
 // see: 
 // [1] http://www.cplusplus.com/reference/set/multiset/lower_bound/
 // [2] http://www.cplusplus.com/reference/iterator/distance/
-class Solution4 {
+//
+// Note: Solution3 actually implements the multiset.
+//
+class Solution5 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
         multiset<long long> sumset;
@@ -45,7 +48,7 @@ public:
 // those operations should have complexity of O(logN). So in total, 
 // the complexity is O(NlogN) (except the distance part). 
 // Note: distance is O(N), so it's actually O(N^2logN).
-class Solution3 {
+class Solution4 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
         multiset<long long> pSum;
@@ -61,6 +64,78 @@ public:
     }
 };
 
+/////////
+// Works, tested.
+// Solution3 is modified from Solution2. Much more clean and understandable.
+
+class Node {
+public:
+    long long val;
+    int size;  // number of nodes in left and right subtrees.
+    Node * left, * right;
+    Node(long long v) : val(v), size(1), left(NULL), right(NULL) {}
+};
+
+class Tree {
+public:
+    Tree() : root(NULL) {}
+    void insert(long long v) { insert(root, v); }
+    int query(long long num) { queryLT(root, num); }
+
+private:
+    Node *root;
+
+    void insert(Node *& node, long long num) {
+        if (! node) {
+            node = new Node(num);
+            return;
+        }
+
+        if (num < node->val) insert(node->left, num);
+        else if (num > node->val) insert(node->right, num);
+
+        node->size ++; // number of nodes in left and right subtrees.
+    }
+
+    // return number of nodes whose value < num.
+    int queryLT(Node * node, long long num) {
+        if (node == NULL) return 0;
+
+        if (num < node->val) {
+            return queryLT(node->left, num);
+        }
+        else if (num > node->val) {
+            int temp = node->size - (node->right ? node->right->size : 0);
+            return queryLT(node->right, num) + temp;
+        }
+        else { // number of nodes in left subtree.
+            return node->size - (node->right ? node->right->size : 0);
+        }
+    }    
+};
+
+class Solution3 {
+public:
+    int countRangeSum(vector<int>& nums, int lower, int upper) {
+        Tree t; // multiset.
+        t.insert(0);
+
+        long long sum = 0;
+        int ct = 0;
+
+        for(int i = 0;i < nums.size(); ++ i)
+        {
+            sum += nums[i];
+            ct += t.query(sum - lower) - t.query(sum - upper - 1);
+            t.insert(sum);
+        }
+        
+        return ct;
+    }
+};
+
+
+/////////
 
 //
 // Solution below works. Tested. 
