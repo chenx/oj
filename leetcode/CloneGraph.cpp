@@ -24,7 +24,7 @@ public:
         if (it != m.end()) return (*it).second;
         
         UndirectedGraphNode * n = new UndirectedGraphNode(root->label);
-        m[root] = n; 
+        m[root] = n;  // Note: this can NOT go after the for loop below!
         
         for (int i = 0; i < root->neighbors.size(); ++ i) {
             n->neighbors.push_back( clone(root->neighbors[i], m) );
