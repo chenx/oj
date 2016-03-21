@@ -5,6 +5,7 @@
 // From: https://leetcode.com/discuss/75586/14-line-44ms-c-building-bst
 class Solution {
 public:
+    // In a tree of this node, duplicated values are in separate nodes.
     struct Node {
         int val, smaller;
         Node *left, *right;
