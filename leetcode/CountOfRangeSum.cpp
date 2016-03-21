@@ -1,20 +1,27 @@
 // Works. Tested. Modified from Solution2.
+// multiset.lower_bound(v): return the iterator of first element >= v.
+// multiset.upper_bound(v): return the iterator of the first element > v.
+// std::distance(it1, it2): find distance of two iterators. 
+//                          use "-" if it is random access, else use "++".
 class Solution3 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
-        multiset<long long> sumSet;
-        sumSet.insert(0);
+        multiset<long long> sumset;
+        sumset.insert(0);
         
-        int ans = 0; 
         long long sum = 0;
+        int ct = 0;
         
-        for(int i = 0; i < nums.size(); ++ i) {
+        for (int i = 0; i < nums.size(); ++ i) {
             sum += nums[i];
-            ans += std::distance(sumSet.lower_bound(sum - upper), 
-                                 sumSet.upper_bound(sum - lower));
-            sumSet.insert(sum);
+            // lower <= sums[i] - sums[j] <= upper ==>
+            // sums[i] - upper <= sums[j] <= sums[i] - lower
+            ct += distance(sumset.lower_bound(sum - upper), 
+                           sumset.upper_bound(sum - lower));
+            sumset.insert(sum);
         }
-        return ans;
+        
+        return ct;
     }
 };
 
@@ -24,9 +31,9 @@ public:
 //
 // The basic idea is to use a multiset to save sum, where sum at 
 // i = nums[0]+...+ nums[i]. At each i, only those sum[j] that 
-// satisfies lower=< sum[i]-sum[j]<= upper can generate a valid 
+// satisfies lower=< sum[i]-sum[j] <= upper can generate a valid 
 // range[j,i]. so we only need to calculate how many j (0=< j< i) 
-// satisfy sum[i]-upper=< sum[j]<=-sum[i]-lower. The STL multiset 
+// satisfy sum[i]-upper =< sum[j] <= sum[i]-lower. The STL multiset 
 // can take care of sort and find upperbound, lowerbound j. Since 
 // the multiset is usually implemented with Red-black tree, so 
 // those operations should have complexity of O(logN). So in total, 
