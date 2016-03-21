@@ -1,3 +1,24 @@
+// Works. Tested. Modified from Solution2.
+class Solution3 {
+public:
+    int countRangeSum(vector<int>& nums, int lower, int upper) {
+        multiset<long long> sumSet;
+        sumSet.insert(0);
+        
+        int ans = 0; 
+        long long sum = 0;
+        
+        for(int i = 0; i < nums.size(); ++ i) {
+            sum += nums[i];
+            ans += std::distance(sumSet.lower_bound(sum - upper), 
+                                 sumSet.upper_bound(sum - lower));
+            sumSet.insert(sum);
+        }
+        return ans;
+    }
+};
+
+
 // Works. Tested. 
 // From: https://leetcode.com/discuss/79632/multiset-solution-100ms-binary-search-tree-180ms-mergesort
 //
