@@ -49,6 +49,7 @@ public:
                 tail = n;
             }
             tail->left = NULL;
+            //tail->right = NULL; // works with or without this.
         }
         
     }
