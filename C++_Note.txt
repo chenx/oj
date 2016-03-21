@@ -120,3 +120,8 @@
   so you need to do a cast here: min(int, (int) string.length())
   
   
+- Some built-in functions (so no need to re-invent wheel):
+  isspace, ispunct, isdigit, isalpha, isalnum, islower, isupper
+  tolower, toupper
+  
+  See: http://www.cplusplus.com/reference/cctype/
