@@ -129,4 +129,4 @@
 
 - Multiset, lower_bound(), upper_bound(), std::distance().
 
-  See implementation in <a href="https://github.com/chenx/oj/blob/master/leetcode/CountOfRangeSum.cpp">CountOfRangeSum.cpp</a>.
+  See implementation in https://github.com/chenx/oj/blob/master/leetcode/CountOfRangeSum.cpp
