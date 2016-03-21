@@ -1,3 +1,37 @@
+// Works. Tested. Slightly improved from Solution.
+class Solution2 {
+public:
+    vector<string> addOperators(string num, int target) {
+        vector<string> ans;
+        get(ans, num, target, 0, "", 0, 0);
+        return ans;
+    }
+    
+    void get(vector<string> &ans, string num, int target, 
+            int pos, string path, long cur, long prev) {
+        if (pos == num.length()) {
+            if (cur == target) ans.push_back(path);
+            return;
+        }
+        
+        for (int i = pos; i < num.length(); ++ i) {
+            if (num[pos] == '0' && i > pos) return;
+            
+            string str = num.substr(pos, i-pos+1);
+            long val = stol(str);
+            
+            if (pos == 0) {
+                get(ans, num, target, i+1, str, val, val);
+            }
+            else {
+                get(ans, num, target, i+1, path+"+"+str, cur+val, val);
+                get(ans, num, target, i+1, path+"-"+str, cur-val, -val);
+                get(ans, num, target, i+1, path+"*"+str, cur-prev+val*prev, val*prev);
+            }
+        }
+    }
+};
+
 // Works. From: https://leetcode.com/discuss/83351/recommend-beginners-implementation-detailed-explanation
 // DFS.
 class Solution {
