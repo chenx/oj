@@ -71,16 +71,19 @@ public:
 class Node {
 public:
     long long val;
-    int size;  // number of nodes in left and right subtrees.
+    int size;  // number of nodes in tree using this node as root.
     Node * left, * right;
     Node(long long v) : val(v), size(1), left(NULL), right(NULL) {}
 };
 
+// An augmented BST, with a field "size" for number of nodes in this tree.
 class Tree {
 public:
     Tree() : root(NULL) {}
     void insert(long long v) { insert(root, v); }
-    int query(long long num) { queryLT(root, num); }
+    int query(long long num) { return queryLT(root, num); }
+    int lower_bound(long long num) { return queryLT(root, num); }
+    int upper_bound(long long num) { return queryLT(root, num - 1); }
 
 private:
     Node *root;
@@ -126,7 +129,8 @@ public:
         for(int i = 0;i < nums.size(); ++ i)
         {
             sum += nums[i];
-            ct += t.query(sum - lower) - t.query(sum - upper - 1);
+            ct += t.lower_bound(sum - lower) - t.upper_bound(sum - upper);
+            //ct += t.query(sum - lower) - t.query(sum - upper - 1); // this works too.
             t.insert(sum);
         }
         
