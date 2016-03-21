@@ -28,13 +28,11 @@ public:
             
             for (int i = 0; i < node->neighbors.size(); ++ i) {
                 UndirectedGraphNode * n = node->neighbors[i];
-                if (m.find(n) != m.end()) copy->neighbors.push_back(m[n]);
-                else {
-                    UndirectedGraphNode * c = new UndirectedGraphNode(n->label);
-                    m[n] = c;
+                if (m.find(n) == m.end()) {
+                    m[n] = new UndirectedGraphNode(n->label);
                     q.push(n);
-                    copy->neighbors.push_back(m[n]);
                 }
+                copy->neighbors.push_back(m[n]);
             }
         }
         
