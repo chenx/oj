@@ -12,6 +12,7 @@ public:
             val(value), smaller(small), left(NULL), right(NULL) { }
     };
 
+    // Return: number of nodes whose value is smaller than v.
     int insert(Node *&root, int value) {
         if (root == NULL) {
             root = new Node(value, 0);
@@ -22,7 +23,7 @@ public:
             ++ root->smaller;
             return insert(root->left, value);
         }
-        else {
+        else { 
             return insert(root->right, value) + root->smaller + (value > root->val ? 1 : 0);
         }
     }
