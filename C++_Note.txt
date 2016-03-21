@@ -125,3 +125,8 @@
   tolower, toupper
   
   See: http://www.cplusplus.com/reference/cctype/
+
+
+- Multiset, lower_bound(), upper_bound(), std::distance().
+
+  See implementation in <a href="https://github.com/chenx/oj/blob/master/leetcode/CountOfRangeSum.cpp">CountOfRangeSum.cpp</a>.
