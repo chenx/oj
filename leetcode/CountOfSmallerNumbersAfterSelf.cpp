@@ -1,3 +1,70 @@
+// Solution4. Works. Tested. By: XC.
+// Use the augmented BST from CountOfRangeSum.cpp.
+class Node {
+public:
+    long long val;
+    int size;  // number of nodes in tree using this node as root.
+    Node * left, * right;
+    Node(long long v) : val(v), size(1), left(NULL), right(NULL) {}
+};
+
+// An augmented BST, with a field "size" for number of nodes in this tree.
+class Tree {
+public:
+    Tree() : root(NULL) {}
+    void insert(long long v) { insert(root, v); }
+    int queryLE(long long num) { return queryLE(root, num); }
+    int lower_bound(long long num) { return queryLE(root, num); }
+    int upper_bound(long long num) { return queryLE(root, num - 1); }
+
+private:
+    Node *root;
+
+    void insert(Node *& node, long long num) {
+        if (! node) {
+            node = new Node(num);
+            return;
+        }
+
+        if (num < node->val) insert(node->left, num);
+        else if (num > node->val) insert(node->right, num);
+
+        node->size ++; // number of nodes in left and right subtrees.
+    }
+
+    // return number of nodes whose value <= num.
+    int queryLE(Node * node, long long num) {
+        if (node == NULL) return 0;
+
+        if (num < node->val) {
+            return queryLE(node->left, num);
+        }
+        else if (num > node->val) {
+            int temp = node->size - (node->right ? node->right->size : 0);
+            return queryLE(node->right, num) + temp;
+        }
+        else { // number of nodes in left subtree.
+            return node->size - (node->right ? node->right->size : 0);
+        }
+    }    
+};
+
+class Solution {
+public:
+    vector<int> countSmaller(vector<int>& nums) {
+        vector<int> v;
+        Tree t;
+        
+        for (int i = nums.size() - 1; i >= 0; -- i) {
+            v.push_back(t.queryLE(nums[i] - 1)); // smaller, not include self.
+            t.insert(nums[i]);
+        }
+        
+        reverse(v.begin(), v.end());
+        return v;
+    }
+};
+
 // Solution3 is modified from Solution2.
 // Works, tested.
 class Node {
@@ -32,7 +99,7 @@ private:
     }
 };
 
-class Solution3 {
+class Solution {
 public:
     vector<int> countSmaller(vector<int>& nums) {
         vector<int> v;
