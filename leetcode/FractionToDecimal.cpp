@@ -29,7 +29,7 @@ string fractionToDecimal(int64_t n, int64_t d) {
 
     res += '.';
 
-    unordered_map<int, int> map;
+    unordered_map<int, int> map; // (remainder, length). if remainder equates, quotient equates.
 
     // simulate the division process.
     // This also works: for (long long r = n; r != 0; r %= d) {
