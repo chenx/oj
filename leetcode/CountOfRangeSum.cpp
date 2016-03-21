@@ -79,7 +79,10 @@ public:
     Tree() : root(NULL) {}
     void insert(long long v) { insert(root, v); }
     int queryLE(long long num) { return queryLE(root, num); }
+    
+    // number of nodes whose value <= num.
     int lower_bound(long long num) { return queryLE(root, num); }
+    // number of nodes whose value < num.
     int upper_bound(long long num) { return queryLE(root, num - 1); }
 
 private:
