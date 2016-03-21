@@ -41,6 +41,7 @@ public:
 // the multiset is usually implemented with Red-black tree, so 
 // those operations should have complexity of O(logN). So in total, 
 // the complexity is O(NlogN) (except the distance part). 
+// Note: distance is O(N), so it's actually O(N^2logN).
 class Solution2 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
