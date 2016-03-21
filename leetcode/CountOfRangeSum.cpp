@@ -1,6 +1,3 @@
-
-
-
 // Works. Tested. Modified from Solution2.
 // multiset.lower_bound(v): return the iterator of first element >= v.
 // multiset.upper_bound(v): return the iterator of the first element > v.
@@ -81,7 +78,7 @@ class Tree {
 public:
     Tree() : root(NULL) {}
     void insert(long long v) { insert(root, v); }
-    int query(long long num) { return queryLE(root, num); }
+    int queryLE(long long num) { return queryLE(root, num); }
     int lower_bound(long long num) { return queryLE(root, num); }
     int upper_bound(long long num) { return queryLE(root, num - 1); }
 
@@ -130,7 +127,7 @@ public:
         {
             sum += nums[i];
             ct += t.lower_bound(sum - lower) - t.upper_bound(sum - upper);
-            //ct += t.query(sum - lower) - t.query(sum - upper - 1); // this works too.
+            //ct += t.queryLE(sum - lower) - t.queryLE(sum - upper - 1); // this works too.
             t.insert(sum);
         }
         
