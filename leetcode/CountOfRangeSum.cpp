@@ -81,9 +81,9 @@ class Tree {
 public:
     Tree() : root(NULL) {}
     void insert(long long v) { insert(root, v); }
-    int query(long long num) { return queryLT(root, num); }
-    int lower_bound(long long num) { return queryLT(root, num); }
-    int upper_bound(long long num) { return queryLT(root, num - 1); }
+    int query(long long num) { return queryLE(root, num); }
+    int lower_bound(long long num) { return queryLE(root, num); }
+    int upper_bound(long long num) { return queryLE(root, num - 1); }
 
 private:
     Node *root;
@@ -100,16 +100,16 @@ private:
         node->size ++; // number of nodes in left and right subtrees.
     }
 
-    // return number of nodes whose value < num.
-    int queryLT(Node * node, long long num) {
+    // return number of nodes whose value <= num.
+    int queryLE(Node * node, long long num) {
         if (node == NULL) return 0;
 
         if (num < node->val) {
-            return queryLT(node->left, num);
+            return queryLE(node->left, num);
         }
         else if (num > node->val) {
             int temp = node->size - (node->right ? node->right->size : 0);
-            return queryLT(node->right, num) + temp;
+            return queryLE(node->right, num) + temp;
         }
         else { // number of nodes in left subtree.
             return node->size - (node->right ? node->right->size : 0);
@@ -117,7 +117,7 @@ private:
     }    
 };
 
-class Solution3 {
+class Solution {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
         Tree t; // multiset.
