@@ -1,5 +1,7 @@
 // Solution4. Works. Tested. By: XC.
-// Use the augmented BST from CountOfRangeSum.cpp.
+// Use the augmented BST (similar to multiset) from CountOfRangeSum.cpp.
+// This is better than Solution3, as Solution3 is more a shortcut rather 
+// than a formal implementation of multiset, but this is a formal multiset.
 class Node {
 public:
     long long val;
