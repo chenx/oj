@@ -1,4 +1,28 @@
-// Works too. Slightly modified from Solution3.
+// Works. Tested. But Solution4 seems better.
+class Solution5 {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        set<string> ans;
+        unordered_set<int> m;
+        for (int i = 0, n = s.length() - 10; i <= n; ++ i) {
+            string t = s.substr(i, 10);
+            int key = getKey(t);
+            if (m.count(key)) ans.insert(t); // let set avoid duplicates.
+            m.insert(key);
+        }
+        return vector<string>(ans.begin(), ans.end());
+    }
+    
+    int getKey(string s) {
+        int k = 0;
+        for (int i = 0; i < s.length(); ++ i) {
+            k = (k << 3) + (s[i] & 7);
+        }
+        return k;
+    }
+};
+
+// Works too. Slightly modified from Solution3. May be best so far.
 class Solution4 {
 public:
     vector<string> findRepeatedDnaSequences(string s) {
