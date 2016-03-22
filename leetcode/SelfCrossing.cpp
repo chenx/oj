@@ -1,3 +1,30 @@
+// Works. Tested. Modified from Solution4. More clear.
+class Solution5 {
+public:
+    bool isSelfCrossing(vector<int>& x) {
+        int n = x.size();
+        if (n <= 3) return false;
+
+        bool grow = x[2] > x[0];
+        for (int i = 3; i < n; ++ i) {
+            if (grow) { // grow phase.
+                if (x[i] <= x[i-2]) {
+                    grow = false;
+                    if (x[i] + ((i >= 4) ? x[i-4] : 0) >= x[i-2]) {
+                        x[i-1] = x[i-1] - x[i-3];
+                    }
+                }
+            }
+            else { // shrink phase.
+                if (x[i] >= x[i-2]) return true;
+            }
+        }
+        
+        return false;
+    }
+};
+
+
 // Works. Tested. 
 // Modified from Solution3.
 /*
