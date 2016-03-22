@@ -1,3 +1,61 @@
+// Works. Tested. Best so far.
+class Codec3 {
+public:
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string s;
+        ser(s, root);
+        return s;
+    }
+    
+    void ser(string & s, TreeNode * root) {
+        if (! root) {
+            if (s != "") s += " ";
+            s += "null";
+            return;
+        }
+        
+        if (s != "") s += " ";
+        s += to_string(root->val);
+        
+        ser(s, root->left); // must always include "null", since this is not BST.
+        ser(s, root->right);
+    }
+    
+    // Decodes a string to a tree.
+    TreeNode * deserialize(string str) {
+        vector<string> nums;
+        split(nums, str);
+        
+        TreeNode * root = NULL;
+        int p = 0;
+        des(root, nums, p);
+        return root;
+    }
+    
+    void des(TreeNode *& root, vector<string> & nums, int &p) {
+        if (nums[p] == "null") {
+            root = NULL;
+            ++ p; // this must go here, can not be above in if.
+            return;
+        }
+        
+        root = new TreeNode(stoi(nums[p ++]));
+        des(root->left, nums, p);
+        des(root->right, nums, p);
+    }
+    
+    void split(vector<string> &nums, string str) {
+        stringstream ss(str);
+        string num;
+        while (getline(ss, num, ' ')) { 
+        //while (ss >> num) {  // this works too, when delimiter is space ' '.
+            nums.push_back(num);
+        }
+    }
+};
+
+
 // Works. Improved from Codec. More clean.
 class Codec2 {
 public:
