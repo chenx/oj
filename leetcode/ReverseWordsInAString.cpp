@@ -1,6 +1,51 @@
 #include <iostream>
 using namespace std;
 
+// Works. Tested. May be best so far.
+class Solution7 {
+public:
+    void reverseWords(string &s) {
+        s = removeSpace(s);
+        
+        int n = s.length();
+        rev(s, 0, n - 1); // this can be at the end too.
+        
+        int i = 0;
+        while (true) {
+            while (i < n && isspace(s[i])) ++ i;
+            if (i == n) break;
+            
+            int j = i;
+            while (j < n && ! isspace(s[j])) ++ j;
+            -- j;
+            
+            rev(s, i, j);
+            
+            i = j + 1;
+        }
+    }
+    
+    string removeSpace(string s) {
+        int i = 0, n = s.length(), k = 0;
+        
+        while (true) {
+            while (i < n && isspace(s[i])) ++ i;
+            if (i == n) break;
+
+            if (k > 0) s[k ++] = ' '; // note: this must be after the above.
+
+            while (i < n && ! isspace(s[i])) s[k ++] = s[i ++];
+            if (i == n) break;
+        }
+        
+        return s.substr(0, k);
+    }
+
+    void rev(string &s, int i, int j) {
+        for (; i < j; ++ i, -- j) swap(s[i], s[j]);
+    }
+};
+
 // Works too. Tested. Do not use pointer, just array index.
 class Solution6 {
 public:
