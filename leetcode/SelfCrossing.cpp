@@ -1,3 +1,51 @@
+// Works. Tested. 
+// Modified from Solution3.
+/*
+ case 1: x[i-1] does not change.
+            x[i-2]
+        ┌------------┐
+        |    ┌---┐   | x[i-3] 
+        |  | |   |   |
+x[i-1]  |  | └───────-
+        |  |   x[i-4]
+        |  |           
+        └───
+        x[i]
+
+ case 2: x[i-1] = x[i-1] - x[i-3]
+            x[i-2]
+        ┌------------┐
+        |    ┌---┐   | x[i-3] 
+        |    |   |   |
+x[i-1]  |    └───────-
+        |    _________
+        |             |
+        └──────────────
+              x[i]
+ */
+class Solution4 {
+public:
+    bool isSelfCrossing(vector<int>& x) {
+        int n = x.size();
+        if (n <= 3) return false;
+        bool grow; // incremental spiral.
+
+        for (int i = 3, grow = (x[2] > x[0]); i < n; ++ i) {
+            // shrink case, cross happens on x[i].
+            if (! grow && x[i] >= x[i-2]) return true; 
+            
+            if (grow && x[i] <= x[i-2]) { // if grow changes to shrink
+                grow = false;
+                // update x[i-1]. See figures above for cases 1 and 2.
+                x[i-1] = ((x[i] + (i >= 4 ? x[i-4] : 0)) < x[i-2]) ? 
+                         x[i-1] : (x[i-1] - x[i-3]); 
+            }
+        }
+        return false;
+    }
+};
+
+
 // Works. Tested.
 // From: https://leetcode.com/discuss/88196/re-post-2-o-n-c-0ms-solutions
 class Solution3 {
