@@ -29,28 +29,30 @@ public:
 // This is more clear than Solution.
 class Solution2 {
 public:
-    string rangeToStr(vector<int> &nums, int start, int end) {
-         return (start == end) ? to_string(nums[start]) : 
-                (to_string(nums[start]) + "->" + to_string(nums[end]));
+    string rangeToStr(int start, int end) {
+         return (start == end) ? to_string(start) : 
+                (to_string(start) + "->" + to_string(end));
     }
     
     vector<string> summaryRanges(vector<int>& nums) {
         vector<string> ans;
-        int L = 0, len = nums.size();
-        if (len == 0) return ans;
         
-        for (int i = 1; i < len; ++ i) {
-            if (nums[i] > nums[i-1] + 1) {
-                ans.push_back( rangeToStr(nums, L, i-1) );
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        int L = 0;
+        for (int i = 1; i < n; ++ i) {
+            if (nums[i] > nums[i - 1] + 1) {
+                ans.push_back(rangeToStr(nums[L], nums[i-1]));
                 L = i;
             }
         }
+        ans.push_back(rangeToStr(nums[L], nums[n-1]));
         
-        ans.push_back( rangeToStr(nums, L, len-1) );
-
         return ans;
     }
 };
+
 
 
 #include <iostream>
