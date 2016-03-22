@@ -4,6 +4,75 @@
 // @Created on: 1/1/2013
 // @Last modified: 1/1/2013
 //
+
+// This works too. Tested. Use index instead of pointer.
+class Solution3 {
+public:
+    int myAtoi(string str) {
+        int i = 0, n = str.length();
+        
+        while (i < n && isspace(str[i])) ++ i;
+        if (i == n) return 0;
+        
+        bool neg = false;
+        if (str[i] == '+') ++ i;
+        else if (str[i] == '-') { 
+            neg = true;
+            ++ i;
+        }
+        
+        if (i == n || ! isdigit(str[i])) return 0;
+
+        int v = 0, v0;        
+        for (; i < n && isdigit(str[i]); ++ i) {
+            v0 = v;
+            v = v * 10 + str[i] - '0';
+            if (v / 10 != v0) return neg ? INT_MIN : INT_MAX;
+        }
+        
+        if (neg) v = -v;
+        return v;
+    }
+};
+
+
+// This works too. Slightly better than Solution.
+class Solution2 {
+public:
+    int atoi(const char *str) {
+        if (! str || ! *str) return 0;
+        
+        while (*str == ' ' || *str == '\t' || *str == '\n') ++ str;
+        
+        int sign = 1;
+        if (*str == '+') ++ str;
+        else if (*str == '-') {
+            sign = -1;
+            ++ str;
+        }
+            
+        int y0 = 0, y;
+        while( isDigit(*str) ) {
+            y = y0 * 10 + (*str - '0');
+            
+            if (y / 10 != y0) { // overflow, 
+                // Note this includes the case INT_MIN.
+                return (sign == 1) ? INT_MAX : INT_MIN;
+            }
+
+            y0 = y;
+            ++ str;
+        }
+                
+        return sign * y0;
+    }
+    
+    bool isDigit(const char c) {
+        return c >= '0' && c <= '9';
+    }
+};
+
+
 class Solution {
 public:
     int atoi(const char *str) {
@@ -42,77 +111,6 @@ public:
     }
 };
 
-// This works too. Slightly better than Solution.
-class Solution2 {
-public:
-    int atoi(const char *str) {
-        if (! str || ! *str) return 0;
-        
-        while (*str == ' ' || *str == '\t' || *str == '\n') ++ str;
-        
-        int sign = 1;
-        if (*str == '+') ++ str;
-        else if (*str == '-') {
-            sign = -1;
-            ++ str;
-        }
-            
-        int y0 = 0, y;
-        while( isDigit(*str) ) {
-            y = y0 * 10 + (*str - '0');
-            
-            if (y / 10 != y0) { // overflow, 
-                // Note this includes the case INT_MIN.
-                return (sign == 1) ? INT_MAX : INT_MIN;
-            }
-
-            y0 = y;
-            ++ str;
-        }
-                
-        return sign * y0;
-    }
-    
-    bool isDigit(const char c) {
-        return c >= '0' && c <= '9';
-    }
-};
-
-// This works too.
-class Solution3 {
-public:
-    int myAtoi(string str) {
-        int v = 0, v0, i = 0;
-        bool neg = false;
-        
-        if (str == "") return 0;
-        while (str[i] == ' ') ++ i;
-
-        if (str[i] == '-') {
-            neg = true; 
-            ++ i;
-        }
-        else if (str[i] == '+') {
-            ++ i;
-        }
-        
-        if (i == str.length() || ! isDigit(str[i])) return 0;
-        
-        for (int n = str.length(); i < n && isDigit(str[i]); ++ i) {
-            v0 = v;
-            v = v * 10 + (str[i] - '0');
-            if (v0 != v/10) return neg ? INT_MIN : INT_MAX;
-        }
-        
-        if (neg) v = -v;
-        
-        return v;
-    }
-    
-    bool isDigit(char c) {
-        return c >= '0' && c <= '9';
-    }
-};
 
 /*
 Problem:
