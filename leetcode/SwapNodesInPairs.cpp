@@ -13,6 +13,28 @@
  * };
  */
  
+// Works. Tested. As good as Solution6.
+class Solution7 {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        n->next = head;
+        
+        while (n->next && n->next->next) {
+            ListNode * n1 = n->next,
+                     * n2 = n1->next,
+                     * n3 = n2->next;
+            n->next = n2;
+            n2->next = n1;
+            n1->next = n3;
+            n = n1;
+        }
+        
+        return dummy.next;
+    }
+};
+ 
 // Works. Tested.
 // Use a dummy node, significantly simplified code. Best solution!
 class Solution6 {
