@@ -5,7 +5,33 @@
 // @Last modified: 12/24/2012
 //
 
-// Works too. Tested. Use dummy node. Most clean so far.
+// Works. Tested. Best.
+class Solution5 {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        n->next = head;
+        
+        while (n->next && n->next->next) {
+            if (n->next->val == n->next->next->val) {
+                int dupVal = n->next->val;
+                while (n->next && n->next->val == dupVal) {
+                    ListNode * tmp = n->next;
+                    n->next = tmp->next;
+                    delete tmp; // still need to delete n later.
+                }
+            }
+            else {
+                n = n->next;
+            }
+        }
+
+        return dummy.next;
+    }
+};
+
+// Works too. Tested. Use dummy node. 
 class Solution4 {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
