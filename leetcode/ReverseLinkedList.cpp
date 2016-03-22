@@ -8,9 +8,10 @@
  */
 
 // Iterative version. This works too.
-class Solution4 {
+class Solution3 {
 public:
     ListNode* reverseList(ListNode* head) {
+        //if (! head || ! head->next) return head; // works with or without this.
         ListNode * h = NULL;
         
         while (head != NULL) {
@@ -18,24 +19,6 @@ public:
             h = head;
             head = head->next;
             h->next = tmp;
-        }
-        
-        return h;
-    }
-};
-
-// Iterative. This works too.
-class Solution3 {
-public:
-    ListNode* reverseList(ListNode* head) {
-        //if (head == NULL || head->next == NULL) return head; // not necessary.
-        ListNode *h = NULL, *tmp;
-        
-        while (head != NULL) {
-            tmp = head;
-            head = head->next;
-            tmp->next = h;
-            h = tmp;
         }
         
         return h;
@@ -76,7 +59,7 @@ public:
         h = rev(h->next, t);
         t->next = tmp;
         t = tmp;
-        t->next = NULL;
+        t->next = NULL; // REMEMBER This !!!
         return h;
     }
 };
