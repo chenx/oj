@@ -1,6 +1,59 @@
 #include <iostream>
 using namespace std;
 
+// Works. Tested. Use pointer. Based on Solutoin7. May be best using pointer.
+class Solution8 {
+public:
+    void reverseWords(string &s) {
+        s = removeSpace(s);
+
+        char * p = (char *) s.c_str();
+        int n = strlen(p);
+        
+        rev(p, p + n - 1); // this can be at the end too.
+        
+        while (1) {
+            while (*p && isspace(*p)) ++ p;
+            if (! *p) break;
+            
+            char * q = p;
+            while (*q && ! isspace(*q)) ++ q;
+            -- q;
+            
+            rev(p, q);
+            
+            p = q + 1;
+        }
+    }
+    
+    string removeSpace(string s) {
+        char * p = (char *) s.c_str(), * head = p, *q = p;
+        
+        while (1) {
+            while (isspace(*p)) ++ p;
+            if (! *p) break;
+
+            if (q != head) *q ++ = ' '; // note: this must be after the above.
+
+            while (*p && ! isspace(*p)) *q ++ = *p ++;
+            if (! *p) break;
+        }
+        
+        *q = '\0';
+        
+        return string(head); //s.substr(0, k);
+    }
+
+    void rev(char * p, char * q) {
+        while (p < q) {
+            char tmp = *p;
+            *p = *q;
+            *q = tmp;
+            ++ p, -- q;
+        }
+    }
+};
+
 // Works. Tested. May be best so far.
 class Solution7 {
 public:
