@@ -62,8 +62,10 @@ public:
         else {
             hasPathSum(ans, path, root->left, sum);
             hasPathSum(ans, path, root->right, sum);
-        }            
-        path.erase(path.end() - 1); // path is passed as reference to saves space.
+        }
+        
+        //path.erase(path.end() - 1); // path is passed as reference to saves space.
+        path.pop_back(); // this and above both work.
     }
 }; 
  
