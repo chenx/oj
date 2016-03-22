@@ -1,4 +1,5 @@
 // Solution 2. Works. Tested.
+// Slightly better function next().
 class PeekingIterator : public Iterator {
 public:
     PeekingIterator(const vector<int>& nums) : Iterator(nums) {
