@@ -5,6 +5,18 @@
 // @Last modified: 12/24/2012
 //
 
+// Works. Tested. Among the best.
+class Solution6 {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int k = 0;
+        for (int i = 0; i < nums.size(); ++ i) {
+            if (nums[i] != val) nums[k ++] = nums[i];
+        }
+        return k;
+    }
+};
+
 // Solution 2 is better than 1, when e.g., only A[0] != elem, then s1 does n-1 copy,
 // but s2 does only 1 swap. 
 // Solution 1 is better than 2, when e.g., only A[n-1] != elem, then s2 swaps n-1 times,
