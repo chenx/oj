@@ -1,5 +1,9 @@
 /*
- * Note: .* matches ab, because .* means 0 or more of ".", so it can be .., this matches ab.
+ * Another regular expression match problem.
+ * 
+ * @By: X. Chen
+ * @Created on: 3/23/2016
+ * @Last modified: 3/23/2016
  */
 #include <iostream>
 #include <string>
@@ -50,6 +54,10 @@ public:
     }
 };
 
+
+//
+// Note: .* matches ab, because .* means 0 or more of ".", so it can be .., this matches ab.
+//
 class Solution {
     const char * s0, * p0;
 public:
