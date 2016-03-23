@@ -1,3 +1,18 @@
+// Works. This is DP. Efficient. O(n)
+// From: https://leetcode.com/discuss/93646/a-concise-c-solution-without-using-%25
+class Solution2 {
+public:
+    vector<int> countBits(int num) {
+        vector<int> rst(num + 1);
+    
+        rst[0] = 0;
+        for (int i = 1; i <= num; ++ i) 
+            rst[i] = rst[i >> 1] + (i & 1);
+    
+        return rst;
+    }
+};
+
 // Works. But seems not what the question is asking for.
 class Solution {
 public:
