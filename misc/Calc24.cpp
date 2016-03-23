@@ -100,6 +100,12 @@ class Solution {
 public:
     Solution() { }
 
+    /**
+     * Given a vector of integers, get all permutations, 
+     * and find ways to calcuate k = 24 for each.
+     * 
+     * Note that by altering the value of k, you can calculate other numbers.
+     */
     void calc24(vector<int> v) {
         Permutation perm;
         vector<vector<int> > vs = perm.permuteUnique(v);
