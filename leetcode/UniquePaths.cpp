@@ -5,6 +5,21 @@
 // @Last modified: 1/21/2013
 //
 
+// Works too. Tested. Assume m > 0 and n > 0.
+// Initialize matrix to all 1, to avoid initialize first row/column.
+class Solution3 {
+public:
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> v(m, vector<int>(n, 1));
+        
+        for (int i = 1; i < m; ++ i) 
+            for (int j = 1; j < n; ++ j) 
+                v[i][j] = v[i-1][j] + v[i][j-1];
+
+        return v[m-1][n-1];
+    }
+};
+
 // This works too. 10-26-2014
 class Solution2 {
 public:
