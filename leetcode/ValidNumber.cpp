@@ -394,7 +394,7 @@ public:
             return false;
         }
         
-        if (s[i] == 'e') {
+        if (i < n && s[i] == 'e') {
             ++ i;
             if (i == n) return false;
             if (s[i] == '+' || s[i] == '-') ++ i;
