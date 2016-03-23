@@ -187,6 +187,10 @@ public:
         return calc(v, 0);
     }
 
+    /**
+     * This function only calculates all possible results, 
+     * but does not show how they are obtained.
+     */
     vector<int> calc(vector<int> v, int level) {
         set<int> ans;
         int n = v.size();
@@ -207,6 +211,7 @@ public:
                     ans.insert(L[j] + R[k]);
                     ans.insert(L[j] - R[k]);
                     ans.insert(L[j] * R[k]);
+                    if (R[k] != 0 && (L[j] % R[k] == 0)) ans.insert(L[j] / R[k]);
                 }
             }
         }
