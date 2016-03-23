@@ -360,6 +360,53 @@ public:
     }
 };
 
+// Works. May be best so far.
+class Solution6 {
+public:
+    bool isNumber(string s) {
+        // +-(d+.d+|d+.|.d+)e+-(d+)
+        
+        int n = s.length(), i = 0;
+        
+        while (i < n && isspace(s[i])) ++ i;
+        if (i == n) return false;
+        
+        if (s[i] == '+' || s[i] == '-') ++ i;
+        if (i == n) return false;
+        
+        if (isdigit(s[i])) {
+            while (i < n && isdigit(s[i])) ++ i;
+            //if (i == n) return true; //
+            
+            if (s[i] == '.') {
+                ++ i;
+                while (i < n && isdigit(s[i])) ++ i;
+                //if (i == n) return true; //
+            }
+        }
+        else if (s[i] == '.') {
+            ++ i;
+            if (i == n || ! isdigit(s[i])) return false;
+            while (i < n && isdigit(s[i])) ++ i;
+            //if (i == n) return true; //
+        }
+        else {
+            return false;
+        }
+        
+        if (s[i] == 'e') {
+            ++ i;
+            if (i == n) return false;
+            if (s[i] == '+' || s[i] == '-') ++ i;
+            if (i == n || ! isdigit(s[i])) return false;
+            while (isdigit(s[i])) ++ i;
+        }
+        
+        while (i < n && isspace(s[i])) ++ i;
+        return i == n;
+    }
+};
+
 
 int main() {
     return 0;
