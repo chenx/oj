@@ -1,6 +1,16 @@
 /**
- * This program calculates 24 from 4 given numbers by brutal force search.
+ * This program calculates 24 from 4 given numbers.
  *
+ * Note that by pure brutal force, 4 numbers have 4! permutations, for each
+ * there are 3 places to insert 4 operators each. Then to parenthesize them
+ * there are catalan number of ways (2n)!/(n! * (n+1)!). 
+ * That's n! * (n-1) * n! * (2n)!/(n! * (n+1)!), where n = 4. 
+ * This is 24192 ways. The code here reduces the numbers of combinations,
+ * by separate the 4 numbers into 2 groups each time, in each group 
+ * duplicates are combined. E.g., (1+1), (1*1), (1/1) all result in 1,
+ * and the 3 cases are combined into 1 case.
+ * For implementation, see function: calc2(vector<int> v, int level)
+ * 
  * Possible improvement:
  * - Now cases like these are repeatedly counted:
  *   (4*(2*(3*1))), ((4*2)*(3*1)), (4*(2*3)*1), ...
@@ -132,8 +142,8 @@ public:
      * This function takes in a vector of integers, and output all possible
      * results that can be obtained using the numbers and operators +, - , *, /.
      *
-     * The input vector is not restricted by size, although for calculating 24
-     * it needs to contain 4 numbers.
+     * The input vector is actually not restricted by size, although for the poker
+     * game of calculating 24 it needs to contain exactly 4 numbers.
      *
      * Input:
      *   @v - input vector.
