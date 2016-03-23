@@ -1,10 +1,11 @@
 /**
  * This program calculates 24 from 4 given numbers by brutal force search.
  *
- * Possible improvements:
- * - Now cases like this are repeatedly counted:
+ * Possible improvement:
+ * - Now cases like these are repeatedly counted:
  *   (4*(2*(3*1))), ((4*2)*(3*1)), (4*(2*3)*1), ...
- *   it might be good to unify such combinations (or maybe not necessary).
+ *   it might be good to unify such combinations into 1*2*3*4.
+ *   (or maybe not necessary, this may be just fine.)
  *
  * @author: X. Chen
  * @Created on: 3/22/2016
