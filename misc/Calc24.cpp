@@ -1,5 +1,6 @@
 /**
- * This program calculates 24 from 4 given numbers.
+ * This program calculates 24 from 4 given numbers. This provides a solution
+ * to the popular poker game of "Calculating 24".
  *
  * Note that by pure brutal force, 4 numbers have 4! permutations, for each
  * there are 3 places to insert 4 operators each. Then to parenthesize them
