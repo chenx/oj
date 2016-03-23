@@ -5,6 +5,37 @@
 // @Last modified: 1/1/2013
 //
 
+// Works. Tested.
+class Solution2 {
+public:
+    bool isValid(string s) {
+        stack<char> t;
+        unordered_map<char, char> m;
+        m[')'] = '(';
+        m['}'] = '{';
+        m[']'] = '[';
+        
+        for (int i = 0; i < s.length(); ++ i) {
+            char c = s[i];
+            switch (c) {
+                case '(': 
+                case '{':
+                case '[':
+                    t.push(c);
+                    break;
+                case ')':
+                case '}':
+                case ']':
+                    if (t.empty() || t.top() != m[c]) return false;
+                    t.pop();
+                    break;
+            }
+        }
+        
+        return t.empty();
+    }
+};
+
 class Solution {
 public:
     bool isValid(string s) {
