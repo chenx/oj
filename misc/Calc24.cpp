@@ -245,3 +245,69 @@ int main(int argc, char * argv[]) {
 
     return 0;
 }
+
+
+/**
+Example. Input: 6 3 3 1. Output:
+
+input: 1 3 3 6 
+results equal to 24:
+
+input: 1 3 6 3 
+results equal to 24:
+
+input: 1 6 3 3 
+results equal to 24:
+  (1): (((1+6)*3)+3)
+
+input: 3 1 3 6 
+results equal to 24:
+
+input: 3 1 6 3 
+results equal to 24:
+  (1): (3+((1+6)*3))
+  (2): ((3-(1-6))*3)
+  (3): (((3-1)+6)*3)
+  (4): ((3*(1+6))+3)
+
+input: 3 3 1 6 
+results equal to 24:
+  (1): (3*(3-(1-6)))
+  (2): (3*((3-1)+6))
+  (3): (3+(3*(1+6)))
+
+input: 3 3 6 1 
+results equal to 24:
+  (1): (3*(3+(6-1)))
+  (2): (3*((3+6)-1))
+  (3): (3+(3*(6+1)))
+
+input: 3 6 1 3 
+results equal to 24:
+  (1): (3*(6-(1-3)))
+  (2): (3*((6-1)+3))
+  (3): (3+((6+1)*3))
+  (4): ((3+(6-1))*3)
+  (5): (((3+6)-1)*3)
+  (6): ((3*(6+1))+3)
+
+input: 3 6 3 1 
+results equal to 24:
+  (1): (3*(6+(3-1)))
+  (2): (3*((6+3)-1))
+
+input: 6 1 3 3 
+results equal to 24:
+  (1): ((6-(1-3))*3)
+  (2): (((6-1)+3)*3)
+  (3): (((6+1)*3)+3)
+
+input: 6 3 1 3 
+results equal to 24:
+  (1): ((6+(3-1))*3)
+  (2): (((6+3)-1)*3)
+
+input: 6 3 3 1 
+results equal to 24:
+
+ */
