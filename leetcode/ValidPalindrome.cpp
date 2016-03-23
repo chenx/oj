@@ -1,4 +1,4 @@
-// Works. Tested. 
+// Works. Tested. Best answer.
 // Use standard functions isalnum(), tolower(), toupper() in <cctype>.
 class Solution4 {
 public:
@@ -10,7 +10,7 @@ public:
             else if (! isalnum(s[R])) -- R;
             else {
                 if (tolower(s[L]) != tolower(s[R])) return false;
-                ++ L, -- R;
+                ++ L, -- R; // don't forget this.
             }
         }
         
