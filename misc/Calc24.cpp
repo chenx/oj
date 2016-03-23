@@ -3,13 +3,18 @@
  * to the popular poker game of "Calculating 24".
  *
  * Note that by pure brutal force, 4 numbers have 4! permutations, for each
- * there are 3 places to insert 4 operators each. Then to parenthesize them
- * there are catalan number of ways (2n)!/(n! * (n+1)!). 
- * That's n! * (n-1) * n! * (2n)!/(n! * (n+1)!), where n = 4. 
- * This is 24192 ways. The code here reduces the numbers of combinations,
+ * there are 3 places to insert 4 operators, so 4^3 ways. Then to parenthesize
+ * there are catalan number (https://en.wikipedia.org/wiki/Catalan_number) 
+ * of ways (2n)!/(n! * (n+1)!), where n = 4 - 1 = 3, which comes down to 5
+ * ways to parenthesize. In total that is:
+ *     n! * n^(n-1) * (2(n-1))!/(n! * (n-1)!), where n = 4
+ * That is 7680 ways. The code here reduces the numbers of combinations,
  * by separate the 4 numbers into 2 groups each time, in each group 
  * duplicates are combined. E.g., (1+1), (1*1), (1/1) all result in 1,
  * and the 3 cases are combined into 1 case.
+ * 
+ * Another tricky thing is to return all actual ways of combinations.
+ * 
  * For implementation, see function: calc2(vector<int> v, int level)
  * 
  * Possible improvement:
