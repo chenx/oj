@@ -52,33 +52,26 @@ public:
 class Solution {
 public:
     bool wordPattern(string pattern, string str) {
-        unordered_map<char, int> m1;
-        unordered_map<string, int> m2;
-        vector<int> f1, f2; // feature vector
+        vector<int> vp, vs; // feature vectors.
         
+        unordered_map<char, int> mp;
         int ct = 0;
-        for (int i = 0, len = pattern.length(); i < len; ++ i) {
-            if (m1[pattern[i]] == 0) {
-                m1[pattern[i]] = ++ ct;
-            }
-            f1.push_back(m1[pattern[i]]);
+        for (int i = 0; i < pattern.length(); ++ i) {
+            if (mp[pattern[i]] == 0) mp[pattern[i]] = ++ ct;
+            vp.push_back(mp[pattern[i]]);
         }
         
-        istringstream iss(str);
+        unordered_map<string, int> ms;
         ct = 0;
-
-        while(iss)
-        {
-            string sub;
-            iss >> sub;
-            if (sub == "") break;
-            if (m2[sub] == 0) {
-                m2[sub] = ++ ct;
-            }
-            f2.push_back(m2[sub]);
-        };
         
-        return f1 == f2;
+        stringstream ss(str);
+        string next;
+        while (ss >> next) {
+            if (ms[next] == 0) ms[next] = ++ ct;
+            vs.push_back(ms[next]);
+        }
+        
+        return vp == vs;
     }
 };
 
