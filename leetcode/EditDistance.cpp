@@ -100,7 +100,7 @@ public:
         if (! *w1) return strlen(w2);
         if (! *w2) return strlen(w1);
         
-        if (*w1 == *w2) {
+        if (*w1 == *w2) { // Question: does it work by single out this??
             return mD(w1 + 1, w2 + 1);
         }
         else {
@@ -113,7 +113,8 @@ public:
 };
 
 //
-// This works too. Changed from Solution2.
+// This works too. But times out for large input.
+// Changed from Solution2.
 //
 class Solution3 {
 public:
