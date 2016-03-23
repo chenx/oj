@@ -1,3 +1,43 @@
+// Works. Tested. Use queue instead of vector, 
+// more efficient since vector erase begin is not efficient.
+// MUST use "long long" to avoid overflow.
+class Solution4 {
+public:
+    int nthUglyNumber(int n) {
+        if (n < 1) return 0;
+        if (n == 1) return 1;
+        
+        queue<long long> v2, v3, v5;
+        v2.push(2);
+        v3.push(3);
+        v5.push(5);
+        
+        long long num;
+        
+        for (int i = 2; i <= n; ++ i) {
+            num = min(v2.front(), min(v3.front(), v5.front()));
+            
+            if (num == v2.front()) {
+                v2.pop();
+                v2.push(2 * num);
+                v3.push(3 * num);
+                v5.push(5 * num);
+            }
+            else if (num == v3.front()) {
+                v3.pop();
+                v3.push(3 * num);
+                v5.push(5 * num);
+            }
+            else {
+                v5.pop();
+                v5.push(5 * num);
+            }
+        }
+        
+        return num;
+    }
+};
+
 // Works. Tested.
 // Use the solution to SuperUglyNumber. 
 // Have to use "long long " to avoid overflow.
