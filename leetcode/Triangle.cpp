@@ -5,6 +5,20 @@
 // @Last modified: 12/18/2012
 //
 
+// Works. Bottom up.
+class Solution4 {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size();
+        
+        for (int i = n-2; i >= 0; -- i) 
+            for (int j = 0; j <= i; ++ j) 
+                triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1]); 
+
+        return triangle[0][0];
+    }
+};
+
 // Works. Tested. In-place. Top down.
 class Solution3 {
 public:
