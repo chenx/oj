@@ -8,8 +8,8 @@
  * of ways (2n)!/(n! * (n+1)!), where n = 4 - 1 = 3, which comes down to 5
  * ways to parenthesize. In total that is:
  *     n! * n^(n-1) * (2(n-1))!/(n! * (n-1)!), where n = 4
- * That is 7680 ways. The code here reduces the numbers of combinations,
- * by separate the 4 numbers into 2 groups each time, in each group 
+ * That is 7680 ways. The code here reduces the number of combinations,
+ * by divide-and-conquor the 4 numbers into 2 groups each time, in each group 
  * duplicates are combined. E.g., (1+1), (1*1), (1/1) all result in 1,
  * and the 3 cases are combined into 1 case.
  * 
