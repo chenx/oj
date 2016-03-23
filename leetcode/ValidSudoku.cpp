@@ -9,6 +9,60 @@
 #include <vector>
 using namespace std;
 
+// Works. Tested. Use set.
+class Solution5 {
+    const int n = 9;
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for (int i = 0; i < n; ++ i) {
+            if (! validateRow(board, i)) return false;
+            if (! validateCol(board, i)) return false;
+        }
+        
+        for (int i = 0; i < n; i += 3) {
+            for (int j = 0; j < n; j += 3) {
+                if (! validateSquare(board, i, j)) return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    bool validateRow(vector<vector<char>>& board, int row) {
+        unordered_set<char> s;
+        for (int i = 0; i < n; ++ i) {
+            char c = board[row][i];
+            //if (c != '.' && ! isdigit(c)) return false; // invalid char.
+            if (s.find(c) != s.end()) return false; // already exists.
+            if (isdigit(c)) s.insert(c); // only insert digit, don't insert ".".
+        }
+        return true;
+    }
+    
+    bool validateCol(vector<vector<char>>& board, int col) {
+        unordered_set<char> s;
+        for (int i = 0; i < n; ++ i) {
+            char c = board[i][col];
+            //if (c != '.' && ! isdigit(c)) return false; // invalid char.
+            if (s.find(c) != s.end()) return false;
+            if (isdigit(c)) s.insert(c);
+        }
+        return true;
+    }
+    
+    bool validateSquare(vector<vector<char>>& board, int row, int col) {
+        unordered_set<char> s;
+        for (int i = 0; i < 3; ++ i) {
+            for (int j = 0; j < 3; ++ j) {
+                char c = board[row + i][col + j];
+                //if (c != '.' && ! isdigit(c)) return false; // invalid char.
+                if (s.find(c) != s.end()) return false;
+                if (isdigit(c)) s.insert(c);
+            }
+        }
+        return true;
+    }
+};
 
 // This works too. 2/7/2016.
 class Solution4 {
