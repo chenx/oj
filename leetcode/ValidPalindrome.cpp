@@ -1,35 +1,55 @@
-class Solution {
+// Works. Tested. 
+// Use standard functions isalnum(), tolower(), toupper() in <cctype>.
+class Solution4 {
 public:
     bool isPalindrome(string s) {
-        int len = s.length();
-        //if (len == 0) return true;
+        int L = 0, R = s.length() - 1;
         
-        int i = 0, j = len - 1;
-        while (i < j) {
-            while (! isAN(s[i]) && i <= len-1 && i < j) ++ i; // NOTE: i <= len-1 is needed!
-            while (! isAN(s[j]) && j >= 0 && i < j) -- j;     // NOTE: j >= 0 is needed!
-            if (i > j) break; 
+        while (L < R) {
+            if (! isalnum(s[L])) ++ L;
+            else if (! isalnum(s[R])) -- R;
+            else {
+                if (tolower(s[L]) != tolower(s[R])) return false;
+                ++ L, -- R;
+            }
+        }
+        
+        return true;
+    }
+};
+
+
+//
+// This works too.
+//
+class Solution3 {
+public:
+    bool isPalindrome(string s) {
+        if (s.length() == 0) return true;
+        
+        int L = 0, R = s.length() - 1;
+        
+        while (L < R) {
+            while (! isAN(s[L]) && L < R) ++ L;
+            while (! isAN(s[R]) && L < R) -- R;
             
-            if (toLC(s[i]) != toLC(s[j])) return false;
-            ++ i;
-            -- j;
+            if (toLower(s[L]) != toLower(s[R])) return false;
+            ++ L, -- R;
         }
         
         return true;
     }
     
-    char toLC(char c) {
-        if (c >= 'A' && c <= 'Z') return c - 'A' + 'a';
-        return c;
+    bool isAN(char c) {
+        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
     }
     
-    bool isAN(char c) {
-        if (c >= 'a' && c <= 'z') return true;
-        if (c >= 'A' && c <= 'Z') return true;
-        if (c >= '0' && c <= '9') return true;
-        return false;
-    }   
-    
+    char toLower(char c) {
+        if (c >= 'A' && c <= 'Z') {
+            return c - 'A' + 'a';
+        }
+        return c;
+    }
 };
 
 
@@ -71,37 +91,38 @@ public:
 };
 
 
-//
-// This works too.
-//
-class Solution3 {
+class Solution {
 public:
     bool isPalindrome(string s) {
-        if (s.length() == 0) return true;
+        int len = s.length();
+        //if (len == 0) return true;
         
-        int L = 0, R = s.length() - 1;
-        
-        while (L < R) {
-            while (! isAN(s[L]) && L < R) ++ L;
-            while (! isAN(s[R]) && L < R) -- R;
+        int i = 0, j = len - 1;
+        while (i < j) {
+            while (! isAN(s[i]) && i <= len-1 && i < j) ++ i; // NOTE: i <= len-1 is needed!
+            while (! isAN(s[j]) && j >= 0 && i < j) -- j;     // NOTE: j >= 0 is needed!
+            if (i > j) break; 
             
-            if (toLower(s[L]) != toLower(s[R])) return false;
-            ++ L, -- R;
+            if (toLC(s[i]) != toLC(s[j])) return false;
+            ++ i;
+            -- j;
         }
         
         return true;
     }
     
-    bool isAN(char c) {
-        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
-    }
-    
-    char toLower(char c) {
-        if (c >= 'A' && c <= 'Z') {
-            return c - 'A' + 'a';
-        }
+    char toLC(char c) {
+        if (c >= 'A' && c <= 'Z') return c - 'A' + 'a';
         return c;
     }
+    
+    bool isAN(char c) {
+        if (c >= 'a' && c <= 'z') return true;
+        if (c >= 'A' && c <= 'Z') return true;
+        if (c >= '0' && c <= '9') return true;
+        return false;
+    }   
+    
 };
 
 
