@@ -36,11 +36,11 @@ public:
             fast = fast->next->next;
         }
         
-        TreeNode * root = new TreeNode(slow->next->val);
-        ListNode * R = slow->next->next;
-        slow->next = NULL;
+        ListNode * mid = slow->next; // middle node
+        TreeNode * root = new TreeNode(mid->val);
+        slow->next = NULL; // separate first half from the tail.
         root->left = sortedListToBST(head);
-        root->right = sortedListToBST(R);
+        root->right = sortedListToBST(mid->next);
         
         return root;
     }
