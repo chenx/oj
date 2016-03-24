@@ -15,6 +15,36 @@
  * };
  */
 
+// Works. Tested. Best answer so far.
+class Solution3 {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        
+        int carry = 0;
+        for (; l1 && l2; l1 = l1->next, l2 = l2->next) 
+            add(l1->val + l2->val + carry, carry, n);
+            
+        for (; l1; l1 = l1->next) add(l1->val + carry, carry, n);
+        for (; l2; l2 = l2->next) add(l2->val + carry, carry, n);
+        if (carry == 1) add(1, carry, n);
+        
+        return dummy.next;
+    }
+    
+    void add(int sum, int &carry, ListNode *& n) {
+        if (sum >= 10) {
+            sum -= 10;
+            carry = 1;
+        }
+        else carry = 0;
+
+        n->next = new ListNode(sum);
+        n = n->next;
+    }
+};
+
 // This works too.
 class Solution2 {
 public:
