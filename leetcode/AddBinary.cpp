@@ -17,13 +17,18 @@ public:
         string ans;
         
         int n1 = a.length(), n2 = b.length(), len = min(n1, n2), carry = 0, i;
-        for (i = 1; i <= len; ++ i) {
-            add(a[n1 - i] - '0' + b[n2 - i] - '0' + carry, carry, ans);
-        }
         
-        for (; i <= n1; ++ i) add(a[n1 - i] - '0' + carry, carry, ans);
-        for (; i <= n2; ++ i) add(b[n2 - i] - '0' + carry, carry, ans);
-        if (carry == 1) add(1, carry, ans);
+        for (i = 1; i <= len; ++ i) 
+            add(a[n1 - i] - '0' + b[n2 - i] - '0' + carry, carry, ans);
+        
+        for (; i <= n1; ++ i) 
+            add(a[n1 - i] - '0' + carry, carry, ans);
+            
+        for (; i <= n2; ++ i) 
+            add(b[n2 - i] - '0' + carry, carry, ans);
+            
+        if (carry == 1) 
+            add(1, carry, ans);
         
         return ans;
     }
