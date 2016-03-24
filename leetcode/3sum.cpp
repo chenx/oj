@@ -6,6 +6,37 @@
 // @Last modified: 12/13/2012
 //
 
+// Works. Tested. 
+// Use C++11 way of initializing vector, much easier.
+class Solution4 {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+        
+        int n = nums.size();
+        if (n <= 2) return ans;
+        
+        sort(nums.begin(), nums.end());
+        
+        for (int L = 0; L < n - 2; ++ L) {
+            if (L > 0 && nums[L-1] == nums[L]) continue;
+            
+            for (int M = L + 1, R = n - 1; M < R; ) {
+                int sum = nums[L] + nums[M] + nums[R];
+                if (sum == 0) 
+                    ans.push_back({nums[L], nums[M], nums[R]});
+
+                if (sum <= 0) 
+                    while (M < R && nums[M] == nums[++ M]) ;
+                else 
+                    while (M < R && nums[R] == nums[-- R]) ;
+            }
+        }
+        
+        return ans;
+    }
+};
+
 // This works. Improved from Solution_good2.
 class Solution_good3 {
 public:
