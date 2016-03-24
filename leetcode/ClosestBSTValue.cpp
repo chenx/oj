@@ -4,7 +4,7 @@ public:
     int closestValue(TreeNode* root, double target) {
         if (! root) return 0;
         
-        double minDist = abs(root->val - target) + 1;
+        double minDist = abs(root->val - target) + 1; // note this initialization!
         int val = 0;
         getVal(root, target, minDist, val);
         return val;
