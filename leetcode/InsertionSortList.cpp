@@ -7,6 +7,26 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
+// Works too.
+class Solution7 {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        ListNode dummy(0);
+
+        while (head != NULL) {
+            ListNode * n = & dummy;
+            while (n->next && n->next->val < head->val) 
+                n = n->next;
+            
+            ListNode * tail = n->next;
+            n->next = head;
+            head = head->next;
+            n->next->next = tail;
+        }
+
+        return dummy.next;
+    }
+};
 
 // This works too. Best so far. Improved from Solution4.
 class Solution6 {
