@@ -128,5 +128,11 @@
 
 
 - Multiset, lower_bound(), upper_bound(), std::distance().
-
   See implementation in https://github.com/chenx/oj/blob/master/leetcode/CountOfRangeSum.cpp
+
+
+- Intialize vector
+  In C++03: vector<int> v; v.push_back(1);
+  In C++11: vector<int> v {1};
+  See: http://www.informit.com/articles/article.aspx?p=1852519
+  
