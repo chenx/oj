@@ -136,3 +136,12 @@
   In C++11: vector<int> v {1};
   See: http://www.informit.com/articles/article.aspx?p=1852519
   
+
+- find substring in a string: string.find(string s, int start_pos);
+  string s = "abcb";
+  int pos = s.find("b", 0); // returns 1.
+  pos = s.find("b", 1); // returns 1.
+  pos = s.find("b", 2); // returns 3.
+  pos = s.find("d", 0); // returns string::npos = 18446744073709551615
+  
+  
