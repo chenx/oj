@@ -1,4 +1,4 @@
-// Works. 
+// Should work. Not tested. 
 class Solution2 {
 public:
     // (L, M, R). R = R, R-1, ... M+1. that's R - M triplets.
