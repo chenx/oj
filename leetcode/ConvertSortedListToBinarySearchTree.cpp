@@ -22,7 +22,30 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
- 
+
+// Works. Best answer so far. No prev pointer, no dummy head.
+class Solution5 {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if (! head) return NULL;
+        if (! head->next) return new TreeNode(head->val);
+        
+        ListNode * slow = head, * fast = head->next;
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        TreeNode * root = new TreeNode(slow->next->val);
+        ListNode * R = slow->next->next;
+        slow->next = NULL;
+        root->left = sortedListToBST(head);
+        root->right = sortedListToBST(R);
+        
+        return root;
+    }
+};
+
 // Works. Tested. Use a dummy node to simplify code.
 class Solution4 {
 public:
