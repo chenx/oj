@@ -10,6 +10,37 @@
 #include <iostream>
 using namespace std;
 
+// Works. Best answer so far. Concise.
+class Solution5 {
+public:
+    string addBinary(string a, string b) {
+        string ans;
+        
+        int n1 = a.length(), n2 = b.length(), len = min(n1, n2), carry = 0, i;
+        for (i = 1; i <= len; ++ i) {
+            add(a[n1 - i] - '0' + b[n2 - i] - '0' + carry, carry, ans);
+        }
+        
+        for (; i <= n1; ++ i) add(a[n1 - i] - '0' + carry, carry, ans);
+        for (; i <= n2; ++ i) add(b[n2 - i] - '0' + carry, carry, ans);
+        if (carry == 1) add(1, carry, ans);
+        
+        return ans;
+    }
+    
+    void add(int sum, int &carry, string &ans) {
+        if (sum >= 2) {
+            sum -= 2;
+            carry = 1;
+        }
+        else {
+            carry = 0;
+        }
+        
+        ans = to_string(sum) + ans;
+    }
+};
+
 // Second version, use char array. 
 // Note use string would be inconvenient.
 class Solution {
