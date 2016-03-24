@@ -1,3 +1,99 @@
+// Version 2. Works. Clean.
+
+class TrieNode {
+public:
+    // Initialize your data structure here.
+    TrieNode() : val(' '), isEnd(false) {}
+    
+    TrieNode(char c) : val(c), isEnd(false) {}
+    void setVal(char c) { val = c; }
+    char getVal() { return val; }
+    void setEnd(bool end) { isEnd = end; }
+    bool getEnd() { return isEnd; }
+    TrieNode * findChild(char c) {
+        for (auto child : children) {
+            if (child->val == c) return child;
+        }
+        return NULL;
+    }
+    void addChild(TrieNode * child) {
+        children.push_back(child);
+    }
+    vector<TrieNode *> & getChildren() {
+        return children;
+    }
+    
+private:
+    char val;
+    bool isEnd;
+    vector<TrieNode *> children;
+};
+
+class Trie {
+public:
+    Trie() : root(new TrieNode()) {}
+    
+    void insert(string word) {
+        TrieNode * cur = root;
+        
+        for (int i = 0; i < word.length(); ++ i) {
+            TrieNode * child = cur->findChild(word[i]);
+            if (! child) {
+                child = new TrieNode(word[i]);
+                cur->addChild(child);
+            }
+            cur = child;
+        }
+        
+        cur->setEnd(true);
+    }
+    
+    bool search(string word) {
+        return search(word, 0, root);
+    }
+    
+private:
+    bool search(string word, int pos, TrieNode * root) {
+        if (pos == word.length()) return root->getEnd();
+        
+        if (word[pos] == '.') {
+            //vector<TrieNode *> &children = root->getChildren(); //this is ok.
+            for (int i = 0, len = root->getChildren().size(); i < len; ++ i) {
+                if (search(word, pos + 1, root->getChildren()[i]))
+                    return true;
+            }
+            return false;
+        }
+        else {
+            TrieNode * child = root->findChild(word[pos]);
+            if (! child) return false;
+            return search(word, pos + 1, child);
+        }
+    }
+    
+    TrieNode * root;
+};
+
+class WordDictionary {
+private:
+    Trie t;
+    
+public:
+    // Adds a word into the data structure.
+    void addWord(string word) {
+        t.insert(word);
+    }
+
+    // Returns if the word is in the data structure. A word could
+    // contain the dot character '.' to represent any one letter.
+    bool search(string word) {
+        return t.search(word);
+    }
+};
+
+
+
+// Version 1.
 // Works. Tested.
 
 class TrieNode {
