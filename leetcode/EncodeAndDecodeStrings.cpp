@@ -1,3 +1,37 @@
+// Should work. Not tested.
+class Codec4 {
+public:
+    string encode(vector<string>& strs) {
+        string ans;
+        for (int i = 0; i < strs.size(); ++ i) {
+            ans += to_string(strs[i].length()) + "#" + strs[i];
+        }
+        return ans;
+    }
+    
+    // Decodes a single string to a list of strings.
+    vector<string> decode(string s) {
+        vector<string> ans;
+        int i = 0;
+        while (true) {
+            int pos = findPound(s, i);
+            if (pos == -1) break;
+            int len = stoi(s.substr(i, pos - i));
+            ans.push_back(s.substr(pos + 1, len));
+            i = pos + len + 1;
+        }
+        return ans;
+    }
+    
+    int findPound(string s, int p) {
+        for (int i = p; i < s.length(); ++ i) {
+            if (s[i] == '#') return i;
+        }
+        return -1;
+    }
+    
+};
+
 // Works. Tested. 
 // Idea:
 // Encode a string like len#string this way, for example 
