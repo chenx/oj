@@ -6,6 +6,39 @@
 // @Last modified: 1/9/2013
 //
 
+// Works.
+class Solution3 {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int n = nums.size();
+        if (n <= 2) return 0;
+        
+        sort(nums.begin(), nums.end());
+        
+        int minDiff = INT_MAX, minSum = 0;
+        for (int L = 0; L < n - 2; ++ L) {
+            if (L > 0 && nums[L-1] == nums[L]) continue;
+            
+            for (int M = L + 1, R = n - 1; M < R; ) {
+                int sum = nums[L] + nums[M] + nums[R];
+                
+                int diff = abs(sum - target);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    minSum = sum;
+                }
+                
+                if (sum <= target) 
+                    while (M < R && nums[M] == nums[++ M]) ;
+                else 
+                    while (M < R && nums[R] == nums[-- R]) ;
+            }
+        }
+        
+        return minSum;
+    }
+};
+
 // This works too. Avoid dupliate entries by statements labeled with "//<-"
 class Solution2 {
 public:
