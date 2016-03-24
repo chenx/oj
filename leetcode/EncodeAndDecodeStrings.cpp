@@ -15,7 +15,11 @@ public:
         int i = 0;
         while (true) {
             int pos = findPound(s, i);
-            if (pos == -1) break;
+            if (pos == -1) break; 
+            // use code below should work. Not tested.
+            // int pos = s.find("#", i);
+            // if (pos == string::npos) break; // string::npos = 18446744073709551615
+            
             int len = stoi(s.substr(i, pos - i));
             ans.push_back(s.substr(pos + 1, len));
             i = pos + len + 1;
