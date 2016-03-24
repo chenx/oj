@@ -1,3 +1,26 @@
+// Works. 
+class Solution2 {
+public:
+    // (L, M, R). R = R, R-1, ... M+1. that's R - M triplets.
+    // e.g., R = M+1, then (L, M, M+1) contains R-M = 1 such triplet.
+    int threeSumSmaller(vector<int>& nums, int target) {
+        int ans = 0;
+        int n = nums.size();
+
+        for (int L = 0; L < n - 2; ++ L) {
+            for (int M = L + 1, R = n - 1; M < R; ) {
+                if (nums[L] + nums[M] + nums[R] < target) {
+                    ans += R - M;
+                    ++ M;
+                }
+                else -- R;
+            }
+        }
+        
+        return ans;
+    }     
+};
+
 // This works. Tested.
 class Solution {
 public:
