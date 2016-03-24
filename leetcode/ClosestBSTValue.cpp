@@ -1,3 +1,29 @@
+// Should work. Not tested. O(n).
+class Solution4 {
+public:
+    int closestValue(TreeNode* root, double target) {
+        if (! root) return 0;
+        
+        double minDist = abs(root->val - target) + 1;
+        int val = 0;
+        getVal(root, target, minDist, val);
+        return val;
+    }     
+    
+    void getVal(TreeNode * root, double target, double &minDist, int &val) {
+        if (! root) return;
+        
+        double dist = abs(root->val - target);
+        if (dist < minDist) {
+            minDist = dist;
+            val = root->val;
+        }
+        
+        getVal(root->left, target, minDist, val);
+        getVal(root->right, target, minDist, val);
+    }
+};
+
 // Should work. Not tested. O(logn).
 class Solution3 {
 public:
@@ -19,6 +45,7 @@ public:
             val = root->val;
         }
         
+        // there may be error with the conditionals here...
         if (target < root->val) helper(root->left, target, mdiff, val);
         else if (target > root->val) helper(root->right, target, mdiff, val);
     }
