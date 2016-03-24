@@ -6,6 +6,22 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+// Works. But I prefer Solution2.
+class Solution3 {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int na = 0, nb = 0;
+        for (ListNode * h = headA; h; h = h->next) ++ na;
+        for (ListNode * h = headB; h; h = h->next) ++ nb;
+        
+        if (na > nb) for (int i = na - nb; i > 0; --i, headA = headA->next) ;
+        else for (int i = nb - na; i > 0; -- i, headB = headB->next) ;
+        
+        for (; headA != headB; headA = headA->next, headB = headB->next) ;
+        return headA;
+    }
+};
  
 // Works.
 class Solution2 {
