@@ -243,5 +243,5 @@ class MyComp implements Comparator<ListNode> {
     Hashtable does not allow NULL in key/value, HashMap and HashSet does.
   - TreeMap is red-black tree. TreeSet is based on TreeMap.
   - LinkedTreeSet is based on TreeSet, but use a DLL to provider order.
-  - Queue can be LinkedList (DLL) or PriorityQueue (guess is array)
+  - Queue can be LinkedList (DLL) or PriorityQueue (array)
 
