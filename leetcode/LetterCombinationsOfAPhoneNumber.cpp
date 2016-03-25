@@ -5,6 +5,33 @@
 // @Last modified: 1/15/2013
 //
 
+// Works.
+class Solution5 {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        if (digits == "") return ans;
+        
+        string s;
+        getComb(ans, s, digits, 0);
+        return ans;
+    }
+    
+    void getComb(vector<string> &ans, string s, string digits, int pos) {
+        if (pos == digits.length()) {
+            ans.push_back(s);
+            return;
+        }
+        
+        static vector<string> m {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        
+        string str = m[digits[pos] - '0'];
+        for (int i = 0, len = str.length(); i < len; ++ i) {
+            getComb(ans, s + str[i], digits, pos + 1);
+        }
+    }
+};
+
 // Works. Clean. 2/4/2016.
 class Solution4 {
 public:
