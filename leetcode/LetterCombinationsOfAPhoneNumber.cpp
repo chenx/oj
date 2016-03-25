@@ -24,6 +24,8 @@ public:
         }
         
         static vector<string> m {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        // this works the same:
+        // static string m[] = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         
         string str = m[digits[pos] - '0'];
         for (int i = 0, len = str.length(); i < len; ++ i) {
