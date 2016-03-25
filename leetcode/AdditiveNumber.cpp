@@ -1,3 +1,36 @@
+// Works. Slightly improved from Solution2.
+class Solution4 {
+public:
+    bool isAdditiveNumber(string num) {
+        int n = num.length();
+        for (int i = 1; i < n; ++ i) {
+            for (int j = 1; j < n - i; ++ j) {
+                if (isGood(num.substr(0, i), num.substr(i, j), num.substr(i+j)))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    bool isGood(string s1, string s2, string s) {
+        if (! validNum(s1) || ! validNum(s2) || ! validNum(s)) return false;
+
+        long long sum = stoll(s1) + stoll(s2);
+        int len = (int) log10(sum) + 1;
+        string s3 = s.substr(0, len);
+        
+        if (stoll(s3) != sum) return false;
+        if (len == s.length()) return true;
+        
+        return isGood(s2, s3, s.substr(len));
+    }
+    
+    bool validNum(string s) {
+        if (s.length() > 1 && s[0] == '0') return false;
+        return true;
+    }
+};
+
 // Works. Tested. But Solution2 may be better.
 class Solution3 {
 public:
