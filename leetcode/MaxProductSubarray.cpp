@@ -1,4 +1,19 @@
 // Works too. Tested.
+class Solution3 {
+public:
+    int maxProduct(vector<int>& nums) {
+        int minv = nums[0], maxv = nums[0], mp = nums[0];
+        for (int i = 1; i < nums.size(); ++ i) {
+            int ma = maxv, mi = minv; 
+            minv = min(min(nums[i], ma * nums[i]), mi * nums[i]);
+            maxv = max(max(nums[i], ma * nums[i]), mi * nums[i]);
+            mp = max(mp, maxv);
+        }
+        return mp;
+    }
+};
+
+// Works too. Tested.
 class Solution2 {
 public:
     int maxProduct(vector<int>& nums) {
