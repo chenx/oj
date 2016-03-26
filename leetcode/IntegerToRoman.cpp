@@ -1,5 +1,5 @@
 //
-// Symbol 	Value
+// Symbol Value
 // I 	    1
 // V 	    5
 // X 	    10
@@ -15,6 +15,12 @@
 //        and ninety is XC (ten less than a hundred)
 //    C placed before D or M indicates a hundred less, so four hundred is CD (a 
 //        hundred less than five hundred) and nine hundred is CM (a hundred less than a thousand)[5]
+//
+// To convert number to Roman:
+//    for each symbol s (including combined symbol):
+//        while (number > s)
+//            number -= s
+//            roman.append(s)
 //
 // See: https://en.wikipedia.org/wiki/Roman_numerals
 //
