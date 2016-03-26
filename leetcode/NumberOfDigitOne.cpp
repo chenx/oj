@@ -8,7 +8,7 @@ public:
         for (long long m = 1; m <= n; m *= 10) {
             int cur = (n/m) % 10, 
                 high = (n/m) / 10,
-                low = n - (n/m)*m;
+                low = n - (n/m) * m;
                 
             if (cur < k) ct += high * m;
             else if (cur == k) ct += high * m + low + 1;
