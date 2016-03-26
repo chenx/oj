@@ -8,7 +8,12 @@
 // This works too.
 // More clean. 
 // Basically, Roman number is written from large digit to small digit.
-// If cur digit > prev digit, then should minus prev digit from sum.
+// To convert Roman to integer:
+//     sum starts at 0, prev = first digit
+//     if cur digit > prev digit, then sum -= prev
+//     else sum += prev
+//     at end of loop, sum += the final prev
+// 
 class Solution2 {
 public:
     int romanToInt(string s) {
