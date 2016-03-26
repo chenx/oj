@@ -1,3 +1,28 @@
+// Should Work. Not tested.
+class Solution2 {
+    bool IsOneEditDistance(string s, string t) {
+        int n1 = s.length(), n2 = t.length();
+        if (n1 > n2) return IsOneEditDistance(t, s);
+        if (n2 > n1 + 1) return false;
+
+        if (n1 == n2) {
+            int ct = 0;
+            for (int i = 0; i < n1; ++ i) {
+                if (s[i] != t[i]) ++ ct;
+                if (ct == 2) return false;
+            }
+            return ct == 1;
+        }
+        else {
+            int i = 0;
+            for (; i < n1 && s[i] == t[i]; ++ i) ;
+            // if i == n1, should be true, the below statement will be ignored.
+            for (; i < n1 && s[i] == t[i+1]; ++ i) ;
+            return i == n1;
+        }
+    }
+};
+
 // Works. Tested.
 class Solution {
     bool IsOneEditDistance(string s, string t) {
