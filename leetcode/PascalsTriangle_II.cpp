@@ -105,7 +105,7 @@ public:
     }
 }
 
-// This works too.
+// This works too. Maybe best so far.
 // Note the use of function fill() on vector.
 // ex:
 // row 0: 1
@@ -115,11 +115,11 @@ public:
 class Solution6 {
 public:
     vector<int> getRow(int rowIndex) {
-        vector<int> row(rowIndex + 1);
-        fill(row.begin(), row.end(), 1);
+        vector<int> row(rowIndex + 1, 1);
+        //fill(row.begin(), row.end(), 1);
         
         for (int i = 2; i <= rowIndex; ++ i) {
-            for (int j = i - 1; j > 0; -- j) {
+            for (int j = i - 1; j > 0; -- j) { // backward !
                 row[j] += row[j - 1];
             }
         } 
