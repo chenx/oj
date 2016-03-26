@@ -1,3 +1,24 @@
+// Works. Can extend to k = 1,2,...,9.
+class Solution4 {
+public:
+    int countDigitOne(int n) {
+        if (n < 1) return 0;
+        
+        int ct = 0, k = 1;
+        for (long long m = 1; m <= n; m *= 10) {
+            int cur = (n/m) % 10, 
+                high = (n/m) / 10,
+                low = n - (n/m)*m;
+                
+            if (cur < k) ct += high * m;
+            else if (cur == k) ct += high * m + low + 1;
+            else ct += (high + 1) * m;
+        }
+        
+        return ct;
+    }
+};
+
 // Works. Tested. Extended version, works for k = 1-9, but not 0.
 class Solution3 {
 public:
