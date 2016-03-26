@@ -9,9 +9,10 @@
 // More clean. 
 // Basically, Roman number is written from large digit to small digit.
 // To convert Roman to integer:
-//     sum starts at 0, prev = first digit
-//     if cur digit > prev digit, then sum -= prev
-//     else sum += prev
+//     sum starts at 0, prev = 1st digit
+//     for each 2nd to nth digit cur:
+//         if cur > prev, then sum -= prev
+//         else sum += prev
 //     at end of loop, sum += the final prev
 // 
 class Solution2 {
