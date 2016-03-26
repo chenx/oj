@@ -1,3 +1,61 @@
+// Should work. Tested locally but no on lc.
+// Seems more clean than Solution.
+class Solution2 {
+public:
+    string alienOrder(vector<string>& words) {
+        set<char> used;
+
+        for (int i = 0; i < words.size(); ++ i) {
+            for (int j = 0; j < words[i].length(); ++ j) {
+                char c = words[i][j];
+                if (! used.count(c)) {
+                    used.insert(c);
+                }
+            }
+        }
+
+        map<char, set<char> > in;
+        map<char, set<char> > out;
+
+        for (int i = 1; i < words.size(); ++ i) {
+            int len = min(words[i-1].length(), words[i].length());
+            for (int j = 0; j < len; ++ j) {
+                if (words[i-1][j] != words[i][j]) {
+                    in[words[i][j]].insert(words[i-1][j]); // in char.
+                    out[words[i-1][j]].insert(words[i][j]);
+                    break;
+                }
+            }
+        }
+
+        string alphabet = "";
+        while (used.size() > 0) {
+            bool found = false;
+            // for (char c : used) {
+            for (set<char>::iterator it = used.begin(); it != used.end(); ++ it) {
+                char c = (*it);
+
+                if (in[c].size() == 0) {
+                    found = true;
+                    alphabet += c;
+
+                    //for (char d : out[c]) {
+                    for (set<char>::iterator jt = out[c].begin(); jt != out[c].end(); ++ jt) {
+                        char d = (*jt);
+                        in[d].erase(c);
+                    }
+
+                    used.erase(c);
+                }
+            }
+            if (! found) break; // cycle found. Won't work.
+        }
+
+        return alphabet;
+    }
+};
+
+
 // Works. Tested. Modified from:
 // https://leetcode.com/discuss/68091/share-my-4ms-c-toposort-code-beats-92-98%25-of-cpp-submissions
 class Solution {
