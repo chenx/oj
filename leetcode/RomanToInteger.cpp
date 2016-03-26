@@ -8,7 +8,7 @@
 // This works too.
 // More clean. 
 // Basically, Roman number is written from large digit to small digit.
-// If cur digit > prev digit, then should minor prev digit from sum.
+// If cur digit > prev digit, then should minus prev digit from sum.
 class Solution2 {
 public:
     int romanToInt(string s) {
@@ -66,3 +66,13 @@ public:
         else if (c == 'M') return 1000;
     }
 };
+
+
+/**
+Roman to Integer
+Difficulty: Easy
+
+Given a roman numeral, convert it to an integer.
+
+Input is guaranteed to be within the range from 1 to 3999.
+ */
