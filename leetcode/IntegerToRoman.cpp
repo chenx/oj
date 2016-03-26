@@ -5,8 +5,8 @@
 // X 	    10
 // L 	    50
 // C 	    100
-// D    	500
-// M    	1,000
+// D    500
+// M    1,000
 // 
 // Subtractive notation is often used as follows:
 //    I placed before V or X indicates one less, so four is IV (one less than five) 
