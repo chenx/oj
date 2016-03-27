@@ -1,3 +1,105 @@
+// Solution4. Works. Tested. By: XC.
+
+class Node {
+private:
+    char val;
+    bool isEnd;
+    vector<Node *> children;
+public:    
+    Node(char c) : val(c), isEnd(false) {}
+    void setVal(char c) { val = c; }
+    char getVal() { return val; }
+    void setIsEnd(bool end) { isEnd = end; }
+    bool getIsEnd() { return isEnd; }
+
+    Node * findChild(char c) {
+        for (int i = 0; i < children.size(); ++ i) {
+            if (c == children[i]->val) return children[i];
+        }
+        return NULL;
+    }
+    void addChild(Node * c) {
+        children.push_back(c);
+    }
+};
+
+class Trie {
+private:
+    Node * root;
+public:
+    Trie() { root = new Node(' '); }
+    
+    void insert(string word) {
+        Node * cur = root;
+        
+        for (int i = 0; i < word.length(); ++ i) {
+            Node * c = cur->findChild(word[i]);
+            if (c == NULL) {
+                c = new Node(word[i]);
+                cur->addChild(c);
+            }
+            cur = c;
+        }
+        
+        cur->setIsEnd(true);
+    }
+    
+    Node * getRoot() {
+        return root;
+    }
+};
+
+
+class Solution4 {
+    int m, n;
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string> ans;
+        if (board.size() == 0 || board[0].size() == 0) return ans;
+        m = board.size(), n = board[0].size();
+        
+        Trie t;
+        for (auto w : words) t.insert(w);
+        
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                find(board, i, j, t.getRoot(), "", ans);
+            }
+        }
+        
+        return ans;
+    }
+    
+    void find(vector<vector<char>>& board, int i, int j, Node * root, string w, vector<string> & ans) {
+        Node * c = root->findChild(board[i][j]);
+        if (c == NULL) return;
+        
+        char val = board[i][j];
+        w += val;
+        
+        if (c->getIsEnd()) {
+            ans.push_back(w);
+            c->setIsEnd(false); // don't return, continue to search below.
+        }
+
+        board[i][j] = '_';
+        
+        for (int k = 0; k < dirs.size(); ++ k) {
+            int x = i + dirs[k][0], y = j + dirs[k][1];
+            if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] != '_') {
+                find(board, x, y, c, w, ans);
+            }
+        }
+        
+        board[i][j] = val;
+        w.pop_back();
+    }
+    
+    vector<vector<int>> dirs = {
+        {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+    };
+};
+
 // Works. Tested. Better than Solution.
 // From: https://leetcode.com/discuss/83660/recommend-beginners-implementation-detailed-explanation
 
