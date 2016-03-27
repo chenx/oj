@@ -1,3 +1,20 @@
+// Should work. Not tested.
+class Solution2 {
+public:
+    bool canPermutePalindrome(string s) {
+        unordered_map<char, int> m;
+        for (auto c : s) m[c] ++;
+
+        int odd_ct = 0;
+        for (auto i : m) {
+            if (i.second & 1) ++ odd_ct;
+        }
+        
+        if (s.length() & 1) return odd_ct == 1;
+        return odd_ct == 0;
+    }
+};
+
 // Works. Tested. By: XC
 // Palindrome iff:
 // when s.length() is even, no char happens odd times;
