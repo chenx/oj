@@ -1,3 +1,30 @@
+// Works. Modified from Solution3, use function instead of macro.
+// Solution3 still is much more clear.
+class Solution4 {
+    int m;
+public:
+    void wiggleSort(vector<int>& nums) {
+        int n = nums.size();
+        //if (n <= 1) return; // with or without this, both ok.
+        m = (n % 2 == 0) ? (n + 1) : n;
+        
+        auto midptr = nums.begin() + n / 2;
+        nth_element(nums.begin(), midptr, nums.end());
+        int mid = *midptr;
+        
+        int L = 0, R = n - 1, p = 0;
+        while (p <= R) {
+            if (nums[A(p)] > mid) swap(nums[A(p ++)], nums[A(L ++)]);
+            else if (nums[A(p)] < mid) swap(nums[A(p)], nums[A(R --)]);
+            else ++ p;
+        }
+    }
+    
+    int A(int i) {
+        return (1 + 2*i) % m;
+    }
+};    
+    
 // Works. Tested. Modified from Solution2, easier to understand in while loop.
 class Solution3 {
 public:
