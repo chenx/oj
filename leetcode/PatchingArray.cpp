@@ -7,7 +7,7 @@ public:
         long long top = 0;
         while (top < n) {
             if (index < size && nums[index] <= top + 1) { 
-                // add numbers[index].
+                // add nums[index].
                 top += nums[index];
                 ++ index;
             }
