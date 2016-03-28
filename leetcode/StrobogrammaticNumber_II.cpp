@@ -6,18 +6,19 @@ public:
         return find(true, n);
     }
 
-    vector<string> find(int isFirstLevel, int n) {
+    vector<string> find(bool isFirstLevel, int n) {
+        vector<string> v;
         if (n <= 0) return {""}; // or vector<string>({""});
         if (n == 1) return {"0", "1", "8"};
 
-        vector<string> t = find(false, n - 2), v;
+        vector<string> t = find(false, n - 2);
 
         for (int i = 0; i < t.size(); ++ i) {
             string s = t[i];
-            if (isFirstLevel) { v.push_back("0" + s + "0"); }
+            if (! isFirstLevel) { v.push_back("0" + s + "0"); }
             v.push_back("1" + s + "1");
-            v.push_back("8" + s + "8");
             v.push_back("6" + s + "9");
+            v.push_back("8" + s + "8");
             v.push_back("9" + s + "6");
         }
 
