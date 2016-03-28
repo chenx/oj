@@ -5,6 +5,67 @@
 // @Last modified: 1/9/2013
 //
 
+// Works too.
+class Solution4 {
+public:
+    string multiply(string num1, string num2) {
+        if (num1 == "0" || num2 == "0") return "0";
+        
+        string ans = "0";
+        for (int i = num2.size() - 1; i >= 0; -- i) {
+            ans = add (ans, shift_left(mul(num1, num2[i]), num2.size() - 1 - i));
+        }
+        return ans;
+    }
+    
+    string mul(string n, char c) {
+        string ans;
+        int carry = 0;
+        for (int i = n.length() - 1; i >= 0; -- i) {
+            add( (n[i] - '0') * (c - '0') + carry, carry, ans );
+        }
+        if (carry > 0) {
+            //char c = '0' + carry;
+            ans = to_string(carry) + ans;
+        }
+        return ans;
+    }
+    
+    void add(int val, int &carry, string & ans) {
+        if (val >= 10) {
+            carry = val / 10;
+            val %= 10;
+        }
+        else {
+            carry = 0;
+        }
+        //char c = val + '0';
+        ans = to_string(val) + ans;
+    }
+    
+    string shift_left(string n, int pos) {
+        return n + string(pos, '0');
+    }
+    
+    string add(string a, string b) {
+        string sum;
+        int ai = a.length() - 1, bi = b.length() - 1, carry = 0;
+        for (; ai >= 0 && bi >= 0; -- ai, -- bi) {
+            add(a[ai] - '0' + b[bi] - '0' + carry, carry, sum);
+        }
+        for (; ai >= 0; -- ai) {
+            add(a[ai] - '0' + carry, carry, sum);
+        }
+        for (; bi >= 0; -- bi) {
+            add(b[bi] - '0' + carry, carry, sum);
+        }
+        if (carry > 0) {
+            add(carry, carry, sum);
+        }
+        return sum;
+    }
+};
+
 // Method:
 // Multiply each digit of num2 with num1, add to product with 0 padding.
 //
