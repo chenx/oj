@@ -1,4 +1,5 @@
-class Solution {
+// Should work. Tested locally against Solution.
+class Solution3 {
 public:
     // compare s1, s2. returns true if s1 <= s2.
     bool le(string s1, string s2) {
