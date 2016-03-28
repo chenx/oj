@@ -9,7 +9,7 @@
 class Solution4 {
 public:
     string multiply(string num1, string num2) {
-        if (num1 == "0" || num2 == "0") return "0";
+        if (num1 == "0" || num2 == "0") return "0"; // note this, to avoid sth like "0000".
         
         string ans = "0";
         for (int i = num2.size() - 1; i >= 0; -- i) {
@@ -26,21 +26,21 @@ public:
         }
         if (carry > 0) {
             //char c = '0' + carry;
-            ans = to_string(carry) + ans;
+            ans = to_string(carry) + ans; // ans = c + ans works too.
         }
         return ans;
     }
     
     void add(int val, int &carry, string & ans) {
         if (val >= 10) {
-            carry = val / 10;
-            val %= 10;
+            carry = val / 10; // this goes before val %= 10.
+            val %= 10; 
         }
         else {
             carry = 0;
         }
         //char c = val + '0';
-        ans = to_string(val) + ans;
+        ans = to_string(val) + ans; // ans = c + ans works too.
     }
     
     string shift_left(string n, int pos) {
