@@ -1,3 +1,57 @@
+class Solution {
+public:
+    // compare s1, s2. returns true if s1 <= s2.
+    bool le(string s1, string s2) {
+        return stoi(s1) <= stoi(s2);
+    }
+
+    void getCount(const string& low, const string& high, string t, int & cnt) {
+        if (high.length() < t.length()) return;
+
+        if (le(low, t) && le(t, high)) {
+            if (t.length() == 1 || (t.length() > 1 && t[0] != '0')) ++ cnt;
+        }
+
+        for (int i = 0; i < nums.size(); ++ i) {
+            getCount(low, high, nums[i][0] + t + nums[i][1], cnt);
+        }
+    }
+
+    int strobogrammaticInRange(string low, string high) {
+        if (! le(low, high)) return 0;
+
+        int cnt = 0;
+        getCount(low, high, "", cnt);
+        getCount(low, high, "0", cnt);
+        getCount(low, high, "1", cnt);
+        getCount(low, high, "8", cnt);
+
+        return cnt;
+    }
+
+    vector<vector<string> > nums = {
+        {"0", "0"}, {"1", "1"}, {"6", "9"}, {"8", "8"}, {"9", "6"}
+    };
+    
+    /*
+    int stoi(string s) {
+        stringstream ss(s);
+        int val;
+        ss >> val;
+        return val;
+    }
+    
+    Solution() {
+        vector<string> v(2);
+        v[0] = "0", v[1] = "0"; nums.push_back(v);
+        v[0] = "1", v[1] = "1"; nums.push_back(v);
+        v[0] = "6", v[1] = "9"; nums.push_back(v);
+        v[0] = "8", v[1] = "8"; nums.push_back(v);
+        v[0] = "9", v[1] = "6"; nums.push_back(v);
+    }*/
+};
+
+
 // Works too. Tested.
 // From: https://leetcode.com/discuss/53191/c-accepted-solution
 class Solution2 {
