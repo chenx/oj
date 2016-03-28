@@ -1,3 +1,26 @@
+// Works. Basically same as Solution, but written easier to understand.
+// Basically there is a gap when nums[index] > top + 1, and need patch.
+class Solution3 {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        int size = nums.size(), index = 0, ct = 0;
+        long long top = 0;
+        while (top < n) {
+            if (index < size && nums[index] <= top + 1) { 
+                // add numbers[index].
+                top += nums[index];
+                ++ index;
+            }
+            else { 
+                // there is gap now, add number top+1.
+                top = 2 * top + 1;
+                ++ ct;
+            }
+        }
+        return ct;
+    }
+};
+
 // Works. From: https://leetcode.com/discuss/83570/simple-c-solution
 //
 // Basic idea is to check every nid from 1 to n. If number from nums 
