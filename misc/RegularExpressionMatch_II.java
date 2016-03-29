@@ -1,3 +1,22 @@
+/**
+ * http://www.mitbbs.com/article_t/JobHunting/33163293.html
+发信人: SpringMVC (Tutorial), 信区: JobHunting
+标  题: 一道leetcode变种，twitter常考，怎么做？
+发信站: BBS 未名空间站 (Wed Mar 23 01:07:43 2016, 美东)
+
+pattern match的题
+//  Text: a-z, A-Z, 0-9
+//  Pattern: a-z, A-z, 0-9, +, *
+//  + = 1 or more times
+//  * = 0 or more times. 围观我们@1point 3 acres
+// 
+//  Pattern: a+b
+//  Text: aab, b return true-google 1point3acres
+//
+//  Pattern: a+b*
+//  Text: aab, aa  return true
+*/
+
 public class RegularExpressionMatch_II {
     public boolean match(String s, String p) {
         return match(s, 0, p, 0);
