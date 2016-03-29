@@ -1,3 +1,32 @@
+// Works. Tested.
+// Modified from: https://leetcode.com/discuss/87618/sharing-my-4ms-c-solution
+class Solution3 {
+public:
+    string shortestPalindrome(string s) {
+        int n = s.length(), leftMost=0, rightMost=0;
+        int i = 0, start, end;
+        while (i < n) { // get longest palindrome starting from s[0]
+            start = i;
+            while (s[i]==s[start]) ++ i;
+
+            end = i-1;
+            while (start-1>=0 && end+1<n && s[start-1]==s[end+1]) {
+                start--; end++;
+            }
+            if (start == 0 && (end-start) > (rightMost-leftMost)) {
+                leftMost = 0; rightMost = end;
+            }
+        }
+
+        string tail;
+        if (rightMost < n-1) { // get part after palindrome, reverse it
+            tail = s.substr(rightMost+1, n-rightMost); 
+            reverse(tail.begin(), tail.end());
+        }
+        return tail + s;
+    }
+};    
+    
 /*
 Comment from: https://leetcode.com/discuss/52616/easy-c-manacher
 
@@ -19,7 +48,7 @@ article if you want to know how it works.
 
 // Works. Tested. Y?
 // From: https://leetcode.com/discuss/81299/c-4ms-manacher
-class Solution {
+class Solution2 {
 public:
     string shortestPalindrome(string s) {
         if(s == "") return s;
