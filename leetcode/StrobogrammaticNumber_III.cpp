@@ -1,3 +1,36 @@
+// Works. Same as Solution3 but simplified.
+class Solution4 {
+public:
+    int strobogrammaticInRange(string low, string high) {
+        if (le(high, low)) return 0;
+        
+        int ct = 0;
+        getCount(low, high, "", ct);
+        getCount(low, high, "0", ct);
+        getCount(low, high, "1", ct);
+        getCount(low, high, "8", ct);
+        return ct;
+    }
+
+    void getCount(string low, string high, string s, int &ct) {
+        if (high.length() < s.length()) return;
+
+        if (le(low, s) && le(s, high)) {
+            if (s.length() > 0 && s[0] != '0') ++ ct;
+        }
+
+        getCount(low, high, "0" + s + "0", ct);
+        getCount(low, high, "1" + s + "1", ct);
+        getCount(low, high, "6" + s + "9", ct);
+        getCount(low, high, "8" + s + "8", ct);
+        getCount(low, high, "9" + s + "6", ct);
+    }
+    
+    bool le(string a, string b) {
+        return stoi(a) <= stoi(b);
+    }
+};
+
 // Should work. Tested locally against Solution.
 class Solution3 {
 public:
