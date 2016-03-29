@@ -16,7 +16,11 @@ public:
             while (ans != "" && count[ans.back()] > 0 && ans.back() > c) {
                 // ans.back() > c: this char is greater than c lexicographically.
                 // count[ans.back()] > 0: guarantees this char will be used later.
+                //
                 // Question: what if ans.back() > c and count[ans.back()] == 0?
+                // Answer: then ans.back() is kept. ans is not alphabetical any way.
+                // E.g.: zabcc -> zabc. 'z' is such a char, and is kept, zabc is
+                // the smallest in lexicographic order in terms of give condition.
                 used[ans.back()] = false;
                 ans.pop_back();
             }
