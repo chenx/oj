@@ -1,27 +1,28 @@
-// Same as Solution. Re-written to be easier to understand.
+// Basically same as Solution. Easier to understand.
 class Solution2 {
 public:
     string removeDuplicateLetters(string s) {
-        int counts[26] = {0};
-        bool inresult[26] = {false};
-        for (char c: s) counts[c-'a'] ++;
+        int count[256] = {0};
+        bool used[256] = {false};
         
-        string result = "";
+        for (char c : s) count[c] ++;
+        
+        string ans;
         for (int i = 0; i < s.length(); ++ i) {
             char c = s[i];
-            counts[c-'a'] --;
-            if (inresult[c-'a']) continue; // already used in result string.
+            count[c] --;
+            if (used[c]) continue;
             
-            while (result != "" && counts[result.back()-'a'] > 0 && result.back() > c) {
-                // pop char greater than c in lexicographical order.
-                // "counts[result.back()-'a'] > 0" guarantees this char will be used later.
-                inresult[result.back()-'a'] = false;
-                result.pop_back();
+            while (ans != "" && count[ans.back()] > 0 && ans.back() > c) {
+                used[ans.back()] = false;
+                ans.pop_back();
             }
-            inresult[c-'a'] = true;
-            result.push_back(c);
+
+            used[c] = true;
+            ans += c;
         }
-        return result;
+        
+        return ans;
     }
 };
 
