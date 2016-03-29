@@ -1,3 +1,30 @@
+// Same as Solution. Re-written to be easier to understand.
+class Solution2 {
+public:
+    string removeDuplicateLetters(string s) {
+        int counts[26] = {0};
+        bool inresult[26] = {false};
+        for (char c: s) counts[c-'a'] ++;
+        
+        string result = "";
+        for (int i = 0; i < s.length(); ++ i) {
+            char c = s[i];
+            counts[c-'a'] --;
+            if (inresult[c-'a']) continue; // already used in result string.
+            
+            while (result != "" && counts[result.back()-'a'] > 0 && result.back() > c) {
+                // pop char greater than c in lexicographical order.
+                // "counts[result.back()-'a'] > 0" guarantees this char will be used later.
+                inresult[result.back()-'a'] = false;
+                result.pop_back();
+            }
+            inresult[c-'a'] = true;
+            result.push_back(c);
+        }
+        return result;
+    }
+};
+
 // From: https://leetcode.com/discuss/76639/o-n-c-solution
 class Solution {
 public:
