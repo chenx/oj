@@ -1,6 +1,43 @@
 // Another solution:
 // https://leetcode.com/discuss/81478/easy-short-concise-and-fast-java-dfs-3-ms-solution
 
+// Works. Modified from Solution to be more clear.
+class Solution2 {
+public:
+    vector<string> removeInvalidParentheses(string s) {
+        vector<string> res;
+        int maxLeftCount = 0;
+        dfs(res, s, "", 0, 0, maxLeftCount);
+        if (res.size() == 0) res.push_back("");
+        return res;
+    }
+
+    // s: input string; p: valid parentheses string; diff: # of '(' minus # of ')';
+    // leftCount: number of '(' in valid p. maxLeftCount: max value of leftCount.
+    void dfs(vector<string> &res, string s, string p, int diff, int leftCount, int & maxLeftCount){
+        if (s == "") {
+            if (diff == 0 && p != "") {
+                maxLeftCount = max(maxLeftCount, leftCount);
+                if (maxLeftCount == leftCount && 
+                    find(res.begin(), res.end(), p) == res.end()) {
+                    res.push_back(p);
+                }
+            }
+            return;
+        }
+        
+        if (s[0] == '(') {
+            dfs(res, s.substr(1), p + '(', diff + 1, leftCount + 1, maxLeftCount); 
+            dfs(res, s.substr(1), p, diff, leftCount, maxLeftCount); // remove this '('.
+        } else if (s[0] == ')') {
+            if (diff > 0) dfs(res, s.substr(1), p + ')', diff - 1, leftCount, maxLeftCount);
+            dfs(res, s.substr(1), p, diff, leftCount, maxLeftCount); // remove this ')'.
+        } else {
+            dfs(res, s.substr(1), p + s[0], diff, leftCount, maxLeftCount); // ignore letter.
+        }
+    }
+};
+
 // Works. From: https://leetcode.com/discuss/68272/straight-forward-solution-with-explanation
 class Solution {
 public:
