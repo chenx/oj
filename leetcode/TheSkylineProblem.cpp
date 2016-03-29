@@ -1,30 +1,30 @@
-// Works. Same as Solution3.
+// Works. Same as Solution3, rewritten to be more clear.
 class Solution4 {
 public:
     vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
         vector<pair<int, int>> edges;
         for (auto b : buildings) {
             int L = b[0], R = b[1], H = b[2];
-            edges.push_back(make_pair(L, -H));
-            edges.push_back(make_pair(R,  H));
+            edges.push_back(pair<int, int>(L, -H));
+            edges.push_back(pair<int, int>(R,  H));
         }
         sort(edges.begin(), edges.end());
         
         vector<pair<int, int>> ans;
-        multiset<int> m;
-        m.insert(0);
+        multiset<int> ht; // height.
+        ht.insert(0); // start height is 0, ground level.
         
-        int prev = 0, cur = 0;
+        int prevH = 0, curH = 0; // previous and current height.
         for (int i = 0; i < edges.size(); ++ i) {
             pair<int, int> & e = edges[i];
+            if (e.second < 0) ht.insert(- e.second); // add edge
+            else ht.erase(ht.find(e.second));        // remove edge
             
-            if (e.second < 0) m.insert(- e.second);
-            else m.erase(m.find(e.second));
-            
-            int cur = *(m.rbegin());
-            if (cur != prev) {
-                ans.push_back(pair<int, int>(e.first, cur));
-                prev = cur;
+            // current largest height. This works too: *(-- ht.end()); 
+            int curH = * ht.rbegin(); 
+            if (curH != prevH) {
+                ans.push_back(pair<int, int>(e.first, curH));
+                prevH = curH;
             }
         }
         return ans;
