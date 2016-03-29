@@ -2,8 +2,8 @@
 class Solution4 {
 public:
     int strobogrammaticInRange(string low, string high) {
-        if (le(high, low)) return 0;
-        
+        if (! le(low, high)) return 0; // <-- note this!
+
         int ct = 0;
         getCount(low, high, "", ct);
         getCount(low, high, "0", ct);
@@ -16,7 +16,8 @@ public:
         if (high.length() < s.length()) return;
 
         if (le(low, s) && le(s, high)) {
-            if (s.length() > 0 && s[0] != '0') ++ ct;
+            if (s == "0" || (s.length() > 0 && s[0] != '0')) ++ ct;
+            //if (s.length() == 1 || (s.length() > 1 && s[0] != '0')) ++ ct; // works too.
         }
 
         getCount(low, high, "0" + s + "0", ct);
