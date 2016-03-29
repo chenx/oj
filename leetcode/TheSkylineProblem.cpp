@@ -1,3 +1,40 @@
+// Works. Tested. Similar to Solution2, but use more common data structures.
+// From: https://leetcode.com/discuss/83498/recommend-beginners-implementation-detailed-explanation
+// Also see: https://briangordon.github.io/2014/08/the-skyline-problem.html
+class Solution3 {
+public:
+    vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<pair<int, int>> edges;
+        
+        for(int i = 0; i < buildings.size(); ++ i){
+            int L = buildings[i][0], R = buildings[i][1], H = buildings[i][2];
+            /*** make sure : for the same left point we use the bigger height ***/
+            edges.push_back(make_pair(L, - H));
+            edges.push_back(make_pair(R, H));
+        }
+        sort(edges.begin(), edges.end());
+        
+        vector<pair<int, int>> result;
+        
+        multiset<int> m; /*** store the max height util current pos ***/
+        m.insert(0); /*** left most height ***/
+        
+        int pre = 0, cur = 0;
+        for(int i = 0; i < edges.size(); ++ i){
+            pair<int, int> e = edges[i];
+            if (e.second < 0) m.insert(- e.second); // left edge
+            else m.erase(m.find(e.second)); // right edge
+            
+            cur = *(m.rbegin()); // current edge with max height
+            if (cur != pre){
+                result.push_back(make_pair(e.first, cur));
+                pre = cur;
+            }
+        }
+        return result;
+    }
+};
+
 // Works too. Tested.
 // General idea:
 //  Step 1:
