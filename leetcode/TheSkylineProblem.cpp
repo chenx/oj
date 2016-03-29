@@ -1,3 +1,36 @@
+// Works. Same as Solution3.
+class Solution4 {
+public:
+    vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<pair<int, int>> edges;
+        for (auto b : buildings) {
+            int L = b[0], R = b[1], H = b[2];
+            edges.push_back(make_pair(L, -H));
+            edges.push_back(make_pair(R,  H));
+        }
+        sort(edges.begin(), edges.end());
+        
+        vector<pair<int, int>> ans;
+        multiset<int> m;
+        m.insert(0);
+        
+        int prev = 0, cur = 0;
+        for (int i = 0; i < edges.size(); ++ i) {
+            pair<int, int> & e = edges[i];
+            
+            if (e.second < 0) m.insert(- e.second);
+            else m.erase(m.find(e.second));
+            
+            int cur = *(m.rbegin());
+            if (cur != prev) {
+                ans.push_back(pair<int, int>(e.first, cur));
+                prev = cur;
+            }
+        }
+        return ans;
+    }
+};
+
 // Works. Tested. Similar to Solution2, but use more common data structures.
 // From: https://leetcode.com/discuss/83498/recommend-beginners-implementation-detailed-explanation
 // Also see: https://briangordon.github.io/2014/08/the-skyline-problem.html
