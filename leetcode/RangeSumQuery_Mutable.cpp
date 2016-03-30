@@ -1,3 +1,46 @@
+// Works. Modified from NumArray4. Hard to say which is better.
+// Now use a separate add() function.
+class NumArray5 {
+public:
+    NumArray(vector<int> &nums) {
+        int len = nums.size();
+        base = nums;
+        BIT.resize(len + 1, 0);
+        
+        for (int i = 0; i < len; ++ i) 
+            add(i, nums[i]);
+    }
+    
+    void update(int i, int val) {
+        add(i, val - base[i]);
+        base[i] = val;
+    }
+    
+    int sumRange(int i, int j) {
+        return sum(j+1) - sum(i);
+    }
+
+private:
+    vector<int> BIT; // Binary Indexed Tree, or Fenwick Tree.
+    vector<int> base;   // keep the value of the array
+    
+    int parent(int i){  // return index of parent of x (before 0).
+        return i & -i;  // this works too: x & (~x + 1);
+    }
+    
+    void add(int i, int diff) { // update from i to leaf.
+        for(++ i; i <= base.size(); i += parent(i))
+            BIT[i] += diff;
+    }
+    
+    int sum(int i) {    // get sum, from i to root (exclusive).
+        int s = 0;
+        for(; i > 0; i -= parent(i))
+            s += BIT[i];
+        return s;
+    }
+};
+
 // Works. Modified from NumArray2.
 // Use Binary Indexed Tree, of Fenwick tree. Log(n) in update/sum.
 // See: 
