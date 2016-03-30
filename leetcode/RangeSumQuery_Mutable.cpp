@@ -18,7 +18,7 @@ public:
     void update(int i, int val) { // update from i to leaf.
         int diff = val - base[i];
         base[i] = val;
-        for(++ i; i <= base.size(); i += lowbit(i))
+        for(++ i; i <= base.size(); i += parent(i))
             BITree[i] += diff;
     }
     
@@ -30,13 +30,13 @@ private:
     vector<int> BITree; // Binary Indexed Tree, or Fenwick Tree.
     vector<int> base;   // keep the value of the array
     
-    int lowbit(int x){
-        return x & -x; // this works too: x & (~x + 1);
+    int parent(int i){  // return index of parent of x (before 0).
+        return i & -i;  // this works too: x & (~x + 1);
     }
     
-    int sum(int i) { // get sum, from i to root (exclusive).
+    int sum(int i) {    // get sum, from i to root (exclusive).
         int s = 0;
-        for(; i > 0; i -= lowbit(i))
+        for(; i > 0; i -= parent(i))
             s += BITree[i];
         return s;
     }
