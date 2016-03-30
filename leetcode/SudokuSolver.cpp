@@ -2,8 +2,58 @@
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
 // @Created on: 1/3/2013
-// @Last modified: 1/3/2013
+// @Last modified: 3/29/2016
 //
+
+// Works too.
+class Solution3 {
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        solve(board, 0, 0);
+    }
+    
+    bool solve(vector<vector<char>>& board, int i, int j) {
+        if (! findNext(board, i, j)) return true;
+        
+        vector<int> v = getOptions(board, i, j); // (i, j) is empty cell,
+        for (int k = 0; k < v.size(); ++ k) {
+            board[i][j] = v[k] + '0';
+            if (solve(board, i, j)) return true;
+        }
+        
+        board[i][j] = '.'; // to back track.
+        return false;
+    }
+    
+    vector<int> getOptions(vector<vector<char>>& board, int i, int j) {
+        set<int> s = {1,2,3,4,5,6,7,8,9};
+        
+        for (int k = 0; k < 9; ++ k) {
+            if (board[i][k] != '.') s.erase(board[i][k] - '0');
+            if (board[k][j] != '.') s.erase(board[k][j] - '0');
+        }
+        
+        i = (i / 3) * 3, j = (j / 3) * 3;
+        for (int x = 0; x < 3; ++ x) 
+            for (int y = 0; y < 3; ++ y) 
+                if (board[i+x][j+y] != '.') s.erase(board[i+x][j+y] - '0');
+
+        return vector<int>(s.begin(), s.end());
+    }
+    
+    bool findNext(vector<vector<char>>& board, int & i, int & j) {
+        if (board[i][j] == '.') return true;
+
+        for (++ j; j < 9; ++ j) 
+            if (board[i][j] == '.') return true;
+
+        for (++ i; i < 9; ++ i) 
+            for (j = 0; j < 9; ++ j) 
+                if (board[i][j] == '.') return true;
+
+        return false;
+    }
+};
 
 // This works too.
 class Solution2 {
