@@ -1,3 +1,47 @@
+// Works. Modified from NumArray2.
+// Use Binary Indexed Tree, of Fenwick tree. Log(n) in update/sum.
+// See: 
+// [1] https://en.wikipedia.org/wiki/Fenwick_tree
+// [2] http://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2/
+// [3] https://leetcode.com/discuss/80849/recommend-beginners-implementation-detailed-explaination
+class NumArray4 {
+public:
+    NumArray(vector<int> &nums) {
+        int len = nums.size();
+        base.resize(len, 0);
+        BITree.resize(len + 1, 0);
+        
+        for (int i = 0;i < len; ++ i) 
+            update(i, nums[i]);
+    }
+    
+    void update(int i, int val) { // update from i to leaf.
+        int diff = val - base[i];
+        base[i] = val;
+        for(++ i; i <= base.size(); i += lowbit(i))
+            BITree[i] += diff;
+    }
+    
+    int sumRange(int i, int j) {
+        return sum(j+1) - sum(i);
+    }
+
+private:
+    vector<int> BITree; // Binary Indexed Tree, or Fenwick Tree.
+    vector<int> base;   // keep the value of the array
+    
+    int lowbit(int x){
+        return x & -x; // this works too: x & (~x + 1);
+    }
+    
+    int sum(int i) { // get sum, from i to root (exclusive).
+        int s = 0;
+        for(; i > 0; i -= lowbit(i))
+            s += BITree[i];
+        return s;
+    }
+};
+
 // Works. From: https://leetcode.com/discuss/80849/recommend-beginners-implementation-detailed-explaination
 // Why?
 class NumArray3 {
