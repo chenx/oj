@@ -1,4 +1,5 @@
 // CCI 3.6. Page 215.
+// Sort a stack, using at most one more stack.
 #include <iostream>
 #include <stack>
 using namespace std;
