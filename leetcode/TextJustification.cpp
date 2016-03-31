@@ -13,8 +13,7 @@ public:
     vector<string> fullJustify(vector<string>& words, int L) {
         vector<string> ans, row; // row: contains words on current row.
         int n = words.size(), rowLen = 0; // rowLen: len sum of words in row.
-        
-        if (n == 0 || L == 0) return vector<string>(1, "");
+        //if (n == 0 || L == 0) return vector<string>(1, ""); // no need.
         
         for (int i = 0; i < n; ) {
             int len = rowLen + row.size() + words[i].length(); 
@@ -29,9 +28,8 @@ public:
                 rowLen = 0;
             }
         }
-        
-        if (row.size() > 0) 
-            ans.push_back(writeLastRow(row, rowLen, L));
+        //if (row.size() > 0) // don't need this. 
+        ans.push_back(writeLastRow(row, rowLen, L));
 
         return ans;
     }
