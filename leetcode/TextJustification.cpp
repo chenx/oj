@@ -7,6 +7,66 @@
 #include <iostream>
 using namespace std;
 
+// Works. By: XC.
+class Solution5 {
+public:
+    vector<string> fullJustify(vector<string>& words, int L) {
+        vector<string> ans, row; // row: contains words on current row.
+        int n = words.size(), rowLen = 0; // rowLen: len sum of words in row.
+        
+        if (n == 0 || L == 0) return vector<string>(1, "");
+        
+        for (int i = 0; i < n; ) {
+            int len = rowLen + row.size() + words[i].length(); 
+            if (len <= L) {
+                row.push_back(words[i]);
+                rowLen += words[i].length();
+                ++ i;
+            }
+            else { // this cannot be the last line, since len > L.
+                ans.push_back(writeRow(row, rowLen, L));
+                row.clear();
+                rowLen = 0;
+            }
+        }
+        
+        if (row.size() > 0) 
+            ans.push_back(writeLastRow(row, rowLen, L));
+
+        return ans;
+    }
+    
+    string writeLastRow(vector<string> & row, int rowLen, int L) {
+        string s;
+        for (int i = 0; i < row.size(); ++ i) {
+            if (i > 0) s += " ";  // note this!
+            s += row[i];
+        }
+        s += string(L - s.length(), ' ');
+        return s;
+    }
+    
+    string writeRow(vector<string> & row, int rowLen, int L) {
+        string s;
+        
+        if (row.size() == 1) {
+            s = row[0] + string(L - rowLen, ' ');
+        }
+        else {
+            int spaces = L - rowLen,
+                ct = row.size() - 1, a = spaces / ct, b = spaces % ct;
+            // ct: number of intervals.
+            // first b intervals have a+1 spaces, later intervals have a spaces.
+            int i = 0;
+            for (; i < b; ++ i) s += row[i] + string(a + 1, ' ');
+            for (; i < ct; ++ i) s += row[i] + string(a, ' ');
+            s += row[i];
+        }
+        
+        return s;
+    }
+};
+
 // This works too! Only 20 lines.
 // From: https://oj.leetcode.com/discuss/13610/share-my-concise-c-solution-less-than-20-lines
 class Solution4 {
