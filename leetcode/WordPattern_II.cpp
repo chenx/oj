@@ -12,16 +12,14 @@ public:
         if (pattern.size() == 0) return str.size() == 0;
 
         char p = pattern[0];
-
         if (mp.count(p)) {
             string s = mp[p];
             int lens = s.length();
 
-            if(lens > str.length() || str.substr(0, lens) != s) return false;
-            if(match(pattern.substr(1), str.substr(lens), mp, st)) return true;
+            if (lens > str.length() || str.substr(0, lens) != s) return false;
+            if (match(pattern.substr(1), str.substr(lens), mp, st)) return true;
         } else {
             for (int i = 1; i <= str.size(); i++){
-                char p = pattern[0];
                 string s = str.substr(0, i);
 
                 if (st.count(s)) continue;
