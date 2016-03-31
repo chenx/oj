@@ -10,18 +10,18 @@ public:
         v.clear();
         v.push_back(v1);
         v.push_back(v2);
-        index.resize(2, 0);
         init();
     }
 
     ZigzagIterator(vector<vector<int> >& vs) {
         v = vs;
-        index.resize(vs.size(), 0);
         init();
     }
 
     void init() {
-        int n = index.size();
+        int n = v.size();
+        index.resize(n, 0);
+
         for (cur = 0; cur < n; ++ cur) {
             if (index[cur] < v[cur].size()) break;
         }
