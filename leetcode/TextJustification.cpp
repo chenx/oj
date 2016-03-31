@@ -51,13 +51,12 @@ public:
             s = row[0] + string(L - rowLen, ' ');
         }
         else {
-            int spaces = L - rowLen,
-                ct = row.size() - 1, a = spaces / ct, b = spaces % ct;
-            // ct: number of intervals.
+            int spaces = L - rowLen, n = row.size() - 1, // n: number of intervals.
+                a = spaces / n, b = spaces % n;
             // first b intervals have a+1 spaces, later intervals have a spaces.
             int i = 0;
             for (; i < b; ++ i) s += row[i] + string(a + 1, ' ');
-            for (; i < ct; ++ i) s += row[i] + string(a, ' ');
+            for (; i < n; ++ i) s += row[i] + string(a, ' ');
             s += row[i];
         }
         
