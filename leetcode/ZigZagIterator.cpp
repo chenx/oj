@@ -1,6 +1,6 @@
 // Should work. Tested locally only. By: XC
 // This works for any number of input vectors.
-class ZigzagIterator {
+class ZigzagIterator4 {
 private:
     vector<vector<int> > v;
     vector<int> index;
