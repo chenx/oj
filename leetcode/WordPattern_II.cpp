@@ -9,7 +9,7 @@ public:
     }
 
     bool match(string pattern, string str, map<char, string> &mp, set<string> &st) {
-        if (pattern.size() == 0) return str.size() == 0;
+        if (pattern == "") return str == "";
 
         char p = pattern[0];
         if (mp.count(p)) {
@@ -17,20 +17,20 @@ public:
             int lens = s.length();
 
             if (lens > str.length() || str.substr(0, lens) != s) return false;
-            if (match(pattern.substr(1), str.substr(lens), mp, st)) return true;
+            return (match(pattern.substr(1), str.substr(lens), mp, st));
         } else {
             for (int i = 1; i <= str.size(); i++){
                 string s = str.substr(0, i);
-
                 if (st.count(s)) continue;
+                
                 mp[p] = s;
                 st.insert(s);
                 if (match(pattern.substr(1), str.substr(i), mp, st)) return true;
                 mp.erase(p);
                 st.erase(s);
             }
+            return false;
         }
-        return false;
     }
 };
 
