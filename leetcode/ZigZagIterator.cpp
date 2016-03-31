@@ -29,6 +29,8 @@ public:
     }
 
     int next() {
+        if (! hasNext()) throw exception();
+        
         int val = v[cur][index[cur]];
         index[cur] ++;
 
