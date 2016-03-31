@@ -1,5 +1,6 @@
 // Should work. Teste locally.
 // Modified from NumMatrix2. Use Binary Indexed Tree.
+// See: https://github.com/chenx/oj/blob/master/leetcode/RangeSumQuery_Mutable.cpp
 class NumMatrix4 {
 public:
     NumMatrix(vector<vector<int> > &matrix) {
