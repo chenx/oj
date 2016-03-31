@@ -29,20 +29,17 @@ private:
     vector<vector<int> > BIT;
 
     void add(int row, int col, int diff) {
-        for (int i = row; i <= rows; i += parent(i)) {
-            for (int j = col; j <= cols; j += parent(j)) {
+        for (int i = row; i <= rows; i += parent(i)) 
+            for (int j = col; j <= cols; j += parent(j)) 
                 BIT[i][j] += diff;
-            }
-        }
     }
 
     int sum(int row, int col) {
         int s = 0;
-        for (int i = row; i > 0; i -= parent(i)) {
-            for (int j = col; j > 0; j -= parent(j)) {
+        for (int i = row; i > 0; i -= parent(i)) 
+            for (int j = col; j > 0; j -= parent(j)) 
                 s += BIT[i][j];
-            }
-        }
+
         return s;
     }
 
