@@ -1,3 +1,34 @@
+// Should work. Tested locally.
+// Modified from: https://leetcode.com/discuss/76466/20-lines-concise-and-easy-understand-c-solution
+class Solution2 {
+public:
+    bool wordPatternMatch(string pattern, string str) {
+        map<char, string> mp;
+        set<string> st;
+        return match(pattern, str, mp, st);
+    }
+
+    bool match(string pattern, string str, map<char, string> &mp, set<string> &st) {
+        if (pattern.size() == 0) return str.size() == 0;
+        if (mp.count(pattern[0])) {
+            string value = mp[pattern[0]];
+            if(value.size() > str.size() || str.substr(0, value.size()) != value) return false;
+            if(match(pattern.substr(1), str.substr(value.size()), mp, st)) return true;
+        } else {
+            for (int i = 1; i <= str.size(); i++){
+                if (st.count(str.substr(0, i))) continue;
+                mp[pattern[0]] = str.substr(0, i);
+                st.insert(str.substr(0, i));
+                if (match(pattern.substr(1), str.substr(i), mp, st)) return true;
+                mp.erase(pattern[0]);
+                st.erase(str.substr(0, i));
+            }
+        }
+        return false;
+    }
+};
+
+
 // Works. Tested.
 // Idea:
 // The key is in lowerbound checking. lowerBound is the minimal length the str 
