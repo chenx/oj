@@ -1,3 +1,55 @@
+// Should work. Teste locally.
+// Modified from NumMatrix2. Use Binary Indexed Tree.
+class NumMatrix4 {
+public:
+    NumMatrix(vector<vector<int> > &matrix) {
+        if (matrix.size() == 0 || matrix[0].size() == 0) return;
+        rows = matrix.size(), cols = matrix[0].size();
+
+        base.resize(rows, vector<int>(cols, 0));
+        BIT.resize(rows + 1, vector<int>(cols + 1, 0));
+        for (int i = 0; i < rows; ++ i)
+            for (int j = 0; j < cols; ++ j)
+                add(i + 1, j + 1, matrix[i][j]);
+        //dumpMatrix(BIT);
+    }
+
+    void update(int row, int col, int val) {
+        add(row + 1, col + 1, val - base[row][col]);
+        base[row][col] = val;
+    }
+
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        return sum(row2 + 1, col2 + 1) - sum(row2 + 1, col1) - sum(row1, col2 + 1) + sum(row1, col1);
+    }
+
+private:
+    int rows, cols;
+    vector<vector<int> > base;
+    vector<vector<int> > BIT;
+
+    void add(int row, int col, int diff) {
+        for (int i = row; i <= rows; i += parent(i)) {
+            for (int j = col; j <= cols; j += parent(j)) {
+                BIT[i][j] += diff;
+            }
+        }
+    }
+
+    int sum(int row, int col) {
+        int s = 0;
+        for (int i = row; i > 0; i -= parent(i)) {
+            for (int j = col; j > 0; j -= parent(j)) {
+                s += BIT[i][j];
+            }
+        }
+        return s;
+    }
+
+    int parent(int i) { return i & -i; }
+};
+
+
 // Works. 
 // Quad-tree based solution. Essentially, it is a divide and conquer 
 // algorithm that divide the whole matrix into 4 sub-matrices recursively. 
