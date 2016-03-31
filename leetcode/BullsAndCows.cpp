@@ -1,3 +1,26 @@
+// Works. Much easier to understand. From CCI 5th Ed.
+class Solution3 {
+public:
+    string getHint(string secret, string guess) {
+        int A = 0, B = 0, n = secret.length();
+        int ct[10] = {0};
+        
+        for (int i = 0; i < n; ++ i) { // get bulls
+            if (secret[i] == guess[i]) ++ A;
+            else ct[secret[i] - '0'] ++;
+        }
+        
+        for (int i = 0; i < n; ++ i) { // get cows
+            if (ct[guess[i] - '0'] > 0 && guess[i] != secret[i]) {
+                ++ B;
+                ct[guess[i] - '0'] --;
+            }
+        }
+        
+        return to_string(A) + "A" + to_string(B) + "B";
+    }
+};
+
 // This works. More clear on what happens.
 class Solution2 {
 public:
