@@ -1,3 +1,52 @@
+// Should work. Tested locally only. By: XC
+// This works for any number of input vectors.
+class ZigzagIterator {
+private:
+    vector<vector<int> > v;
+    vector<int> index;
+    int cur;
+public:
+    ZigzagIterator(vector<int> &v1, vector<int> &v2) {
+        v.clear();
+        v.push_back(v1);
+        v.push_back(v2);
+        index.resize(2, 0);
+        init();
+    }
+
+    ZigzagIterator(vector<vector<int> >& vs) {
+        v = vs;
+        index.resize(vs.size(), 0);
+        init();
+    }
+
+    void init() {
+        int n = index.size();
+        for (cur = 0; cur < n; ++ cur) {
+            if (index[cur] < v[cur].size()) break;
+        }
+        if (cur == n) cur = 0;
+    }
+
+    int next() {
+        int val = v[cur][index[cur]];
+        index[cur] ++;
+
+        int cur0 = cur;
+        for (++ cur; ; ++ cur) {
+            if (cur == index.size()) cur = 0;
+            if (cur == cur0) break;
+            if (index[cur] < v[cur].size()) break;
+        }
+
+        return val;
+    }
+
+    bool hasNext() {
+        return index[cur] < v[cur].size();
+    }
+};
+
 // Works. Tested. By: XC
 // This works for any number of input vectors.
 class ZigzagIterator3 {
