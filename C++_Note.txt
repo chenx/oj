@@ -148,3 +148,8 @@
   See: http://www.cplusplus.com/reference/string/string/find/
   
   
+- Return a string made of n repeated characters c:
+  char c = 'a';
+  int n = 3;
+  string s = string(n, c);  // s = "aaa".
+  
