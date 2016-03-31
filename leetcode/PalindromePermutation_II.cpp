@@ -1,3 +1,64 @@
+// Should work. Only tested locally. X.C.
+class Solution2 {
+public:
+    vector<string> generatePalindromes(string s) {
+        vector<string> ans;
+
+        map<int, int> ct; // get occurrence of each char.
+        for (int i = 0; i < s.length(); ++ i) ct[s[i]] ++;
+
+        vector<int> even, odd; // get chars that happen odd or even times.
+        for (map<int, int>::iterator it = ct.begin(); it != ct.end(); ++ it) {
+            if ((*it).second & 1) odd.push_back((*it).first);
+            else even.push_back((*it).first);
+        }
+
+        char mid; // middle char when there are odd number of chars.
+        if (s.length() & 1) {
+            if (odd.size() != 1) return ans; // not possible.
+            mid = odd[0];
+        } else {
+            if (odd.size() > 0) return ans;  // not possible.
+        }
+
+        // now generate palindromes.
+        sort(even.begin(), even.end());
+        do {
+            string p = to_string(even), q = p;
+            reverse(q.begin(), q.end());
+
+            if (s.length() & 1) ans.push_back(p + mid + q);
+            else ans.push_back(p + q);
+        } while (nextPermutation(even));
+
+        return ans;
+    }
+
+    string to_string(vector<int> & v) {
+        string s;
+        for (int i = 0; i < v.size(); ++ i) {
+            char c = v[i];
+            s += c;
+        }
+        return s;
+    }
+
+    bool nextPermutation(vector<int> &num) {
+        int n = num.size();
+
+        int i, j;
+        for (i = n-2; i >= 0 && num[i] >= num[i+1]; -- i) {} // find first num[i] < num[i+1].
+        if (i == -1) return false;
+
+        for (j = n-1; num[j] <= num[i]; -- j) {} // find first elem from right larger than num[i].
+        swap(num[i], num[j]);
+
+        reverse(num.begin() + i + 1, num.end());
+        return true;
+    }
+};
+
+
 // Works. Tested. By: XC.
 class Solution {
 public:
