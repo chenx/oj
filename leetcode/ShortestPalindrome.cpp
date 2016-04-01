@@ -1,3 +1,69 @@
+// This works. Tested.
+// But this is also O(n^2), maybe it's specialized to pass the "aaaa.." test case.
+class Solution5 {
+public:
+    string shortestPalindrome(string s) {
+        int n = s.length();
+        if (n == 0) return "";
+        
+        // length of max palindrome starting from s[0].
+        int len = getLongestPalindrome(s); 
+        
+        string tail = s.substr(len);
+        reverse(tail.begin(), tail.end());
+        return tail + s;
+    }
+    
+    int getLongestPalindrome(string s) {
+        int n = s.length(), leftMost = 0, rightMost = 0;
+        int i = 0, start, end;
+        while (i < n) { 
+            start = i;
+            while (s[i] == s[start]) ++ i;
+
+            end = i-1;
+            while (start-1 >= 0 && end+1 < n && s[start-1] == s[end+1]) {
+                -- start; ++ end;
+            }
+            if (start == 0 && (end-start) > (rightMost-leftMost)) {
+                leftMost = 0; rightMost = end;
+            }
+        }
+        return rightMost + 1;
+    }
+};
+
+
+// Should work. But times out for large input.
+class Solution4 {
+public:
+    string shortestPalindrome(string s) {
+        int n = s.length();
+        int len = getLongestPalindrome(s); // length of max p starting from 0.
+        
+        string tail = s.substr(len);
+        reverse(tail.begin(), tail.end());
+        return tail + s;
+    }
+    
+    // O(n^2). not efficient.
+    int getLongestPalindrome(string s) {
+        int maxLen = 0, n = s.length();
+        for (int i = 0; i < n; ++ i) {
+            if (isPalindrome(s, 0, i)) maxLen = i + 1;
+        }
+        return maxLen;
+    }
+    
+    bool isPalindrome(string & s, int L, int R) {
+        for (; L <= R; ++ L, -- R) {
+            if (s[L] != s[R]) return false;
+        }
+        return true;
+    }
+};
+
+    
 // Works. Tested.
 // Modified from: https://leetcode.com/discuss/87618/sharing-my-4ms-c-solution
 class Solution3 {
