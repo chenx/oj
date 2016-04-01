@@ -182,6 +182,8 @@ public:
 
 // Works. Tested. Y?
 // From: https://leetcode.com/discuss/83232/short-rolling-hash-o-n-solution-in-c
+// s is a palindrome if hash(s) == hash(s^-1). We find the biggest n such as 
+// s[1...n] is a palindrome and return s[length-1 ... n+1] + s.
 #define int long long 
 const int B = 'z'+1;
 const int H = 74747474747474747LL;  
