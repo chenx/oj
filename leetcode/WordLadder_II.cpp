@@ -6,10 +6,84 @@
 #include <queue>
 using namespace std;
 
+// Works. Slightly modified from Solution5.
+class Solution7 {
+public:
+    vector<vector<string>> findLadders(string start, string end, unordered_set<string> &dict) {
+        vector<vector<string>> ans;
+        if (start == end) {
+            ans.push_back(vector<string>({start, end}));
+            return ans;
+        }
+        
+        queue<pair<string, int>> q; // word, distance
+        int minLen = 0;
+        unordered_set<string> used; 
+        unordered_map<string, set<string>> rev; // reverse map.
+        
+        q.push(pair<string, int>(start, 1));
+        used.insert(start);
+        
+        while (! q.empty()) {
+            string w = q.front().first, w0 = w;
+            int dist = q.front().second;
+            q.pop();
+            
+            for (int i = 0; i < w.length(); ++ i) {
+                char c = w[i];
+                for (int j = 0; j < 26; ++ j) {
+                    if (c - 'a' == j) continue;
+                    w[i] = 'a' + j;
+                    
+                    if (w == end) {
+                        // minLen > 1 + dist: won't happen, BFS finds shortest path first.
+                        if (minLen == 0 || minLen == 1 + dist) { 
+                            minLen = 1 + dist;
+                            rev[w].insert(w0);
+                        }
+                    }
+                    else {
+                        if (dict.count(w)) {
+                            if (! used.count(w)) {
+                                q.push(pair<string, int>(w, dist + 1));
+                                used.insert(w);
+                                rev[w].insert(w0);
+                            }
+                            else if (! rev[w0].count(w)) // avoid cycle.
+                                rev[w].insert(w0);
+                        }
+                    }
+                }
+                w[i] = c;
+            }
+        }
+        
+        vector<string> path(1, end);
+        getPath(ans, path, start, end, rev, minLen);
+        return ans;
+    }
+    
+    void getPath(vector<vector<string>> &ans, vector<string> &path, 
+            string start, string w, unordered_map<string, set<string>> &rev, int minLen) {
+        if (w == start) {
+            ans.push_back(path);
+            reverse(ans.back().begin(), ans.back().end());
+            return;
+        }
+        else if (minLen == 1) return; // avoid longer path from end to start.
+        
+        for (string s : rev[w]) {
+            path.push_back(s);
+            getPath(ans, path, start, s, rev, minLen - 1);
+            path.pop_back();
+        }
+    }
+};
+
 
 // Works too. Tested. 
 // From: https://leetcode.com/discuss/41689/88ms-accepted-solution-with-68ms-word-ladder-88ms-word-ladder
-class Solution {
+class Solution6 {
 public:
     vector<vector<string>> findLadders(string start, string end, unordered_set<string> &dict) {
         vector<vector<string> > ladders;
