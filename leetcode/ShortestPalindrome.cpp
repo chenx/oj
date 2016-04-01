@@ -1,3 +1,36 @@
+// Works. Tested. Re-written from Solution5.
+class Solution6 {
+public:
+    string shortestPalindrome(string s) {
+        int n = s.length();
+        if (n == 0) return "";
+        
+        // length of max palindrome starting from s[0].
+        int len = getLongestPalindrome(s); 
+        
+        string tail = s.substr(len);
+        reverse(tail.begin(), tail.end());
+        return tail + s;
+    }
+    
+    int getLongestPalindrome(string s) {
+        int n = s.length(), L, R, start = 0, end = 0, i = 0;
+        while (i < n) {
+            L = i;
+            while (s[i] == s[L]) ++ i;
+            R = i-1;
+            
+            while (L > 0 && R < n-1 && s[L - 1] == s[R + 1]) {
+                -- L, ++ R;
+            }
+            if (L == 0 && R - L > end - start) {
+                start = L, end = R;
+            }
+        }
+        return end + 1;
+    }
+};
+
 // This works. Tested.
 // But this is also O(n^2), maybe it's specialized to pass the "aaaa.." test case.
 class Solution5 {
