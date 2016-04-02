@@ -37,6 +37,52 @@ public:
     }
 };
 
+// Works too. Tested. Use KMP. But Solution7 is shorter, maybe better.
+// Use the kmp failure function from 
+// https://github.com/chenx/oj/blob/master/misc/KMP.cpp
+// just need to change 
+//     int maxLen = next[str.length()];
+// to
+//     int maxLen = next[str.length() - 1];
+class Solution8 {
+public:
+    string shortestPalindrome(string s) {
+        if (s.length() <= 1) return s;
+
+        string s_rev = s;
+        reverse(s_rev.begin(), s_rev.end());
+        
+        string str = s + "#" + s_rev;
+        
+        vector<int> next(str.length() + 1, 0);
+        getNext(next, str);
+        
+        int maxLen = next[str.length() - 1];
+        
+        return s_rev.substr(0, s.length() - maxLen) + s;
+    }
+    
+    void getNext(vector<int> & F, string P) {
+        int m = P.length();
+        int i = 1, j = 0;
+        F[0] = 0;
+        
+        while (i < m) {
+            if (P[i] == P[j]) {
+                F[i] = j + 1;
+                ++ i, ++ j;
+            }
+            else if (j > 0) {
+                j = F[j - 1];
+            }
+            else {
+                F[i] = 0;
+                ++ i;
+            }
+        }
+    }
+};
+
 // Works. Tested. Re-written from Solution5.
 class Solution6 {
 public:
