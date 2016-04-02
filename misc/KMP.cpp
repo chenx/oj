@@ -101,7 +101,7 @@ int kmpMatch2(string T, string P) {
     while (i < n) {
         if (T[i] == P[j]) {
             if (j == m-1) {
-                return i - m + 1;
+                return i - j; // same as: i - m + 1;
             }
             ++ i, ++ j;
         }
