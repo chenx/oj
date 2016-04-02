@@ -1,4 +1,5 @@
 // Should work. Tested locally. XC.
+// See discussion after Solution3.
 class Solution3 {
 public:
     int shortestDistance(vector<vector<int> >& grid) {
