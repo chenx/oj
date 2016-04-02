@@ -35,7 +35,7 @@ public:
                     }
                     ++ d;
                 }
-                mark -= 1;
+                -- mark;
             }
         }
 
