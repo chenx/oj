@@ -88,24 +88,25 @@ void getFailureFunc2(string s, vector<int> & next) {
     }
 }
 
+// Compared to kmpMatch(), only 2 differences as shown below.
 int kmpMatch2(string T, string P) {
     int n = T.length(), m = P.length();
     if (n < m) return -1; // text is shorter than pattern.
     if (m == 0) return 0; // pattern is empty string.
 
-    vector<int> F(m + 1, 0);
+    vector<int> F(m + 1, 0);  // <-- diff 1.
     getFailureFunc2(P, F); //return -1;
     int i = 0, j = 0;
 
     while (i < n) {
         if (T[i] == P[j]) {
             if (j == m-1) {
-                return i -m + 1;
+                return i - m + 1;
             }
             ++ i, ++ j;
         }
         else if (j > 0) {
-            j = F[j]; // F[j - 1];
+            j = F[j]; // F[j - 1]; // <-- diff 2.
         }
         else { // j == 0
              ++ i;
