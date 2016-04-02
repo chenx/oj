@@ -53,6 +53,7 @@ public:
  The mark = 0, -1, -2, -3 .. is to lable a point as visited
  in the current cycle.
 
+-- cycle 1:
 grid:
 1 -1 2 -1 1
 -1 -1 -1 -1 -1
@@ -62,6 +63,7 @@ dist:
 1 2 3 4 5
 2 3 0 5 6
 
+-- cycle 2:
 grid:
 1 -2 2 -2 1
 -2 -2 -2 -2 -2
@@ -71,6 +73,7 @@ dist:
 6 6 6 6 6
 8 8 0 8 8
 
+-- cycle 3:
 grid:
 1 -3 2 -3 1
 -3 -3 -3 -3 -3
@@ -80,6 +83,11 @@ dist:
 9 8 7 8 9
 10 9 0 9 10
 
+Note that current solutions all start from each building.
+It makes sense since there are much more empty spaces than buildings.
+If there are much more buildings than empty spaces, then it'll be
+better to start from each empty space, use BFS to get sum of distances
+to all buildings.
 */
 
 
