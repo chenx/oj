@@ -1,3 +1,47 @@
+// Should work. Tested. Nice solution.
+// Improved from Solution7, logic is more clear.
+class Solution9 {
+public:
+    string shortestPalindrome(string s) {
+        if (s.length() <= 1) return s;
+        
+        int maxLen = getMaxPalindromeLen(s);
+        
+        string tail = s.substr(maxLen);
+        reverse(tail.begin(), tail.end());
+        return tail + s;
+    }
+    
+    // a#b -> b'#a'. if a == a', then a is palindrome.
+    int getMaxPalindromeLen(string s) {
+        string r = s;
+        reverse(r.begin(), r.end());
+        
+        string sr = s + "#" + r;
+        vector<int> next(sr.length() + 1, 0);
+        kmp(next, sr);
+        
+        return next[sr.length()];
+    }
+    
+    void kmp(vector<int> & next, string s) {
+        int len = -1, i = 0;
+        next[0] = -1;
+        
+        while (i < s.length()) {
+            if (len == -1 || s[len] == s[i]) {
+                ++ i;
+                ++ len;
+                next[i] = len;
+            }
+            else {
+                len = next[len];
+            }
+        }
+    }
+};
+
+
 // Works. Tested. Based on KMP. Nice solution.
 // ab -> ab#ba, find maxLen = len(a), then result = bab.
 // From: http://www.rudy-yuan.net/archives/186/
