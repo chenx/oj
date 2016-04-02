@@ -1,3 +1,40 @@
+// Works. Tested. Based on KMP. Nice solution.
+// From: http://www.rudy-yuan.net/archives/186/
+class Solution7 {
+public:
+    string shortestPalindrome(string s) {
+        if (s.length() <= 1) return s;
+
+        string s_rev = s;
+        reverse(s_rev.begin(), s_rev.end());
+        
+        string str = s + "#" + s_rev;
+        
+        vector<int> next(str.length() + 1, 0);
+        getNext(next, str);
+        
+        int maxLen = next[str.length()];
+        
+        return s_rev.substr(0, s.length() - maxLen) + s;
+    }
+    
+    void getNext(vector<int> & next, const string & s) {
+        int len = -1, i = 0;
+        next[0] = -1;
+        
+        while (i < s.length()) {
+            if (len == -1 || s[i] == s[len]) {
+                ++ i;
+                ++ len;
+                next[i] = len;
+            }
+            else {
+                len = next[len];
+            }
+        }
+    }
+};
+
 // Works. Tested. Re-written from Solution5.
 class Solution6 {
 public:
