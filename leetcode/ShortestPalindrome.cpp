@@ -21,6 +21,7 @@ public:
     }
     
     // a#b -> b'#a'. if a == a', then a is palindrome.
+    // return length of max palindrome starting from s[0].
     int getMaxPalindromeLen(string s) {
         string r = s;
         reverse(r.begin(), r.end());
