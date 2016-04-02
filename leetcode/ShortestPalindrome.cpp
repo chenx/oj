@@ -37,7 +37,7 @@ public:
     }
 };
 
-// Works too. Tested. Use KMP. But Solution7 is shorter, maybe better.
+// Works too. Tested. Use KMP. But Solution7 is shorter and more clean.
 // Use the kmp failure function from 
 // https://github.com/chenx/oj/blob/master/misc/KMP.cpp
 // just need to change 
