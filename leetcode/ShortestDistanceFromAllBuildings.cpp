@@ -1,3 +1,89 @@
+// Should work. Tested locally. XC.
+class Solution3 {
+public:
+    int shortestDistance(vector<vector<int> >& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+
+        int m = grid.size(), n = grid[0].size();
+        vector<vector<int> > dist(m, vector<int>(n, 0));
+        int mark = 0, ans = 0;
+
+        vector<pair<int, int> > dirs = {{-1,0},{1,0},{0,-1},{0,1}};
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] == 1) {
+                    queue<pair<int, int> > q;
+                    q.push(pair<int, int>(i, j));
+                    int d = 1;
+                    ans = INT_MAX;
+
+                    while(! q.empty()) {
+                        for(int ct = q.size(); ct > 0; -- ct) {
+                            int x = q.front().first, y = q.front().second;
+                            q.pop();
+                            
+                            for (int k = 0; k < dirs.size(); ++ k) {
+                                int dx = x + dirs[k].first, dy = y + dirs[k].second;
+                                if (dx >= 0 && dx < m && dy >= 0 && dy < n && grid[dx][dy] == mark) {
+                                    grid[dx][dy] = mark - 1;
+                                    dist[dx][dy] += d;
+                                    q.push(pair<int, int>(dx, dy));
+                                    ans = min(ans, dist[dx][dy]);
+                                }
+                            }
+                        }
+                        ++ d;
+                    }
+                    mark -= 1;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
+
+/*
+ Note: the value of grid and dist in each cycle is below.
+ after all buildings are processed, the dist at each point
+ is the sum of distances to all buildings. So 7 is the
+ point with minimal distance sum to all buildings.
+
+ The mark = 0, -1, -2, -3 .. is to lable a point as visited
+ in the current cycle.
+
+grid:
+1 -1 2 -1 1
+-1 -1 -1 -1 -1
+-1 -1 1 -1 -1
+dist:
+0 1 0 5 0
+1 2 3 4 5
+2 3 0 5 6
+
+grid:
+1 -2 2 -2 1
+-2 -2 -2 -2 -2
+-2 -2 1 -2 -2
+dist:
+0 6 0 6 0
+6 6 6 6 6
+8 8 0 8 8
+
+grid:
+1 -3 2 -3 1
+-3 -3 -3 -3 -3
+-3 -3 1 -3 -3
+dist:
+0 9 0 9 0
+9 8 7 8 9
+10 9 0 9 10
+
+*/
+
+
+
 // Solution2. Should work. Not tested.
 // From: https://leetcode.com/discuss/74453/36-ms-c-solution
 int shortestDistance(vector<vector<int>> grid) {
