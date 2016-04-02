@@ -1,5 +1,13 @@
 // Should work. Tested. Nice solution.
 // Improved from Solution7, logic is more clear.
+//
+// For Solution8 and Solution9, input aacecaaa, the kmp failure function are:
+// Solution8 kmp:    0 1 0 0 0 1 2 2 0 1 2 2 3 4 5 6 7 
+// Solution9 kmp: -1 0 1 0 0 0 1 2 2 0 1 2 2 3 4 5 6 7 
+// input: aacecaaa, expect: aaacecaaa, result: aaacecaaa
+// So it can be seen the 2 different failure functions are equivalent;
+// the one in Solution9 is easier to memorize.
+//
 class Solution9 {
 public:
     string shortestPalindrome(string s) {
@@ -98,7 +106,7 @@ public:
         
         string str = s + "#" + s_rev;
         
-        vector<int> next(str.length() + 1, 0);
+        vector<int> next(str.length(), 0);
         getNext(next, str);
         
         int maxLen = next[str.length() - 1];
