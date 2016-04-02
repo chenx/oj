@@ -13,31 +13,29 @@ public:
 
         for (int i = 0; i < m; ++ i) {
             for (int j = 0; j < n; ++ j) {
-                if (grid[i][j] == 1) {
-                    queue<pair<int, int> > q;
-                    q.push(pair<int, int>(i, j));
-                    int d = 1;
-                    ans = INT_MAX;
+                if (grid[i][j] != 1) continue;
 
-                    while(! q.empty()) {
-                        for(int ct = q.size(); ct > 0; -- ct) {
-                            int x = q.front().first, y = q.front().second;
-                            q.pop();
-                            
-                            for (int k = 0; k < dirs.size(); ++ k) {
-                                int dx = x + dirs[k].first, dy = y + dirs[k].second;
-                                if (dx >= 0 && dx < m && dy >= 0 && dy < n && grid[dx][dy] == mark) {
-                                    grid[dx][dy] = mark - 1;
-                                    dist[dx][dy] += d;
-                                    q.push(pair<int, int>(dx, dy));
-                                    ans = min(ans, dist[dx][dy]);
-                                }
+                queue<pair<int, int> > q;
+                q.push(pair<int, int>(i, j));
+                int d = 1;    
+                ans = INT_MAX;
+                while(! q.empty()) {
+                    for(int ct = q.size(); ct > 0; -- ct) {
+                        int x = q.front().first, y = q.front().second;
+                        q.pop();
+                        for (int k = 0; k < dirs.size(); ++ k) {
+                            int dx = x + dirs[k].first, dy = y + dirs[k].second;
+                            if (dx >= 0 && dx < m && dy >= 0 && dy < n && grid[dx][dy] == mark) {
+                                grid[dx][dy] = mark - 1;
+                                dist[dx][dy] += d;
+                                q.push(pair<int, int>(dx, dy));
+                                ans = min(ans, dist[dx][dy]);
                             }
                         }
-                        ++ d;
                     }
-                    mark -= 1;
+                    ++ d;
                 }
+                mark -= 1;
             }
         }
 
