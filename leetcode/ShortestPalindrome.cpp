@@ -1,4 +1,5 @@
 // Works. Tested. Based on KMP. Nice solution.
+// ab -> ab#ba, find maxLen = len(a), then result = bab.
 // From: http://www.rudy-yuan.net/archives/186/
 class Solution7 {
 public:
@@ -13,6 +14,7 @@ public:
         vector<int> next(str.length() + 1, 0);
         getNext(next, str);
         
+        // length of longest suffix of str that's a prefix of str.
         int maxLen = next[str.length()];
         
         return s_rev.substr(0, s.length() - maxLen) + s;
