@@ -19,7 +19,8 @@ class Solution5 {
 public:
     string longestCommonPrefix(vector<string>& strs) {
         if (strs.size() == 0) return "";
-        return strs[0].substr(0, getCommonLen(strs, 0, strs.size() - 1));
+        int minLen = getCommonLen(strs, 0, strs.size() - 1);
+        return strs[0].substr(0, minLen);
     }
     
     int getCommonLen(vector<string>& strs, int L, int R) {
