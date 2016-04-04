@@ -1,3 +1,25 @@
+// Works. Almost same as Solution3.
+class Solution4 {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        int ct = 0, len = nums.size();
+        long long top = 0;
+        
+        for (int i = 0; top < n; ) {
+            if (i < len && nums[i] <= top + 1) {
+                top += nums[i];
+                ++ i;
+            }
+            else {
+                ++ ct; // patch number: top + 1.
+                top = top + (top + 1);
+            }
+        }
+        
+        return ct;
+    }
+};
+
 // Works. Basically same as Solution, but written easier to understand.
 // Basically there is a gap when nums[index] > top + 1, and need patch.
 class Solution3 {
