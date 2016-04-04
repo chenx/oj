@@ -1,3 +1,39 @@
+// Works. Code is cleaned form Solution.
+class Solution2 {
+public:
+    vector<vector<int> > verticalOrder(TreeNode* root) {
+        vector<vector<int> > ans;
+        if (root == NULL) return ans;
+
+        int minCol = INT_MAX, maxCol = INT_MIN;
+
+        map<int, vector<int> > mp; // (col, values)
+        queue<pair<TreeNode *, int> > q; // (node, col).
+        q.push(pair<TreeNode *, int>(root, 0));
+
+        while (! q.empty()) {
+            for (int ct = q.size(); ct > 0; -- ct) {
+                TreeNode * n = q.front().first;
+                int col = q.front().second;
+                q.pop(); // don't forget this.
+
+                mp[col].push_back(n->val);
+
+                minCol = min(minCol, col);
+                maxCol = max(maxCol, col);
+
+                if (n->left) q.push(pair<TreeNode *, int>(n->left, col - 1));
+                if (n->right) q.push(pair<TreeNode *, int>(n->right, col + 1));
+            }
+        }
+
+        for (int i = minCol; i <= maxCol; ++ i) {
+            ans.push_back(mp[i]);
+        }
+        return ans;
+    }
+};
+
 // Works. Tested. 
 // The key is to use level_order traversal.
 class Solution {
