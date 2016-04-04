@@ -1,4 +1,19 @@
+// Works.
+// XOR from 1 ~ n, then nums[0] ~ nums[n-1].
+// Basically same as Solution.
+class Solution3 {
+public:
+    int missingNumber(vector<int>& nums) {
+        int v = 0;
+        for (int i = 0; i < nums.size(); ++ i) {
+            v ^= nums[i] ^ (i+1);
+        }
+        return v;
+    }
+};
+
 // Works. Tested.
+// Initialize v = nums.size() can be confusing later. Not recommended.
 class Solution2 {
 public:
     int missingNumber(vector<int>& nums) {
