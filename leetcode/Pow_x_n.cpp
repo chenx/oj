@@ -10,6 +10,26 @@
 //
 
 // Works. Tested.
+class Solution4 {
+public:
+    double myPow(double x, long long n) {
+        bool neg = n < 0;
+        if (neg) n = -n;
+        
+        double R = 1, F = x;
+        while (n > 0) {
+            if (n & 1) R *= F;
+            F *= F;
+            n >>= 1;
+        }
+        
+        if (neg) R = 1 / R;
+        return R;
+    }
+    
+};
+
+// Works. Tested.
 // Note previous solutions failed for e.g.: n = INT_MIN, x = 2.0. -n overflows.
 // Only change is to convert "int n" to "long long m".
 class Solution3 {
