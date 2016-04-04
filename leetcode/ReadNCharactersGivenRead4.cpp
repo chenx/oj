@@ -1,5 +1,6 @@
 // Should work. Not tested.
 // Compared to Solution and Solution2, this has less corner cases to consider.
+// From: fb intv
 class Solution3 {
 public:
     int readn(int n, char *buffer) { // max n bytes?
@@ -25,6 +26,7 @@ public:
 };
 
 // Should work. Not tested. Basically same as Solution.
+// From: fb intv
 class Solution2 {
 public:
     int readn(int n, char *buffer) { // max n bytes?
