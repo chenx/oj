@@ -1,3 +1,35 @@
+// Works. Same as Solution6, but use string, not pointer.
+class Solution7 {
+public:
+    int compareVersion(string version1, string version2) {
+        int p1 = 0, p2 = 0;
+        
+        while (true) {
+            int v1 = getVer(version1, p1), v2 = getVer(version2, p2);
+            
+            if (v1 == -1 && v2 == -1) return 0;
+            
+            if (v1 == -1) v1 = 0;
+            if (v2 == -1) v2 = 0;
+            
+            if (v1 > v2) return 1;
+            if (v1 < v2) return -1;
+        }
+    }
+    
+    int getVer(const string & version, int & p) {
+        if (p == version.length()) return -1;
+        if (version[p] == '.') ++ p;
+        
+        int v = 0;
+        while (isdigit(version[p])) {
+            v = v * 10 + version[p] - '0';
+            ++ p;
+        }
+        return v;
+    }
+};
+
 // Works. Tested. Best so far.
 class Solution6 {
 public:
