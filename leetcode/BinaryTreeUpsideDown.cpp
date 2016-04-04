@@ -9,7 +9,7 @@ class Solution2 {
 public:
     TreeNode * upsideDown(TreeNode *root) {
         TreeNode * parent = NULL, * parentRight = NULL;
-        while (root) {
+        while (root) { // 6 assignments in total.
             TreeNode * left = root->left;
             root->left = parentRight;
             parentRight = root->right;
