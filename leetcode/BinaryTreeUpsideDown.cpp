@@ -3,6 +3,24 @@
  * @Author: X. Chen
  * @From: 1/25/2015
  */
+ 
+// Works. Top-down approach. From Clean Code Handbook, p.60.
+class Solution2 {
+public:
+    TreeNode * upsideDown(TreeNode *root) {
+        TreeNode * parent = NULL, * parentRight = NULL;
+        while (root) {
+            TreeNode * left = root->left;
+            root->left = parentRight;
+            parentRight = root->right;
+            root->right = parent;
+            parent = root;
+            root = left;
+        }
+        return parent;
+    }
+};
+
 
 #include <iostream>
 #include <stack>
