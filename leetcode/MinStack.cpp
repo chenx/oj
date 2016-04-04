@@ -37,7 +37,7 @@ public:
 };
 
  /**
-  * This works too, passes all tests.
+  * This works too, passes all tests. One of best answers so far.
   * From: http://www.mitbbs.com/article_t/JobHunting/32825491.html
   * 
   * However, this does not save that much memory as MinStack2 when, e.g.,
