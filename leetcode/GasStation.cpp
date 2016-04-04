@@ -1,5 +1,26 @@
-// Works too. 
+
+// O(N). This also works. Seems the best.
 class Solution5 {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int len = gas.size(), sum = 0, total = 0, index = 0;
+        for (int i = 0; i < len; ++ i) {
+            if (sum <= 0) {
+                index = i;
+                sum = 0;
+            }
+            
+            int gain = gas[i] - cost[i];
+            sum += gain;
+            total += gain;
+        }
+        
+        return total < 0 ? -1 : index;
+    }
+};
+
+// Works too. 
+class Solution4 {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
         int n = gas.size(), start = 0, sum = 0, total = 0;
@@ -20,25 +41,6 @@ public:
     }
 };
 
-// O(N). This also works. Seems the best.
-class Solution4 {
-public:
-    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-        int len = gas.size(), sum = 0, total = 0, index = 0;
-        for (int i = 0; i < len; ++ i) {
-            if (sum <= 0) {
-                index = i;
-                sum = 0;
-            }
-            
-            int gain = gas[i] - cost[i];
-            sum += gain;
-            total += gain;
-        }
-        
-        return total < 0 ? -1 : index;
-    }
-};
 
 // 
 // O(N). Also works.
