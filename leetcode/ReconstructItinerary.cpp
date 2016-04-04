@@ -1,3 +1,27 @@
+// Works.
+class Solution5 {
+public:
+    vector<string> findItinerary(vector<pair<string, string>> tickets) {
+        vector<string> ans;
+        map<string, multiset<string>> m; // use multiset! may contain duplicate values.
+        for (auto t : tickets) m[t.first].insert(t.second);
+
+        find(ans, m, "JFK");
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+    
+    void find(vector<string> & ans, map<string, multiset<string>> &m, string airport) {
+        //for (string next : m[airport]) { // cannot use this, since will modify list in loop.
+        while (m[airport].size() > 0) {
+            string next = *m[airport].begin();
+            m[airport].erase(m[airport].begin()); // cannot use m[airport].erase(next), since all "next" will be gone.
+            find(ans, m, next);
+        }
+        ans.push_back(airport);
+    }
+};
+
 // Works too. Slighly modified from Solution3.
 class Solution4 {
     unordered_map<string, multiset<string>> m;
