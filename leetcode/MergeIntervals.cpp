@@ -5,6 +5,41 @@
 // @Last modified: 1/9/2013
 //
 
+// Works. Best so far.
+class Solution4 {
+public:
+    vector<Interval> merge(vector<Interval>& intervals) {
+        int n = intervals.size();
+        if (n <= 1) return intervals;
+        
+        vector<Interval> ans;
+        sort(intervals.begin(), intervals.end(), comp);
+        
+        for (int i = 1; i < n; ++ i) {
+            Interval & a = intervals[i-1],
+                     & b = intervals[i];
+            if (a.end < b.start) {
+                ans.push_back(a);
+            }
+            else if (a.end <= b.end) {
+                b.start = a.start;
+            }
+            else {
+                b.start = a.start;
+                b.end = a.end;
+            }
+        }
+        ans.push_back(intervals[n-1]);
+        
+        return ans;
+    }
+    
+private:
+    static bool comp(const Interval & a, const Interval & b) {
+        return a.start < b.start;
+    }
+};
+
 #include <iostream>
 #include <vector>
 using namespace std;
