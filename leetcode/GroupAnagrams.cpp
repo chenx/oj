@@ -1,3 +1,24 @@
+// Works too.
+class Solution3 {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> m; // use map is ok too.
+        for (auto s : strs) {
+            string key = s;
+            sort(key.begin(), key.end());
+            m[key].push_back(s);
+        }
+        
+        vector<vector<string>> ans;
+        for (auto e : m) {
+            sort(e.second.begin(), e.second.end());
+            ans.push_back(e.second);
+        }
+        
+        return ans;
+    }
+};
+
 // Works too. Makes use of the order property of multiset.
 // But prefers Solution, it's easier to understand.
 class Solution2 {
