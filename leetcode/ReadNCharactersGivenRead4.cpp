@@ -1,6 +1,6 @@
 // Should work. Not tested.
-// Compared to Solution, this has less corner cases to consider.
-class Solution2 {
+// Compared to Solution and Solution2, this has less corner cases to consider.
+class Solution3 {
 public:
     int readn(int n, char *buffer) { // max n bytes?
         const int SIZE = 4096;
@@ -21,6 +21,29 @@ public:
         }
         
         return read_ct;
+    }
+};
+
+// Should work. Not tested. Basically same as Solution.
+class Solution2 {
+public:
+    int readn(int n, char *buffer) { // max n bytes?
+      int read_ct = 0;
+      char * buf4k = new char[4096];
+      // check for validity.
+     
+      while (read_ct < n) {
+        int ct = read4k(buf4k);
+        if (ct == 0) return read_ct;
+       
+        ct = min(ct, n - read_ct);
+        if (ct > 0) {
+          memcpy(buffer + read_ct, buf4k, ct);
+          read_ct += ct;
+        }
+      }
+     
+      return read_ct;
     }
 };
 
