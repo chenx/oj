@@ -1,5 +1,27 @@
+// Works too. 
+class Solution5 {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n = gas.size(), start = 0, sum = 0, total = 0;
+        
+        for (int i = 0; i < n; ++ i) {
+            int diff = gas[i] - cost[i];
+            sum += diff;
+            total += diff;
+
+            if (sum < 0) {
+                start = i + 1;
+                sum = 0;
+            }
+        }
+        
+        if (total < 0) return -1;
+        else return start;
+    }
+};
+
 // O(N). This also works. Seems the best.
-class Solution {
+class Solution4 {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
         int len = gas.size(), sum = 0, total = 0, index = 0;
