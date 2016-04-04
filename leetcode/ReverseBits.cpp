@@ -13,6 +13,22 @@ public:
 };
 
 /**
+ * Question: If this is called many times, how to optimize?
+ * Answer: table lookup:
+ * Construct a rev[256] for 0-255.
+ * Each time get the reverse of 8 bits from rev, only need 4 rounds.
+ * See code below:
+ *  uint32_t reverseBits(uint32_t n) {
+        uint32_t m = 0;
+        vector<int> rev(256);
+        for (int i = 0; i < 4; ++ i) {
+            m = (m << 8) + rev[n & 0xff];
+            n >>= 8;
+        }
+    }
+ */
+
+/**
 Reverse Bits 
 
 Reverse bits of a given 32 bits unsigned integer.
