@@ -17,6 +17,39 @@
  * Note: use stack.
  *
  */
+ 
+// Works. Most clean so far. Only 3 changes as shown below by "<--".
+class Solution6 {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if (! root) return ans;
+        
+        bool rev = false;  // <--
+        queue<TreeNode *> q;
+        q.push(root);
+        
+        while (! q.empty()) {
+            vector<int> v;
+            for (int i = q.size(); i > 0; -- i) {
+                TreeNode * n = q.front();
+                q.pop();
+                
+                v.push_back(n->val);
+                
+                if (n->left) q.push(n->left);
+                if (n->right) q.push(n->right);
+            }
+            
+            if (rev) reverse(v.begin(), v.end());  // <--
+            rev = ! rev;  // <--
+            
+            ans.push_back(v);
+        }
+        
+        return ans;
+    }
+};
 
 class Solution {
 public:
