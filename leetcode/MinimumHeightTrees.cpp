@@ -1,3 +1,41 @@
+// Works too. Tested.
+class Solution4 {
+public:
+    vector<int> findMinHeightTrees(int n, vector<pair<int, int>>& edges) {
+        if (n == 0) return vector<int>();
+        if (n == 1) return vector<int>(1, 0);
+        
+        map<int, set<int>> m;
+        for (auto e : edges) {
+            m[e.first].insert(e.second);
+            m[e.second].insert(e.first);
+        }
+        
+        vector<int> leaves;
+        for (auto e : m) {
+            if (e.second.size() == 1) 
+                leaves.push_back(e.first);
+        }
+        
+        int count = n;
+        while (count > 2) {
+            vector<int> new_leaves;
+            for (int leaf : leaves) {
+                int j = *m[leaf].begin(); // the other node of the edge.
+                m[j].erase(leaf);
+                //m[leaf].erase(j); // no need to erase, as new_leaves is used.
+                if (m[j].size() == 1) {
+                    new_leaves.push_back(j);
+                }
+                -- count;
+            }
+            leaves = new_leaves;
+        }
+        
+        return leaves;
+    }
+};
+
 // Works too. Modified from Solution2, more clean.
 class Solution3 {
 public:
