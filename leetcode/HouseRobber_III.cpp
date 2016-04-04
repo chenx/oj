@@ -16,8 +16,7 @@ public:
     
     int getV(TreeNode * n) { // retrieve cached value
         if (! n) return 0;
-        if (ranks.count(n)) return ranks[n];
-        return rob(n);
+        return rank.count(n) ? rank[n] : rob(n);
     }
 };
 
