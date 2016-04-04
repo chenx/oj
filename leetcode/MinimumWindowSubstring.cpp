@@ -5,6 +5,38 @@
 // @Last modified: 1/9/2013
 //
 
+
+// Works. Optimized.
+class Solution3 {
+public:
+    string minWindow(string s, string t) {
+        int minLen = -1, minStart = -1, total = 0;
+        map<char, int> toFind, found;
+        for (auto c : t) toFind[c] ++;
+
+        for (int begin = 0, end = 0; end < s.length(); ++ end) {
+            char e = s[end];
+            if (toFind[e] == 0) continue;
+            if (++ found[e] <= toFind[e]) ++ total;
+            
+            if (total == t.length()) {
+                char b = s[begin];
+                while (toFind[b] == 0 || found[b] > toFind[b]) {
+                    if (found[b] > toFind[b]) -- found[b];
+                    b = s[++ begin];
+                }
+            
+                if (minLen == -1 || minLen > end - begin + 1) {
+                    minLen = end - begin + 1;
+                    minStart = begin;
+                }
+            }
+        }
+        
+        return (minLen == -1) ? "" : s.substr(minStart, minLen);
+    }
+};
+
 // Works too. Basically same as Solution, with shorter var names.
 class Solution2 {
 public:
@@ -83,7 +115,7 @@ public:
 };
 
 // This does not work yet.
-class Solution {
+class Solution0 {
 public:
     string minWindow(string S, string T) {
         if (T.length() == 1 && S.find(T) != string::npos) return T;
