@@ -1,3 +1,21 @@
+// Works.
+class Solution5 {
+public:
+    int countDigitOne(int n) { // e.g., 1201, m = 100. get high/cur/low
+        int ct = 0, k = 1;
+        
+        for (long long m = 1; m <= n; m *= 10) {
+            int q = n/m, cur = q % 10, high = q / 10, low = n - q * m;
+            
+            if (cur < k) ct += m * high;
+            else if (cur == k) ct += m * high + low + 1; // low -- 99
+            else ct += m * (high + 1);
+        }
+        
+        return ct;
+    }
+};
+
 // Works. Can extend to k = 1,2,...,9.
 class Solution4 {
 public:
