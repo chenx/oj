@@ -6,6 +6,35 @@
 // @Last modified: 12/13/2012
 //
 
+// Works. Use level order traversal. Time/Space: O(2^minHeight - 1). 
+// This is more space efficient if tree is not balanced.
+// But if tree is balanced, Solution is more efficent.
+class Solution3 {
+public:
+    int minDepth(TreeNode* root) {
+        if (root == NULL) return 0;
+ 
+        queue<TreeNode *> q;
+        q.push(root);
+         
+        int minH = 0;
+        while (! q.empty()) {
+            ++ minH;
+            for (int ct = q.size(); ct > 0; -- ct) { // level minH
+                TreeNode * n = q.front();
+                q.pop();
+           
+                if (n->left == NULL && n->right == NULL) return minH;
+             
+                if (n->left != NULL) q.push(n->left);
+                if (n->right != NULL) q.push(n->right);
+            }
+        }
+         
+        return minH;
+    }
+};
+
 /**
  * Definition for binary tree
  * struct TreeNode {
