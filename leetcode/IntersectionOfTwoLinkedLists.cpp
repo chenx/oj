@@ -7,6 +7,22 @@
  * };
  */
 
+// Works. Almost same as Solution2.
+class Solution4 {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        int n1 = 0, n2 = 0;
+        for (ListNode * h = headA; h; h = h->next) ++ n1;
+        for (ListNode * h = headB; h; h = h->next) ++ n2;
+        
+        for (; n1 > n2; -- n1) headA = headA->next;
+        for (; n2 > n1; -- n2) headB = headB->next;
+        
+        for (; headA != headB; headA = headA->next, headB = headB->next) ;
+        return headA;
+    }
+};
+
 // Works. But I prefer Solution2.
 class Solution3 {
 public:
