@@ -11,7 +11,7 @@
  
 // Works. Use iterative inorder traversal to find kth element. 2/4/2016.
 // O(h) space, O(k) time.
-class Solution3 {
+class Solution5 {
 public:
     int kthSmallest(TreeNode* root, int k) {
         if (root == NULL) return -1;
@@ -42,9 +42,29 @@ public:
     }
 };
 
+
+// Works. Best recursive answer.
+// Need to be sure the answer exists, otherwise will return 0/-1.
+class Solution4 {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        return getKth(root, k);
+    }
+    
+    int getKth(TreeNode * root, int &k) {
+        if (! root) return 0; // or -1, does not matter.
+        
+        int n = getKth(root->left, k);
+        if (k == 0) return n;
+        
+        if (-- k == 0) return root->val;
+        else return getKth(root->right, k);
+    }
+};
+
  
 // This works too, and should be more efficient.
-class Solution2 {
+class Solution3 {
 public:
     int kthSmallest(TreeNode* root, int k) {
         int ct = 0;
@@ -67,7 +87,29 @@ public:
     }
 };
 
- 
+// Works. Compared to Solution, this saves "ct".
+class Solution2 {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int val = 0;
+        getKth(root, k, val);
+        return val;
+    }
+    
+    void getKth(TreeNode * root, int &k, int &val) {
+        if (! root) return;
+        
+        getKth(root->left, k, val);
+        if (k == 0) return;
+        
+        if (-- k == 0) {
+            val = root->val;
+            return;
+        }
+        getKth(root->right, k, val);
+    }
+};
+
 // This works.
 class Solution {
 public:
