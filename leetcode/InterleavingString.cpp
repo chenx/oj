@@ -25,13 +25,11 @@ public:
             else break;
         }
         
-        for (int i = 1; i <= n1; ++ i) {
-            for (int j = 1; j <= n2; ++ j) {
+        for (int i = 1; i <= n1; ++ i) 
+            for (int j = 1; j <= n2; ++ j) 
                 v[i][j] = (v[i-1][j] && s1[i-1] == s3[i-1+j]) ||
                           (v[i][j-1] && s2[j-1] == s3[i+j-1]);
-            }
-        }
-        
+
         return v[n1][n2];
     }
 };
