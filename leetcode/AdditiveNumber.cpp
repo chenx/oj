@@ -16,7 +16,7 @@ public:
         if (! validNum(s1) || ! validNum(s2) || ! validNum(s)) return false;
 
         long long sum = stoll(s1) + stoll(s2);
-        int len = (int) log10(sum) + 1;
+        int len = (int) log10(sum) + 1; // or: log10(sum) + 1 // NOTE: "+1" needed.
         string s3 = s.substr(0, len);
         
         if (stoll(s3) != sum) return false;
