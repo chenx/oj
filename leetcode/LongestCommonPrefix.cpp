@@ -12,9 +12,9 @@
 // Works. Tested. Good.
 // This is totally different from previous solutions in approach.
 // This basically is like merge sort. 
-// But time complexity are both O(n), n = strs.size().
-// Previous solutions just use (n-1) string to string comparisons.
-// This solution uses n/2 + n/4 + n/8 + .. comparisons.
+// Previous solutions just use (n-1) string to string comparisons, so O(n^2).
+// This solution uses n/2 + n/4 + n/8 + .. comparisons:
+// T(n) = 2*T(n/2) + n, so it's O(nlog(n)).
 class Solution5 {
 public:
     string longestCommonPrefix(vector<string>& strs) {
