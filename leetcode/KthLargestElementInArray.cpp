@@ -1,3 +1,32 @@
+// Works. Same as Solution, but code cleaned.
+class Solution2 {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        int n = nums.size();
+        quickSelect(nums, 0, n - 1, n - k);
+        return nums[n - k];
+    }
+    
+    void quickSelect(vector<int> &nums, int left, int right, int k) {
+        if (left >= right) return;
+        
+        swap(nums[left + (right - left)/2], nums[left]);
+        int pivot = nums[left], L = left + 1, R = right;
+        
+        while (L <= R) {
+            while (L <= R && nums[L] < pivot) ++ L;
+            while (L <= R && nums[R] > pivot) -- R;
+            if (L < R) swap(nums[L ++], nums[R --]);
+            else ++ L;
+        }
+        
+        swap(nums[left], nums[R]);
+        if (k < R) quickSelect(nums, left, R - 1, k);
+        else if (k > R) quickSelect(nums, R + 1, right, k);
+    }
+};
+
+// Works.
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
