@@ -9,14 +9,15 @@ public:
     void findKth(vector<int> & nums, int left, int right, int k) {
         if (left >= right) return;
         
-        swap(nums[left], nums[left + (right - left) / 2]);
+        swap(nums[left], nums[left + (right - left) / 2]); // no need for "mid".
         int pivot = nums[left];
         int L = left + 1, R = right;
         
-        while (L <= R) {
-            while (L <= R && nums[L] < pivot) ++ L;
-            while (L <= R && nums[R] > pivot) -- R;
-            if (L < R) {
+        while (L <= R) { // here and below, 3 "L <= R" is demanded!
+            // seems for 1-3) below, < or <=, > or >=, < or <= don't matter. but keep as is now when coding.
+            while (L <= R && nums[L] < pivot) ++ L; // 1)
+            while (L <= R && nums[R] > pivot) -- R; // 2)
+            if (L < R) { // 3)
                 swap(nums[L], nums[R]);
                 ++ L; -- R;
             }
@@ -24,7 +25,7 @@ public:
                 ++ L;
             }
         }
-        swap(nums[left], nums[R]);
+        swap(nums[left], nums[R]); // here and below, use "R", not "mid"!
         
         if (R < k) findKth(nums, R+1, right, k);
         if (R > k) findKth(nums, left, R-1, k);
