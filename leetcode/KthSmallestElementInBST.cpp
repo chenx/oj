@@ -26,15 +26,13 @@ public:
                 n = n->left;
             }
             
-            if (s.empty()) { 
-                break;
-            }
+            if (s.empty()) break;
             else {
-                ++ ct;
                 n = s.top();
                 s.pop();
                 
-                if (ct == k) return n->val;
+                if (++ ct == k) return n->val;
+                // or: if (-- k == 0) return n->val; // this does not need ct.
                 
                 n = n->right;
             }
