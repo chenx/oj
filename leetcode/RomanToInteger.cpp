@@ -5,6 +5,36 @@
 // @Last modified: 12/24/2012
 //
 
+// Works too. 
+class Solution3 {
+public:
+    int romanToInt(string s) {
+        if (s == "") return 0;
+        
+        // NOTE 1: if initialize prev = 0, i = 0, it works too.
+        int v = 0, prev = getV(s[0]); 
+        for (int i = 1; i < s.length(); ++ i) {
+            int cur = getV(s[i]);
+            if (cur <= prev) v += prev; // NOTE 2: must be "<=" for "+="! ">" for "-=".
+            else v -= prev;
+            prev = cur;
+        }
+        v += prev; // cur = 0, cur <= prev.
+        
+        return v;
+    }
+    
+    int getV(char c) {
+        if (c == 'I') return 1;
+        else if (c == 'V') return 5;
+        else if (c == 'X') return 10;
+        else if (c == 'L') return 50;
+        else if (c == 'C') return 100;
+        else if (c == 'D') return 500;
+        else if (c == 'M') return 1000;
+    }
+};
+
 // This works too.
 // More clean. 
 // Basically, Roman number is written from large digit to small digit.
