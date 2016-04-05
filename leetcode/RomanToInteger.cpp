@@ -11,9 +11,10 @@ public:
     int romanToInt(string s) {
         if (s == "") return 0;
         
-        // NOTE 1: if initialize prev = 0, i = 0, it works too.
-        int v = 0, prev = getV(s[0]); 
-        for (int i = 1; i < s.length(); ++ i) {
+        // NOTE 1: if initialize prev = getV(s[0]), i = 1, it works too.
+        // but now is most clean.
+        int v = 0, prev = 0; 
+        for (int i = 0; i < s.length(); ++ i) {
             int cur = getV(s[i]);
             if (cur <= prev) v += prev; // NOTE 2: must be "<=" for "+="! ">" for "-=".
             else v -= prev;
