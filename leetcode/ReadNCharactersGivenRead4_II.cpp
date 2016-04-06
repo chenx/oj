@@ -1,3 +1,34 @@
+// Should work. Tested in hc, not lc.
+// Modified from Solution4.
+class Solution5 { 
+    int ct;  // count of chars read in buf4.
+    int cur; // cur read pointer in buf4.
+    char * buf4;
+public: 
+    Solution() {
+        cur = ct = 0;
+        buf4 = new char[4];
+    }
+    
+    int read(char *buf, int n) { 
+        int read_ct = 0;
+                 
+        while (read_ct < n) {
+            if (cur == 0) ct = read4(buf4);
+            if (ct == 0) break; // or: return read_ct; 
+            
+            // if cur != 0, cur and ct are unchanged from last call.
+            while (read_ct < n && cur < ct) {
+                buf[read_ct ++] = buf4[cur ++];
+            }
+            
+            if (cur == ct) cur = 0;
+          }
+         
+          return read_ct;
+    } 
+};
+
 
 // Forward declaration of the read4 API.
 int read4(char *buf);
@@ -144,6 +175,10 @@ public:
  * Input:    "ab", [read(1),read(2)]
  * Output:    ["a",""]
  * Expected:    ["a","b"]
+ * 
+ * This is different from ReadNCharactersGivenRead4.cpp in that:
+ * In ReadNCharactersGivenRead4, anything left in buf4[] will be lost at next call.
+ * In ReadNCharactersGivenRead4_II, anything left in buf4[] remains at next call.
  * 
  * Ref:
  * [1] http://www.mitbbs.com/article_t/JobHunting/32836155.html
