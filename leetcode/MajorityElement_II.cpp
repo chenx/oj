@@ -1,3 +1,34 @@
+// Works. Code cleaned from Solution, using C++11 feature (auto loop).
+class Solution2 {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return vector<int>();
+        
+        int n1 = 0, n2 = 0, ct1 = 0, ct2 = 0;
+        
+        for (auto n : nums) {
+            if (n == n1) ++ ct1;
+            else if (n == n2) ++ ct2;
+            else if (ct1 == 0) n1 = n, ct1 = 1;
+            else if (ct2 == 0) n2 = n, ct2 = 1;
+            else -- ct1, -- ct2;
+        }
+        
+        ct1 = ct2 = 0;
+        for (auto n : nums) {
+            if (n == n1) ++ ct1;
+            else if (n == n2) ++ ct2;
+        }
+        
+        vector<int> ans;
+        if (ct1 * 3 > n) ans.push_back(n1);
+        if (ct2 * 3 > n) ans.push_back(n2);
+        
+        return ans;
+    }
+};
+
 //
 // This works.
 // From: https://leetcode.com/discuss/69126/concise-java-solution-based-on-moores-voting-algorithm
