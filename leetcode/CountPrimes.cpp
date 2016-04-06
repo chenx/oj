@@ -1,3 +1,25 @@
+// Works. Best so far.
+class Solution5 {
+public:
+    int countPrimes(int n) {
+        if (n < 2) return 0;
+        
+        vector<bool> prime(n, true);
+        
+        for (int i = 2; i*i <= n; ++ i) {
+            if (! prime[i]) continue;
+            for (int j = i*i; j <= n; j += i) 
+                prime[j] = false;
+        }
+        
+        int ct = 0;
+        for (int i = 2; i < n; ++ i)
+            if (prime[i]) ++ ct;
+            
+        return ct;
+    }
+};
+
 // Eratosthene's sieve.
 class Solution {
 public:
@@ -90,7 +112,7 @@ public:
             }
         }
         
-        int ct;
+        int ct = 0;
         for (int i = 2; i < n; ++ i) {
             if (v[i]) ++ ct;
         }
