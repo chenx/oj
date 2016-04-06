@@ -11,9 +11,7 @@ public:
         while (read_ct < n) {
             if (cur == 0) ct = read4(buf4);
             if (ct == 0) break;
-            
-            while (read_ct < n && cur < ct) 
-                buf[read_ct ++] = buf4[cur ++];
+            while (read_ct < n && cur < ct) { buf[read_ct ++] = buf4[cur ++]; }
             if (cur == ct) cur = 0;
         }
         return read_ct;
