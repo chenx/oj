@@ -4,7 +4,7 @@ public:
     vector<string> summaryRanges(vector<int>& A) {
         vector<string> ans;
         int len = A.size();
-        if (len == 0) return ans;
+        if (len == 0) return ans; // don't forget this, otherwise the lsat push_back will overflow.
         
         int i = 0, j = 1;
         for (; j < len; ++ j) {
