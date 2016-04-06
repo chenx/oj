@@ -14,7 +14,7 @@ public:
             return;
         }
         
-        for (int i = 0; i < v.size(); ++ i) {
+        for (int i = 0; i < v.size(); ++ i) { // Note the 3 "pos" here!
             v[pos] = i+1;
             if (! conflict(v, pos)) solve(ans, v, pos+1);
         }
