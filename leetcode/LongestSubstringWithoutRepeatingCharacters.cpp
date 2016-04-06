@@ -8,6 +8,30 @@
 #include <iostream>
 using namespace std;
 
+// Works. Use c = s[i] to simplifiy code.
+class Solution8 {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length(), len = 0, maxLen = 0, SIZE = 256;
+        int A[SIZE] = {0}; // start pos of each char.
+        
+        for (int i = 0; i < n; ++ i) {
+            int c = s[i];
+            if (A[c] == 0) {
+                A[c] = i + 1;
+                maxLen = max(maxLen, ++ len);
+            }
+            else {
+                i = A[c] - 1;
+                len = 0;
+                memset(A, 0, SIZE * sizeof(int));
+            }
+        }
+        
+        return maxLen;
+    }
+};
+
 // This works too. Slightly better than Solution6.
 class Solution7 {
 public:
