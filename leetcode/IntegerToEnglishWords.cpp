@@ -1,3 +1,41 @@
+// Works. Simplified from Solution3. Easy to understand.
+class Solution4 {
+public:
+    string readPart(int part) {
+        vector<string> ones = {"", " One", " Two", " Three", " Four", " Five", " Six", " Seven", " Eight", " Nine"};
+        vector<string> teens = {" Ten", " Eleven", " Twelve", " Thirteen", " Fourteen", " Fifteen", " Sixteen", " Seventeen", " Eighteen", " Nineteen"};
+        vector<string> tens = {"", "", " Twenty", " Thirty", " Forty", " Fifty", " Sixty", " Seventy", " Eighty", " Ninety"};
+
+        int hundred = part / 100, part2 = part % 100, ten = part2 / 10, one = part2 % 10;
+        
+        string p;
+        if (hundred > 0) p = ones[hundred] + " Hundred";
+        
+        if (ten >= 2) p += tens[ten] + ones[one];
+        else if (ten == 1) p += teens[one];
+        else p += ones[one];
+        
+        return p;
+    }
+    
+    string numberToWords(int num) {
+        string units[4] = {"", " Thousand", " Million", " Billion"};
+        
+        string w;
+        for (int i = 0; i < 4; ++ i) {
+            int part = num % 1000;
+            if (part > 0) w = readPart(part) + units[i] + w;
+            num /= 1000;
+            if (num == 0) break;
+        }
+        
+        if (w[0] == ' ') w = w.substr(1);
+        else if (w == "") w = "Zero";
+        
+        return w;
+    }
+};
+
 // Works. Tested. Slightly modified from Solution2.
 class Solution3 {
 public:
