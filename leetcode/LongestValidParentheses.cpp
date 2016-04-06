@@ -5,6 +5,31 @@
 // @Last modified: 1/21/2013
 //
 
+// Same as Solution3, but shortened.
+class Solution5 {
+public:
+    int longestValidParentheses(string s) {
+        int n = s.length(), len = 0, maxLen = 0, count = 0;
+        
+        for (int i = 0; i < n; ++ i) 
+            getLen(s[i] == '(', len, count, maxLen);
+
+        len = count = 0;
+        for (int i = n - 1; i >= 0; -- i) 
+            getLen(s[i] == ')', len, count, maxLen);
+
+        return maxLen;
+    }
+    
+    void getLen(bool isOpen, int &len, int &count, int &maxLen) {
+        if (isOpen) ++ len, ++ count; 
+        else ++ len, -- count; 
+
+        if (count == 0) maxLen = max(maxLen, len);
+        else if (count < 0) len = count = 0;
+    }
+};
+
 // Slighly changed from Solution3. Works too.
 class Solution4 {
 public:
