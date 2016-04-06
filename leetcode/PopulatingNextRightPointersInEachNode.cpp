@@ -4,6 +4,25 @@
 // @Created on: 12/26/2012
 // @Last modified: 12/26/2012
 //
+
+
+// This works too and is the best!
+class Solution4 {
+public:
+    void connect(TreeLinkNode *root) {
+        conn(root, NULL);        
+    }
+    
+    void conn(TreeLinkNode * n, TreeLinkNode * s) {
+        if (! n) return;
+        
+        n->next = s;
+        conn(n->left, n->right);
+        conn(n->right, (s == NULL) ? NULL : s->left);
+    }
+};
+
+
 /**
  * Definition for binary tree with next pointer.
  * struct TreeLinkNode {
@@ -87,21 +106,6 @@ public:
     }
 };
 
-// This works too and is the best!
-class Solution4 {
-public:
-    void connect(TreeLinkNode *root) {
-        conn(root, NULL);        
-    }
-    
-    void conn(TreeLinkNode * n, TreeLinkNode * s) {
-        if (! n) return;
-        
-        n->next = s;
-        conn(n->left, n->right);
-        conn(n->right, (s == NULL) ? NULL : s->left);
-    }
-};
 
 /*
 Problem:
