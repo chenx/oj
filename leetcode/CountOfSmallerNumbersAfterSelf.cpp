@@ -2,6 +2,10 @@
 // Use the augmented BST (similar to multiset) from CountOfRangeSum.cpp.
 // This is better than Solution3, as Solution3 is more a shortcut rather 
 // than a formal implementation of multiset, but this is a formal multiset.
+// 
+// Actually, the multiset here is an Ordered Statistics Tree, see:
+// https://en.m.wikipedia.org/wiki/Order_statistic_tree
+//
 class Node {
 public:
     long long val;
