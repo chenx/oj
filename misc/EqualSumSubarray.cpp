@@ -1,4 +1,7 @@
 //
+// This is a special case of the Partition problem:
+// https://en.m.wikipedia.org/wiki/Partition_problem
+//
 // Given an array of 2n integers, their sum is SUM.
 // Find n elements whose sum is closest to SUM/2.
 //
