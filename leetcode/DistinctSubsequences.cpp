@@ -5,6 +5,27 @@
 // @Last modified: 1/9/2013
 //
 
+// Works too. 
+class Solution5 {
+public:
+    int numDistinct(string s, string t) {
+        int n1 = s.length(), n2 = t.length();
+        vector<vector<int> > v(n1 + 1, vector<int>(n2 + 1, 0));
+        
+        for (int j = 0; j <= n2; ++ j) v[0][j] = 0; // s == ""
+        for (int i = 0; i <= n1; ++ i) v[i][0] = 1; // t == ""
+        
+        for (int i = 1; i <= n1; ++ i) {
+            for (int j = 1; j <= n2; ++ j) {
+                // Note this!!!
+                v[i][j] = (s[i-1] == t[j-1] ? (v[i-1][j] + v[i-1][j-1]) : v[i-1][j]);
+            }
+        }
+        
+        return v[n1][n2];
+    }
+};
+
 // This works. Passes small test set, but fails large test set.
 class Solution {
 public:
