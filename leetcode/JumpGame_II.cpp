@@ -8,6 +8,34 @@
 #include <iostream>
 using namespace std;
 
+// Works too. 
+class Solution10 {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return 0;
+        
+        vector<int> ct(n, -1);
+        ct[n-1] = 0;
+        
+        for (int i = n-2; i >= 0; -- i) {
+            if (i + nums[i] >= n - 1) { // compared to Solution8, put this outside
+                ct[i] = 1;              // 2nd for loop, since j is max when j = nums[i].
+                continue;               
+            }
+            
+            for (int j = nums[i]; j > 0; -- j) {
+                if (ct[i + j] != -1 && (ct[i] == -1 || ct[i] > 1 + ct[i + j])) {
+                    ct[i] = 1 + ct[i + j];
+                    if (ct[i] == 2) break;
+                }
+            }
+        }
+        
+        return ct[0];
+    }
+};
+
 // Works too. Tested.
 class Solution9 {
 public:
@@ -19,7 +47,8 @@ public:
         ct[n-1] = 0;
         for (int i = n-2; i >= 0; -- i) {
             for (int j = nums[i]; j >= 1; -- j) {
-                if (i + j >= n-1) {
+                // this can go outside j loop, since only need to check max(j) = nums[i] for this.
+                if (i + j >= n-1) { 
                     ct[i] = 1;
                     break;
                 }
@@ -45,6 +74,7 @@ public:
         ct[n-1] = 0;
         for (int i = n-2; i >= 0; -- i) {
             for (int j = nums[i]; j >= 1; -- j) {
+                // this can go outside j loop, since only need to check max(j) = nums[i] for this.
                 if (i + j >= n-1) {
                     ct[i] = 1;
                     break;
