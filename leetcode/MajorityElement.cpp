@@ -1,4 +1,13 @@
-// Works too. Use method of MajorityElement_II.cpp to simplify code.
+// Works too! Simple code. But O(nlog(n)). 
+class Solution3 {
+public:
+    int majorityElement(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        return nums[nums.size() / 2];
+    }
+};
+
+// Works too. Use method of MajorityElement_II.cpp to simplify code. O(n).
 class Solution2 {
 public:
     int majorityElement(vector<int>& nums) {
@@ -14,7 +23,7 @@ public:
 };
 
 //
-// This works.
+// This works. O(n).
 //
 class Solution {
 public:
