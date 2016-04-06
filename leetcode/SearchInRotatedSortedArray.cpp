@@ -5,6 +5,34 @@
 // @Last modified: 1/9/2013
 //
 
+// Works.
+class Solution4 {
+public:
+    int search(vector<int>& nums, int target) {
+        int n = nums.size();
+        if (n == 0) return -1;
+        
+        int L = 0, R = n - 1;
+        while (L <= R) {
+            int M = L + (R - L)/2;
+            
+            if (nums[M] == target) return M;
+            
+            if (nums[M] < nums[R]) {
+                if (nums[M] < target && target <= nums[R]) L = M + 1;
+                else R = M - 1;
+            }
+            else {
+                if (nums[L] <= target && target < nums[M]) R = M - 1;
+                else L = M + 1;
+            }
+        }
+        
+        return -1; // <- note this: not found!
+    }
+};
+
+
 class Solution {
 public:
     int search(int A[], int n, int target) {
