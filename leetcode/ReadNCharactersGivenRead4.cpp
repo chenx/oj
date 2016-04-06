@@ -1,7 +1,7 @@
 // Should work. Tested at hc, not lc.
 // Compared to Solution and Solution2, this has less corner cases to consider.
 // From: fb intv
-class Solution3 {
+class Solution4 {
 public:
     int readn(int n, char *buffer) { // max n bytes, or when read4() comes to end.
         const int SIZE = 4;
@@ -24,6 +24,28 @@ public:
         
         return read_ct;
     }
+};
+
+// Should work. Tested in hc, not lc.
+// Simplified from Solution2. Use char buf4[] instead of char * buf4.
+class Solution3 { 
+public: 
+    int read(char *buf, int n) { 
+        char buf4[4];
+        int read_ct = 0;
+        
+        while (read_ct < n) {
+            int ct = read4(buf4);
+            if (ct == 0) break;
+            
+            if ((ct = min(ct, n - read_ct)) > 0) {
+                memcpy(buf + read_ct, buf4, ct);
+                read_ct += ct;
+            }
+        }
+        
+        return read_ct;
+    } 
 };
 
 // Should work. Tested at hc, not lc. Basically same as Solution.
