@@ -19,7 +19,7 @@ public:
         vector<int> &a = m[word1];
         vector<int> &b = m[word2];
         
-        int n1 = a.size(), n2 = index2.size(), i = 0, j = 0;
+        int n1 = a.size(), n2 = b.size(), i = 0, j = 0;
         while (i < n1 && j < n2) {
             minD = min(minD, abs(a[i] - b[j]));
             if (a[i] < b[j]) ++ i;
