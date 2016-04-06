@@ -1,3 +1,18 @@
+// Works too. Use method of MajorityElement_II.cpp to simplify code.
+class Solution2 {
+public:
+    int majorityElement(vector<int>& nums) {
+        int ct = 0, e = -1; // e can be any default value when not exist.
+        for (auto n : nums) {
+            if (n == e) ++ ct;
+            else if (ct == 0) e = n, ct = 1;
+            else -- ct;
+        }
+        
+        return e;
+    }
+};
+
 //
 // This works.
 //
