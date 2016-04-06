@@ -5,6 +5,33 @@
 // @Last modified: 1/4/2013
 //
 
+// Works too. 
+class Solution3 {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> ans;
+        if (s.length() == 0 || words.size() == 0) return ans;
+        
+        int n = words.size(), lenw = words[0].length(), total = n * lenw;;
+        map<string, int> toFind;
+        for (auto w : words) toFind[w] ++;
+        
+        for (int i = 0, end = s.length() - total; i <= end; ++ i) {
+            map<string, int> found;
+            
+            int j = 0;
+            for (; j < total; j += lenw) {
+                string t = s.substr(i + j, lenw);
+                if (toFind[t] == 0) break;
+                if (++ found[t] > toFind[t]) break;
+            }
+            if (j == total) ans.push_back(i);
+        }
+        
+        return ans;
+    }
+};
+
 // This works too. Basically the same as Solution.
 class Solution2 {
 public:
