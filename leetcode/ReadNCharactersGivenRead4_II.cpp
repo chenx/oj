@@ -1,4 +1,26 @@
 // Should work. Tested in hc, not lc.
+// Simplified from Solution5, by using char buf4[4], instead of char * buf4.
+class Solution6 { 
+    int cur, ct;
+    char buf4[4];
+public: 
+    Solution() : cur(0), ct(0) {}
+    
+    int read(char *buf, int n) {
+        int read_ct = 0;
+        while (read_ct < n) {
+            if (cur == 0) ct = read4(buf4);
+            if (ct == 0) break;
+            
+            while (read_ct < n && cur < ct) 
+                buf[read_ct ++] = buf4[cur ++];
+            if (cur == ct) cur = 0;
+        }
+        return read_ct;
+    } 
+};
+
+// Should work. Tested in hc, not lc.
 // Modified from Solution4.
 class Solution5 { 
     int ct;  // count of chars read in buf4.
