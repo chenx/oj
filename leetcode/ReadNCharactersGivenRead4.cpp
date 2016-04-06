@@ -1,23 +1,24 @@
-// Should work. Not tested.
+// Should work. Tested at hc, not lc.
 // Compared to Solution and Solution2, this has less corner cases to consider.
 // From: fb intv
 class Solution3 {
 public:
-    int readn(int n, char *buffer) { // max n bytes?
-        const int SIZE = 4096;
-        int a = n / SIZE, b = n % SIZE, ct = 0, read_ct = 0;
-        char * buf4k = new char[4096];
+    int readn(int n, char *buffer) { // max n bytes, or when read4() comes to end.
+        const int SIZE = 4;
+        int a = n / SIZE, b = n % SIZE, read_ct = 0;
+        char * buf4 = new char[SIZE];
 
         for (int i = 0; i < a; ++ i) {
-            ct = read4k(buf4k);
-            memcpy(buffer + read_ct, buf4k, ct);
+            int ct = read4(buf4);
+            memcpy(buffer + read_ct, buf4, ct);
             read_ct += ct;
             if (ct < SIZE) return read_ct;
         }
         
         if (b > 0) {
-            ct = read4k(buf4k);
-            memcpy(buffer + read_ct, buf4k, ct);
+            int ct = read4(buf4);
+            ct = min(ct, n - read_ct); // don't forget this !!
+            memcpy(buffer + read_ct, buf4, ct);
             read_ct += ct;
         }
         
@@ -25,27 +26,26 @@ public:
     }
 };
 
-// Should work. Not tested. Basically same as Solution.
+// Should work. Tested at hc, not lc. Basically same as Solution.
 // From: fb intv
 class Solution2 {
 public:
     int readn(int n, char *buffer) { // max n bytes?
-      int read_ct = 0;
-      char * buf4k = new char[4096];
-      // check for validity.
-     
-      while (read_ct < n) {
-        int ct = read4k(buf4k);
-        if (ct == 0) return read_ct;
-       
-        ct = min(ct, n - read_ct);
-        if (ct > 0) {
-          memcpy(buffer + read_ct, buf4k, ct);
-          read_ct += ct;
-        }
-      }
-     
-      return read_ct;
+        int read_ct = 0;
+        char * buf4 = new char[4];
+         
+        while (read_ct < n) {
+            int ct = read4(buf4);
+            if (ct == 0) break; // or: return read_ct; 
+           
+            ct = min(ct, n - read_ct);
+            if (ct > 0) { // not really need to check this, if ct is 0, nothing happens below.
+                memcpy(buf + read_ct, buf4, ct);
+                read_ct += ct;
+            }
+          }
+         
+          return read_ct;
     }
 };
 
