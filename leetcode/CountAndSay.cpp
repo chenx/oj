@@ -5,6 +5,34 @@
 // @Last modified: 12/18/2012
 //
 
+// Works too.
+class Solution7 {
+public:
+    string countAndSay(int n) {     
+        string s = "1";
+        
+        for (int i = 2; i <= n; ++ i) {
+            string t;
+            char c = s[0];
+            int ct = 1;
+            for (int j = 1; j < s.length(); ++ j) { // this can use i, since outer i is not used.
+                if (c == s[j]) ++ ct;
+                else {
+                    t += to_string(ct) + c;
+                    c = s[j];
+                    ct = 1;
+                }
+            }
+            t += to_string(ct) + c;
+            
+            s = t;
+        }
+        
+        return s;
+    }  
+};
+
+
 #include <string>
 #include <iostream>
 using namespace std;
