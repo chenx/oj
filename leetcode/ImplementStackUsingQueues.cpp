@@ -62,7 +62,7 @@ public:
             q2.pop();
         }
         
-        if (! q2.empty()) {
+        if (! q2.empty()) { // this check is important!
             q1.push(q2.front());
             q2.pop();
         }
