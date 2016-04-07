@@ -5,6 +5,41 @@
 // @Last modified: 1/20/2013
 //
 
+// Works. Almost same as Solution7. Almost best.
+class Solution8 {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        if (candidates.size() == 0) return vector<vector<int>>();
+        sort(candidates.begin(), candidates.end());
+        
+        vector<vector<vector<int>>> ans(1 + target);
+
+        for (int i = 1; i <= target; ++ i) {
+            for (int j = 0; j < candidates.size(); ++ j) {
+                if (i < candidates[j]) break;
+                else if (i == candidates[j]) {
+                    vector<int> v(1, i);
+                    ans[i].push_back(v);
+                    break;
+                }
+                else {
+                    vector<vector<int>> & u = ans[i - candidates[j]];
+                    for (int k = 0, len = u.size(); k < len; ++ k) {
+                        if (candidates[j] >= u[k].back()) {  // <-- Note this !!!
+                            ans[i].push_back(u[k]);
+                            ans[i].back().push_back(candidates[j]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ans[target];
+    }
+    
+};
+
+
 // This works.
 // From: https://github.com/anson627/leetcode/blob/master/CombinationSum/CombinationSum.cpp
 class Solution {
