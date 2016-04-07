@@ -8,6 +8,25 @@
 #include <iostream>
 using namespace std;
 
+// Works.
+// Two pointers. From Clean Code Handbook. Best sollution so far.
+class Solution9 {
+public:
+    int lengthOfLongestSubstring(string s) {
+        bool exist[256] = {false};
+        int i = 0, maxLen = 0;
+        for (int j = 0; j < s.length(); ++ j) {
+            while (exist[s[j]]) {
+                exist[s[i]] = false;
+                ++ i;
+            }
+            exist[s[j]] = true;
+            maxLen = max(maxLen, j - i + 1);
+        }
+        return maxLen;
+    }
+};
+
 // Works. Use c = s[i] to simplifiy code.
 class Solution8 {
 public:
