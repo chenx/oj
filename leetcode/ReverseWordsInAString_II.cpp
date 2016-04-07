@@ -1,3 +1,25 @@
+// Should work. Modified from Solution3, on the function reverse().
+class Solution4 {
+public:
+    void reverseWords(string &s) {
+        s = removeSpace(s);
+
+        rev(s, 0, s.length() - 1);
+        
+        for (int i = 0, j = 0; j <= s.length(); ++ j) {
+            if (j == s.length() || isspace(s[j])) {
+                rev(s, i, j - 1);
+                i = j + 1;
+            }
+        }
+    }
+    
+    void rev(string &s, int p, int q) {
+        while (p < q) 
+            swap(s[p ++], s[q --]);
+    }
+};
+
 // Should work. Not tested. Modified from Solution2.
 class Solution3 {
 public:
