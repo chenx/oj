@@ -1,3 +1,46 @@
+// Works. Same as CombinationSum.cpp with minor changes 1), 2) and 3) as below.
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> candidates;
+        for (int i = 1; i <= 9; ++ i) candidates.push_back(i); // changes 1)
+
+        vector<vector<vector<int>>> ans(1 + n);
+
+        for (int i = 1; i <= n; ++ i) {
+            for (int j = 0; j < candidates.size(); ++ j) {
+                if (i < candidates[j]) break;
+                else if (i == candidates[j]) {
+                    vector<int> v(1, i);
+                    ans[i].push_back(v);
+                    break;
+                }
+                else {
+                    vector<vector<int>> & u = ans[i - candidates[j]];
+                    // changes 2): add "u[m].size() < k" in condition, 
+                    // also use m instead of k as index, as k is used as parameter.
+                    for (int m = 0, len = u.size(); m < len; ++ m) {
+                        if (candidates[j] > u[m].back() && u[m].size() < k) {
+                            ans[i].push_back(u[m]);
+                            ans[i].back().push_back(candidates[j]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        // change 3).
+        vector<vector<int>> ret;
+        for (int i = 0; i < ans[n].size(); ++ i) {
+            if (ans[n][i].size() == k)
+                ret.push_back(ans[n][i]);
+        }
+        
+        return ret;
+    }
+};
+
+
 // Works. Tested. Cleaned from Solution.
 class Solution {
 public:
