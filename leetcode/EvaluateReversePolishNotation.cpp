@@ -1,3 +1,39 @@
+// Works. 
+class Solution4 {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> s;
+        for (int i = 0; i < tokens.size(); ++ i) {
+            string t = tokens[i];
+            if (isop(t)) calc(s, t);
+            else s.push(stoi(t));
+        }
+        
+        return s.top();
+    }
+    
+    bool isop(string t) { // Note this!
+        string op = "+-*/";
+        return op.find(t) != string::npos;
+    }
+    
+    void calc(stack<int> &s, string t) {
+        if (s.size() < 2) throw exception();
+        
+        int b = s.top(); s.pop();
+        int a = s.top(); s.pop();
+
+        if (t == "+") s.push(a + b);
+        else if (t == "-") s.push(a - b);
+        else if (t == "*") s.push(a * b);
+        else if (t == "/") {
+            if (b == 0) throw exception();
+            s.push(a / b);
+        }
+        else throw exception();
+    }
+};
+
 // Works too. Tested.
 class Solution3 {
 public:
