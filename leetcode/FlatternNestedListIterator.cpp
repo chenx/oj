@@ -1,5 +1,6 @@
 // Should work. Not tested.
 // Flattern the nestedList into a vector in constructor.
+// See: http://massivealgorithms.blogspot.com/2016/04/leecode-341-flatten-nested-list-iterator.html
 class NestedIterator {
 public:
     NestedIterator(vector<NestedInteger> &nestedList) {
