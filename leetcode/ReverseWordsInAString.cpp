@@ -39,6 +39,18 @@ public:
         }
     }
     
+    // Works too. Modified from reverseWords2.
+    void reverseWords3(string &s) {
+        s = removeSpace(s);
+
+        reverse(s.begin(), s.end());
+        for (int i = 0, j = 0; j <= s.length(); ++ j) {
+            while (j < s.length() && ! isspace(s[j])) ++ j;
+            reverse(s.begin() + i, s.begin() + j);
+            i = j + 1;
+        }
+    }
+    
     string removeSpace(string s) {
         char * p = (char *) s.c_str(), * head = p, *q = p;
         
