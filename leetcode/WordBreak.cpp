@@ -21,10 +21,10 @@ class Solution5 {
 public:
     bool wordBreak(string s, unordered_set<string>& dict) {
         int n = s.length();
-        if (n == 0) return false;
+        //if (n == 0) return false; // don't need this, since DP[0] = false below.
         
         vector<bool> DP(n+1, false);
-        //DP[0] = true; // with or without this, both ok.
+        //DP[0] = true; // this should be false, for empty string.
         for (int i = 1; i <= n; ++ i) {
             string t = s.substr(0, i);
             if (dict.find(t) != dict.end()) {
