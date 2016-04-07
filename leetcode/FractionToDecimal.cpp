@@ -1,3 +1,41 @@
+// Works. Code simplified.
+class Solution3 {
+public:
+    string fractionToDecimal(int no, int de) {
+        if (de == 0) return "";
+        if (no == 0) return "0";
+        
+        string s;
+        
+        long long a = no, b = de;
+        if (a < 0 ^ b < 0) s += "-";
+        if (a < 0) a = -a;
+        if (b < 0) b = -b;
+        
+        s += to_string(a / b);
+        
+        a %= b;
+        if (a == 0) return s;
+        else s += ".";
+        
+        unordered_map<int, int> m; // (value, position)
+        for (; a > 0; a = a % b) {
+            if (m.find(a) != m.end()) {
+                s.insert(m[a], "(");
+                s += ")";
+                return s;
+            }
+            
+            m[a] = s.length();
+            
+            a *= 10;
+            s += to_string(a / b);
+        }
+        
+        return s;
+    }
+};
+
 //
 // This works.
 // From: https://oj.leetcode.com/discuss/18731/accepted-cpp-solution-with-explainations
