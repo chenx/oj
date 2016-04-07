@@ -26,6 +26,19 @@ public:
         }
     }
     
+    // This works too! From CCH.
+    void reverseWords2(string &s) {
+        s = removeSpace(s);
+
+        reverse(s.begin(), s.end());
+        for (int i = 0, j = 0; j <= s.length(); ++ j) {
+            if (j == s.length() || isspace(s[j])) {
+                reverse(s.begin() + i, s.begin() + j);
+                i = j + 1;
+            }
+        }
+    }
+    
     string removeSpace(string s) {
         char * p = (char *) s.c_str(), * head = p, *q = p;
         
