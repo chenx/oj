@@ -14,6 +14,37 @@
 using namespace std;
 
 
+// Works too. Be careful of boundaries!
+// From: Amz intv
+class Solution5 {
+public:
+    bool wordBreak(string s, unordered_set<string>& dict) {
+        int n = s.length();
+        if (n == 0) return false;
+        
+        vector<bool> DP(n+1, false);
+        //DP[0] = true; // with or without this, both ok.
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.find(t) != dict.end()) {
+                DP[i] = true;
+                continue;
+            }
+            
+            for (int j = 1; j < i; ++ j) {
+                string t = s.substr(j, i - j); // (j, i - j) !!!
+                if (dict.find(t) != dict.end() && DP[j]) {
+                    DP[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return DP[n];
+    }
+};
+
+
 // Works too. 
 class Solution4 {
 public:
