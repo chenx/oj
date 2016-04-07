@@ -1,3 +1,42 @@
+// Should work. Not tested. Use a stack.
+// From: https://leetcode.com/discuss/95892/concise-c-without-storing-all-values-at-initialization
+class NestedIterator2 {
+private:
+    stack<NestedInteger> nodes;
+
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        int size = nestedList.size();
+        for (int i = size - 1; i >= 0; -- i) {
+            nodes.push(nestedList[i]);
+        }
+    }
+
+    int next() {
+        int result = nodes.top().getInteger();
+        nodes.pop();
+        return result;
+    }
+    
+    bool hasNext() {
+        while(! nodes.empty()) {
+            NestedInteger curr = nodes.top();
+            if (curr.isInteger()) {
+                return true;
+            }
+    
+            nodes.pop();
+            vector<NestedInteger>& adjs = curr.getList();
+            int size = adjs.size();
+            for (int i = size - 1; i >= 0; -- i) {
+                nodes.push(adjs[i]);
+            }
+        }
+    
+        return false;
+    }
+};
+
 // Should work. Not tested.
 // Flattern the nestedList into a vector in constructor.
 // See: http://massivealgorithms.blogspot.com/2016/04/leecode-341-flatten-nested-list-iterator.html
