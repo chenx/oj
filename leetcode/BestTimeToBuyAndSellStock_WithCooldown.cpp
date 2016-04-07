@@ -6,16 +6,14 @@ public:
         int n = prices.size();
         if (n <= 1) return 0;
         
-        vector<int> mp(n, 0);
-        int minv = prices[0];
-        
+        vector<int> mp(n);
         mp[0] = 0;
         mp[1] = max(0, prices[1] - prices[0]);
-        minv = min(prices[0], prices[1]);
+        int low = min(prices[0], prices[1]);
         
-        for (int i = 2; i < n; ++ i) { // index eaiser to understand than Solution2.
-            mp[i] = max(mp[i-1], prices[i] - minv);
-            minv = min(minv, prices[i] - mp[i-2]);
+        for (int i = 2; i < n; ++ i) {
+            mp[i] = max(mp[i-1], prices[i] - low);
+            low = min(low, prices[i] - mp[i-2]);
         }
         
         return mp[n-1];
