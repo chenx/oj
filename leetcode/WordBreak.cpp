@@ -15,6 +15,7 @@ using namespace std;
 
 
 // Works too. Be careful of boundaries!
+// This should be the one easiest to memorize on boundaries.
 // From: Amz intv
 class Solution5 {
 public:
