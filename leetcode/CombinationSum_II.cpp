@@ -8,6 +8,58 @@
 // when target is larger than the sum of all elements in num, then always return empty set.
 //
 
+
+// Works. 
+// Same as Solution8 of CombinationSum.cpp, with minor modifications 1) and 2) shown below.
+class Solution5 {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& cand, int target) {
+        if (cand.size() == 0) return vector<vector<int>>();
+        
+        // 1) the 5 lines below are addition from CombinationSum.cpp.
+        vector<int> candidates;
+        unordered_map<int, int> count;
+        for (auto c : cand) {
+            if (++ count[c] == 1) candidates.push_back(c);
+        }
+        sort(candidates.begin(), candidates.end());
+        
+        vector<vector<vector<int>>> ans(1 + target);
+
+        for (int i = 1; i <= target; ++ i) {
+            for (int j = 0; j < candidates.size(); ++ j) {
+                if (i < candidates[j]) break;
+                else if (i == candidates[j]) {
+                    vector<int> v(1, i);
+                    ans[i].push_back(v);
+                    break;
+                }
+                else {
+                    vector<vector<int>> & u = ans[i - candidates[j]];
+                    for (int k = 0, len = u.size(); k < len; ++ k) {
+                        if (candidates[j] >= u[k].back() && 
+                                getCount(u[k], candidates[j]) < count[candidates[j]]) {
+                                // 2) the getCount() above is addition from CombinationSum.cpp.
+                            ans[i].push_back(u[k]);
+                            ans[i].back().push_back(candidates[j]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ans[target];
+    }
+    
+    int getCount(vector<int> & v, int c) {
+        int ct = 0;
+        for (int val : v) {
+            if (val == c) ++ ct;
+        }
+        return ct;
+    }
+};
+
 // Modified from the solution of CombinationSum.
 // From: https://github.com/anson627/leetcode/blob/master/CombinationSum/CombinationSum.cpp
 class Solution {
