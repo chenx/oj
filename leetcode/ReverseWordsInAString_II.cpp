@@ -1,3 +1,19 @@
+// Should work. Not tested. Modified from Solution2.
+class Solution3 {
+public:
+    // Works too. Modified from reverseWords2.
+    void reverseWords3(string &s) {
+        s = removeSpace(s);
+
+        reverse(s.begin(), s.end());
+        for (int i = 0, j = 0; j <= s.length(); ++ j) {
+            while (j < s.length() && ! isspace(s[j])) ++ j;
+            reverse(s.begin() + i, s.begin() + j);
+            i = j + 1;
+        }
+    }
+};
+    
 // Should work. Not tested. From CCH.
 class Solution2 {
 public:
