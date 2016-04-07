@@ -35,7 +35,7 @@ public:
     // Works. Tested.
     // Similar to find cycle in loop.
     // From: https://leetcode.com/discuss/69766/share-my-solution-o-n-time-o-1-space-12-ms
-    int findDuplicate(vector<int>& nums) {
+    int findDuplicate3(vector<int>& nums) {
         int slow = 0;
         int fast = 0;
         int finder = 0;
@@ -55,6 +55,23 @@ public:
             if (slow == finder)
                 return slow;
         }        
+    }
+    
+    // Works. Simplified from findDuplication3.
+    int findDuplicate4(vector<int>& A) {
+        int slow = 0, fast = 0;
+        while (true) {
+            slow = A[slow];
+            fast = A[A[fast]];
+            if (slow == fast) break;
+        }
+        
+        slow = 0;
+        while (slow != fast) {
+            slow = A[slow];
+            fast = A[fast];
+        }
+        return slow;
     }
 };
 
