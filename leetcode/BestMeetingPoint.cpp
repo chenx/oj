@@ -1,3 +1,39 @@
+// Should work. Tested locally.
+// Basically same as Solution, but less brackets.
+class Solution2 {
+public:
+    int minTotalDistance(vector<vector<int> >& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+        int m = grid.size(), n = grid[0].size();
+
+        vector<int> row, col;
+        for (int i = 0; i < m; ++ i) 
+            for (int j = 0; j < n; ++ j)
+                if (grid[i][j] == 1)
+                    row.push_back(i), col.push_back(j);
+
+        sort(row.begin(), row.end());
+        sort(col.begin(), col.end());
+
+        int x0 = getMedian(row), y0 = getMedian(col), dist = 0;
+
+        for (int i = 0; i < m; ++ i)
+            for (int j = 0; j < n; ++ j)
+                if (grid[i][j] == 1)
+                    dist += abs(i - x0) + abs(j - y0);
+        
+        return dist;
+    }
+
+    int getMedian(vector<int> &v) {
+        int n = v.size();
+        if (n == 0) return 0;
+        if (n & 1) return v[n/2];
+        else return 0.5 * (v[n/2] + v[n/2 - 1]);
+    }
+};
+
+
 // Works. Tested.
 // The best meeting point is the median.
 // for odd numbers, it's the center one; 
