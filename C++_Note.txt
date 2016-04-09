@@ -153,3 +153,8 @@
   int n = 3;
   string s = string(n, c);  // s = "aaa".
   
+
+- Simple way to print a number in binary format.
+  int n = 100;
+  cout << bitset<8>(n) << endl;
+  
