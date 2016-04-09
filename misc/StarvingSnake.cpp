@@ -22,6 +22,7 @@ class Snake {
     int M, N;
     deque<pair<int, int> > snake;
     set<pair<int, int> > body;
+    
 public:
     Snake(vector<vector<int> > gameBoard, int x, int y) {
         board = gameBoard;
@@ -41,18 +42,6 @@ public:
         drawBoard();
     }
 
-    bool intoWall(pair<int, int> & p) {
-        int x = p.first, y = p.second;
-        return x < 0 || x >= M || y < 0 || y >= N;
-    }
-
-    string getDirName(DIR dir) {
-        if (dir == UP) return "UP";
-        if (dir == DOWN) return "DOWN";
-        if (dir == LEFT) return "LEFT";
-        if (dir == RIGHT) return "RIGHT";
-        return "UNKNOWN_DIR";
-    }
 
     void move(DIR dir) {
         cout << "move: " + getDirName(dir) << endl;
@@ -80,6 +69,20 @@ public:
         }
 
         drawBoard();
+    }
+    
+private:
+    bool intoWall(pair<int, int> & p) {
+        int x = p.first, y = p.second;
+        return x < 0 || x >= M || y < 0 || y >= N;
+    }
+
+    string getDirName(DIR dir) {
+        if (dir == UP) return "UP";
+        if (dir == DOWN) return "DOWN";
+        if (dir == LEFT) return "LEFT";
+        if (dir == RIGHT) return "RIGHT";
+        return "UNKNOWN_DIR";
     }
 
     void exit(ERR errNum) {
