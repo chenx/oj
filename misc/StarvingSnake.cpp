@@ -93,7 +93,7 @@ private:
             default: msg = "unspecified error"; break;
         }
         cout << endl << "!!! " << msg << ". game over !!!" << endl << endl;
-            }
+    }
 
     pair<int, int> next(pair<int, int> &cur, DIR dir) {
         int x = cur.first, y = cur.second;
