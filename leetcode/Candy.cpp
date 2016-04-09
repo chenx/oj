@@ -1,3 +1,26 @@
+// Works too.
+class Solution3 {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        if (n == 0) return 0;
+        
+        vector<int> A(n, 0);
+        A[0] = 1;
+        for (int i = 1; i < n; ++ i) {
+            A[i] = (ratings[i] > ratings[i-1]) ? A[i-1] + 1 : 1;
+        }
+        
+        for (int i = n - 2; i >= 0; -- i) {
+            if (ratings[i] > ratings[i+1]) A[i] = max(A[i], A[i+1] + 1);
+        }
+        
+        int sum = 0;
+        for (auto c : A) sum += c;
+        return sum;
+    }
+};
+
 // This works.
 int minimalCandies(vector<int> &ratings) {
     int n = ratings.size();
