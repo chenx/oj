@@ -82,8 +82,8 @@ public:
         else {
             a[t] = a[t - p];
             db(t + 1, p);
-            for (int j = a[t - p] + 1; j < k; ++ j) {
-                a[t] = j;
+            for (int i = a[t - p] + 1; i < k; ++ i) {
+                a[t] = i;
                 db(t + 1, t);
             }
         }
