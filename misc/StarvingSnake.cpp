@@ -25,7 +25,10 @@ class Snake {
 public:
     Snake(vector<vector<int> > gameBoard, int x, int y) {
         board = gameBoard;
-        if (board.size() == 0 || board[0].size() == 0) err("invalid board");
+        if (board.size() == 0 || board[0].size() == 0) {
+            cout << "invalid board" << endl;
+            return;
+        }
         M = board.size(), N = board[0].size();
 
         snake.clear();
