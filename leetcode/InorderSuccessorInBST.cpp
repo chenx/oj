@@ -1,3 +1,27 @@
+// Should work. Tested locally, not in lc.
+// See: https://github.com/chenx/oj/blob/master/misc/BST_InorderSuccessor.cpp
+class Solution3 {
+public:
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        if (! root) return NULL;
+
+        if (p->right) { // return left most child of p->right.
+            for (p = p->right; p->left; p = p->left) ;
+            return p;
+        }
+        else {
+            TreeNode * x = p;
+            p = x->parent;
+            while (p && x == p->right) {
+                x = p;
+                p = p->parent;
+            }
+            return p;
+        }
+    }
+};
+
+
 // Should work, not tested. Basically same as Solution.
 class Solution2 {
 public:
