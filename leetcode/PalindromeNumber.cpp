@@ -1,3 +1,23 @@
+// Works.
+class Solution6 {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        return x == rev(x);
+    }
+    
+    int rev(int x) {
+        int y = 0, y0;
+        while (x > 0) {
+            y0 = y;
+            y = y * 10 + x % 10;
+            if (y / 10 != y0) return -1; // overflow.
+            x /= 10;
+        }
+        return y;
+    }
+};
+
 // Works. Trunk numbers from left and right.
 // From Clean Code Handbook (CCH).
 class Solution5 {
