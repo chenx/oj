@@ -18,12 +18,10 @@ public:
         for (int i = m-2; i >= 0; -- i) dp[i][n-1] = getVal(dp[i+1][n-1] - d[i][n-1]);
         for (int j = n-2; j >= 0; -- j) dp[m-1][j] = getVal(dp[m-1][j+1] - d[m-1][j]);
         
-        for (int i = m-2; i >= 0; -- i) {
-            for (int j = n-2; j >= 0; -- j) {
+        for (int i = m-2; i >= 0; -- i) 
+            for (int j = n-2; j >= 0; -- j) 
                 dp[i][j] = getVal( min(dp[i+1][j], dp[i][j+1]) - d[i][j] );
-            }
-        }
-        
+
         return dp[0][0];
     }
     
