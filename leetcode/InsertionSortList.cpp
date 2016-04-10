@@ -8,6 +8,26 @@ struct ListNode {
 };
 
 // Works too.
+class Solution8 {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        ListNode dummy(0);
+
+        while (head != NULL) {
+            ListNode * n = & dummy;
+            for (; n->next && n->next->val < head->val; n = n->next) ;
+            
+            ListNode * tmp = n->next;
+            n->next = head;
+            head = head->next;
+            n->next->next = tmp;
+        }
+        
+        return dummy.next;
+    }
+};
+
+// Works too.
 class Solution7 {
 public:
     ListNode* insertionSortList(ListNode* head) {
