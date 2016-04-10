@@ -1,4 +1,4 @@
-// Should work. Tested locally, not in lc.
+// Should work. Tested locally, not in lc. Bottom-up.
 // See: https://github.com/chenx/oj/blob/master/misc/BST_InorderSuccessor.cpp
 class Solution3 {
 public:
@@ -22,7 +22,7 @@ public:
 };
 
 
-// Should work, not tested. Basically same as Solution.
+// Should work, not tested. Basically same as Solution. Top-down.
 class Solution2 {
 public:
     TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
@@ -49,7 +49,7 @@ public:
     }
 };
 
-// This works. Tested.
+// This works. Tested. Top-down.
 // From: http://www.cnblogs.com/jcliBlogger/p/4829200.html
 // Also see: https://leetcode.com/discuss/questions/oj/inorder-successor-in-bst
 
