@@ -1,3 +1,44 @@
+// Works. But Solution2 is best. Note need to set slow->next = NULL actually.
+class Solution4 {
+public:
+    bool isPalindrome(ListNode* head) {
+        if (! head || ! head->next) return true;
+
+        ListNode * slow = head, * fast = head->next;
+        while (fast->next && fast->next->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        ListNode * h1 = head, * h2; // now slow->next is middle.
+        if (fast->next != NULL) h2 = slow->next->next; // odd nodes, slow->next is mid
+        else h2 = slow->next; //, even nodes, slow->next is first of 2nd half.
+        slow->next = NULL;
+        
+        h2 = rev(h2);
+        
+        while (h1) {
+            if (h1->val != h2->val) return false;
+            h1 = h1->next;
+            h2 = h2->next;
+        }
+        return true;
+    }
+    
+    ListNode * rev(ListNode * head) {
+        if (head == NULL || head->next == NULL) return head;
+        
+        ListNode * h = NULL;
+        while (head) {
+            ListNode * tmp = head->next;
+            head->next = h;
+            h = head;
+            head = tmp;
+        }
+        return h;
+    }
+};
+
 // Works. Use stack. O(n) time, O(n) space.
 class Solution3 {
 public:
