@@ -1,5 +1,5 @@
-// Should work. Not tested. O(n).
-class Solution4 {
+// Should work. Tested locally, not in lc. O(n).
+class Solution3 {
 public:
     int closestValue(TreeNode* root, double target) {
         if (! root) return 0;
@@ -24,32 +24,6 @@ public:
     }
 };
 
-// Should work. Not tested. O(logn).
-class Solution3 {
-public:
-    int closestValue(TreeNode* root, double target) {
-        if (root == NULL) return 0;
-        
-        double mdiff = abs(root->val - target);
-        int val = root->val;
-        helper(root, target, mdiff, val);
-        return val;
-    }
-    
-    void helper(TreeNode * root, double target, double &mdiff, int &val) {
-        if (root == NULL) return;
-        
-        double diff = abs(root->val - target);
-        if (diff < mdiff) {
-            mdiff = diff;
-            val = root->val;
-        }
-        
-        // there may be error with the conditionals here...
-        if (target < root->val) helper(root->left, target, mdiff, val);
-        else if (target > root->val) helper(root->right, target, mdiff, val);
-    }
-};
 
 // Should work. Not tested. O(n).
 class Solution2 {
