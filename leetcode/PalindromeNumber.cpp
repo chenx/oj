@@ -26,10 +26,10 @@ public:
         if (x < 0) return false;
         int div = 1;
         while (x / 10 >= div) div *= 10;
-        
-        while (x != 0) {
-            int L = x / div, R = x % 10;
-            if (L != R) return false;
+                                         // or:
+        while (x != 0) {                 // while (x > 0) {
+            int L = x / div, R = x % 10; //     int high = x / div, low = x % 10;
+            if (L != R) return false;    //     if (high != low) return false;
             x = (x % div) / 10;
             div /= 100;
         }
