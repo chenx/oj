@@ -1,5 +1,34 @@
+// Works.
+class Solution3 {
+    int m, n;
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+        m = grid.size(), n = grid[0].size();
+        int ct = 0;
+        
+        for (int i = 0; i < m; ++ i) 
+            for (int j = 0; j < n; ++ j) 
+                if (grid[i][j] == '1') 
+                    ++ ct, flip(grid, i, j);
+
+        return ct;
+    }
+    
+    // Move check to top of flip(), more clean.
+    void flip(vector<vector<char>>& grid, int i, int j) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != '1') return;
+        
+        grid[i][j] = '0';
+        flip(grid, i+1, j);
+        flip(grid, i-1, j);
+        flip(grid, i, j+1);
+        flip(grid, i, j-1);
+    }
+};
+
 // Works too. Slightly modified from Solution.
-class Solution {
+class Solution2 {
 public:
     int numIslands(vector<vector<char>>& grid) {
         if (grid.size() == 0 || grid[0].size() == 0) return 0;
