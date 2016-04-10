@@ -1,3 +1,31 @@
+// Works. Use stack. O(n) time, O(n) space.
+class Solution3 {
+public:
+    bool isPalindrome(ListNode* head) {
+        if (! head || ! head->next) return true;
+
+        stack<int> s;
+        ListNode * slow = head, * fast = head->next;
+        
+        while (fast && fast->next) {
+            s.push(slow->val);
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        // even number of nodes 
+        if (fast != NULL) s.push(slow->val); // push last node of first half.
+        slow = slow->next; // advance to first node of second half.
+        
+        while (slow != NULL) {
+            if (s.top() != slow->val) return false;
+            s.pop();
+            slow = slow->next;
+        }
+        return true;
+    }
+};    
+    
 // Works. Tested. O(1) space, O(n) time.
 // Idea: find mid point, reverse 2nd half (slow->next), compare with 1st half.
 /**
@@ -8,7 +36,7 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
+class Solution2 {
 public:
     bool isPalindrome(ListNode* head) {
         if (head == NULL || head->next == NULL) return true;
