@@ -1,5 +1,5 @@
 
-// Should work. Not tested. 
+// Should work. Tested locally, not in lc. 
 // comp is the same as in Solution.
 class Solution2 {
 public:
