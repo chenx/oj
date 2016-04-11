@@ -1,3 +1,40 @@
+// Works. Maybe best so far.
+class Solution3 {
+public:
+    void reorderList(ListNode* head) {
+        if (! head || ! head->next) return;
+        
+        ListNode * slow = head, * fast = head->next;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        ListNode * L = head, * R = reverse(slow->next);
+        slow->next = NULL;
+        
+        // now merge.
+        ListNode dummy(0);
+        ListNode * n = & dummy;
+        for (bool odd = true; L && R; odd = ! odd) {
+            if (odd) n->next = L, n = L, L = L->next;
+            else     n->next = R, n = R, R = R->next;
+        }
+        n->next = L ? L : R;
+    }
+    
+    ListNode * reverse(ListNode * head) {
+        ListNode * h = NULL;
+        while (head != NULL) {
+            ListNode * tmp = head->next;
+            head->next = h;
+            h = head;
+            head = tmp;
+        }
+        return h;
+    }
+};
+
 // Works. Tested. Use dummy node.
 class Solution2 {
 public:
