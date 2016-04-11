@@ -5,6 +5,29 @@
 // @Last modified: 12/22/2012
 //
 
+// This works too. Maybe best so far.
+// Note the use of function fill() on vector.
+// ex:
+// row 0: 1
+// row 1: 1 1
+// row 2: 1 2 1   <== only need to start processing from this row.
+// row 3: 1 3 3 1
+class Solution6 {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> row(rowIndex + 1, 1);
+        //fill(row.begin(), row.end(), 1);
+        
+        for (int i = 2; i <= rowIndex; ++ i) {
+            for (int j = i - 1; j > 0; -- j) { // backward !
+                row[j] += row[j - 1];
+            }
+        } 
+        
+        return row;
+    }
+}; 
+
 /*
  * v[i] = v[i] + v[i-1] for i = v.size() - 1 to 1.
  */
@@ -105,36 +128,15 @@ public:
     }
 }
 
-// This works too. Maybe best so far.
-// Note the use of function fill() on vector.
-// ex:
-// row 0: 1
-// row 1: 1 1
-// row 2: 1 2 1   <== only need to start processing from this row.
-// row 3: 1 3 3 1
-class Solution6 {
-public:
-    vector<int> getRow(int rowIndex) {
-        vector<int> row(rowIndex + 1, 1);
-        //fill(row.begin(), row.end(), 1);
-        
-        for (int i = 2; i <= rowIndex; ++ i) {
-            for (int j = i - 1; j > 0; -- j) { // backward !
-                row[j] += row[j - 1];
-            }
-        } 
-        
-        return row;
-    }
-}; 
 
 /*
-Problem:
+Pascal's Triangle II
+Difficulty: Easy
 
 Given an index k, return the kth row of the Pascal's triangle.
 
 For example, given k = 3,
-Return [1,3,3,1].
+Return [1,3,3,1]. 
 
 Note:
 Could you optimize your algorithm to use only O(k) extra space? 
