@@ -28,7 +28,7 @@ public:
             n->next = n2;
             n2->next = n1;
             n1->next = n3;
-            n = n1;
+            n = n1;  // Note: is n1, not n3!
         }
         
         return dummy.next;
