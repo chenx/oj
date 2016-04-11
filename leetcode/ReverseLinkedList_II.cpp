@@ -9,6 +9,8 @@
 class Solution4 {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (m >= n) return head;
+        
         ListNode dummy(0);
         ListNode * prev = & dummy;
         prev->next = head;
