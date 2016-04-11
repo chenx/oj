@@ -16,11 +16,11 @@ public:
         
         while (true) {
             ListNode * t = h;
-            for (int i = 1; i < k && t != NULL; ++ i) t = t->next;
+            for (int i = 1; i < k && t != NULL; ++ i) t = t->next; // i starts with 1 !
             if (t == NULL) break; // less than k nodes left.
             
             ListNode * tail = t->next;
-            t->next = NULL;
+            t->next = NULL;  // don't forget this.
             
             prev->next = rev(h, t);
             t->next = tail;
