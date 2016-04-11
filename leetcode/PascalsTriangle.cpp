@@ -5,6 +5,24 @@
 // @Last modified: 12/22/2012
 //
 
+// Works. May be simplest so far. But be careful of index: ans[i-2].
+class Solution6 {
+public:
+    vector<vector<int>> generate(int n) {
+        vector<vector<int>> ans;
+        
+        for (int i = 1; i <= n; ++ i) {
+            vector<int> row(i, 1);  // init entire row to 1.
+            for (int j = 1; j < i - 1; ++ j) {
+                row[j] = ans[i-2][j-1] + ans[i-2][j]; // Note: ans[i-2], not ans[i-1] !
+            }
+            ans.push_back(row);
+        }
+        
+        return ans;
+    }
+};
+
 // This works too.
 // getRow() is solution to Pascal's Triangle II.
 class Solution5 {
@@ -32,7 +50,7 @@ public:
         }   
         return ans;
     }
-}    
+}
     
 // This works too.
 class Solution4 {
@@ -128,3 +146,22 @@ public:
         return ans;
     }
 };
+
+
+/**
+Pascal's Triangle
+Difficulty: Easy
+
+Given numRows, generate the first numRows of Pascal's triangle.
+
+For example, given numRows = 5,
+Return
+
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]
+ */
