@@ -12,8 +12,8 @@ public:
         vector<vector<int>> ans;
         
         for (int i = 1; i <= n; ++ i) {
-            vector<int> row(i, 1);  // init entire row to 1.
-            for (int j = 1; j < i - 1; ++ j) {
+            vector<int> row(i, 1);                    // init entire row to 1.
+            for (int j = 1; j < i - 1; ++ j) {        // Note: j < i - 1 !
                 row[j] = ans[i-2][j-1] + ans[i-2][j]; // Note: ans[i-2], not ans[i-1] !
             }
             ans.push_back(row);
