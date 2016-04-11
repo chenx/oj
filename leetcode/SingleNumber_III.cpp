@@ -1,3 +1,22 @@
+// Works.
+class Solution5 {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        vector<int> ans(2, 0);
+        
+        int v = 0;
+        for (auto n : nums) v ^= n;
+        int lowbit = v & -v;
+        
+        for (auto n : nums) {
+            if (n & lowbit) ans[0] ^= n;
+            else ans[1] ^= n;
+        }
+        
+        return ans;
+    }
+};
+
 // Works too. Tested.
 class Solution4 {
 public:
