@@ -1,3 +1,22 @@
+// Should work. Tested locally, not on lc.
+class Solution6 {
+    map<int, int> m; // value, count
+public:
+    void add(int number) {
+        m[number] ++;
+    }
+    bool find(int value) {
+        for (map<int, int>::iterator it = m.begin(); it != m.end(); ++ it) {
+            int v = it->first;
+
+            int ct = (value == 2 * v ? 2 : 1);
+            //if (m.find(value - v) != m.end() && m[value - v] >= ct) return true;
+            if (m.count(value - v) && m[value - v] >= ct) return true;
+        }
+        return false;
+    }
+};
+
 // Should work. Note tested.
 class TwoSum5 {
 public:
