@@ -5,6 +5,29 @@
 // @Last modified: 1/1/2013
 //
 
+// Works. Best so far!  Totally avoids switch/if-else.
+class Solution3 {
+public:
+    bool isValid(string s) {
+        map<char, char> m;
+        m['('] = ')';
+        m['['] = ']';
+        m['{'] = '}';
+        
+        stack<char> t;
+        for (int i = 0; i < s.length(); ++ i) {
+            char c = s[i];
+            if (m.find(c) != m.end()) t.push(c);
+            else {
+                if (! t.empty() && c == m[t.top()]) t.pop();
+                else return false;
+            }
+        }
+        
+        return t.empty();
+    }
+};
+
 // Works. Tested.
 class Solution2 {
 public:
