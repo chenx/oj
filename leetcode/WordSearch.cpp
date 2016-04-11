@@ -5,6 +5,38 @@
 // @Last modified: 10/26/2014
 //
 
+// Works.
+class Solution5 {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        if (board.size() == 0 || board[0].size() == 0) return false;
+        if (word == "") return true;
+        m = board.size(), n = board[0].size();
+        vector<vector<bool>> used(m, vector<bool>(n, false));
+        
+        for (int i = 0; i < m; ++ i) 
+            for (int j = 0; j < n; ++ j) 
+                if (match(board, i, j, word, 0, used)) return true;
+
+        return false;
+    }
+    
+    bool match(vector<vector<char>>& board, int i, int j, string & word, int pos, vector<vector<bool>> & used) {
+        if (i < 0 || i >= m || j < 0 || j >= n || used[i][j] || board[i][j] != word[pos]) return false;
+        if (pos == word.length() - 1) return true;
+
+        used[i][j] = true;
+        
+        if (match(board, i-1, j, word, pos+1, used)) return true;
+        if (match(board, i+1, j, word, pos+1, used)) return true;
+        if (match(board, i, j-1, word, pos+1, used)) return true;
+        if (match(board, i, j+1, word, pos+1, used)) return true;
+        
+        used[i][j] = false;
+        return false; // don't forget this!
+    }
+};
+
 // Works too.
 class Solution4 {
 public:
