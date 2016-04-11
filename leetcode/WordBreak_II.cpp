@@ -4,6 +4,59 @@
 #include <vector>
 using namespace std;
 
+// Works. Most clean form.
+// See: WorkdBreak, Palindrome Partitioning.
+class Solution6 {
+public:
+    vector<string> wordBreak(string s, unordered_set<string>& dict) {
+        int n = s.length();
+        if (! wordBreakOK(s, dict)) return vector<string>();
+        
+        vector<vector<string>> DP(n+1);
+        
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.find(t) != dict.end()) {
+                DP[i].push_back({t});
+            }
+            
+            for (int j = 1; j < i; ++ j) {
+                string t = s.substr(j, i - j);
+                if (dict.find(t) != dict.end()) {
+                    for (int k = 0; k < DP[j].size(); ++ k) {
+                        DP[i].push_back(DP[j][k] + " " + t);
+                    }
+                }
+            }
+        }
+        
+        return DP[n];
+    }
+    
+    bool wordBreakOK(string s, unordered_set<string>& dict) {
+        int n = s.length();
+        vector<bool> DP(n+1, false);
+
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.find(t) != dict.end()) {
+                DP[i] = true;
+                continue;
+            }
+            
+            for (int j = 1; j < i; ++ j) {
+                string t = s.substr(j, i - j); 
+                if (dict.find(t) != dict.end() && DP[j]) {
+                    DP[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return DP[n];
+    }
+};
+
 // Works. Slightly different from Solution4, in index.
 class Solution5 {
 public:
