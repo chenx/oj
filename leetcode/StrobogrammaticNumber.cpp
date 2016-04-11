@@ -4,6 +4,8 @@ public:
     bool isStrobogrammatic(string num) {
         int L = 0, R = num.length() - 1;
         
+        if (num.length() > 1 && num[0] == '0') return false;
+        
         for (; L <= R; ++ L, -- R) {
             if (! ((num[L] == '0' && num[R] == '0') ||
                    (num[L] == '1' && num[R] == '1') ||
