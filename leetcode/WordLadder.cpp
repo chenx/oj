@@ -6,6 +6,45 @@
 // @Last modified: 4/7/2013
 //
 
+// Works. May be best so far.
+class Solution5 {
+public:
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
+        if (beginWord == endWord) return 1;
+        
+        queue<pair<string, int> > q;
+        q.push(pair<string, int>(beginWord, 1));
+        
+        unordered_set<string> used;
+        used.insert(beginWord);
+        
+        while (! q.empty()) {
+            string w = q.front().first;
+            int dist = q.front().second;
+            q.pop();
+            
+            for (int i = 0; i < w.length(); ++ i) {
+                char c = w[i];
+                for (char j = 'a'; j < 'z'; ++ j) {
+                    if (c == j) continue;
+                    w[i] = j;
+                    
+                    if (w == endWord) return 1 + dist; // BFS, so first is the shortest.
+                    else {
+                        if (wordList.count(w) && ! used.count(w)) {
+                            q.push(pair<string, int>(w, 1 + dist));
+                            used.insert(w);
+                        }
+                    }
+                }
+                w[i] = c;
+            }
+        }
+        
+        return 0;
+    }
+};
+
 /*
    1164 ms for large test set.
    Note: the part to get length can also be:
