@@ -48,8 +48,47 @@ public:
         }
         return minCUTS[N];
     }
-}    
+}
     
+// Should work. But times out for large input.
+// Slightly modified from Solution4. Most clean in this approach.
+class Solution5 {
+public:
+    int minCut(string s) {
+        int n = s.length();
+        vector<int> DP(n+1, -1);
+        
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (isPalindrome(t)) {
+                DP[i] = 0;
+                continue;
+            }
+            
+            for (int j = 1; j < i; ++ j) {
+                string t = s.substr(j, i - j);
+                if (isPalindrome(t)) {
+                    if (DP[j] != -1 && (DP[i] == -1 || DP[i] > 1 + DP[j])) {
+                        DP[i] = 1 + DP[j];
+                        if (DP[i] == 1) break;
+                    }
+                }
+            }
+        }
+        
+        return DP[n];
+    }
+    
+    bool isPalindrome(string s) {
+        int L = 0, R = s.length() - 1;
+        while (L < R) {
+            if (s[L] != s[R]) return false;
+            ++ L, -- R;
+        }
+        return true;
+    }
+};
+
 // Should work. Although time out for large input.
 // Most clean version so far. 2/15/2015. XC.
 class Solution4 {
