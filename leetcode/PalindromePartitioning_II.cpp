@@ -16,6 +16,26 @@
 #include <string>
 using namespace std;
 
+// Works. Slightly modified from Solution6.
+class Solution6_2 {
+public:
+    int minCut(string s) {
+        int n = s.length();
+        vector<int> DP(n+1);
+        for (int i = 0; i <= n; ++ i) DP[i] = i - 1;
+        
+        for (int i = 1; i <= n; ++ i) {
+            for (int j = 0; i-j >= 0 && i+j < n && s[i-j] == s[i+j]; ++ j)
+                DP[i+j+1] = min(DP[i+j+1], 1 + DP[i-j]);
+                
+            for (int j = 0; i-j-1 >= 0 && i+j < n && s[i-j-1] == s[i+j]; ++ j)
+                DP[i+j+1] = min(DP[i+j+1], 1 + DP[i-j-1]);
+        }
+        
+        return DP[n];
+    }
+};
+
 // This works. 
 // The Manancher-like solution scan the array from left to right (for i loop) 
 // and only check those sub-strings centered at s[i]; once a non-palindrome 
@@ -29,7 +49,7 @@ using namespace std;
 // at i. This helps us avoid unnecessary palindrome substring checks, as we did 
 // in the DP algorithm. Therefore, this version is faster. 
 // From: https://leetcode.com/discuss/47140/two-versions-given-one-28ms-one-manancher-like-algorithm-10
-class Solution5 {
+class Solution6 {
 public:
     int minCut(string s) {
         const int N = s.size();
