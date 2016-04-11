@@ -1,3 +1,28 @@
+// Works. Almost same as Solution4. Maybe best.
+class Solution6 {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        vector<string> ans;
+        unordered_map<int, int> keys; // (key,count)
+        
+        for (int i = 0, n = s.length() - 10; i <= n; ++ i) {
+            string t = s.substr(i, 10);
+            int key = getKey(t);
+            if (keys[key] ++ == 1) ans.push_back(t);
+        }
+        
+        return ans;
+    }
+    
+    int getKey(string s) {
+        int key = 0;
+        for (int i = 0; i < s.length(); ++ i) {
+            key = (key << 3) + (s[i] & 7); // must use both "()" here!!
+        }
+        return key;
+    }
+};
+
 // Works. Tested. But Solution4 seems better.
 class Solution5 {
 public:
