@@ -76,7 +76,7 @@ public:
     bool find(int value) {
         for (int i : nums) {
             int count = (value == 2 * i) ? 2 : 1;
-            if (nums.count(value - i) > count) {
+            if (nums.count(value - i) >= count) {
                 return true;
             }
         }
