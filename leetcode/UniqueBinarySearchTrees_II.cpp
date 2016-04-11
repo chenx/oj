@@ -16,7 +16,7 @@ public:
     
     vector<TreeNode*> gen(int L, int R) {
         if (L > R) return vector<TreeNode*>(1, NULL);
-        if (L == R) return vector<TreeNode*>(1, new TreeNode(L));
+        // if (L == R) return vector<TreeNode*>(1, new TreeNode(L)); // ok without this.
         
         vector<TreeNode *> ans;
         
