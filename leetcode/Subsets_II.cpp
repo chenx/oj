@@ -1,3 +1,35 @@
+// Works. Re-written from Solution5 so it's easier to understand about start and lastCount.
+class Solution6 {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        sort(nums.begin(), nums.end());
+        ans.push_back(vector<int>());
+        
+        int lastCount, start;
+        for (int i = 0; i < n; ++ i) {
+            
+            if (i > 0 && nums[i] == nums[i-1]) {
+                start = ans.size() - lastCount;
+            }
+            else {
+                start = 0;
+                lastCount = ans.size();
+            }
+            
+            for (int j = start, len = ans.size(); j < len; ++ j) {
+                ans.push_back(ans[j]);
+                ans.back().push_back(nums[i]);
+            }
+        }
+        
+        return ans;
+    }
+};
+
 // Works. Tested. Iterative.
 // Avoid checking existence of new item, by get start j using lastCount.
 // This works for Subsets.cpp (no duplicates) too.
