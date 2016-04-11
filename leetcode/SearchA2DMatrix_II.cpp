@@ -1,4 +1,23 @@
+// Works too. Start from bottom left corner, go top right.
+class Solution2 {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if (matrix.size() == 0 || matrix[0].size() == 0) return false;
+        int m = matrix.size(), n = matrix[0].size();
+     
+        for (int i = m - 1, j = 0; i >= 0 && j < n; ) {
+            int v = matrix[i][j];
+            if (v == target) return true;
+            else if (v < target) ++ j;
+            else -- i;
+        }   
+        
+        return false;
+    }
+};
+
 // This is Young's tableau.
+// Start from top right corner, go bottom left.
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
