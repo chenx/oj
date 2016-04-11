@@ -11,6 +11,43 @@ using namespace std;
 // Number := [ ]*(+|-)Real(e(+|-)[\d]+)[ ]*
 // Real := [\d]+[\.][\d]+ or [\d]+[\.] or [\.][\d]+
 
+// Works. Among best so far.
+class Solution7 {
+public:
+    bool isNumber(string s) {
+        // +-(d+.d+|d+.|.d+) e+-(d+)
+        const char * p = s.c_str();
+        while (isspace(*p)) ++ p;
+        
+        if (*p == '+' || *p == '-') ++ p;
+        if (isdigit(*p)) {  // d+(.(d+))
+            while (isdigit(*p)) ++ p;
+            if (*p == '.') {
+                ++ p;
+                while (isdigit(*p)) ++ p;
+            }
+        }
+        else if (*p == '.') {  // .(d+)
+            ++ p;
+            if (! isdigit(*p)) return false;
+            while (isdigit(*p)) ++ p;
+        }
+        else {
+            return false;
+        }
+        
+        if (*p == 'e') {
+            ++ p;
+            if (*p == '+' || *p == '-') ++ p;
+            if (! isdigit(*p)) return false;
+            while (isdigit(*p)) ++ p;
+        }
+        
+        while (isspace(*p)) ++ p;
+        return ! *p;
+    }
+};
+
 class Solution {
 public:
     bool isNumber(const char *s) {
