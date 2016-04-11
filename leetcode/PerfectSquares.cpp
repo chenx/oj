@@ -1,7 +1,37 @@
-// Works too.
-class Solution {
+// Works too. Standard solution.
+class Solution4 {
 public:
-    int numSquares3(int n) {
+    int numSquares(int n) {
+        if (n <= 0) return 0;
+        
+        vector<int> coins;
+        for (int i = 1; i * i <= n; ++ i) 
+            coins.push_back(i * i);
+            
+        vector<int> A(n + 1, 0);
+        for (int i = 1; i <= n; ++ i) {
+            for (int j = 0; j < coins.size(); ++ j) {
+                if (i < coins[j]) break;
+                else if (i == coins[j]) {
+                    A[i] = 1;
+                    break;
+                }
+                else {
+                    if (A[i - coins[j]] > 0 && (A[i] == 0 || A[i] > 1 + A[i - coins[j]])) {
+                        A[i] = 1 + A[i - coins[j]];
+                    }
+                }
+            }
+        }
+        
+        return A[n];
+    }
+};
+
+// Works too.
+class Solution3 {
+public:
+    int numSquares(int n) {
         if (n <= 0) return 0;
         vector<int> cand;
         for (int i = 1; i * i <= n; ++ i) {
