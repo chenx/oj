@@ -1,3 +1,43 @@
+// Works.
+class Solution4 {
+public:
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        if (n <= 0 || primes.size() == 0) return 0;
+        if (n == 1) return 1;
+        
+        int m = primes.size();
+        vector<queue<long long> > q(m);
+        for (int i = 0; i < m; ++ i) {
+            q[i].push(primes[i]);
+        }
+        
+        long long next;
+        for (int i = 2; i <= n; ++ i) {
+            int nextIndex = getMinIndex(q);
+            next = q[nextIndex].front();
+            
+            q[nextIndex].pop();
+            for (int j = nextIndex; j < m; ++ j) {
+                q[j].push(primes[j] * next);
+            }
+        }
+        
+        return next;
+    }
+    
+    int getMinIndex(vector<queue<long long> > & q) {
+        long long minv = q[0].front();
+        int index = 0;
+        for (int i = 1; i < q.size(); ++ i) {
+            if (minv > q[i].front()) {
+                minv = q[i].front();
+                index = i;
+            }
+        } 
+        return index;
+    }
+};
+
 // Works. Tested. Use queue instead of vector, no erase begin, more efficient.
 class Solution3 {
 public:
