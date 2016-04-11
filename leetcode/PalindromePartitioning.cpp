@@ -11,6 +11,44 @@
 // @Last modified: 3/2/2013
 //
 
+// Works. Most clean! 
+// Reference: WordBreak.
+class Solution6 {
+public:
+    vector<vector<string>> partition(string s) {
+        int n = s.length();
+        vector<vector<vector<string>>> DP(n+1);
+        
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (isPalindrome(t)) {
+                DP[i].push_back({t});
+            }
+            
+            for (int j = 1; j < i; ++ j) {
+                string t = s.substr(j, i - j);
+                if (isPalindrome(t)) {
+                    for (int k = 0; k < DP[j].size(); ++ k) {
+                        DP[i].push_back(DP[j][k]);
+                        DP[i].back().push_back(t);
+                    }
+                }
+            }
+        }
+        
+        return DP[n];
+    }
+    
+    bool isPalindrome(string s) {
+        int L = 0, R = s.length() - 1;
+        while (L < R) {
+            if (s[L] != s[R]) return false;
+            ++ L, -- R;
+        }
+        return true;
+    }
+};
+
 // Works.
 class Solution5 {
 public:
