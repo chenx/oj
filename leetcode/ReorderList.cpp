@@ -1,4 +1,4 @@
-// Works. Maybe best so far.
+// Works. Best so far.
 class Solution3 {
 public:
     void reorderList(ListNode* head) {
