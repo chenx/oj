@@ -5,6 +5,8 @@
 //
 // Solution: most intuitive is DFS, next is DP.
 //
+// Reference: Palindrome Partitioning.
+//
 // X.C.
 //
 
