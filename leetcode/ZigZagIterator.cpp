@@ -20,10 +20,12 @@ public:
 
     void init() {
         int n = v.size();
+        if (n == 0) return;
+        
         index.resize(n, 0);
 
         for (cur = 0; cur < n; ++ cur) {
-            if (index[cur] < v[cur].size()) break;
+            if (index[cur] < v[cur].size()) break; // or: if (v[cur].size() > 0) break;
         }
         if (cur == n) cur = 0;
     }
@@ -34,9 +36,9 @@ public:
         int val = v[cur][index[cur]];
         index[cur] ++;
 
-        int cur0 = cur;
+        int cur0 = cur, n = index.size();
         for (++ cur; ; ++ cur) {
-            if (cur == index.size()) cur = 0;
+            if (cur == n) cur = 0;
             if (cur == cur0) break;
             if (index[cur] < v[cur].size()) break;
         }
