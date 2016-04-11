@@ -6,6 +6,21 @@
 // @Last modified: 12/13/2012
 //
 
+// Works. 
+// Use new specification: index is 0-based.
+class Solution6 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        unordered_map<int, int> m; // value,index
+        for (int i = 0; i < n; ++ i) {
+            if (m.find(nums[i]) == m.end()) m[target - nums[i]] = i;
+            else return vector<int>({m[nums[i]], i});
+        }
+        return vector<int>({-1, -1});
+    }
+};    
+    
 // Be careful of the use of map<int, int>, its iterator, insert, and first/second.
 class Solution {
 public:
