@@ -1,3 +1,45 @@
+// Works. Slightly modified from Solution3.
+class Solution4 {
+public:
+    vector<vector<int>> palindromePairs(vector<string>& words) {
+        int n = words.size();
+        unordered_map<string, int> index, revIndex;
+        vector<string> revWords(n);
+        
+        for (int i = 0; i < n; ++ i) {
+            string w = words[i], r = w;
+            reverse(r.begin(), r.end());
+            
+            index[w] = revIndex[r] = i;
+            revWords[i] = r;
+        }
+        
+        vector<vector<int>> ans;
+        find(ans, words, revWords, revIndex, false);
+        find(ans, revWords, words, index, true);
+        return ans;
+    }
+    
+    void find(vector<vector<int>> & ans, vector<string> & words, 
+        vector<string> & revWords, unordered_map<string, int> & revIndex, bool rev) {
+            
+        for (int i = 0; i < words.size(); ++ i) {
+            string w = words[i];
+            for (int k = rev ? 1 : 0; k <= w.length(); ++ k) {
+                if (revIndex.find(w.substr(k)) == revIndex.end()) continue;
+                int j = revIndex[w.substr(k)]; // found suffix
+                if (j != i) {
+                    string prefix = w.substr(0, k),  // check prefix.
+                           revPrefix = revWords[i].substr(w.length() - k);
+                    if (prefix == revPrefix) {
+                        ans.push_back(rev ? vector<int>({i, j}) : vector<int>({j, i}));
+                    }
+                }
+            }
+        }    
+    }
+};
+
 // Works. Tested. Translated from Java version Solution2.
 class Solution3 {
 public:
