@@ -6,6 +6,76 @@
 #include <queue>
 using namespace std;
 
+// Works. Best so far. Only 67 lines.
+class Solution8 {
+public:
+    vector<vector<string>> findLadders(string start, string end, unordered_set<string> &dict) {
+        vector<vector<string>> ans;
+        if (start == end) return ans;
+        
+        queue<pair<string, int>> q;
+        q.push(pair<string, int>(start, 1));
+        
+        unordered_set<string> used;
+        used.insert(start);
+        
+        unordered_map<string, set<string>> rev; // reverse mapping.
+        int minLen = -1;
+        
+        while (! q.empty()) {
+            string w = q.front().first, w0 = w;
+            int dist = q.front().second;
+            q.pop();
+            
+            for (int i = 0; i < w.length(); ++ i) {
+                char c = w[i];
+                for (char j = 'a'; j < 'z'; ++ j) {
+                    if (j == c) continue;
+                    w[i] = j;
+                    
+                    if (w == end) {
+                        if (minLen == -1) minLen = 1 + dist;
+                        if (minLen == 1 + dist) rev[end].insert(w0);
+                    }
+                    else if (dict.count(w)) {  // must be an existing word to continue below.
+                        if (! used.count(w)) { // this is separated from above.
+                            q.push(pair<string, int>(w, 1 + dist));
+                            used.insert(w);
+                            rev[w].insert(w0);
+                        }
+                        else if (! rev[w].count(w0) && ! rev[w0].count(w)) {
+                            rev[w].insert(w0);
+                        }
+                    }
+                }
+                w[i] = c;
+            }
+        }
+        
+        vector<string> path(1, end);
+        getPath(ans, start, end, path, rev, minLen);
+        return ans;
+    }
+    
+    void getPath(vector<vector<string>> & ans, string start, string w, vector<string> & path,
+            unordered_map<string, set<string>> & rev, int minLen) {
+        if (w == start) {
+            ans.push_back(path);
+            reverse(ans.back().begin(), ans.back().end());
+            return;
+        }
+        if (minLen == 1) return; // stop search for longer path.
+        
+        for (string s : rev[w]) {
+        //for (set<string>::iterator it = rev[w].begin(); it != rev[w].end(); ++ it) {
+        //    string s = (*it);
+            path.push_back(s);
+            getPath(ans, start, s, path, rev, minLen - 1);
+            path.pop_back();
+        }
+    }
+};
+
 // Works. Slightly modified from Solution5.
 class Solution7 {
 public:
