@@ -20,23 +20,23 @@ public:
         return ans;
     }
     
-    void find(vector<vector<int>> & ans, vector<string> & words, 
-        vector<string> & revWords, unordered_map<string, int> & revIndex, bool rev) {
-            
+    void find(vector<vector<int>> &ans, vector<string>& words, 
+            vector<string>& revWords, unordered_map<string, int> &revIndex, bool rev) {
         for (int i = 0; i < words.size(); ++ i) {
-            string w = words[i];
+            string w = words[i], r = revWords[i];
             for (int k = rev ? 1 : 0; k <= w.length(); ++ k) {
-                if (revIndex.find(w.substr(k)) == revIndex.end()) continue;
-                int j = revIndex[w.substr(k)]; // found suffix
+                string s = w.substr(k); // check suffix
+                if (revIndex.find(s) == revIndex.end()) continue;
+                int j = revIndex[s];
                 if (j != i) {
-                    string prefix = w.substr(0, k),  // check prefix.
-                           revPrefix = revWords[i].substr(w.length() - k);
+                    string prefix = w.substr(0, k), 
+                           revPrefix = r.substr(w.length() - k); // check prefix.
                     if (prefix == revPrefix) {
                         ans.push_back(rev ? vector<int>({i, j}) : vector<int>({j, i}));
                     }
                 }
             }
-        }    
+        }
     }
 };
 
