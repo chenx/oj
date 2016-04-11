@@ -1,3 +1,100 @@
+//
+// Solution5. Works. Among best so far.
+//
+
+class TrieNode {
+    char val;
+    bool end;
+    vector<TrieNode *> children;
+public:
+    // Initialize your data structure here.
+    TrieNode(char c) {
+        val = c;
+        end = false;
+    }
+    
+    char getVal() { return val; }
+    void setIsEnd(bool isEnd) { end = isEnd; }
+    bool getIsEnd() { return end; }
+    TrieNode * getChild(char c) {
+        for (int i = 0; i < children.size(); ++ i) {
+            if (c == children[i]->getVal()) return children[i];
+        }
+        return NULL;
+    }
+    void addChild(TrieNode * child) {
+        children.push_back(child);
+    }
+};
+
+class Trie {
+    TrieNode * root;
+public:
+    Trie() {
+        root = new TrieNode(' ');
+    }
+
+    // Inserts a word into the trie.
+    void insert(string word) {
+        TrieNode * cur = root;
+        
+        for (int i = 0; i < word.length(); ++ i) {
+            TrieNode * child = cur->getChild(word[i]);
+            if (child == NULL) {
+                child = new TrieNode(word[i]);
+                cur->addChild(child);
+            }
+            cur = child;
+        }
+        
+        cur->setIsEnd(true);
+    }
+    
+    TrieNode * getRoot() { return root; }
+};
+
+
+class Solution {
+    int m, n;
+    Trie t;
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string> ans;
+        if (board.size() == 0 || board[0].size() == 0) return ans;
+        m = board.size(), n = board[0].size();
+        
+        for (auto w : words) t.insert(w);
+        vector<vector<bool>> used(m, vector<bool>(n, false));
+        
+        for (int i = 0; i < m; ++ i) 
+            for (int j = 0; j < n; ++ j) 
+                find(board, i, j, t.getRoot(), "", ans, used);
+        
+        return ans;
+    }
+    
+    void find(vector<vector<char>>& board, int i, int j, TrieNode * node, string w, 
+    vector<string> & ans, vector<vector<bool>> & used) {
+        if (i < 0 || i >= m || j < 0 || j >= n || used[i][j]) return;
+        node = node->getChild(board[i][j]);
+        if (node == NULL) return;
+        
+        w += board[i][j]; // or: w += node->getVal();
+        if (node->getIsEnd()) {
+            ans.push_back(w);
+            node->setIsEnd(false);
+        }
+        
+        used[i][j] = true; // don't forget this!
+        find(board, i+1, j, node, w, ans, used);
+        find(board, i-1, j, node, w, ans, used);
+        find(board, i, j+1, node, w, ans, used);
+        find(board, i, j-1, node, w, ans, used);
+        used[i][j] = false;
+    }
+};
+
+
 // Solution4. Works. Tested. By: XC.
 
 class Node {
