@@ -1,3 +1,17 @@
+// Works too.
+class Solution2 {
+public:
+    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        int area1 = (C - A) * (D - B), area2 = (G - E) * (H - F), area3 = 0;
+        
+        int x1 = max(A, E), x2 = min(C, G), y1 = max(B, F), y2 = min(D, H);
+        if (x1 < x2 && y1 < y2) area3 = (x2 - x1) * (y2 - y1); // overlap area
+        
+        return area1 + area2 - area3;
+    }
+};
+
+// Works.
 // See: https://leetcode.com/discuss/66048/5ms-java-in-a-readable
 class Solution {
 public:
