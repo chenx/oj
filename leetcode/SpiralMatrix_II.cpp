@@ -5,6 +5,55 @@
 // @Last modified: 4/6/2013
 //
 
+// Works.  Maybe best for this particular case where row == col.
+// Simplified from Solution4_2. Similar to Solution3.
+class Solution5 {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        if (n <= 0) return vector<vector<int>>();
+        
+        vector<vector<int>> ans(n, vector<int>(n, 0));
+        int x = 0, X = n - 1, k = 0;
+        
+        while(x <= X) {
+            for (int i = x, j = x; j <= X; ++ j) ans[i][j] = ++ k;
+            for (int i = x+1, j = X; i <= X; ++ i) ans[i][j] = ++ k;
+            for (int i = X, j = X-1; j >= x; -- j) ans[i][j] = ++ k;
+            for (int i = X-1, j = x; i > x; -- i) ans[i][j] = ++ k;
+            
+            ++ x, -- X;
+        }
+        
+        return ans;
+    }
+};
+
+// Works. Exactly same structure as Solution3 of SpiralMatrix.
+// So this is good when row and column are not equal.
+class Solution4_2 {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        if (n <= 0) return vector<vector<int>>();
+        
+        vector<vector<int>> ans(n, vector<int>(n, 0));
+        
+        int x = 0, y = 0, X = n - 1, Y = n - 1, k = 0;
+        
+        while(x <= X && y <= Y) {
+            for (int i = x, j = y; j <= Y; ++ j) ans[i][j] = ++ k;
+            for (int i = x+1, j = Y; i <= X; ++ i) ans[i][j] = ++ k;
+            if (x == X) break;
+            for (int i = X, j = Y-1; j >= y; -- j) ans[i][j] = ++ k;
+            if (y == Y) break;
+            for (int i = X-1, j = y; i > x; -- i) ans[i][j] = ++ k;
+            
+            ++ x, ++ y, -- X, -- Y;
+        }
+        
+        return ans;
+    }
+};
+
 //
 // This works too.
 // This has the same structure as the solution to SprialMtraix.
