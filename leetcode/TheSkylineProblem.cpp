@@ -1,3 +1,35 @@
+// Works too.
+class Solution5 {
+public:
+    vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<vector<int>> edges; // pair<int,int> or vector<int>, both ok.
+        for (auto b : buildings) {
+            int L = b[0], R = b[1], H = b[2];
+            edges.push_back(vector<int>({L, -H}));
+            edges.push_back(vector<int>({R,  H}));
+        }
+        sort(edges.begin(), edges.end());
+        
+        vector<pair<int, int>> ans;
+        multiset<int> ht;
+        ht.insert(0); // must insert ground level 0 first.
+        
+        int preH = 0, curH = 0; // both are 0.
+        for (auto edge : edges) {
+            if (edge[1] < 0) ht.insert(- edge[1]);
+            else ht.erase(ht.find(edge[1])); // must use ht.find(), cannot be: ht.erase(edge[1])
+            
+            curH = * ht.rbegin(); // largest in ht.
+            if (curH != preH) {   // must compare, so no duplicate.
+                ans.push_back(pair<int, int>(edge[0], curH));
+                preH = curH;
+            }
+        }
+        
+        return ans;
+    }
+};
+
 // Works. Same as Solution3, rewritten to be more clear.
 class Solution4 {
 public:
