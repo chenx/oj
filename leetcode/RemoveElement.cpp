@@ -5,6 +5,21 @@
 // @Last modified: 12/24/2012
 //
 
+// Works. Tested. Note this has the SAME structure as Solution6 !
+// Difference is: 
+// - in Solution6, the rest of the array after k are not changed.
+// - in Solution7, the rest are filled with val.
+class Solution7 {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int k = 0;
+        for (int i = 0; i < nums.size(); ++ i) {
+            if (nums[i] != val) swap(nums[k ++], nums[i]);
+        }
+        return k;
+    }
+};
+
 // Works. Tested. Among the best.
 class Solution6 {
 public:
