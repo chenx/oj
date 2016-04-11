@@ -5,6 +5,29 @@
 // @Last modified: 1/1/2013
 //
 
+// Works. Among best so far.
+class Solution4 {
+public:
+    int myAtoi(string str) {
+        const char * p = str.c_str();
+        while (isspace(*p)) ++ p;
+        
+        bool neg = (*p == '-');
+        if (*p == '+' || *p == '-') ++ p;
+
+        int v = 0, v0;
+        while (isdigit(*p)) {
+            v0 = v;
+            v = v * 10 + *p - '0';
+            if (v / 10 != v0) return neg ? INT_MIN : INT_MAX;
+            ++ p;
+        }
+        
+        if (neg) v = -v;
+        return v;
+    }
+};
+
 // This works too. Tested. Use index instead of pointer.
 class Solution3 {
 public:
