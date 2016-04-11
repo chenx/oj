@@ -10,6 +10,39 @@
 #include <stack>
 using namespace std;
 
+// Works. Best so far.
+class Solution6 {
+public:
+    bool isScramble(string s1, string s2) {
+        if (s1.length() != s2.length()) return false;
+        if (! isAnagram(s1, s2)) return false; // ok without this. But faster with this.
+        int n = s1.length();
+        if (n <= 1) return s1 == s2;
+        
+        for (int i = 1; i < n; ++ i) {
+            string s1L = s1.substr(0, i), s1R = s1.substr(i),
+                   s2L = s2.substr(0, i), s2R = s2.substr(i);
+            if (isAnagram(s1L, s2L) && isScramble(s1L, s2L) && isScramble(s1R, s2R))
+                return true;
+        }
+        
+        for (int i = 1; i < n; ++ i) {
+            string s1L = s1.substr(0, i), s1R = s1.substr(i),
+                   s2L = s2.substr(0, n - i), s2R = s2.substr(n - i);
+            if (isAnagram(s1L, s2R) && isScramble(s1L, s2R) && isScramble(s1R, s2L))
+                return true;
+        }
+
+        return false;        
+    }
+    
+    bool isAnagram(string a, string b) {
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+        return a == b;
+    }
+};
+
 /*
 // This works no matter there is duplicate char or not!
 // http://csjobinterview.wordpress.com/2012/07/03/google-scramble-string-iii/
