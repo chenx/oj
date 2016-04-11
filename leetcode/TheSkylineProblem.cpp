@@ -1,3 +1,34 @@
+// Works. Further simplified from Solution5.
+class Solution5_2 {
+public:
+    vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<vector<int>> edges;
+        for (auto b : buildings) {
+            edges.push_back(vector<int>({b[0], - b[2]})); // left,  height
+            edges.push_back(vector<int>({b[1],   b[2]})); // right, height
+        }
+        sort(edges.begin(), edges.end());
+        
+        vector<pair<int, int>> ans;
+        multiset<int> ht;
+        ht.insert(0);
+        
+        int curH = 0, preH = 0;
+        for (auto e : edges) {
+            if (e[1] < 0) ht.insert(- e[1]); // insert height at left edge
+            else ht.erase(ht.find(e[1]));    // remove height at right edge
+            
+            curH = * ht.rbegin(); // current max height.
+            if (curH != preH) {
+                ans.push_back(pair<int, int>(e[0], curH)); // left, height
+                preH = curH;
+            }
+        }
+        
+        return ans;
+    }
+};
+
 // Works too.
 class Solution5 {
 public:
