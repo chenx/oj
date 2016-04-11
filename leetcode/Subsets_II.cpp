@@ -1,4 +1,6 @@
-// Works. Re-written from Solution5 so it's easier to understand about start and lastCount.
+// Works. Works for Subset with no duplicates too.
+// Re-written from Solution5 so it's easier to understand about start and lastCount.
+// This is the one you want to show people, so they can understand.
 class Solution6 {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
