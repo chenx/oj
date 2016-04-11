@@ -1,3 +1,43 @@
+// Works. Tested. Translated from Java version Solution2.
+class Solution3 {
+public:
+    vector<vector<int>> palindromePairs(vector<string>& words) {
+        unordered_map<string, int> index;
+        unordered_map<string, int> revIndex;
+        vector<string> revWords(words.size());
+        for (int i = 0; i < words.size(); ++ i) {
+            string s = words[i], r = s;
+            reverse(r.begin(), r.end());
+            
+            index[s] = i;
+            revIndex[r] = i;
+            revWords[i] = r;
+        }
+        vector<vector<int>> result;
+        findPairs(result, words, revWords, revIndex, false);
+        findPairs(result, revWords, words, index, true);
+        return result;
+    }
+    
+    void findPairs(vector<vector<int>> & result, vector<string>& words, vector<string>& revWords, 
+            unordered_map<string, int> & revIndex, bool reverse) {
+
+        for (int i = 0; i < words.size(); ++i) {
+            string s = words[i];
+            for (int k = reverse ? 1 : 0; k <= s.length(); ++ k) { // check suffixes, <= because we allow empty words
+                if (revIndex.find(s.substr(k)) == revIndex.end()) continue;
+                int j = revIndex[s.substr(k)];
+                if (j != i) { // reversed suffix is present in the words list
+                    string prefix = s.substr(0, k); // check whether the prefix is a palindrome
+                    string revPrefix = revWords[i].substr(s.length() - k);
+                    if (prefix == revPrefix) {
+                        result.push_back(reverse ? vector<int>({i, j}) : vector<int>({j, i}));
+                    }
+                }
+            }
+        }
+    }
+};
 
 // Java version. Works. Tested. 
 // From: https://leetcode.com/discuss/91254/java-naive-165-ms-nk-and-126-ms-nk-manacher-suffixes-prefixes
