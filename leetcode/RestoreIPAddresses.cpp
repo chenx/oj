@@ -5,6 +5,39 @@
 // @Last modified: 12/27/2012
 //
 
+// Works too.
+class Solution5 {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> ans;
+        
+        for (int i = 1; i <= 3; ++ i) {
+            for (int j = 1; j <= 3; ++ j) {
+                for (int k = 1; k <= 3; ++ k) {
+                    int l = s.length() - i - j - k;
+                    if (l < 1 || l > 3) continue;
+                    
+                    string s1 = s.substr(0, i),
+                           s2 = s.substr(i, j),
+                           s3 = s.substr(i+j, k),
+                           s4 = s.substr(i+j+k);
+                           
+                    if (valid(s1) && valid(s2) && valid(s3) && valid(s4))
+                        ans.push_back(s1 + "." + s2 + "." + s3 + "." + s4);
+                }
+            }
+        }
+        
+        return ans;
+    }
+    
+    bool valid(string p) {
+        if (p.length() > 1 && p[0] == '0') return false;
+        int ip = stoi(p);
+        return ip >= 0 && ip <= 255;
+    }
+};
+
 // This works too. Is clear. 1/26/2016.
 // Note: s.substr(start_pos, length), or s.substr(start_pos).
 class Solution4 {
