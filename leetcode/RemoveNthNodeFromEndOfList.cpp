@@ -20,6 +20,30 @@
  * 4) release memory of the deleted node.
  */
  
+// Works. Maybe best so far.
+class Solution5 {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode dummy(0);
+        ListNode * p = & dummy;
+        p->next = head;
+        
+        ListNode * fast = head;
+        for (; n > 0; -- n) fast = fast->next; // n > 0.
+        
+        while (fast) { // fast.
+            p = p->next;
+            fast = fast->next;
+        }
+        
+        ListNode * tmp = p->next;  // remove p->next
+        p->next = tmp->next;
+        delete tmp;
+        
+        return dummy.next;
+    }
+};
+
 // Works. Tested. Use a dummy node to be clean.
 class Solution4 {
 public:
