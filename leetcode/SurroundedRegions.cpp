@@ -5,8 +5,68 @@
 // @Last modified: 2/3/2013
 //
 
+// Works.
+class Solution4 {
+    int m, n;
+public:
+    void solve(vector<vector<char>>& board) {
+        if (board.size() == 0 || board[0].size() == 0) return;
+        m = board.size(), n = board[0].size();
+        
+        // on edge, flip O -> K.
+        for (int i = 0; i < m; ++ i) {
+            flip(board, i, 0);
+            flip(board, i, n-1);
+        }
+        for (int j = 0; j < n; ++ j) {
+            flip(board, 0, j);
+            flip(board, m-1, j);
+        }
+        
+        // flip internal O -> X, and K -> O
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (board[i][j] == 'O') board[i][j] = 'X';
+                else if (board[i][j] == 'K') board[i][j] = 'O';
+            }
+        }
+    }
+    
+    void flip(vector<vector<char>>& board, int i, int j) {
+        if (board[i][j] != 'O') return;
+        
+        vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        stack<vector<int>> s;
+        s.push(vector<int>({i, j}));
+        
+        while (! s.empty()) {
+            i = s.top()[0], j = s.top()[1];
+            board[i][j] = 'K';
+            s.pop(); // don't forget to pop.
+            
+            for (int k = 0; k < dirs.size(); ++ k) {
+                int x = i + dirs[k][0], y = j + dirs[k][1];
+                if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == 'O')
+                    s.push(vector<int>({x, y}));
+            }
+        }
+    }
+
+    /*
+    // Simple, should work, but has runtime error, maybe call stack overflow.
+    void flip2(vector<vector<char>>& board, int i, int j) {
+        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != 'O') return;
+
+        board[i][j] = 'K';
+        flip(board, i+1, j);
+        flip(board, i-1, j);
+        flip(board, i, j+1);
+        flip(board, i, j-1);
+    }*/
+};
+
 // This works. Passed both small and large tests. 11/2/2014.
-class Solution {
+class Solution3 {
 public:
     void solve(vector<vector<char>> &board) {
         if (board.size() == 0 || board[0].size() == 0) return;
@@ -75,7 +135,7 @@ public:
 // Guess it's stack overflow error. The test input is too large.
 //
 
-class Solution {
+class Solution2 {
 public:
     void solve(vector<vector<char>> &board) {
         if (board.size() == 0 || board[0].size() == 0) return;
@@ -143,7 +203,7 @@ public:
 
 
 // Passed small test set. Has error for large input.
-class Solution2 {
+class Solution1 {
 public:
     void solve(vector<vector<char>> &board) {
         if (board.size() == 0 || board[0].size() == 0) return;
