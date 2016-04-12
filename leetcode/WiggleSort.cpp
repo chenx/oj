@@ -1,10 +1,27 @@
+// Works. Tested locally.
+class Solution4 {
+public:
+    void wiggleSort(vector<int>& nums) {
+        int n = nums.size();
+
+        for (int i = 1; i < n; ++ i) {
+            if (i & 1) {
+                if (nums[i-1] > nums[i]) swap(nums[i-1], nums[i]);
+            }
+            else {
+                if (nums[i-1] < nums[i]) swap(nums[i-1], nums[i]);
+            }
+        }
+};
+
+
 // Should work. Not tested.
 class Solution3 {
 public:
     void wiggleSort(vector<int>& nums) {
         int len = nums.size() - 1;
         for (int i = 0; i < len; ++ i) {
-            if (i & 1 == 0) {
+            if ((i & 1) == 0) {  // must use "()" around (i & 1).
                 if (nums[i] > nums[i+1]) swap(nums[i], nums[i+1]);
             }
             else {
