@@ -1,4 +1,4 @@
-// Works. Best so far. 
+// Works. Best so far.  Works for both BasicCalculator and BasicCalculator_II.
 // use isdigit(), and expect. Put all ignoreSpace() to F().
 /*
  * http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
@@ -71,7 +71,7 @@ public:
             char op = *p;
             int u = T(++ p);
             if (op == '+') v += u;
-                        else if (op == '-') v -= u;
+            else if (op == '-') v -= u;
         }
         return v;
     }
