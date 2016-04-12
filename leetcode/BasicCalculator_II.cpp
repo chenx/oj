@@ -1,6 +1,7 @@
 // Works too. Best so far. Recursive descent.
 // Allows num, +-*/()
 // Note ignoreSpace() is called only in num() and expect().
+// See: http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
 class Solution2 {
 public:
     int calculate(string s) {
