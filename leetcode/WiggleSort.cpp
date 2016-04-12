@@ -15,7 +15,7 @@ public:
 };
 
 
-// Should work. Not tested.
+// Should work. Tested locally.
 class Solution3 {
 public:
     void wiggleSort(vector<int>& nums) {
