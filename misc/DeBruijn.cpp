@@ -18,6 +18,7 @@ using namespace std;
  * k - size of alphabet, n = sequence length.
  *
  * Algorithm below is from: https://en.wikipedia.org/wiki/De_Bruijn_sequence
+ * Also see: https://en.wikipedia.org/wiki/Lyndon_word
  *
  * The following Python code calculates a De Bruijn sequence, given k and n,
  * based on an algorithm from Frank Ruskey's Combinatorial Generation.[13]
@@ -252,4 +253,67 @@ int main() {
     de.go(3);
 
     return 0;
+}
+
+
+// Another solution using Euler path: Hierholzer algorithm. O(k^(n+1)). By: dietpepsi
+// Note: stackoverflow for k = 10 n = 4. Need to set -Xss2m or above.
+// From: http://instant.1point3acres.com/thread/153807
+public class RecursiveEulerSolution {
+    int n, k, v;
+    boolean[][] visited;
+    StringBuilder sequence;
+    public String crackSequence(int k, int n) {
+        this.n = n;
+        this.k = k;
+        v = (int)Math.pow(k, n - 1); // vertices are n-1 bit radix k number.
+        visited = new boolean[v][k]; // edge list
+        sequence = new StringBuilder(); 
+        dfs(0);
+        return sequence.reverse().toString();
+    }
+    private void dfs(int u) {
+        for (int i = 0; i < k; ++i) {
+            if (!visited[u][i]) {
+                visited[u][i] = true;
+                dfs((u * k + i) % v);
+                sequence.append(i);
+            }
+        }
+    }
+}
+
+
+// Another solution using Euler path. O(E) = O(k^n). By: dietpepsi
+// From: http://instant.1point3acres.com/thread/153807
+public class IterativeEulerSolution {
+    // Hierholzer's algorithm
+    public String crackSequence(int k, int n) {
+        int v = 1;
+        for (int i = 0; i < n - 1; ++i) v *= k; // vertices are n-1 bit radix k number.
+        int[] edge = new int[v];
+        StringBuilder sequence = new StringBuilder();
+        
+        int u = 0, i = 0;
+        Deque<Integer[]> stack = new ArrayDeque<>();
+        while (true) {
+            if (i == k) {
+                if (stack.isEmpty()) break;
+                Integer[] t = stack.pop();
+                u = t[0];
+                sequence.append(t[1]);
+                i = edge[u];
+            } else {
+                stack.push(new Integer[]{u, i});
+                edge[u]++;
+                u = (u * k + i) % v;
+                i = edge[u];
+            }
+        }
+//        for (int i = 0; i < n - 1; ++i) sequence.append(0);
+        return sequence.reverse().toString();
+    }
+    public static void main(String[] args) {
+        System.out.println(new IterativeEulerSolution().crackSequence(10, 4).length());
+    }
 }
