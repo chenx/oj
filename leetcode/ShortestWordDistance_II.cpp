@@ -1,8 +1,7 @@
-// Should work. Not tested. From lnkin intv.
+// Should work. Tested locally. From lnkin intv.
 class WordDistance3 {
-private:
-    unordered_map<string, vector<int>> m;
-    
+    map<string, vector<int> > m;
+    map<string, int> cache;
 public:
     WordDistance(vector<string>& words) {
         for (int i = 0, n = words.size(); i < n; ++ i) {
@@ -14,21 +13,26 @@ public:
     int shortest(string word1, string word2) {
         // Use this to avoid creating empty entry if word1/2 does not exist.
         if (m.find(word1) == m.end() || m.find(word2) == m.end()) return -1;
-        
+
+        string cache_str = word1 + "#" + word2;
+        if (cache.find(cache_str) != cache.end()) return cache[cache_str];
+
         int minD = INT_MAX;
         vector<int> &a = m[word1];
         vector<int> &b = m[word2];
-        
+
         int n1 = a.size(), n2 = b.size(), i = 0, j = 0;
         while (i < n1 && j < n2) {
             minD = min(minD, abs(a[i] - b[j]));
             if (a[i] < b[j]) ++ i;
             else ++ j;
         }
-        
+
+        cache[cache_str] = minD;
         return minD;
     }
 };
+
     
 // Works. Basically same as WordDistance, but optimized.
 class WordDistance2 {
