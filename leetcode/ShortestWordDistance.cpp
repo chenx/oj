@@ -1,3 +1,21 @@
+// Should work. Tested locally. Use "==" instead of "a.compare(b) == 0"
+class Solution4 {
+public:
+    int shortestDistance(vector<string>& words, string word1, string word2) {
+        int index1 = -1, index2 = -1, minDist = INT_MAX;
+
+        for (int i = 0; i < words.size(); ++ i) {
+            if (words[i] == word1) index1 = i;
+            else if (words[i] == word2) index2 = i;
+
+            if (index1 != -1 && index2 != -1)
+                minDist = min(minDist, abs(index1 - index2));
+        }
+
+        return minDist;
+    }
+};
+
 // Works. Tested. Much simpler.
 // From: https://leetcode.com/discuss/84035/c-easy-understand-solution
 class Solution3 {
