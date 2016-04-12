@@ -20,6 +20,10 @@
         }
     }
     
+  3) split with multiple characters
+  
+    Use strtok() if don't need delimiters, or use custom function.
+    See: https://github.com/chenx/oj/blob/master/misc/strtok.cpp
     
 - create priority queue
 
