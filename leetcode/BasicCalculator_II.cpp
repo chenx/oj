@@ -1,3 +1,83 @@
+// Works. Best so far.  Works for both BasicCalculator and BasicCalculator_II.
+// use isdigit(), and expect. Put all ignoreSpace() to F().
+/*
+ * http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
+    E --> T {( "+" | "-" ) T}
+    T --> F {( "*" | "/" ) F}
+    F --> num | "(" E ")"
+ * Note: F could be: - T
+ */
+class Solution7 {
+public:
+    int calculate(string s) {
+        const char *p = s.c_str();
+        return E(p);
+    }
+
+    void ignoreSpace(const char*& p) { while (isspace(*p)) ++ p; }
+    void expect(const char *& p, char c) {
+        if (*p != c) {
+            cout << "error: expect: " << c << endl;
+            throw exception();
+        }
+        ++ p;
+    }
+
+    int num(const char*& p) {
+        int v = 0;
+        while (isdigit(*p)) { v = v * 10 + (*p - '0'); ++ p; }
+        return v;
+    }
+
+    int F(const char *& p) {
+        ignoreSpace(p);
+
+        int v = 0;
+        if (*p == '(') {
+            v = E(++ p);
+            expect(p, ')');
+        }
+        else if (isdigit(*p)) {
+            v = num(p);
+        }
+        else if (! *p) { // useful for situation such as input is "".
+            v = 0;
+        }
+        else {
+            cout << "F: invalid input: " << p  << endl;
+            throw exception();
+        }
+
+        ignoreSpace(p);
+        return v;
+    }
+
+    int T(const char *& p) {
+        int v = F(p);
+
+        while (*p == '*' || *p == '/') {
+            char op = *p;
+            int u = F(++ p);
+            if (op == '*') v *= u;
+            else if (op == '/') v /= u;
+        }
+        return v;
+    }
+
+    int E(const char *& p) {
+        int v = T(p);
+
+        while (*p == '+' || *p == '-') {
+            char op = *p;
+            int u = T(++ p);
+            if (op == '+') v += u;
+            else if (op == '-') v -= u;
+        }
+        return v;
+    }
+};
+
+
 // Works too. Best so far. Recursive descent.
 // Allows num, +-*/()
 // Note ignoreSpace() is called only in num() and expect().
