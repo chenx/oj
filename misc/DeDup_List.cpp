@@ -73,6 +73,111 @@
  *
  * Solution by: X.C. On 2/26/2015. (FB)
  */
+ 
+// Works. Simplified from Solution2, using C++11 syntax.
+class Solution3 {
+public:
+    void G1(map<int, vector<string>> & IDList, map<string, vector<int>> & EMList,
+            pair<vector<int>, vector<string>> & tuple, int id) {
+        tuple.first.push_back(id);
+        vector<string> ems = IDList[id];
+        IDList.erase( IDList.find(id) );
+
+        for (auto email : ems) {
+            if (find(tuple.second.begin(), tuple.second.end(), email) == tuple.second.end()) {
+                G2(IDList, EMList, tuple, email);
+            }
+        }
+    }
+    
+    void G2(map<int, vector<string>> & IDList, map<string, vector<int>> & EMList,
+            pair<vector<int>, vector<string>> & tuple, string em) {
+        tuple.second.push_back(em);
+        vector<int> ids = EMList[em]; 
+        EMList.erase( EMList.find(em) );
+        
+        for (auto id : ids) {
+            if (find(tuple.first.begin(), tuple.first.end(), id) == tuple.first.end()) {
+                G1(IDList, EMList, tuple, id);
+            }
+        }
+    }
+
+public:
+    vector<pair<vector<int>, vector<string>>> getTuples(map<int, vector<string>> & IDList) {
+        vector<pair<vector<int>, vector<string>>> ans;
+        map<string, vector<int> > EMList;
+        
+        for (auto e : IDList) {
+            int id = e.first; 
+            vector<string> & em = e.second;
+            for (auto email : em) {
+                EMList[email].push_back(id);
+            }
+        }
+
+        while (! IDList.empty()) {
+            pair<vector<int>, vector<string> > tuple;
+            G1(IDList, EMList, tuple, (*IDList.begin()).first);
+            ans.push_back(tuple);
+        }
+
+        return ans;
+    }
+};
+
+// Works. Cleaned version.
+class Solution2 {
+private:
+    void G1(map<int, vector<string> > & IDList, map<string, vector<int> > & EMList,
+            pair<vector<int>, vector<string> > & tuple, int id) {
+        tuple.first.push_back(id);
+        vector<string> ems = IDList[id];
+        IDList.erase( IDList.find(id) );
+
+        for (int i = 0; i < ems.size(); ++ i) {
+            if (find(tuple.second.begin(), tuple.second.end(), ems[i]) == tuple.second.end()) {
+                G2(IDList, EMList, tuple, ems[i]);
+            }
+        }
+    }
+    
+    void G2(map<int, vector<string> > & IDList, map<string, vector<int> > & EMList,
+            pair<vector<int>, vector<string> > & tuple, string em) {
+        tuple.second.push_back(em);
+        vector<int> ids = EMList[em]; 
+        EMList.erase( EMList.find(em) );
+        
+        for (int i = 0; i < ids.size(); ++ i) {
+            if (find(tuple.first.begin(), tuple.first.end(), ids[i]) == tuple.first.end()) {
+                G1(IDList, EMList, tuple, ids[i]);
+            }
+        }
+    }
+
+public:
+    vector<pair<vector<int>, vector<string> > > getTuples(map<int, vector<string> > & IDList) {
+        vector<pair<vector<int>, vector<string> > > ans;
+        map<string, vector<int> > EMList;
+        
+        for (map<int, vector<string> >::iterator it = IDList.begin(); it != IDList.end(); ++ it) {
+            int id = (*it).first; 
+            vector<string> & em = (*it).second;
+            for (int i = 0; i < em.size(); ++ i) {
+                EMList[em[i]].push_back(id);
+            }
+        }
+
+        while (! IDList.empty()) {
+            pair<vector<int>, vector<string> > tuple;
+            G1(IDList, EMList, tuple, (*IDList.begin()).first);
+            ans.push_back(tuple);
+        }
+
+        return ans;
+    }
+};
+
 
 #include <iostream>
 #include <vector>
