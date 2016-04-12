@@ -1,5 +1,6 @@
 // Works. Best so far.  Works for both BasicCalculator and BasicCalculator_II.
 // use isdigit(), and expect. Put all ignoreSpace() to F().
+// See: https://github.com/chenx/oj/blob/master/misc/BasicCalculator_III.cpp
 /*
  * http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
     E --> T {( "+" | "-" ) T}
