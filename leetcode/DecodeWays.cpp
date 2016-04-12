@@ -10,6 +10,32 @@
 #include <vector>
 using namespace std;
 
+// Works. Re-written from Solution3, 
+// use O(1) space, instead of O(n) space. Time still O(n).
+class Solution4 {
+public:
+    int numDecodings(string s) {
+        int n = s.length();
+        if (n == 0) return n;
+        
+        int b = 1;  // second param.
+        int a = s[n-1] == '0' ? 0 : 1;  // first param.
+        
+        for (int i = n-2; i >= 0; -- i) {
+            if (s[i] == '0') { b = a; a = 0; }
+            else if (s[i] == '1' || (s[i] == '2' && s[i+1] <= '6')) {
+                int tmp = a + b;
+                b = a;
+                a = tmp;
+            }
+            else { b = a; }
+        }
+        
+        return a;
+    }
+};
+
+
 // This works too! DP. Should be easier to understand than Solution2.
 class Solution3 {
 public:
