@@ -15,12 +15,12 @@
 class Solution {
 public:
     int numWays(int n, int k) {
-        if (n <= 1 || k==0) return n*k;
-        int a = k, b = k * (k-1), c = 0, d = 0;
+        if (n <= 1 || k == 0) return n*k;
+        int a = k, b = k * (k-1);
         for (int i = 2; i < n; ++ i){
-            d = (k-1) * (a+b);
+            int c = (k-1) * (a+b);
             a = b;
-            b = d;
+            b = c;
         }
         return a + b;
     }
@@ -37,14 +37,14 @@ public:
 class Solution2 {
 public:
     int numWays(int n, int k) {
-        if (n < 2 || k == 0) return n * k; 
-        int s = k, d1 = k, d2 = k * (k - 1); 
+        if (n < 2 || k == 0) return n * k;
+        int d1 = k, d2 = k * (k - 1);       
         for (int i = 2; i < n; i++) {
-            s = d2;
-            d2 = (k - 1) * (d1 + d2);
-            d1 = s;
+            int s = (k - 1) * (d1 + d2);
+            d1 = d2;
+            d2 = s;
         }
-        return s + d2;
+        return d1 + d2;
     }
 };
 
