@@ -19,12 +19,12 @@ public:
         string str = s + "#" + r;
         
         vector<int> next(str.length());
-        getNext(next, str);
+        kmp(next, str);
         
         return next[str.length() - 1];
     }
     
-    void getNext(vector<int> &next, string p) {
+    void kmp(vector<int> &next, string p) {
         int i = 1, j = 0;
         next[0] = 0;
         
@@ -40,6 +40,18 @@ public:
             else {
                 ++ i;
             }
+        }
+    }
+    
+    // Works. Shorter.
+    void kmp2(vector<int> & next, string s) {
+        int i = 1, j = 0;
+        next[0] = 0; // 0.
+        
+        while (i < s.length()) {
+            if (s[i] == s[j]) next[i ++] = ++ j;
+            else if (j > 0) j = next[j - 1];
+            else ++ i;
         }
     }
 };
