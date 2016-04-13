@@ -1,4 +1,23 @@
-// Should work. Not tested.
+// Should work. Tested locally.
+class Solution3 {
+public:
+    bool canPermutePalindrome(string s) {
+       int ct[256] = {0};
+       for (int i = 0; i < s.length(); ++ i) {
+           ct[s[i]] ++;
+       }
+
+       int odd_ct = 0;
+       for (int i = 0; i < 256; ++ i) {
+           if (ct[i] & 1) ++ odd_ct;
+       }
+
+       if (s.length() & 1) return odd_ct == 1;
+       else return odd_ct == 0;
+    }
+};
+
+// Should work. Tested locally only.
 class Solution2 {
 public:
     bool canPermutePalindrome(string s) {
