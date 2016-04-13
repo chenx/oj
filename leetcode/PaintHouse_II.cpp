@@ -1,3 +1,34 @@
+// Should work. Tested locally only.
+class Solution2 {
+public:
+    int minCost(vector<vector<int> >& costs) {
+        if (costs.size() == 0 || costs[0].size() == 0) return 0;
+        int len = costs.size(), k = costs[0].size();
+
+        vector<int> c(k);
+        for (int i = 0; i < k; ++ i) c[i] = costs[0][i];
+
+        for (int i = 1; i < len; ++ i) {
+            vector<int> b = c;
+            for (int j = 0; j < k; ++ j) {
+                c[j] = costs[i][j] + getMin(b, j);
+            }
+        }
+
+        return getMin(c, -1); // note this, simplified code.
+    }
+
+    int getMin(vector<int> & b, int j) {
+        int v = INT_MAX;
+        for (int i = 0; i < b.size(); ++ i) {
+            if (i == j) continue;
+            v = min(v, b[i]);
+        }
+        return v;
+    }
+};
+
+
 // Works. Tested. O(nk^2). By: XC
 class Solution {
 public:
