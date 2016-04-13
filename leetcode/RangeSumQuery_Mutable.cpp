@@ -1,3 +1,42 @@
+// Works too. 1) omit parent()/lowbit() function. 2) use i+1 in add().
+class NumArray6 {
+public:
+    NumArray(vector<int> &nums) {
+        base = nums;
+        BIT.resize(base.size() + 1, 0);
+        
+        for (int i = 0; i < base.size(); ++ i)
+            add(i + 1, nums[i]);
+    }
+    
+    void update(int i, int val) {
+        add(i + 1, val - base[i]);
+        base[i] = val;
+    }
+    
+    int sumRange(int i, int j) {
+        return sum(j + 1) - sum(i);
+    }
+
+private:
+    vector<int> base, BIT;
+    
+    void add(int i, int v) {
+        for (i; i <= base.size(); i += (i & -i)) {
+            BIT[i] += v;
+        }
+    }
+    
+    int sum(int i) {
+        int v = 0;
+        for (; i > 0; i -= (i & -i)) {
+            v += BIT[i];
+        }
+        return v;
+    }
+};
+
+
 // Works. Modified from NumArray4. Hard to say which is better.
 // Now use a separate add() function.
 class NumArray5 {
