@@ -10,7 +10,68 @@ using namespace std;
     P --> v | "(" E ")" | "-" T
  */
 
+// Works. Cleaned from Solution2.
+class Solution3 {
+public:
+    int calculate(string s) {
+        const char *p = s.c_str();
+        return E(p);
+    }
 
+    void ignoreSpace(const char*& p) { while (isspace(*p)) ++ p; }
+    void expect(const char *& p, char c) { ++ p; } // can add error check.
+
+    int num(const char*& p) {
+        int v = 0;
+        while (isdigit(*p)) { v = v * 10 + (*p - '0'); ++ p; }
+        return v;
+    }
+
+    int F(const char *& p) {
+        int v = P(p);
+        if (*p == '^') {
+            int e = F(++ p);
+            return pow(v, e);
+        }
+        return v;
+    }
+
+    // Note: need to ignoreSpace() both before and after,
+    // so use a v and return at the end.
+    int P(const char *& p) {
+        ignoreSpace(p);
+
+        int v = 0;
+        if (*p == '-') v = - T(++ p);
+        else if (*p == '(') v = E(++ p), expect(p, ')'); // ","
+        else if (isdigit(*p)) v = num(p);
+        else if (! *p) v = 0;
+        else throw exception();
+
+        ignoreSpace(p);
+        return v;
+    }
+
+    int T(const char *& p) {
+        int v = F(p);
+        while (*p == '*' || *p == '/') {
+            if (*p == '*') v *= F(++ p);
+            else v /= F(++ p);
+        }
+        return v;
+    }
+
+    int E(const char *& p) {
+        int v = T(p);
+        while (*p == '+' || *p == '-') {
+            if (*p == '+') v += T(++ p);
+            else v -= T(++ p);
+        }
+        return v;
+    }
+};
+
+// Works.
 class Solution2 {
 public:
     int calculate(string s) {
