@@ -19,7 +19,7 @@ public:
     }
 
     int getMin(vector<int> & b, int j) {
-        int v = INT_MAX;
+        int v = INT_MAX; // Note this! Cannot initialize to v = b[0].
         for (int i = 0; i < b.size(); ++ i) {
             if (i == j) continue;
             v = min(v, b[i]);
