@@ -1,4 +1,5 @@
 // Works. Same as Solution3 but simplified.
+// O( 5^high.length() ), i.e., O(5^log(n)).
 class Solution4 {
 public:
     int strobogrammaticInRange(string low, string high) {
@@ -15,16 +16,19 @@ public:
     void getCount(string low, string high, string s, int &ct) {
         if (high.length() < s.length()) return;
 
-        if (le(low, s) && le(s, high)) {
-            if (s == "0" || (s.length() > 0 && s[0] != '0')) ++ ct;
-            //if (s.length() == 1 || (s.length() > 1 && s[0] != '0')) ++ ct; // works too.
-        }
+        if (le(low, s) && le(s, high) && valid(s)) ++ ct;
 
         getCount(low, high, "0" + s + "0", ct);
         getCount(low, high, "1" + s + "1", ct);
         getCount(low, high, "6" + s + "9", ct);
         getCount(low, high, "8" + s + "8", ct);
         getCount(low, high, "9" + s + "6", ct);
+    }
+
+    bool valid(string s) {
+        return s == "0" || (s.length() > 0 && s[0] != '0');
+        // or:
+        // return s.length() == 1 || (s.length() > 1 && s[0] != '0');
     }
     
     bool le(string a, string b) {
