@@ -11,6 +11,16 @@ using namespace std;
 class Solution {
 public:
     // Iterative.
+    // 
+    // Idea: E.g., given items {A, B, C}
+    // Next: AA,AB,AC; BB,BC; CC
+    // Next: AAA,AAB,AAC,ABB,ABC,ACC; BBB,BBC,BCC; CCC
+    // So for each item x, find the first entry in the previous round
+    // that starts with x, and for every entry e from then on, add x
+    // to front of e.  
+    // Use this, there is no need to check for duplicates, but you
+    // need to get through the previous list to find the starting point;
+    // It is possible to record this start point in previous round.
     vector<vector<string> > getComb(vector<string> & items, int k) {
         vector<vector<string> > ans;
         int n = items.size();
@@ -45,6 +55,10 @@ public:
 
     // Recursive.
     // Form a list of length n, choosing items.
+    // 
+    // Idea:
+    // To get F(n), first get F(n-1), then add each item to each list in F(n-1).
+    // Use le() function below to guarantee no duplicates (of different order).
     vector<vector<string> > getComb2(vector<string> & items, int n) {
         vector<vector<string> > ans;
 
