@@ -163,8 +163,13 @@
   cout << bitset<8>(n) << endl;
   
 
-- Set and Map erase
-  For set, erase using iterator or value both work.
+- Erase() of set, map, multiset.
+  For set and map, erase using iterator or value both work.
   If use value, when the value does not exist nothing happens;
   If use iterator, when the iterator is NULL, it'll raise an error.
 
+  However, for multiset, which can contain duplicates,
+  use value will remove all elements with such value;
+  use iterator will remove the first element found with such value.
+  
+  
