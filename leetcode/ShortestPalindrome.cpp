@@ -85,12 +85,8 @@ public:
         next[0] = -1;
         
         while (i < s.length()) {
-            if (len == -1 || s[len] == s[i]) {
-                next[++ i] = ++ len;
-            }
-            else {
-                len = next[len];
-            }
+            if (len == -1 || s[len] == s[i]) next[++ i] = ++ len;
+            else len = next[len];
         }
     }
     
