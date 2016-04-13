@@ -7,6 +7,26 @@
  *     Interval(int s, int e) : start(s), end(e) {}
  * };
  */
+
+// Works too.
+class Solution2 {
+public:
+    bool canAttendMeetings(vector<Interval>& intervals) {
+        sort(intervals.begin(), intervals.end(), comp);
+
+        for (int i = 0, len = intervals.size() - 1; i < len; ++ i) {
+            if (intervals[i].end > intervals[i+1].start) return false;
+        }
+
+        return true;
+    }
+
+    static bool comp(const Interval & a, const Interval & b) {
+        return a.start < b.start;
+    }
+};
+
+
 // Works. Tested. False if any 2 meetings overlap.
 class Solution {
 public:
