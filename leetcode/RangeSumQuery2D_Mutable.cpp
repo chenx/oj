@@ -1,3 +1,48 @@
+// Should work. Tested locally. Further simplified form NumMatrix4.
+class NumMatrix5 {
+public:
+    NumMatrix(vector<vector<int> > &matrix) {
+        if (matrix.size() == 0 || matrix[0].size() == 0) return;
+        m = matrix.size(), n = matrix[0].size();
+
+        base = matrix;
+        BIT.resize(m + 1, vector<int>(n + 1, 0));
+
+        for (int i = 0; i < m; ++ i)
+            for (int j = 0; j < n; ++ j)
+                add(i + 1, j + 1, base[i][j]);
+    }
+
+    void update(int row, int col, int val) {
+        add(row + 1, col + 1, val - base[row][col]);
+        base[row][col] = val;
+    }
+
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        return sum(row2 + 1, col2 + 1) - sum(row2 + 1, col1) - sum(row1, col2 + 1) + sum(row1, col1);
+    }
+
+private:
+    int m, n;
+    vector<vector<int> > base, BIT;
+
+    void add(int row, int col, int v) {
+        for (int i = row; i <= m; i += (i & -i))
+            for (int j = col; j <= n; j += (j & -j))
+                BIT[i][j] += v;
+    }
+
+    int sum(int row, int col) {
+        int v = 0;
+        for (int i = row; i > 0; i -= (i & -i))
+            for (int j = col; j > 0; j -= (j & -j))
+                v += BIT[i][j];
+
+        return v;
+    }
+};
+
+
 // Should work. Teste locally.
 // Modified from NumMatrix2. Use Binary Indexed Tree.
 // See: https://github.com/chenx/oj/blob/master/leetcode/RangeSumQuery_Mutable.cpp
