@@ -7,7 +7,8 @@ public:
         if (matrix.size() == 0 || matrix[0].size() == 0) return;
         rows = matrix.size(), cols = matrix[0].size();
 
-        base.resize(rows, vector<int>(cols, 0));
+        //base.resize(rows, vector<int>(cols, 0));
+        base = matrix;
         BIT.resize(rows + 1, vector<int>(cols + 1, 0));
         for (int i = 0; i < rows; ++ i)
             for (int j = 0; j < cols; ++ j)
