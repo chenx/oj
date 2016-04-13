@@ -79,7 +79,23 @@ public:
         return next[sr.length()];
     }
     
+    // Shorter.
     void kmp(vector<int> & next, string s) {
+        int len = -1, i = 0;
+        next[0] = -1;
+        
+        while (i < s.length()) {
+            if (len == -1 || s[len] == s[i]) {
+                next[++ i] = ++ len;
+            }
+            else {
+                len = next[len];
+            }
+        }
+    }
+    
+    // Works. Is original.
+    void kmp2(vector<int> & next, string s) {
         int len = -1, i = 0;
         next[0] = -1;
         
