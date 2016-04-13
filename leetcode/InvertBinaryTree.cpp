@@ -1,3 +1,28 @@
+// Works too. Iterative version with a queue.
+// See: https://leetcode.com/articles/invert-binary-tree/
+class Solution2 {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if (! root) return NULL;
+        queue<TreeNode *> q;
+        q.push(root);
+        
+        while (! q.empty()) {
+            TreeNode * n = q.front();
+            q.pop();
+            
+            TreeNode * tmp = n->left;
+            n->left = n->right;
+            n->right = tmp;
+            
+            if (n->left) q.push(n->left);
+            if (n->right) q.push(n->right);
+        }
+        
+        return root;
+    }
+};
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
