@@ -34,6 +34,13 @@ public:
     bool le(string a, string b) {
         return stoi(a) <= stoi(b);
     }
+    
+    /*int stoi(string s) {
+        stringstream ss(s);
+        int val;
+        ss >> val;
+        return val;
+    }*/
 };
 
 // Should work. Tested locally against Solution.
