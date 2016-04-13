@@ -1,3 +1,49 @@
+// Works. Use the KMP failure function from wiki and algorithm book.
+class Solution10 {
+public:
+    string shortestPalindrome(string s) {
+        int n = s.length();
+        if (n <= 1) return s;
+        
+        int len = getMaxPrefixLen(s); // max length of palindrome prefix.
+        
+        string t = s.substr(len);
+        reverse(t.begin(), t.end());
+        return t + s;
+    }
+    
+    int getMaxPrefixLen(string s) {
+        string r = s;
+        reverse(r.begin(), r.end());
+        
+        string str = s + "#" + r;
+        
+        vector<int> next(str.length());
+        getNext(next, str);
+        
+        return next[str.length() - 1];
+    }
+    
+    void getNext(vector<int> &next, string p) {
+        int i = 1, j = 0;
+        next[0] = 0;
+        
+        while (i < p.length()) {
+            if (p[i] == p[j]) {
+                next[i] = j + 1;
+                ++ i;
+                ++ j;
+            }
+            else if (j > 0) {
+                j = next[j - 1];
+            }
+            else {
+                ++ i;
+            }
+        }
+    }
+};
+
 // Should work. Tested. Nice solution.
 // Improved from Solution7, logic is more clear.
 //
