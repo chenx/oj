@@ -1,19 +1,21 @@
-// Should work. Not tested.
+// Should work. Tested locally.
 class Solution3 {
 public:
     int minCost(vector<vector<int>>& costs) { // costs: n * 3
         if (costs.size() == 0 || costs[0].size() == 0) return 0;
-         
-        int c1 = costs[0][0], c2 = costs[0][1], c3 = costs[0][2];
-        for (int i = 1; i < costs.size(); ++ i) {
-            int d1 = costs[i][0] + min(c2, c3);
-            d2 = costs[i][1] + min(c1, c3);
-            d3 = costs[i][2] + min(c2, c1);
-             
-            c1 = d1, c2 = d2, c3 = d3;
+        int len = costs.size();
+
+        vector<int> c(3);
+        c[0] = costs[0][0], c[1] = costs[0][1], c[2] = costs[0][2];
+
+        for (int i = 1; i < len; ++ i) {
+            vector<int> b = c;
+            c[0] = costs[i][0] + min(b[1], b[2]);
+            c[1] = costs[i][1] + min(b[0], b[2]);
+            c[2] = costs[i][2] + min(b[1], b[0]);
         }
-         
-        return min(c1, min(c2, c3));
+
+        return min(c[0], min(c[1], c[2]));
     }
 };
 
