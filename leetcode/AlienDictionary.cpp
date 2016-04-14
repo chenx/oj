@@ -1,3 +1,50 @@
+// Should work. Tested locally. Shorter.
+class Solution3 {
+public:
+    string alienOrder(vector<string>& words) {
+        set<char> charset;
+        for (int i = 0; i < words.size(); ++ i)
+            for (int j = 0; j < words[i].length(); ++ j)
+                charset.insert(words[i][j]);
+
+        map<char, set<char> > out, in;
+        for (int i = 1; i < words.size(); ++ i) {
+            string a = words[i-1], b = words[i];
+            for (int i = 0; i < a.length() && i < b.length(); ++ i) {
+                if (a[i] != b[i]) {
+                    out[a[i]].insert(b[i]);
+                    in[b[i]].insert(a[i]);
+                    break;  // don't forget this!!
+                }
+            }
+        }
+
+        string ans;
+        while (! charset.empty()) {
+            bool found = false;  // is here.
+            //for (set<char>::iterator it = charset.begin(); it != charset.end(); ++ it) {
+            //    char c = *it;
+            for (auto c : charset) {
+                if (in[c].empty()) {
+                    found = true;
+                    ans += c;
+
+                    //for (set<char>::iterator it = out[c].begin(); it != out[c].end(); ++ it) {
+                    //    int d = *it;
+                    for (auto d : out[c]) {
+                        in[d].erase(c);
+                    }
+ 
+                    charset.erase(c);
+                }
+            }
+            if (! found) break;
+        }
+
+        return ans;
+    }
+};
+
 // Should work. Tested locally but no on lc.
 // Seems more clean than Solution.
 class Solution2 {
