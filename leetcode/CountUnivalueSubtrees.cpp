@@ -3,22 +3,22 @@
 class Solution3 {
 public:
     int countUnivalSubtrees(TreeNode* root) {
-        int result = 0;
-        get(root, result);
-        return result;
-    }
-        
-    void get(TreeNode *root, int &result) {
-        if(root == NULL) return;
-
-        if(same(root, root->val)) ++ result;
-        get(root->left, result);
-        get(root->right, result);
+                int ct = 0;
+        count(root, ct);
+        return ct;
     }
 
-    bool same(TreeNode* root, int val) {
-        if (root == NULL) return true;
-        return root->val == val && same(root->left, val) && same(root->right, val);
+    void count(TreeNode * n, int & ct) {
+        if (! n) return;
+
+        if (uni(n, n->val)) ++ ct;
+        count(n->left, ct);
+        count(n->right, ct);
+    }
+
+    bool uni(TreeNode * n, int v) {
+        if (! n) return true;
+        return n->val == v && uni(n->left, v) && uni(n->right, v);
     }
 };
 
