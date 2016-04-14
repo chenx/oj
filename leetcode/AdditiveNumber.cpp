@@ -1,3 +1,34 @@
+// Works too. Short.
+class Solution5 {
+public:
+    bool isAdditiveNumber(string num) {
+        for (int i = 1; i < num.size(); ++ i) 
+            for (int j = 1; i + j < num.size(); ++ j) 
+                if (ok(num.substr(0, i), num.substr(i, j), num.substr(i+j)))
+                    return true;
+
+        return false;
+    }
+    
+    bool ok(string n1, string n2, string n) {
+        if (! valid(n1) || ! valid(n2) || ! valid(n)) return false;
+        
+        long long sum = stoll(n1) + stoll(n2);
+        int len = log10(sum) + 1;
+        if (stoll(n.substr(0, len)) != sum) return false;
+        if (len == n.length()) return true;
+        
+        return ok(n2, n.substr(0, len), n.substr(len));
+    }
+    
+    bool valid(string n) {
+        if (n == "") return false;
+        if (n.length() > 1 && n[0] == '0') return false;
+        return true;
+    }
+};
+
+
 // Works. Slightly improved from Solution2.
 class Solution4 {
 public:
