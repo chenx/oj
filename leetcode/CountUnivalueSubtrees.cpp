@@ -27,24 +27,20 @@ public:
 class Solution2 {
 public:
     int countUnivalSubtrees(TreeNode* root) {
-        return abs(count(root));
+        return abs( count(root) );
     }
 
     int count(TreeNode * root) {
         if (! root) return 0;
 
-        int L = count(root->left),
-            R = count(root->right);
+        int L = count(root->left), R = count(root->right);
 
-        if ((L == 0 || (L > 0 && root->val == root->left->val)) &&
-            (R == 0 || (R > 0 && root->val == root->right->val))) {
+        if ( (L == 0 || (L > 0 && root->val == root->left->val) ) &&
+             (R == 0 || (R > 0 && root->val == root->right->val) ) )
             return 1 + L + R;
-        }
-        else {
-            return - (abs(L) + abs(R));
-        }
+        else
+            return - ( abs(L) + abs(R) );
     }
-
 };
 
 // Works. Tested. From: https://leetcode.com/discuss/78200/java-recursive-simple
