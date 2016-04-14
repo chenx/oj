@@ -4,6 +4,10 @@
 To get the maximal number out of two vector, we can split the problem into:
 1) create the maximal number of length i from one vector
 2) merge number1 of length(i) and number2 of length(k-i)
+*
+* nums1: use 0 ~ n1, corresponding nums2 length is k ~ k - n1.
+* There should be: n2 < k, and n2 > k - n1 => 0 < k - n2 < n1 (1).
+* from (1), n1 should be max(0, k - n2) ~ min(k, n1).
 */
 class Solution2 {
 public:    
