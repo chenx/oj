@@ -1,3 +1,37 @@
+// Works. Shorter and easier to understand.
+class Solution4 {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        set<int> courses;
+        for (int i = 0; i < numCourses; ++ i) courses.insert(i);
+        
+        // use set, so no need to remove duplicates from prerequisites.
+        map<int, set<int>> in, out; 
+        
+        for (auto p : prerequisites) {
+            in[p.first].insert(p.second);
+            out[p.second].insert(p.first);
+        }
+        
+        while (! courses.empty()) {
+            bool found = false;
+            for (auto course : courses) { // find in courses, not in "in".
+                if (in[course].size() == 0) { // in degree is 0.
+                    found = true;
+
+                    for (auto c : out[course]) {
+                        in[c].erase(course);
+                    }
+                    courses.erase(course);
+                }
+            }
+            if (found == false) break;
+        }
+        
+        return courses.empty();
+    }
+};
+
 // Works. Tested. 
 // Modified from Solution2. Use unordered_map, and check for existence in while loop.
 class Solution3 {
