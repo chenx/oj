@@ -19,6 +19,11 @@ public:
         for(int i = max(k-n2, 0); i<= min(n1,k); i++){
             maxNum = max(maxNum, Merge(MaxNumLenk(nums1, i), MaxNumLenk(nums2, k-i)));
         }
+        /* // Below works too, exchanges nums1 and nums2.
+        for (int i = max(k - n1, 0); i <= min(k, n2); ++ i) {
+            ans = max(ans, merge( maxN(nums2, i), maxN(nums1, k - i) ));
+        }
+        */
         return maxNum;
     }
     
