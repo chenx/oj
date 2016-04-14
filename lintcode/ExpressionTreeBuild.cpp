@@ -1,6 +1,6 @@
 // Works.
-// Makes use of the Postfix notation problem result.
-// There should be way of directly build the AST tree without 
+// Use solution of ConvertExpressionToReversePolishNotation.cpp.
+// There should be way of directly building the AST tree without 
 // going through the postfix notation first. But this works.
 // By: X.C. 4/13/2016
 
@@ -45,7 +45,7 @@ public:
         return ops.find(s) != string::npos;
     }
     
-    // Below is the solution to build postfix notation.
+    // Below is solution to ConvertExpressionToReversePolishNotation.cpp
     
     vector<string> ans;
     vector<string> convertToRPN(vector<string> &expression) {
