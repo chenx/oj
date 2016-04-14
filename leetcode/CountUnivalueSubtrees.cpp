@@ -3,7 +3,7 @@
 class Solution3 {
 public:
     int countUnivalSubtrees(TreeNode* root) {
-                int ct = 0;
+        int ct = 0;
         count(root, ct);
         return ct;
     }
