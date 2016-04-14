@@ -1,5 +1,44 @@
+// Works. Tested. Much simpler. 
+// Use set, so no need to remove duplicate in prerequisites.
+class Solution3 {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        set<int> courses;
+        for (int i = 0; i < numCourses; ++ i) courses.insert(i);
+        
+        map<int, set<int>> in, out;
+        for (auto p : prerequisites) {
+            in[p.first].insert(p.second);
+            out[p.second].insert(p.first);
+        }
+        
+        vector<int> ans;
+        
+        while (! courses.empty()) {
+            bool found = false;
+            for (auto course : courses) {
+                if (in[course].empty()) {
+                    found = true;
+                    
+                    for (auto c : out[course]) {
+                        in[c].erase(course);
+                    }
+
+                    // even if you use int c = course. 
+                    // push to ans must go before erase, so no runtime error.                    
+                    ans.push_back(course); 
+                    courses.erase(course);
+                }
+            }
+            if (! found) break;
+        }
+        
+        return courses.empty() ? ans : vector<int>();  // note this!
+    }
+};
+
 // Works. Tested. Adapted from Solution3 of CourseSchedule.
-class Solution {
+class Solution2 {
 public:
     vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
         vector<pair<int, int>> pre;
