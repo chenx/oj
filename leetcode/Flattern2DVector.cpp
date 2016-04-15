@@ -1,6 +1,32 @@
 // The 2 solutions below are from: http://www.cnblogs.com/jcliBlogger/p/4704781.html
 // Also see: https://leetcode.com/discuss/questions/oj/flatten-2d-vector
 
+// Works. Same as Vector2D2. Re-written to be more clean.
+class Vector2D3 {
+private:
+    vector<int> base;
+    int index;
+
+public:
+    Vector2D(vector<vector<int> >& vec2d) {
+        for (int i = 0; i < vec2d.size(); ++ i)
+            for (int j = 0; j < vec2d[i].size(); ++ j)
+                base.push_back(vec2d[i][j]);
+
+        index = 0;
+    }
+
+    int next() {
+        if (! hasNext()) return 0;
+        return base[index ++];
+    }
+
+    bool hasNext() {
+        return index < base.size();
+    }
+};
+
+
 // This works too. Simpler.
 class Vector2D2 {
 public:
