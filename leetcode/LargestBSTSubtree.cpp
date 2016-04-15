@@ -1,3 +1,41 @@
+// Should work. Tested locally. Re-written of Solution4.
+class Solution5 {
+public:
+    int largestBSTSubtree(TreeNode* root) {
+        int size, L, R;
+        isBST(root, L, R, size);
+        return size;
+    }
+
+    bool isBST(TreeNode * root, int & L, int & R, int & size) {
+        if (! root) {
+            size = 0; 
+            return true;
+        }
+
+        int sizeL, sizeR, LL, LR, RL, RR;
+
+        bool bL = isBST(root->left, LL, LR, sizeL);
+        bool bR = isBST(root->right, RL, RR, sizeR);
+
+        if (bL && bR) {
+            if ( (! root->left || LR < root->val) &&
+                 (! root->right || RL > root->val )) {
+                size = 1 + sizeL + sizeR;
+  
+                L = root->left ? LL : root->val;
+                R = root->right ? RR : root->val;
+
+                return true;
+            }
+        }
+
+        size = max(sizeL, sizeR);
+        return false;
+    }
+};
+
+
 // Works. Tested. 
 // Modified From: https://leetcode.com/discuss/85959/12ms-c-solution
 class Solution4 {
