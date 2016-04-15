@@ -1,3 +1,49 @@
+// Should work. Tested locally. 
+class Solution2 {
+public:
+    int countComponents(int n, vector<pair<int, int> >& edges) {
+        int ct = 0, node_ct = 0;
+
+        while (! edges.empty()) {
+            ++ ct;
+            remove(edges, node_ct);
+        }
+        return ct + (n - node_ct);
+    }
+
+    void remove(vector<pair<int, int> >& edges, int & node_ct) {
+        pair<int, int> e = edges.back();
+        edges.pop_back();
+
+        deque<int> q;
+        q.push_back(e.first);
+        q.push_back(e.second);
+        node_ct += 2;
+
+        while (! q.empty()) {
+            int k = q.front();
+            q.pop_front();
+
+            for (vector<pair<int, int> >::iterator it = edges.begin(); it != edges.end(); ) {
+                pair<int, int> p = *it;
+                if (k == p.first || k == p.second) {
+                    int u = p.first + p.second - k;
+                    if (find(q.begin(), q.end(), u) == q.end()) {
+                        q.push_back(u);
+                        ++ node_ct;
+                    }
+
+                    edges.erase(it);
+                }
+                else {
+                    ++ it;
+                }
+            }
+        }
+    }
+};
+
+
 // Works. Tested. By XC.
 class Solution {
 public:
