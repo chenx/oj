@@ -1,7 +1,44 @@
-// The 2 solutions below are from: http://www.cnblogs.com/jcliBlogger/p/4704781.html
-// Also see: https://leetcode.com/discuss/questions/oj/flatten-2d-vector
+// Should work. Tested locally. Better than Solution.
+// This goes through all rows of 2D vector.
+// By: X.C. 4/14/2016
+class Vector2D4 {
+private:
+    vector<vector<int> > base;
+    int row, col;
 
-// Works. Same as Vector2D2. Re-written to be more clean.
+    void getNext() {
+        ++ col;
+        for (; row < base.size(); ++ row) {
+            if (col < base[row].size()) break;
+            else col = 0;
+        }
+    }
+
+public:
+    Vector2D(vector<vector<int> >& vec2d) {
+        base = vec2d;
+
+        row = 0;
+        col = -1;
+        getNext();
+    }
+
+    int next() {
+        if (! hasNext()) return 0;
+
+        int val = base[row][col];
+        getNext();
+        return val;
+    }
+
+    bool hasNext() {
+        return row < base.size();
+    }
+};
+
+
+// Should work, tested locally. Same as Vector2D2. Re-written to be more clean.
+// Just flattern the 2D array to 1D at initialization.
 class Vector2D3 {
 private:
     vector<int> base;
@@ -26,6 +63,9 @@ public:
     }
 };
 
+
+// The 2 solutions below are from: http://www.cnblogs.com/jcliBlogger/p/4704781.html
+// Also see: https://leetcode.com/discuss/questions/oj/flatten-2d-vector
 
 // This works too. Simpler.
 class Vector2D2 {
