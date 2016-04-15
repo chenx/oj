@@ -1,6 +1,6 @@
 // Works. Tested. 
 // Modified From: https://leetcode.com/discuss/85959/12ms-c-solution
-class Solution3 {
+class Solution4 {
 public:
     int largestBSTSubtree(TreeNode* root) {
         int size, L, R;
@@ -34,6 +34,44 @@ public:
         return false;
     }
 };
+
+// Don't know if this bottom-up method works or not. Maybe not.
+class Solution3 {
+public:
+    int largestBSTSubtree(TreeNode* root) {
+        TreeNode * L = NULL, * R = NULL;
+        int size = 0;
+        isBST(root, L, R, size);
+        return size;
+    }
+
+    bool isBST(TreeNode * root, TreeNode * L, TreeNode * R, int & size) {
+        if (! root) {
+            size = 0; 
+            return true;
+        }
+
+        int sizeL = 0, sizeR = 0;
+        TreeNode * LL = NULL, * LR = NULL, * RL = NULL, * RR = NULL;
+
+        bool bL = isBST(root->left, L, root, sizeL);
+        bool bR = isBST(root->right, root, R, sizeR);
+
+        if (bL && bR) {
+            if ( (! L || L->val < root->val) &&
+                 (! R || R->val > root->val )) {
+                size = 1 + sizeL + sizeR;
+
+                return true;
+            }
+        }
+
+        size = max(sizeL, sizeR);
+        return false;
+    }
+};
+
+
 
 // Should work. Not tested. Similar to Solution.
 class Solution2 {
