@@ -74,6 +74,7 @@ public:
 };
 
 // An augmented BST, with a field "size" for number of nodes in this tree.
+// This is Order Statistics Tree: https://en.wikipedia.org/wiki/Order_statistic_tree
 class Tree {
 public:
     Tree() : root(NULL) {}
