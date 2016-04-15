@@ -79,11 +79,8 @@ public:
     Tree() : root(NULL) {}
     void insert(long long v) { insert(root, v); }
     int queryLE(long long num) { return queryLE(root, num); }
-    
-    // number of nodes whose value <= num.
-    int lower_bound(long long num) { return queryLE(root, num); }
-    // number of nodes whose value < num.
-    int upper_bound(long long num) { return queryLE(root, num - 1); }
+    int lower_bound(long long num) { return queryLE(root, num - 1); }
+    int upper_bound(long long num) { return queryLE(root, num); }
 
 private:
     Node *root;
@@ -120,7 +117,8 @@ private:
 class Solution {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
-        Tree t; // multiset.
+        //multiset<long long> t; // multiset.
+        Tree t;
         t.insert(0);
 
         long long sum = 0;
@@ -129,8 +127,7 @@ public:
         for(int i = 0;i < nums.size(); ++ i)
         {
             sum += nums[i];
-            ct += t.lower_bound(sum - lower) - t.upper_bound(sum - upper);
-            //ct += t.queryLE(sum - lower) - t.queryLE(sum - upper - 1); // this works too.
+            ct += t.upper_bound(sum - lower) - t.lower_bound(sum - upper);
             t.insert(sum);
         }
         
