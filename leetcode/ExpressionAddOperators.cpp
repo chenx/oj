@@ -1,3 +1,37 @@
+// Works too. Made easier to understand.
+class Solution3 {
+public:
+    vector<string> addOperators(string num, int target) {
+        vector<string> ans;
+        go(ans, num, target, 0, "", 0, 0);
+        return ans;
+    }
+    
+    void go(vector<string> & ans, string num, int target, 
+    int pos, string p, long long cur, long long prev) {
+        if (pos == num.length()) {
+            if (cur == target) ans.push_back(p);
+            return;
+        }
+        
+        for (int i = pos; i < num.length(); ++ i) { // for every string starts at pos.
+            string t = num.substr(pos, i - pos + 1); // this is good.
+            int len = t.length();
+            if (len > 1 && t[0] == '0') break;
+            
+            long long v = stoll(t);
+            if (pos == 0) { // don't forget this! it's "pos == 0", not "i == 0".
+                go(ans, num, target, len, t, v, v);
+            }
+            else {
+                go(ans, num, target, pos+len, p + "+" + t, cur + v, v);
+                go(ans, num, target, pos+len, p + "-" + t, cur - v, -v);
+                go(ans, num, target, pos+len, p + "*" + t, cur - prev + prev * v, prev * v);
+            }
+        }
+    }
+};
+
 // Works. Tested. Slightly improved from Solution.
 class Solution2 {
 public:
