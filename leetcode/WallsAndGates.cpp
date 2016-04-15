@@ -1,3 +1,34 @@
+// Should work. Tested locally.
+class Solution4 {
+public:
+    void wallsAndGates(vector<vector<int> >& rooms) {
+        if (rooms.size() == 0 || rooms[0].size() == 0) return;
+        int m = rooms.size(), n = rooms[0].size();
+        vector<vector<int> > dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        queue<pair<int, int> > q;
+
+        for (int i = 0; i < m; ++ i)
+            for (int j = 0; j < n; ++ j)
+                if (rooms[i][j] == 0) q.push(pair<int, int>(i, j));
+
+        while (! q.empty()) {
+            int x = q.front().first, y = q.front().second;
+            q.pop();
+
+            for (int i = 0; i < dirs.size(); ++ i) {
+                int dx = x + dirs[i][0], dy = y + dirs[i][1];
+                if (dx >= 0 && dx < m && dy >= 0 && dy < n
+                    && (rooms[dx][dy] == INF || rooms[dx][dy] > 1 + rooms[x][y])) {
+                    rooms[dx][dy] = 1 + rooms[x][y];
+                    q.push(pair<int, int>(dx, dy));
+                }
+            }
+        }
+    }
+};
+
+
 // Should work. Not tested.
 class Solution3 {
 public:
