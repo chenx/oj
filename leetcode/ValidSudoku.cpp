@@ -9,6 +9,55 @@
 #include <vector>
 using namespace std;
 
+
+// Works. Simplified from Solution6. Assume all chars are '.' or'1-9'.
+class Solution7 {
+    const static int n = 9;
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for (int i = 0; i < n; ++ i) 
+            if (! validRow(board, i) || ! validCol(board, i)) return false;
+        
+        for (int i = 0; i < n; i += 3)
+            for (int j = 0; j < n; j += 3)
+                if (! validBlock(board, i, j)) return false;
+                
+        return true;
+    }
+    
+    bool validRow(vector<vector<char>>& board, int row) {
+        unordered_set<int> s;
+        for (int j = 0; j < n; ++ j) {
+            if (board[row][j] == '.') continue;
+            if (s.find(board[row][j]) != s.end()) return false;
+            else s.insert(board[row][j]);
+        }
+        return true;
+    }
+    
+    bool validCol(vector<vector<char>>& board, int col) {
+        unordered_set<int> s;
+        for (int j = 0; j < n; ++ j) {
+            if (board[j][col] == '.') continue;
+            if (s.find(board[j][col]) != s.end()) return false;
+            else s.insert(board[j][col]);
+        }
+        return true;
+    }
+    
+    bool validBlock(vector<vector<char>>& board, int row, int col) {
+        unordered_set<int> s;
+        for (int i = row; i < row + 3; ++ i) {
+            for (int j = col; j < col + 3; ++ j) {
+                if (board[i][j] == '.') continue;
+                if (s.find(board[i][j]) != s.end()) return false;
+                else s.insert(board[i][j]);
+            }
+        }
+        return true;
+    }
+};
+
 // Works too. 
 class Solution6 {
     const int n = 9;
