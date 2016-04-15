@@ -13,7 +13,7 @@ class Solution5 {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
         multiset<long long> sumset;
-        sumset.insert(0);
+        sumset.insert(0); // it's "sum" that's inserted, so start with sum = 0.
         
         long long sum = 0;
         int ct = 0;
@@ -24,7 +24,7 @@ public:
             // sums[i] - upper <= sums[j] <= sums[i] - lower
             ct += distance(sumset.lower_bound(sum - upper), 
                            sumset.upper_bound(sum - lower));
-            sumset.insert(sum);
+            sumset.insert(sum); // note it's "sum" that's inserted, not nums[i].
         }
         
         return ct;
