@@ -5,6 +5,60 @@
 // @Last modified: 3/29/2016
 //
 
+// Works too. Simplified from Solution3.
+class Solution4 {
+    static const int n = 9;
+public:
+    void solveSudoku(vector<vector<char>>& board) {
+        solve(board, 0, 0);
+    }
+    
+    bool solve(vector<vector<char>>& board, int i, int j) {
+        if (! getNext(board, i, j)) return true;
+
+        set<char> next = getOptions(board, i, j);
+        for (auto n : next) {
+            board[i][j] = n;
+            if (solve(board, i, j)) return true;
+        }
+        
+        board[i][j] = '.';
+        return false;
+    }
+    
+    set<char> getOptions(vector<vector<char>>& board, int i, int j) {
+        set<char> s;
+        
+        for (int k = 0; k < n; ++ k) {
+            if (isdigit(board[k][j])) s.insert(board[k][j]);
+            if (isdigit(board[i][k])) s.insert(board[i][k]);
+        }
+        
+        int x = (i / 3) * 3, y = (j / 3) * 3;
+        for (int i = x; i < x + 3; ++ i)
+            for (int j = y; j < y + 3; ++ j)
+                if (isdigit(board[i][j])) s.insert(board[i][j]);
+                
+        set<char> opt;
+        for (char c = '1'; c <= '9'; ++ c) { // Note: can use char directly.
+            if (s.find(c) == s.end()) opt.insert(c);
+        }
+        return opt;
+    }
+    
+    bool getNext(vector<vector<char>>& board, int &i, int &j) {
+        for (; j < n; ++ j) 
+            if (board[i][j] == '.') return true;
+        
+        for (++ i; i < n; ++ i) 
+            for (j = 0; j < n; ++ j)
+                if (board[i][j] == '.') return true;
+        
+        return false;
+    }
+};
+
+
 // Works too.
 class Solution3 {
 public:
@@ -42,7 +96,7 @@ public:
     }
     
     bool findNext(vector<vector<char>>& board, int & i, int & j) {
-        if (board[i][j] == '.') return true;
+        if (board[i][j] == '.') return true;  // this can be combined to for loop below.
 
         for (++ j; j < 9; ++ j) 
             if (board[i][j] == '.') return true;
