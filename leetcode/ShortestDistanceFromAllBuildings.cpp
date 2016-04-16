@@ -1,3 +1,55 @@
+// Should work. Tested locally.
+class Solution4 {
+    vector<pair<int, int> > dirs;
+public:
+    Solution() {
+        dirs.push_back(pair<int, int>(-1, 0));
+        dirs.push_back(pair<int, int>(1, 0));
+        dirs.push_back(pair<int, int>(0, -1));
+        dirs.push_back(pair<int, int>(0, 1));
+    }
+
+    int shortestDistance(vector<vector<int> >& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+        int m = grid.size(), n = grid[0].size();
+
+        vector<vector<int> > dist(m, vector<int>(n, 0));
+        int minDist = 0, mark = 0;
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] != 1) continue;
+
+                minDist = INT_MAX;
+                queue<vector<int> > q;
+                vector<int> v(3); v[0] = i, v[1] = j, v[2] = 0;
+                q.push(v);
+
+                while (! q.empty()) {
+                    int x = q.front()[0], y = q.front()[1], d = q.front()[2] + 1;
+                    q.pop();
+
+                    for (int k = 0; k < dirs.size(); ++ k) {
+                        int dx = x + dirs[k].first, dy = y + dirs[k].second;
+                        if (dx >= 0 && dx < m && dy >= 0 && dy < n && grid[dx][dy] == mark) {
+                            dist[dx][dy] += d;
+                            minDist = min(minDist, dist[dx][dy]);
+
+                            v[0] = dx, v[1] = dy, v[2] = d;
+                            q.push(v);
+                            grid[dx][dy] = mark - 1;
+                        }
+                    }
+                }
+
+                -- mark;
+            }
+        }
+        return minDist;
+    }
+};
+
+
 // Should work. Tested locally. XC.
 // See discussion after Solution3.
 class Solution3 {
