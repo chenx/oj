@@ -1,5 +1,32 @@
 // Works. Tested. Union Find.
 // From: https://leetcode.com/discuss/78856/c-union-find-solution-with-path-compression
+/*
+// Note, use which below do not matter. 
+// Final result is the same, although roots vector is different.
+
+// Use roots[posOld] = posNew;
+1 1 2 3 2 1 
+roots: 0 -1 -1 -1 -1 -1 -1 -1 -1 
+roots: 1 1 -1 -1 -1 -1 -1 -1 -1 
+roots: 1 1 -1 -1 -1 5 -1 -1 -1 
+roots: 1 1 -1 -1 -1 5 -1 7 -1 
+roots: 1 1 -1 -1 -1 8 -1 8 8 
+roots: 1 4 -1 -1 4 8 -1 8 4 
+1 1 2 3 2 1 
+ok
+
+// Use roots[posNew] = posOld;
+1 1 2 3 2 1 
+roots: 0 -1 -1 -1 -1 -1 -1 -1 -1 
+roots: 0 0 -1 -1 -1 -1 -1 -1 -1 
+roots: 0 0 -1 -1 -1 5 -1 -1 -1 
+roots: 0 0 -1 -1 -1 5 -1 7 -1 
+roots: 0 0 -1 -1 -1 7 -1 7 5 
+roots: 0 0 -1 -1 7 7 -1 0 5 
+1 1 2 3 2 1 
+ok
+*/
+
 class Solution {
 public:
     vector<int> numIslands2(int m, int n, vector<pair<int, int>>& positions) {
@@ -28,6 +55,7 @@ public:
     }
     
 private:
+
     vector<int> roots;
     int findRoot(int idx) {
         while(idx != roots[idx]) {
