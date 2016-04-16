@@ -9,6 +9,7 @@
 // when reverse the edge order, or make it unsorted, or use the "cycle"
 // example above, the code below all generate correct result.
 // So need more peruse.
+// If change parent[y] = x to: parent[x] = y, it also passes 3 tests here.
 
 // Works. Tested. Modified from Solution.
 // Better, more clear, by moving check of edges.size() to the beginning.
