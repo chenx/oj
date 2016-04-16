@@ -5,6 +5,10 @@
 // Also it seems to require the edges are sorted.
 // E.g., 3 nodes (1, 2, 3) form a cycle, 3 pairs are:
 // (2,3), (1,3), (1,2). Then this will return true but it should be false.
+// --> Well, it turns out the above statement seems false.
+// when reverse the edge order, or make it unsorted, or use the "cycle"
+// example above, the code below all generate correct result.
+// So need more peruse.
 
 // Works. Tested. Modified from Solution.
 // Better, more clear, by moving check of edges.size() to the beginning.
