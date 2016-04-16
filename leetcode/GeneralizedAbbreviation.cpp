@@ -1,3 +1,29 @@
+// Should work. Tested locally.
+// Basically same as Solution3, but re-written and cleaned code.
+class Solution4 {
+public:
+    vector<string> generateAbbreviations(string word) {
+        vector<string> ans;
+        gen(ans, word, 0, "", false);
+        return ans;
+    }
+
+    void gen(vector<string> & ans, string word, int pos, string p, bool prevIsNum) {
+        if (pos == word.length()) {
+            ans.push_back(p);
+            return;
+        }
+
+        gen(ans, word, pos + 1, p + word[pos], false);
+        if (! prevIsNum) {
+            for (int i = 1; i + pos <= word.length(); ++ i) {
+                gen(ans, word, pos + i, p + to_string(i), true);
+            }
+        }
+    }
+};
+
+
 // Works. Tested.
 // From: https://leetcode.com/discuss/75421/my-backtracking-c-solution
 class Solution3 {
