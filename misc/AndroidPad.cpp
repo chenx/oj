@@ -45,7 +45,7 @@ public:
                 int x = i + dirs[k].first, y = j + dirs[k].second;
 
                 if (x >= 0 && x < 3 && y >= 0 && y < 3) {
-                    if (isdigit(pad[x][y]))  // != '.') {
+                    if (isdigit(pad[x][y]))  // if (pad[x][y] != '.') {
                         get(ans, pad, p, x, y);
                 }
             }
