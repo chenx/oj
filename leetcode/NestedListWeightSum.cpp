@@ -19,7 +19,7 @@ public:
 class Solution {
 public:
     int depthSum(vector<NestedInteger>& nestedList) {
-        return getSum(nestedList, 0);
+        return getSum(nestedList, 1);
     }
 
     int getSum(vector<NestedInteger> nestedList, int depth) {
