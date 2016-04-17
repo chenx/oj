@@ -16,7 +16,7 @@ public:
         for (int i = 1; i < m; ++ i) {
             for (int j = 1; j < n; ++ j) {
                 if (matrix[i][j] == 0) ;
-                else {
+                else { // Note: use "min", not "max" in DP!
                     matrix[i][j] = 1 + 
                         min(matrix[i-1][j-1], min(matrix[i-1][j], matrix[i][j-1]));
                     maxEdge = max(maxEdge, matrix[i][j]);
