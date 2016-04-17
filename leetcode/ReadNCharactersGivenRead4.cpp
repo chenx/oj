@@ -64,9 +64,9 @@ public:
                 memcpy(buf + read_ct, buf4, ct);
                 read_ct += ct;
             }
-          }
+        }
          
-          return read_ct;
+        return read_ct;
     }
 };
 
