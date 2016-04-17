@@ -26,5 +26,3 @@
 <a href="http://www.lintcode.com/en/problem/k-sum/"></a><br />
 <a href="http://www.lintcode.com/en/problem/matrix-zigzag-traversal/"></a><br />
 <a href="http://www.lintcode.com/en/problem/permutation-index/"></a><br />
-<a href="https://www.bing.com/search?q=firefox+url+lister&pc=MOZI&form=MOZTSB">firefox url lister - Bing</a><br />
-<a href="https://addons.mozilla.org/en-US/firefox/addon/url-lister/">URL Lister :: Add-ons for Firefox</a><br />
