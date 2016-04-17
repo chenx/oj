@@ -32,12 +32,11 @@ class Solution3 {
 public: 
     int read(char *buf, int n) { 
         char buf4[4];
-        int read_ct = 0;
+        int read_ct = 0, ct;
         
         while (read_ct < n) {
-            int ct = read4(buf4);
-            if (ct == 0) break;
-            
+            if ((ct = read4(buf4)) == 0) break;
+
             if ((ct = min(ct, n - read_ct)) > 0) {
                 memcpy(buf + read_ct, buf4, ct);
                 read_ct += ct;
