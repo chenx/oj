@@ -1,4 +1,4 @@
-// Should work. Not tested.
+// Should work. Tested locally.
 // From: https://leetcode.com/discuss/95042/two-clean-c-solutions-for-your-reference
 class Solution {
 public:
