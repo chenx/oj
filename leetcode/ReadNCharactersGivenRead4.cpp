@@ -1,3 +1,31 @@
+// Should work. Tested locally. 
+// Adapted from the solution to ReadNCharactersGivenRead4_II, by adding
+// only the line "cur = 0;" at the beginning of the while loop.
+// Although this also works, Solution3 is the best.
+class Solution5 {
+    int cur, ct;
+    char buf[4];
+public:
+    Solution() { cur = ct = 0; }
+
+    int read(char *buffer, int n) {
+        int read_ct = 0;
+
+        while (read_ct < n) {
+            cur = 0;  // add this from the solution to ReadNCharactersGivenRead4_II.
+            if (cur == 0) ct = read4(buf);
+            if (ct == 0) break;
+            while (read_ct < n && cur < ct)
+                buffer[read_ct ++] = buf[cur ++];
+
+            if (cur == ct) cur = ct = 0;
+        }
+
+        return read_ct;
+    }
+};
+
+
 // Should work. Tested at hc, not lc.
 // Compared to Solution and Solution2, this has less corner cases to consider.
 // From: fb intv
