@@ -15,20 +15,21 @@ public:
 };
 
 
-// Should work. Not tested. XC.
+// Should work. Tested locally. XC.
 class Solution {
 public:
     int depthSum(vector<NestedInteger>& nestedList) {
-        return getSum(nestedList, 1);
+        return getSum(nestedList, 0);
     }
-    
-    int getSum(vector<NestedInteger>& nestedList, int depth) {
+
+    int getSum(vector<NestedInteger> nestedList, int depth) {
         int sum = 0;
         for (int i = 0, n = nestedList.size(); i < n; ++ i) {
-            if (nestedList[i].isInteger()) 
-                sum += nestedList[i].getInteger() * depth();
-            else 
-                sum += getSum(nestedList[i], depth + 1);
+            if (nestedList[i].isInteger())
+                sum += nestedList[i].getInteger() * depth;
+            else {
+                sum += getSum(nestedList[i].getList(), depth + 1);
+            }
         }
         return sum;
     }
