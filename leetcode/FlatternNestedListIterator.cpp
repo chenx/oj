@@ -2,7 +2,8 @@
 class NestedIterator3 {
     stack<NestedInteger> s;
 
-    void add(vector<NestedInteger> & nestedList) {
+    void add(vector<NestedInteger> & nestedList) { 
+        // Note: order of push is backwards!
         for (int i = nestedList.size() - 1; i >= 0; -- i)
             s.push(nestedList[i]);
     }
