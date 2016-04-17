@@ -1,3 +1,21 @@
+// Idea: quicksort. Better than Soluton.
+class Solution2 {
+public:
+    /** 
+     * @param chars: The letters array you should sort.
+     */
+    void sortLetters(string &letters) {
+        // write your code here
+        int L = 0, R = letters.size() - 1;
+        while (L < R) {
+            while (L < R && islower(letters[L])) ++ L;
+            while (L < R && isupper(letters[R])) -- R;
+            if (L < R) swap(letters[L ++ ], letters[R -- ]);
+            else ++ L;
+        }
+    }
+};
+
 //
 // Both methods work.
 // They are also in one-pass and in-pace.
