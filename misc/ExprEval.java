@@ -2,6 +2,8 @@
 // Evaluate an expression tree. In Java.
 // Note the use of interface, exception.
 //
+// By: X.C. 4/18/2016. Amz.
+//
 import java.util.*;
 
 interface Evaluator {
