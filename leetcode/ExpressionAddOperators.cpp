@@ -1,3 +1,37 @@
+// Works too. Modified from Solution3.
+// Note that pos+len == i+1 !
+class Solution4 {
+public:
+    vector<string> addOperators(string num, int target) {
+        vector<string> ans;
+        add(ans, num, target, 0, "", 0, 0);
+        return ans;
+    }
+    
+    void add(vector<string> & ans, string num, int target, int pos, string p,
+    long long cur, long long prev) {
+        if (pos == num.length()) {
+            if (cur == target) ans.push_back(p);
+            return;
+        }
+        
+        for (int i = pos; i < num.length(); ++ i) {
+            string t = num.substr(pos, i - pos + 1);
+            if (t.length() > 1 && t[0] == '0') break;
+            long long v = stoll(t);
+            
+            if (pos == 0) {
+                add(ans, num, target, i+1, t, v, v);
+            }
+            else { // note: pos+n == i+1, where n = t.length().
+                add(ans, num, target, i+1, p + "+" + t, cur + v, v);
+                add(ans, num, target, i+1, p + "-" + t, cur - v, -v);
+                add(ans, num, target, i+1, p + "*" + t, cur - prev + prev*v, prev*v);
+            }
+        }
+    }
+};
+
 // Works too. Made easier to understand.
 class Solution3 {
 public:
