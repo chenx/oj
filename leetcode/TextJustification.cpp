@@ -56,7 +56,7 @@ public:
             // first b intervals have a+1 spaces, later intervals have a spaces.
             int i = 0;
             for (; i < b; ++ i) s += row[i] + string(a + 1, ' ');
-            for (; i < n; ++ i) s += row[i] + string(a, ' ');
+            for (; i < n; ++ i) s += row[i] + string(a, ' '); // note: i < n means i <= n-1 = row.size()-2
             s += row[i];
         }
         
