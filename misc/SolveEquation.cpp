@@ -4,6 +4,23 @@
 // E.g., input is: 3*x + 1, then equation is 3*x + 1 = 0
 // Idea is to use an array for the co-efficients.
 // This can easily be extended to more variables and higher degree (quadratic, ...).
+//
+// A recursive descent parser is easy to write by hand. It could be O(k^n) in worst case,
+// where k is input size. It is a direct implementation of PEG (Parser Expression Grammar).
+// 
+// From [2]: RD parsers are the most general form of top-down parsing, and the most popular 
+// type of parsers to write by hand. However, being so general, they have several problems,
+// like requiring backtracking (which is difficult to code correctly and efficiently).
+//
+// A LL(k) parser is a subclass of recursive descent parser, that requires k lookahead,
+// and is more efficient. LL(1) is linear in time O(k). LL(k) parsers are called predictive.
+// A predictive parser is a recursive descent parser that does not require backtracking. 
+//
+// References:
+// [1] https://en.wikipedia.org/wiki/Recursive_descent_parser
+// [2] http://eli.thegreenplace.net/2008/09/26/recursive-descent-ll-and-predictive-parsers/
+// [3] http://stackoverflow.com/questions/1044600/difference-between-an-ll-and-recursive-descent-parser
+//
 // By: X.C. 4/17/2016
 // 
 
