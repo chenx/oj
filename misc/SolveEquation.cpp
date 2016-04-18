@@ -57,7 +57,6 @@ public:
         return v[1] == 0 ? 0 : (- 1.0 * v[0] / v[1]);
     }
 
-    char nextChar(const char * p) { while (isspace(*p)) ++ p; return *p; }
     void ignoreSpace(const char*& p) { while (isspace(*p)) ++ p; }
     void expect(const char *& p, char c) {
         if (*p != c) {
@@ -103,13 +102,10 @@ public:
     vector<int> T(const char *& p) {
         vector<int> v = F(p);
 
-        char c = nextChar(p);
-        while (c == '*' || c == '/' || c == 'x' || c == '(') {
-            if (c == '*') v = mul(v, F(++ p));
-            else if (c == 'x' || c == '(') v = mul(v, F(p));
+        while (*p == '*' || *p == '/' || *p == 'x' || *p == '(') {
+            if (*p == '*') v = mul(v, F(++ p));
+            else if (*p == 'x' || *p == '(') v = mul(v, F(p));
             else v = div(v, F(++ p));
-            
-            c = nextChar(p); // get next char.
         }
         return v;
     }
