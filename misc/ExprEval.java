@@ -1,3 +1,7 @@
+// 
+// Evaluate an expression tree. In Java.
+// Note the use of interface, exception.
+//
 import java.util.*;
 
 interface Evaluator {
@@ -58,14 +62,16 @@ public class ExprEval implements Evaluator {
 }
 
 class Node {
-    public double val;
     public char op;
     public boolean isOp;
     public boolean isOperator() { return isOp; }
     public char getOperator() { return op; }
+    
+    public double val;
     public double getValue() { return val; }
 
     Node left, right;
+    
     Node(double v) { val = v; isOp = false; left = right = null; }
     Node(char operator) { op = operator; isOp = true; left = right = null; }
 }
