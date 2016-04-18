@@ -5,8 +5,8 @@
 // Idea is to use an array for the co-efficients.
 // This can easily be extended to more variables and higher degree (quadratic, ...).
 //
-// A recursive descent parser is easy to write by hand. It could be O(k^n) in worst case,
-// where k is input size. It is a direct implementation of PEG (Parser Expression Grammar).
+// A recursive descent parser is easy to write by hand. It could be O(n^k) in worst case,
+// where n is input size. It is a direct implementation of PEG (Parser Expression Grammar).
 // 
 // From [2]: RD parsers are the most general form of top-down parsing, and the most popular 
 // type of parsers to write by hand. However, being so general, they have several problems,
@@ -15,6 +15,10 @@
 // A LL(k) parser is a subclass of recursive descent parser, that requires k lookahead,
 // and is more efficient. LL(1) is linear in time O(k). LL(k) parsers are called predictive.
 // A predictive parser is a recursive descent parser that does not require backtracking. 
+//
+// The simple recursive descent parser below does not need back-tracking, all parsing
+// decisions can be made in O(1) time by checking the next char. So it is O(n), where
+// n is input string size.
 //
 // References:
 // [1] https://en.wikipedia.org/wiki/Recursive_descent_parser
