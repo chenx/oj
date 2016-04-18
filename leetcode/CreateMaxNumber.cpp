@@ -5,9 +5,13 @@ To get the maximal number out of two vector, we can split the problem into:
 1) create the maximal number of length i from one vector
 2) merge number1 of length(i) and number2 of length(k-i)
 *
-* nums1: use 0 ~ n1, corresponding nums2 length is k ~ k - n1.
-* There should be: n2 < k, and n2 > k - n1 => 0 < k - n2 < n1 (1).
-* from (1), n1 should be max(0, k - n2) ~ min(k, n1).
+* For range of i in maxNumber() below:
+* let i and j be the index of nums1 and nums2 respectively,
+* 1) i + j = k  => i = k - j >= k - n2, since j <= n2
+* 2) 0 <= i <= min(k, A.size())
+* 3) 0 <= j <= min(k, B.size())
+* 
+* from 1) and 2): max(0, k - n2) <= i <= min(k, A.size())
 */
 class Solution2 {
 public:    
@@ -16,7 +20,7 @@ public:
         int n1 = nums1.size(), n2 = nums2.size();
         //vector<int>maxNum(k, INT_MIN); // works too.
         vector<int>maxNum;
-        for(int i = max(k-n2, 0); i<= min(n1,k); i++){
+        for(int i = max(k-n2, 0); i <= min(n1,k); i++){
             maxNum = max(maxNum, Merge(MaxNumLenk(nums1, i), MaxNumLenk(nums2, k-i)));
         }
         /* // Below works too, exchanges nums1 and nums2.
