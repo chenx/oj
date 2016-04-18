@@ -39,7 +39,8 @@ public:
             }
         }
 
-        if (isPalindrome(s) && s.length() >= maxLen) {
+        // now obtain a palindrome.
+        if (s.length() >= maxLen) {
             if (s.length() > maxLen) {
                 maxLen = s.length();
                 maxStr.clear();
@@ -47,14 +48,6 @@ public:
             maxStr.insert(s);
         }
         return count;
-    }
-
-    bool isPalindrome(string s) {
-        int L = 0, R = s.length() - 1;
-        for (; L < R; ++ L, -- R) {
-            if (s[L] != s[R]) return false;
-        }
-        return true;
     }
 };
 
