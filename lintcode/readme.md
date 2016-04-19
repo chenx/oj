@@ -24,4 +24,5 @@
 <a href="http://www.lintcode.com/en/problem/parking-lot/">question</a>  
 <a href="http://www.lintcode.com/en/problem/k-sum/">question</a>  
 <a href="http://www.lintcode.com/en/problem/matrix-zigzag-traversal/">question</a>  
-<a href="http://www.lintcode.com/en/problem/permutation-index/">question</a>  
+
+<a href="https://wxx5433.gitbooks.io/interview-preparation/content/part_ii_leetcode_lintcode/math_and_bit_manipulation/permutation_index_ii.html">Reference answers</a>
