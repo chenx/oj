@@ -20,8 +20,8 @@ public:
         
         while (! q.empty()) {
             string w = q.front().first;
-            int dist = q.front().second + 1;
-            q.pop();
+            int dist = q.front().second + 1; // use +1
+            q.pop(); // don't forget this.
             
             for (int i = 0; i < w.length(); ++ i) {
                 char backup = w[i];
@@ -32,7 +32,7 @@ public:
                     else {
                         if (wordList.count(w) && ! used.count(w)) {
                             q.push(pair<string, int>(w, dist));
-                            used.insert(w);
+                            used.insert(w); // don't forget this.
                         }
                     }
                 }
