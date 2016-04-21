@@ -12,7 +12,7 @@ public:
     int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
         if (beginWord == endWord) return 1;
         
-        queue<pair<string, int> > q;
+        queue<pair<string, int>> q;
         q.push(pair<string, int>(beginWord, 1));
         
         unordered_set<string> used;
@@ -20,27 +20,26 @@ public:
         
         while (! q.empty()) {
             string w = q.front().first;
-            int dist = q.front().second;
+            int dist = q.front().second + 1;
             q.pop();
             
             for (int i = 0; i < w.length(); ++ i) {
-                char c = w[i];
-                for (char j = 'a'; j < 'z'; ++ j) {
-                    if (c == j) continue;
-                    w[i] = j;
+                char backup = w[i];
+                for (char c = 'a'; c <= 'z'; ++ c) {
+                    w[i] = c;
                     
-                    if (w == endWord) return 1 + dist; // BFS, so first is the shortest.
+                    if (w == endWord) return dist;
                     else {
                         if (wordList.count(w) && ! used.count(w)) {
-                            q.push(pair<string, int>(w, 1 + dist));
+                            q.push(pair<string, int>(w, dist));
                             used.insert(w);
                         }
                     }
                 }
-                w[i] = c;
+                w[i] = backup;
             }
         }
-        
+
         return 0;
     }
 };
