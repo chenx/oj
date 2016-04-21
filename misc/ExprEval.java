@@ -2,17 +2,37 @@
 // Evaluate an expression tree. In Java.
 // Note the use of interface, exception.
 //
+// 1) This allows both unary and binary operators, and can be extended to 
+//    operators require more operands, by passing operands in a list. 
+// 2) Can print callStack to pinpoint where the exception happens.
+//
 // By: X.C. 4/18/2016. Amz.
+// Last modified: 4/20/2016
 //
 import java.util.*;
 
 interface Evaluator {
-     Double evaluate(Node root) throws Exception;
+     Double evaluate();
 }
 
 public class ExprEval implements Evaluator {
+    private Node root;
+    
+    public void setRoot(Node root) { this.root = root; }
+    
+    public Double evaluate() throws Exception {
+       double val = 0.0;
+       try {
+           val = evaluate(root);
+       }
+       catch (Exception e) {
+           System.out.println("Exception: " + e.getMessage());
+           dumpCallStack();
+       }
+       return val;
+    }
 
-    public Double evaluate(Node root) throws Exception {
+    private Double evaluate(Node root) throws Exception {
         if (root == null) return 0.0;
         callStack.push(root);
 
@@ -33,43 +53,37 @@ public class ExprEval implements Evaluator {
     }
 
     // In this new version of calc(), can add any operator.
-    Double calc(String operator, ArrayList<Double> params) throws Exception {
+    private Double calc(String operator, ArrayList<Double> params) throws Exception {
         if (operator.equals("+")) return params.get(0) + params.get(1);
         else if (operator.equals("-")) return params.get(0) - params.get(1);
         else if (operator.equals("*")) return params.get(0) * params.get(1);
         else if (operator.equals("/")) {
             //if (b == 0) throw new Exception("divide by zero");
-            if (Math.abs(params.get(1)) < 0.0000001) exit("divide by zero");
+            if (Math.abs(params.get(1)) < 0.0000001) throw new Exception("divide by zero");
             else return params.get(0) / params.get(1);
         }
         else if (operator.equals("sqrt")) {
-            if (params.get(0) < 0) exit("sqrt on negative number");
+            if (params.get(0) < 0) throw new Exception("sqrt on negative number");
             return Math.sqrt(params.get(0));
         }
-        else exit("unknown operator: " + operator);
-
-        return 0.0;
+        else throw new Exception("unknown operator: " + operator);
     }
 
+    /*
     // Deprecated. This is un-favorable since it applies to binary operators only.
-    Double calc2(char operator, double a, double b) throws Exception {
+    private Double calc2(char operator, double a, double b) throws Exception {
         if (operator == '+') return a + b;
         else if (operator == '-') return  a - b;
         else if (operator == '*') return a * b;
         else if (operator == '/') {
             //if (b == 0) throw new Exception("divide by zero");
-            if (Math.abs(b) < 0.0000001) exit("divide by zero");
+            if (Math.abs(b) < 0.0000001) throw new Exception("divide by zero");
             else return a / b;
         }
-        else exit("unknown operator: " + operator);
-        
-        return 0.0;
+        else throw new Exception("unknown operator: " + operator);
     }
-
-    private void exit(String msg) {
-        dumpCallStack();
-        throw new Exception(msg);
-    }
+    */
+    
     // call stack, to display where error happens.
     private Stack<Node> callStack;
     private void dumpCallStack() {
@@ -101,7 +115,8 @@ public class ExprEval implements Evaluator {
         root.right.right.right = new Node(1);
         
         try {
-            double v = evaluate(root);
+            setRoot(root);
+            double v = evaluate();
             double a = 10;
             System.out.println("expects: " + v + ", answer: " + a);
             System.out.println( (v == a) ? "pass" : "fail <----" );
@@ -113,7 +128,6 @@ public class ExprEval implements Evaluator {
     public static void main(String[] args) {
         ExprEval e = new ExprEval();
         e.test1();
-        //System.out.println("hello");
     }
 }
 
