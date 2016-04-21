@@ -20,7 +20,7 @@ public class ExprEval implements Evaluator {
     
     public void setRoot(Node root) { this.root = root; }
     
-    public Double evaluate() throws Exception {
+    public Double evaluate() {
        double val = 0.0;
        try {
            val = evaluate(root);
