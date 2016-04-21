@@ -5,6 +5,32 @@
 // @Last modified: 1/1/2013
 //
 
+// Works.
+class Solution4 {
+public:
+    /**
+     * @param s A string
+     * @return whether the string is a valid parentheses
+     */
+    bool isValidParentheses(string& s) {
+        unordered_map<char, char> m;
+        m['('] = ')';
+        m['{'] = '}';
+        m['['] = ']';
+        
+        stack<char> t;
+        
+        for (int i = 0; i < s.length(); ++ i) {
+            char c = s[i];
+            if (m.find(c) != m.end()) t.push(c);
+            else if (! t.empty() && m[t.top()] == c) t.pop();
+            else return false;
+        }
+        
+        return t.empty();
+    }
+};
+
 // Works. Best so far!  Totally avoids switch/if-else.
 class Solution3 {
 public:
