@@ -18,7 +18,11 @@ public class ExprEval implements Evaluator {
 
         Double val;
         if (root.isOperator()) {
-            val = calc(root.getOperator(), evaluate(root.left), evaluate(root.right));
+            //val = calc(root.getOperator(), evaluate(root.left), evaluate(root.right));
+            ArrayList<Double> params = new ArrayList<Double>();
+            if (root.left != null) params.add(evaluate(root.left));
+            if (root.right != null) params.add(evaluate(root.right));
+            val = calc(String.valueOf(root.getOperator()), params);
         }
         else {
             val = root.getValue();
@@ -28,7 +32,27 @@ public class ExprEval implements Evaluator {
         return val;
     }
 
-    Double calc(char operator, double a, double b) throws Exception {
+    // In this new version of calc(), can add any operator.
+    Double calc(String operator, ArrayList<Double> params) throws Exception {
+        if (operator.equals("+")) return params.get(0) + params.get(1);
+        else if (operator.equals("-")) return params.get(0) - params.get(1);
+        else if (operator.equals("*")) return params.get(0) * params.get(1);
+        else if (operator.equals("/")) {
+            //if (b == 0) throw new Exception("divide by zero");
+            if (Math.abs(params.get(1)) < 0.0000001) exit("divide by zero");
+            else return params.get(0) / params.get(1);
+        }
+        else if (operator.equals("sqrt")) {
+            if (params.get(0) < 0) exit("sqrt on negative number");
+            return Math.sqrt(params.get(0));
+        }
+        else exit("unknown operator: " + operator);
+
+        return 0.0;
+    }
+
+    // Deprecated. This is un-favorable since it applies to binary operators only.
+    Double calc2(char operator, double a, double b) throws Exception {
         if (operator == '+') return a + b;
         else if (operator == '-') return  a - b;
         else if (operator == '*') return a * b;
@@ -55,6 +79,10 @@ public class ExprEval implements Evaluator {
            if (n.isOperator()) System.out.println( n.op );
            else System.out.println( n.val );
            callStack.pop();
+           
+           // below prints the left/right path from root.
+           if (callStack.empty()) System.out.println( " :root" );
+           else System.out.println( n == callStack.peek().left ? " :left child" : " :right child" );
         }
     }
     public ExprEval() { callStack = new Stack<Node>(); }
@@ -65,7 +93,9 @@ public class ExprEval implements Evaluator {
         root.left.left = new Node(12);
         root.left.right = new Node(3);
         root.right = new Node('*');
-        root.right.left = new Node(2);
+        root.right.left = new Node('/');
+        root.right.left.left = new Node(4);
+        root.right.left.right = new Node(2);
         root.right.right = new Node('/');
         root.right.right.left = new Node(3);
         root.right.right.right = new Node(1);
