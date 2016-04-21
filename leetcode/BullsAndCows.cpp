@@ -1,3 +1,26 @@
+// Works too. Use a map, instead of array.
+class Solution4 {
+public:
+    string getHint(string secret, string guess) {
+        int A = 0, B = 0, n = secret.size();
+        unordered_map<char, int> ct;
+        
+        for (int i = 0; i < n; ++ i) {
+            if (secret[i] == guess[i]) ++ A;
+            else ct[secret[i]] ++;
+        }
+        
+        for (int i = 0; i < n; ++ i) {
+            if (ct[guess[i]] > 0 && guess[i] != secret[i]) {
+                ++ B;
+                ct[guess[i]] --;
+            }
+        }
+        
+        return to_string(A) + "A" + to_string(B) + "B";
+    }
+};
+
 // Works. Much easier to understand. From CCI 5th Ed.
 class Solution3 {
 public:
