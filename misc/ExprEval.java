@@ -53,6 +53,7 @@ public class ExprEval implements Evaluator {
     }
 
     // In this new version of calc(), can add any operator.
+    // Strategy design pattern.
     private Double calc(String operator, ArrayList<Double> params) throws Exception {
         if (operator.equals("+")) return params.get(0) + params.get(1);
         else if (operator.equals("-")) return params.get(0) - params.get(1);
