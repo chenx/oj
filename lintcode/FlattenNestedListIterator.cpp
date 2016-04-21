@@ -1,3 +1,42 @@
+// This works too. Use a stack.
+class NestedIterator2 {
+    //vector<NestedInteger> base;
+    stack<NestedInteger> base;
+    
+    void add(vector<NestedInteger> &nestedList) {
+        for (int i = nestedList.size() - 1; i >= 0; -- i)
+            base.push(nestedList[i]);
+    }
+    void getTop() {
+        while (! base.empty() && ! base.top().isInteger()) {
+            vector<NestedInteger> n = base.top().getList();
+            base.pop();
+            add(n);
+        }
+    }
+    
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        //base.clear();
+        add(nestedList);
+        getTop();
+    }
+
+    // @return {int} the next element in the iteration
+    int next() {
+        int val = base.top().getInteger();
+        base.pop();
+        getTop();
+        return val;
+    }
+
+    // @return {boolean} true if the iteration has more element or false
+    bool hasNext() {
+        return ! base.empty();
+    }
+};
+
+
 /**
  * // This is the interface that allows for creating nested lists.
  * // You should not implement it, or speculate about its implementation
@@ -18,6 +57,7 @@
  *     const vector<NestedInteger> &getList() const;
  * };
  */
+// Works. Flattern everything at the beginning.
 class NestedIterator {
     //vector<NestedInteger> base;
     vector<int> base;
