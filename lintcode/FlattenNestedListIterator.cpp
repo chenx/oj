@@ -1,6 +1,5 @@
 // This works too. Use a stack.
 class NestedIterator2 {
-    //vector<NestedInteger> base;
     stack<NestedInteger> base;
     
     void add(vector<NestedInteger> &nestedList) {
@@ -19,7 +18,7 @@ public:
     NestedIterator(vector<NestedInteger> &nestedList) {
         //base.clear();
         add(nestedList);
-        getTop();
+        getTop(); // must do this at the beginning. Otherwise will erro if nestList contains empty NestedInteger lists.
     }
 
     // @return {int} the next element in the iteration
@@ -74,7 +73,7 @@ class NestedIterator {
     }
 public:
     NestedIterator(vector<NestedInteger> &nestedList) {
-        base.clear();
+        //base.clear(); // no need, since base is empty in constructor.
         index = 0;
         getBase(nestedList);
     }
