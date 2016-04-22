@@ -5,7 +5,7 @@ public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
         int len = gas.size(), sum = 0, total = 0, index = 0;
         for (int i = 0; i < len; ++ i) {
-            if (sum <= 0) {
+            if (sum <= 0) { // sum < 0 works too.
                 index = i;
                 sum = 0;
             }
