@@ -15,7 +15,7 @@ public:
             total += gain;
         }
         
-        return total < 0 ? -1 : index;
+        return total < 0 ? -1 : index; // Note: total == 0 is ok too, can find a start point.
     }
 };
 
