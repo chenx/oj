@@ -9,7 +9,7 @@
 
 
 // Works. Tested. So far best BFS.
-class Solution5 {
+class Solution6 {
 public:
     UndirectedGraphNode *cloneGraph(UndirectedGraphNode *root) {
         if (! root) return NULL;
@@ -40,6 +40,30 @@ public:
     }
 };
 
+// DFS. Works too.
+class Solution5 {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *root) {
+        unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> m;
+        return clone(root, m);
+    }
+    
+    UndirectedGraphNode * clone(UndirectedGraphNode * root, unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> & m) {
+        if (! root) return NULL;
+        
+        if (m.find(root) == m.end()) { 
+        //if (m.count(root)) { // this does not work.
+            UndirectedGraphNode * copy = new UndirectedGraphNode(root->label);
+            m[root] = copy;
+            
+            for (int i = 0; i < root->neighbors.size(); ++ i) {
+                copy->neighbors.push_back(clone(root->neighbors[i], m));
+            }
+        }
+        
+        return m[root];
+    }
+};
 
 // Works. Tested. So far best DFS.
 class Solution4 {
