@@ -12,7 +12,7 @@ public:
         int n1 = s.length(), n2 = t.length();
         vector<vector<int> > v(n1 + 1, vector<int>(n2 + 1, 0));
         
-        for (int j = 0; j <= n2; ++ j) v[0][j] = 0; // s == ""
+        for (int j = 0; j <= n2; ++ j) v[0][j] = 0; // s == "", j can start from 1.
         for (int i = 0; i <= n1; ++ i) v[i][0] = 1; // t == "", i starts from ZERO!
         
         for (int i = 1; i <= n1; ++ i) {
