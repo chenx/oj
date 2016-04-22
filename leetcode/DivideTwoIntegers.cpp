@@ -21,10 +21,9 @@ public:
         
         int d = 0;
         while ((b << d) <= a) ++ d;
-        -- d;
         
         int q = 0;
-        for (; d >= 0; -- d) {
+        for (-- d; d >= 0; -- d) {
             long long tmp = b << d;
             if (a >= tmp) {
                 a -= tmp;
