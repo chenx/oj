@@ -13,8 +13,9 @@ public:
         
         for (int i = k, len = nums.size(); i < len; ++ i) {
             ans.push_back(nums[Q.front()]);   // Q.front().
-            while (! Q.empty() && (i - Q.front() >= k)) Q.pop_front();
-            while (! Q.empty() && nums[i] >= nums[Q.back()]) Q.pop_back();   // >=
+            //while (! Q.empty() && (i - Q.front() >= k)) Q.pop_front();
+            while (! q.empty() && i >= q.front() + k) q.pop_front(); // this is more clear.
+            while (! Q.empty() && nums[i] >= nums[Q.back()]) Q.pop_back();   // >= // order of these 2 while doesn't matter.
             Q.push_back(i);
         }
         if (! Q.empty()) ans.push_back(nums[Q.front()]);   // end of loop processing
