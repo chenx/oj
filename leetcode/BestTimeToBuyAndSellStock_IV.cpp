@@ -21,6 +21,8 @@ public:
             int low = prices[0];
             for (int i = 1; i < n; ++ i) { // use i. k is not used.
                 cur[i] = max(cur[i-1], prices[i] - low);
+                // "prices[i] - prev[i-1]" means you cannot have the profit from prev[i-1],
+                // per the limit that you use prices[i].
                 low = min(low, prices[i] - prev[i-1]);
             }
             prev = cur;
