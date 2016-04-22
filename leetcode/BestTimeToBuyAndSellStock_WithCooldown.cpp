@@ -13,6 +13,8 @@ public:
         
         for (int i = 2; i < n; ++ i) {
             mp[i] = max(mp[i-1], prices[i] - low);
+            // "prices[i] - mp[i-2]" means you cannot have the profit from mp[i-2],
+            // per the limit that you use prices[i], then you cannot use prices[i-2].
             low = min(low, prices[i] - mp[i-2]);
         }
         
