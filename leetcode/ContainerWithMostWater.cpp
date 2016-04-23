@@ -5,6 +5,23 @@
 // @Last modified: 1/4/2013
 //
 
+// Works too. Need to update L/R before while loop, to avoid timeout.
+class Solution3 {
+public:
+    int maxArea(vector<int>& height) {
+        int maxArea = 0;
+        
+        for (int L = 0, R = height.size() - 1; L < R; ) {
+            int h = min(height[L], height[R]);
+            maxArea = max(maxArea, h * (R - L));
+            
+            if (h == height[L]) { ++ L; while (height[L] < h) ++ L; }
+            else { -- R; while (height[R] < h) -- R; }
+        }
+        return maxArea;
+    }
+};
+
 // Works. Tested. Best so far.
 class Solution2 {
 public:
