@@ -7,12 +7,10 @@ public:
 
         for (int i = 0, j = 0; i < s.length(); ++ i) {
             ++ count[s[i]];
-
             while (count.size() > k) {
                 if (-- count[s[j]] == 0) count.erase(s[j]);
                 ++ j;
             }
-
             maxLen = max(maxLen, i - j + 1);
         }
         return maxLen;
