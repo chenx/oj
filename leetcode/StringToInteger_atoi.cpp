@@ -5,6 +5,30 @@
 // @Last modified: 1/1/2013
 //
 
+// Works too.
+class Solution5 {
+public:
+    int myAtoi(string str) {
+        int v = 0, v0, n = str.length(), i = 0;
+        while (i < n && isspace(str[i])) ++ i;
+        
+        bool neg = false;
+        if (str[i] == '-') { neg = true; ++ i; }
+        else if (str[i] == '+') ++ i;
+        
+        while (i < n && isdigit(str[i])) {
+            v0 = v;
+            v = v * 10 + str[i] - '0';
+            if (v0 != v/10) return neg ? INT_MIN : INT_MAX;
+            ++ i;
+        }
+        
+        if (neg) v = -v;
+        return v;
+    }
+};
+
+
 // Works. Among best so far.
 class Solution4 {
 public:
