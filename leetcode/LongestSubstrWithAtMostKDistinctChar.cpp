@@ -1,3 +1,24 @@
+// Tested locally.
+class Solution2 {
+public:
+    int LongestSubstrWithAtMostKDistinctChar(string s, int k) {
+        map<char, int> count;
+        int total = 0, maxLen = 0;
+
+        for (int i = 0, j = 0; i < s.length(); ++ i) {
+            ++ count[s[i]];
+
+            while (count.size() > k) {
+                if (-- count[s[j]] == 0) count.erase(s[j]);
+                ++ j;
+            }
+
+            maxLen = max(maxLen, i - j + 1);
+        }
+        return maxLen;
+    }
+};
+
 // This should work. Not tested.
 // Note: 
 // 1) simply extended from 2 to k. See:
