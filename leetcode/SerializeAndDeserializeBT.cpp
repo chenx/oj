@@ -36,7 +36,7 @@ public:
     void des(TreeNode *& root, vector<string> & nums, int &p) {
         if (nums[p] == "null") {
             root = NULL;
-            ++ p; // this must go here, can not be above in if.
+            if (pos < v.size()) ++ p; // this must go here, can not be above in if.
             return;
         }
         
