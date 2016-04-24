@@ -11,6 +11,39 @@
 #include <iostream>
 using namespace std;
 
+
+// Works too.
+class Solution3 {
+public:    
+    /**
+     * @param strs: A list of strings
+     * @return: A list of strings
+     */
+    vector<string> anagrams(vector<string> &strs) {
+        vector<string> ans;
+        int n = strs.size();
+        if (n == 0) return ans;
+        
+        unordered_map<string, vector<string>> m;
+        for (auto s : strs) m[getKey(s)].push_back(s);
+
+        for (auto e : m) {
+            if (e.second.size() > 1) {
+                for (auto a : e.second)
+                    ans.push_back(a);
+            }
+        }
+        
+        return ans;
+    }
+    
+    string getKey(string s) {
+        sort(s.begin(), s.end());
+        return s;
+    }
+};
+
+
 // This works too. And is much simpler in code.
 // 1/21/2013
 class Solution2 {
