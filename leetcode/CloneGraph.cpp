@@ -48,13 +48,13 @@ public:
         return clone(root, m);
     }
     
-    UndirectedGraphNode * clone(UndirectedGraphNode * root, unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> & m) {
-        if (! root) return NULL;
-        
-        if (m.find(root) == m.end()) { 
-        //if (m.count(root)) { // this does not work.
-            m[root] = new UndirectedGraphNode(root->label);
+    UndirectedGraphNode *clone(UndirectedGraphNode *root, 
+            unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> & m) {
+        if (root == NULL) return NULL;
 
+        if (! m.count(root)) {  //if (m.find(root) == m.end()) { // both work.
+            m[root] = new UndirectedGraphNode(root->label);
+            
             for (int i = 0; i < root->neighbors.size(); ++ i) {
                 m[root]->neighbors.push_back(clone(root->neighbors[i], m));
             }
