@@ -53,11 +53,10 @@ public:
         
         if (m.find(root) == m.end()) { 
         //if (m.count(root)) { // this does not work.
-            UndirectedGraphNode * copy = new UndirectedGraphNode(root->label);
-            m[root] = copy;
-            
+            m[root] = new UndirectedGraphNode(root->label);
+
             for (int i = 0; i < root->neighbors.size(); ++ i) {
-                copy->neighbors.push_back(clone(root->neighbors[i], m));
+                m[root]->neighbors.push_back(clone(root->neighbors[i], m));
             }
         }
         
