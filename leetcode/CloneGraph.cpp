@@ -28,7 +28,7 @@ public:
             
             for (int i = 0; i < node->neighbors.size(); ++ i) {
                 UndirectedGraphNode * n = node->neighbors[i];
-                if (m.find(n) == m.end()) {
+                if (m.find(n) == m.end()) { // or: if (m[n] == NULL) {
                     m[n] = new UndirectedGraphNode(n->label);
                     q.push(n);
                 }
