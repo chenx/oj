@@ -8,6 +8,47 @@
  * };
  */
 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+
+// Works. This use a reference to p, saves space.
+class Solution3 {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> ans;
+        string p;
+        getPath(ans, root, p);
+        return ans;
+    }
+    
+    void getPath(vector<string> & ans, TreeNode * root, string &p) {
+        if (! root) return;
+        
+        if (p != "") p += "->";
+        p += to_string(root->val);
+        
+        if (! root->left && ! root->right) {
+            ans.push_back(p);
+        }
+        else {
+            getPath(ans, root->left, p);
+            getPath(ans, root->right, p);
+        }
+        
+        // remove trailing "->number"
+        int pos = p.rfind("->");
+        if (pos == string::npos) p = "";
+        else p = p.substr(0, pos);
+    }
+};
+
 // This works too.
 class Solution2 {
 public:
