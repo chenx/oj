@@ -9,6 +9,55 @@ When the cache reached its capacity, it should invalidate the least recently
 used item before inserting a new item. 
  */
  
+// Version 3. Use stl list.
+// Should work, but times out for large input.
+struct Node {
+    int key;
+    int val;
+    struct Node * prev;
+    struct Node * next;
+    Node(int k, int v) : key(k), val(v), prev(NULL), next(NULL) {}
+};
+
+class LRUCache{
+private:
+    int capacity;
+    list<Node> dll;
+    unordered_map<int, list<Node>::iterator> m;
+public:
+    LRUCache(int capacity) {
+        this->capacity = capacity;
+    }
+    
+    int get(int key) {
+        if (m.find(key) == m.end()) return -1;
+        
+        int val = (*m[key]).val;
+        dll.erase(m[key]);
+        //m.erase(key);
+        
+        dll.push_front(Node(key, val));
+        m[key] = dll.begin();
+        
+        return val;
+    }
+    
+    void set(int key, int value) {
+        if (m.find(key) != m.end()) {
+            dll.erase(m[key]);
+            //m.erase(key);
+        }
+        
+        dll.push_front(Node(key, value));
+        m[key] = dll.begin();
+        
+        if (dll.size() > capacity) {
+            m.erase(dll.back().key);
+            dll.pop_back();
+        }
+    }
+};
+ 
 // version 2. Works too. Tested.
 
 struct Node {
