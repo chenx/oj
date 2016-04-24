@@ -11,39 +11,6 @@
 #include <iostream>
 using namespace std;
 
-
-// Works too.
-class Solution3 {
-public:    
-    /**
-     * @param strs: A list of strings
-     * @return: A list of strings
-     */
-    vector<string> anagrams(vector<string> &strs) {
-        vector<string> ans;
-        int n = strs.size();
-        if (n == 0) return ans;
-        
-        unordered_map<string, vector<string>> m;
-        for (auto s : strs) m[getKey(s)].push_back(s);
-
-        for (auto e : m) {
-            if (e.second.size() > 1) {
-                for (auto a : e.second)
-                    ans.push_back(a);
-            }
-        }
-        
-        return ans;
-    }
-    
-    string getKey(string s) {
-        sort(s.begin(), s.end());
-        return s;
-    }
-};
-
-
 // This works too. And is much simpler in code.
 // 1/21/2013
 class Solution2 {
@@ -152,3 +119,26 @@ public:
 int main() {
     return 0;
 }
+
+
+/**
+Group Anagrams  
+Difficulty: Medium
+
+Given an array of strings, group anagrams together.
+
+For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
+Return:
+
+[
+  ["ate", "eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+
+Note:
+
+    For the return value, each inner list's elements must follow the lexicographic order.
+    All inputs will be in lower-case.
+
+ */
