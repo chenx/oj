@@ -1,3 +1,53 @@
+// Works too.
+class Solution3 {
+public:
+    /**
+     * Returns a index to the first occurrence of target in source,
+     * or -1  if target is not part of source.
+     * @param source string to be scanned.
+     * @param target string containing the sequence of characters to match.
+     */
+    int strStr(const char *source, const char *target) { 
+        if (source == NULL || target == NULL) return -1;
+        int n = strlen(source), m = strlen(target);
+        if (n < m) return -1;
+        if (m == 0) return 0;
+        
+        int F[m+1]; // = {0}; // this initialization won't work.
+        getFailureFunc2(F, target);
+        
+        int i = 0, j = 0;
+        while (i < n) {
+            if (source[i] == target[j]) {
+                if (j == m - 1) return i - j;
+                ++ i; ++ j;
+            }
+            else if (j > 0) {
+                j = F[j];// - 1];
+            }
+            else {
+                ++ i;
+            }
+        }
+        
+        return -1;
+    }
+    
+    void getFailureFunc2(int F[], const char * p) {
+        int i = 0, j = -1, m = strlen(p);
+        F[0] = -1;
+        
+        while (i < m) {
+            if (j == -1 || p[j] == p[i]) {
+                F[++ i] = ++ j;
+            }
+            else {
+                j = F[j];
+            }
+        }
+    }
+};
+
 // kmp. works too.
 class Solution2 {
 public:
