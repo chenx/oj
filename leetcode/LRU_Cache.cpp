@@ -9,6 +9,96 @@ When the cache reached its capacity, it should invalidate the least recently
 used item before inserting a new item. 
  */
  
+
+// Version5. Works too. Modified from Version4.
+// For function splice(), see http://www.cplusplus.com/reference/list/list/splice/
+class LRUCache {
+private:
+    struct Node {
+        int key, val;
+        Node(int k, int v) : key(k), val(v) {}
+    };
+    int capacity;
+    list<Node> dll;
+    unordered_map<int, list<Node>::iterator> m;
+public:
+    LRUCache(int capacity) { this->capacity = capacity; }
+
+    int get(int key) {
+        if (m.find(key) == m.end()) return -1;
+        
+        int val = m[key]->val;
+        dll.splice(dll.begin(), dll, m[key]);
+        m[key] = dll.begin();
+        
+        return val;
+    }
+    
+    void set(int key, int value) {
+        if (m.find(key) != m.end()) {
+            //m[key]->val = value; // this works too.
+            dll.splice(dll.begin(), dll, m[key]);
+            m[key] = dll.begin();
+            dll.front().val = value;
+        }
+        else {
+            dll.push_front(Node(key, value));
+            m[key] = dll.begin();
+            
+            if (dll.size() > capacity) {
+                m.erase(dll.back().key);
+                dll.pop_back();
+            }
+        }
+    }
+};
+
+
+// Version 4. This works.  This is nice.
+// From: 
+// https://leetcode.com/discuss/95106/146-lru-cache-cpp-solution
+// https://github.com/soulmachine/leetcode
+class LRUCache {
+public:
+    LRUCache(const int& c): capacity(c) {}
+
+    int get(const int& key) {
+        int result(-1);
+        if (this->CacheHashMap.count(key)) {
+            result = this->CacheHashMap[key]->value;
+            this->CacheList.splice(this->CacheList.begin(), this->CacheList, this->CacheHashMap[key]);
+            this->CacheHashMap[key] = this->CacheList.begin();
+        }
+        return result;
+    }
+
+    void set(const int& key, const int& value) {
+        if (this->CacheHashMap.count(key)) {
+            this->CacheHashMap[key]->value = value;
+            this->CacheList.splice(this->CacheList.begin(), this->CacheList, this->CacheHashMap[key]);
+            this->CacheHashMap[key] = this->CacheList.begin();
+        }
+        else {
+            if (this->CacheList.size() >= this->capacity) {
+                this->CacheHashMap.erase(this->CacheList.back().key);
+                this->CacheList.pop_back();
+            }
+            this->CacheList.push_front(CacheNode(key, value));
+            this->CacheHashMap[key] = this->CacheList.begin();
+        }
+    }
+private:
+    struct CacheNode {
+        int key;
+        int value;
+        CacheNode(const int& k, const int& v): key(k), value(v) {}
+    };
+    list<CacheNode> CacheList;
+    unordered_map<int, list<CacheNode>::iterator> CacheHashMap;
+    int capacity;
+};
+
+
 // Version 3. Use stl list.
 // Should work, but times out for large input.
 struct Node {
