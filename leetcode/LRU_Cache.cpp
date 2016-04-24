@@ -11,6 +11,8 @@ used item before inserting a new item.
  
 
 // Version5. Works too. Modified from Version4.
+// Note if you use STL list, then you don't need prev/next pointers in Node,
+// since those are taken care of by list.
 // 
 // Function splice(): see http://www.cplusplus.com/reference/list/list/splice/
 // entire list    (1) // void splice (iterator position, list& x);
