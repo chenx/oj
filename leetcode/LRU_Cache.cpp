@@ -11,7 +11,16 @@ used item before inserting a new item.
  
 
 // Version5. Works too. Modified from Version4.
-// For function splice(), see http://www.cplusplus.com/reference/list/list/splice/
+// 
+// Function splice(): see http://www.cplusplus.com/reference/list/list/splice/
+// entire list    (1) // void splice (iterator position, list& x);
+// single element (2)	// void splice (iterator position, list& x, iterator i);
+// element range  (3)	// void splice (iterator position, list& x, iterator first, iterator last);
+//
+// The first version (1) transfers all the elements of x into the container.
+// The second version (2) transfers only the element pointed by i from x into the container.
+// The third version (3) transfers the range [first,last) from x into the container.
+//
 class LRUCache {
 private:
     struct Node {
