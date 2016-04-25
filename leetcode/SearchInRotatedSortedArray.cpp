@@ -18,7 +18,7 @@ public:
             
             if (nums[M] == target) return M;
             
-            if (nums[M] < nums[R]) {
+            if (nums[M] < nums[R]) { // < or <=, both work here.
                 if (nums[M] < target && target <= nums[R]) L = M + 1;
                 else R = M - 1;
             }
