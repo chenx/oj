@@ -1,13 +1,17 @@
 // Works. O(n) time, O(1) space.
 class Solution2 {
 public:
-    int rob(vector<int>& nums) {
-        int n = nums.size();
+    /**
+     * @param A: An array of non-negative integers.
+     * return: The maximum amount of money you can rob tonight
+     */
+    long long houseRobber(vector<int> A) {
+        int n = A.size();
         if (n == 0) return 0;
         
-        long long a = 0, b = nums[0];
+        long long a = 0, b = A[0];
         for (int i = 2; i <= n; ++ i) {
-            int tmp = max(b, a + nums[i-1]);
+            long long tmp = max(b, a + A[i-1]);
             a = b;
             b = tmp;
         }
