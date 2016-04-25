@@ -21,9 +21,9 @@ public:
         vector<vector<int>> ans;
 
         int n = nums.size();
-        if (n == 0) return ans;
+        if (n == 0) return ans; // ok without this too.
 
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end()); 
         
         ans.push_back(vector<int>());
         for (int i = 0; i < n; ++ i) {
