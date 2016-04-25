@@ -7,6 +7,7 @@ public:
 
         vector<int> c(k);
         for (int i = 0; i < k; ++ i) c[i] = costs[0][i];
+        //vector<int> c = costs[0]; // this should work too.
 
         for (int i = 1; i < len; ++ i) {
             vector<int> b = c;
