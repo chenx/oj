@@ -1,3 +1,27 @@
+// Shortest.
+class Solution5 {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> s;
+        
+        for (auto t : tokens) {
+            if (t == "+" || t == "-" || t == "*" || t == "/") {
+                int n = s.top();
+                s.pop();
+                
+                if (t == "+") s.top() += n;
+                else if (t == "-") s.top() -= n;
+                else if (t == "*") s.top() *= n;
+                else if (t == "/") s.top() /= n;
+            } else {
+                s.push(stoi(t));
+            }
+        }
+        
+        return s.top();
+    }
+};
+
 // Works. 
 class Solution4 {
 public:
