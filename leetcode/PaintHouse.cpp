@@ -1,4 +1,37 @@
 // Should work. Tested locally.
+class Solution4 {
+public:
+    /**
+     * @param costs n x 3 cost matrix
+     * @return an integer, the minimum cost to paint all houses
+     */
+    int minCost(vector<vector<int>>& costs) {
+        if (costs.size() == 0 || costs[0].size() == 0) return 0;
+        int n = costs.size(), k = costs[0].size();
+        
+        vector<int> c = costs[0];
+        
+        for (int i = 1; i < n; ++ i) {
+            vector<int> b = c;
+            for (int j = 0; j < k; ++ j) {
+                c[j] = costs[i][j] + getMin(b, j);
+            }
+        }
+        
+        return getMin(c, -1);
+    }
+    
+    int getMin(vector<int> & b, int j) {
+        int mi = INT_MAX;
+        for (int i = 0; i < b.size(); ++ i) {
+            if (i == j) continue;
+            mi = min(mi, b[i]);
+        }
+        return mi;
+    }
+};
+
+// Should work. Tested locally.
 class Solution3 {
 public:
     int minCost(vector<vector<int>>& costs) { // costs: n * 3
