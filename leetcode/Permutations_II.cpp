@@ -5,6 +5,62 @@
 // @Last modified: 1/9/2013
 //
 
+// Iterative. Works too!
+class Solution4 {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        ans.push_back({nums[0]});
+        
+        for (int i = 1; i < n; ++ i) {
+            vector<vector<int>> tmp;
+            for (int j = 0, m = ans.size(); j < m; ++ j) {
+                vector<int> & t = ans[j];
+                for (int k = 0; k <= t.size(); ++ k) {
+                    tmp.push_back(t);
+                    tmp.back().insert(tmp.back().begin() + k, nums[i]);
+                    // the only extra line added to Permutations solution.
+                    if (nums[i] == *(tmp.back().begin() + k + 1)) break; 
+                }
+            }
+            ans = tmp;
+        }
+        
+        return ans;
+    }
+};
+
+// Iterative. Works!
+class Solution3 {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        ans.push_back({nums[0]});
+        
+        for (int i = 1; i < n; ++ i) {
+            vector<vector<int>> tmp;
+            for (int j = 0, m = ans.size(); j < m; ++ j) {
+                for (int k = 0; k <= ans[j].size(); ++ k) {
+                    vector<int> t = ans[j];
+                    t.insert(t.begin() + k, nums[i]);
+                    tmp.push_back(t);
+                    // the only extra line added to Permutations solution.
+                    if (nums[i] == *(t.begin() + k + 1)) break;
+                }
+            }
+            ans = tmp;
+        }
+        
+        return ans;
+    }
+};
+
 // Iterative. Should work, but times out for large input. 
 // Actually, times out for input as small as: [3,3,0,0,2,3,2]
 // Works for lintcode though.
