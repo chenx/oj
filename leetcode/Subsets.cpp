@@ -15,7 +15,7 @@ using namespace std;
 
 // Works. Tested.
 // Similar to the iterative method of Combinations, w/o constraint on k.
-class Solution5 {
+class Solution6 {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> ans;
@@ -34,6 +34,31 @@ public:
         }
         
         return ans;
+    }
+};
+
+// Works. Another (tail) recursive solution.
+class Solution5 {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int> > ans;
+    	sort(nums.begin(), nums.end());
+    	
+    	ans.push_back(vector<int>());
+        get(ans, nums, 0);
+        
+    	return ans;
+    }
+    
+    void get(vector<vector<int> > &ans, vector<int> &nums, int pos) {
+        if (pos == nums.size()) return;
+        
+        for (int i = 0, n = ans.size(); i < n; ++ i) {
+            ans.push_back(ans[i]);
+            ans.back().push_back(nums[pos]);
+        }
+        
+        get(ans, nums, pos + 1);
     }
 };
 
