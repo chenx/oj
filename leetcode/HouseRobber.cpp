@@ -1,3 +1,21 @@
+// Works too.
+class Solution2 {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        
+        vector<int> v(n+1, 0);
+        v[0] = 0;
+        v[1] = nums[0];
+        for (int i = 2; i <= n; ++ i) {
+            v[i] = max(v[i-1], nums[i-1] + v[i-2]);
+        }
+        
+        return v[n];
+    }
+};
+
 // This works. Uses DP.
 class Solution {
 public:
