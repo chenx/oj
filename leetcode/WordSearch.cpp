@@ -5,6 +5,42 @@
 // @Last modified: 10/26/2014
 //
 
+// Works. No longer use an extra used[][] matrix. Maybe best so far.
+class Solution6 {
+public:
+    int m, n;
+    vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    
+    bool exist(vector<vector<char> > &board, string word) {
+        if (board.size() == 0 || board[0].size() == 0) return false;
+        m = board.size(), n = board[0].size();
+        
+        for (int i = 0; i < m; ++ i)
+            for (int j = 0; j < n; ++ j)
+                if (board[i][j] == word[0])
+                    if (find(board, i, j, word, 0)) return true;
+                    
+        return false;
+    }
+    
+    bool find(vector<vector<char> > &board, int i, int j, string word, int pos) {
+        if (++ pos == word.length()) return true;
+        
+        char c = board[i][j];
+        board[i][j] = '.';
+        
+        for (int k = 0; k < dirs.size(); ++ k) {
+            int x = i + dirs[k][0], y = j + dirs[k][1];
+            if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == word[pos]) {
+                if (find(board, x, y, word, pos)) return true;
+            }
+        }
+        
+        board[i][j] = c;
+        return false;
+    }
+};
+
 // Works.
 class Solution5 {
 public:
