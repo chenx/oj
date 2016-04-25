@@ -211,10 +211,45 @@ public:
     }
 };
 
+
+// Works. Modified from Solution6.
+// Not as good since more memory was used to hold a temporary t.
+// But good for extending to Permutation_II.
+class Solution7 {
+public:
+    /**
+     * @param nums: A list of integers.
+     * @return: A list of permutations.
+     */
+    vector<vector<int> > permute(vector<int> nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        ans.push_back({nums[0]});
+        
+        for (int i = 1; i < n; ++ i) {
+            vector<vector<int>> tmp;
+            for (int j = 0, m = ans.size(); j < m; ++ j) {
+                for (int k = 0; k <= ans[j].size(); ++ k) {
+                    vector<int> t = ans[j];
+                    t.insert(t.begin() + k, nums[i]);
+                    tmp.push_back(t);
+                }
+            }
+            ans = tmp;
+        }
+        
+        return ans;
+    }
+};
+
+
+
 // Works too. Tested. Almost best recursive version.
 // v is passed by reference, so in final step, must use a new vector u.
 // Otherwise will have runtime error.
-class Solution7 {
+class Solution8 {
 public:
     vector<vector<int>> permute(vector<int>& nums) {
         vector<vector<int>> ans;
