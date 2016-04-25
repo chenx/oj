@@ -1,3 +1,21 @@
+// Works too. O(1) space!
+class Solution3 {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        
+        long long a = 0, b = nums[0];
+        for (int i = 2; i <= n; ++ i) {
+            int tmp = max(b, a + nums[i-1]);
+            a = b;
+            b = tmp;
+        }
+        
+        return b;
+    }
+};
+
 // Works too.
 class Solution2 {
 public:
