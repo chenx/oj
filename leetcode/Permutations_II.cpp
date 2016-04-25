@@ -5,9 +5,41 @@
 // @Last modified: 1/9/2013
 //
 
-// Should work, but times out for large input.
+// Should work. Works for lint code, times out for lc.
+class Solution3 {
+public:
+    /**
+     * @param nums: A list of integers.
+     * @return: A list of unique permutations.
+     */
+    vector<vector<int> > permuteUnique(vector<int> &nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n == 0) return ans;
+        
+        ans.push_back({nums[0]});
+        
+        for (int i = 1; i < n; ++ i) {
+            vector<vector<int>> tmp;
+            for (int j = 0, m = ans.size(); j < m; ++ j) {
+                for (int k = 0; k <= ans[j].size(); ++ k) {
+                    vector<int> t = ans[j];
+                    if (k > 0 && nums[i] == *(t.begin() + k - 1)) continue; // cut branch. // ok without this.
+                    t.insert(t.begin() + k, nums[i]);
+                    if (find(tmp.begin(), tmp.end(), t) == tmp.end())
+                        tmp.push_back(t);
+                }
+            }
+            ans = tmp;
+        }
+        
+        return ans;
+    }
+};
+
+// Iterative. Should work, but times out for large input.
 // Actually, times out for input as small as: [3,3,0,0,2,3,2]
-class Solution {
+class Solution2 {
 public:
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         vector<vector<int>> ans;
