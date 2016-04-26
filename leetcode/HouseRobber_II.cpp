@@ -1,3 +1,24 @@
+// Works too.
+class Solution3 {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+        
+        vector<int> A(n, 0), B(n, 0);
+        
+        A[1] = nums[0];
+        B[1] = nums[1];
+        for (int i = 2; i < n; ++ i) {
+            A[i] = max(A[i-1], nums[i-1] + A[i-2]);
+            B[i] = max(B[i-1], nums[i]   + B[i-2]);
+        }
+        
+        return max(A[n-1], B[n-1]);
+    }
+};
+
 // This works too. 1/23/2016.
 class Solution2 {
 public:
