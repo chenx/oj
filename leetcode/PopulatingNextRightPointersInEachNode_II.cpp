@@ -109,6 +109,34 @@ public:
     }
 };
 
+// Works.
+class Solution4 {
+public:
+    void connect(TreeLinkNode *root) {
+        conn(root, NULL);
+    }
+    
+    void conn(TreeLinkNode * root, TreeLinkNode * next) {
+        if (! root) return; 
+        root->next = next;
+        
+        TreeLinkNode * nc = getNextChild(next);
+        if (root->right) {
+            conn(root->right, nc);
+            conn(root->left, root->right);
+        }
+        else conn(root->left, nc);
+    }
+    
+    TreeLinkNode * getNextChild(TreeLinkNode * next) {
+        if (! next) return NULL;
+        if (next->left) return next->left;
+        if (next->right) return next->right;
+        return getNextChild(next->next);
+    }
+    
+};
+
 /*
 Problem:
 
