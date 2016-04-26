@@ -1,3 +1,45 @@
+// Solution6. Works. Don't use the "used" matrix. More clean.
+class Solution6 {
+    int m, n;
+    Trie t;
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string> ans;
+        if (board.size() == 0 || board[0].size() == 0) return ans;
+        m = board.size(), n = board[0].size();
+        
+        for (auto w : words) t.insert(w);
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                find(board, i, j, t.getRoot(), "", ans);
+            }
+        }
+        
+        return ans;
+    }
+    
+    void find(vector<vector<char>>& board, int i, int j, TrieNode * node, string w, vector<string> & ans) {
+        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] == '.') return;
+        node = node->getChild(board[i][j]);
+        if (node == NULL) return;
+        
+        w += board[i][j];
+        if (node->getIsEnd()) {
+            ans.push_back(w);
+            node->setIsEnd(false);
+        }
+        
+        char c = board[i][j];
+        board[i][j] = '.';
+        find(board, i+1, j, node, w, ans);
+        find(board, i-1, j, node, w, ans);
+        find(board, i, j+1, node, w, ans);
+        find(board, i, j-1, node, w, ans);
+        board[i][j] = c;
+    }
+};
+
 //
 // Solution5. Works. Among best so far.
 //
