@@ -1,11 +1,33 @@
 // Works.
+class Solution5 {
+public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+        int n = nums.size(), minLen = 0, sum = 0;
+        
+        for (int i = 0, start = 0; i < n; ++ i) {
+            sum += nums[i];
+            
+            while (sum >= s) {
+                if (minLen == 0 || minLen > i - start + 1) {
+                    minLen = i - start + 1;
+                }
+                sum -= nums[start ++];
+            }
+        }
+        
+        return minLen;
+    }
+};
+
+// Works.
 class Solution4 {
 public:
     int minSubArrayLen(int s, vector<int>& nums) {
         int n = nums.size(), sum = 0, minLen = INT_MAX;
         
         for (int end = 0, start = 0; end < n; ++ end) {
-            if (sum < s) sum += nums[end];
+            //if (sum < s)  // remove this! nums[] is a positive array!
+            sum += nums[end];
             
             while (sum >= s) {
                 minLen = min(minLen, end - start + 1);
