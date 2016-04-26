@@ -1,3 +1,38 @@
+// Works too.
+class Solution4 {
+public:
+    vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
+        set<int> courses;
+        for (int i = 0; i < numCourses; ++ i) courses.insert(i);
+        
+        map<int, set<int>> in, out;
+        for (auto p : prerequisites) {
+            in[p.first].insert(p.second);
+            out[p.second].insert(p.first);
+        }
+        
+        vector<int> ans;
+        while (! courses.empty()) {
+            bool found = false;
+            for (auto course: courses) {
+                if (in[course].empty()) {
+                    found = true;
+                    ans.push_back(course);
+                    
+                    for (auto c: out[course]) {
+                        in[c].erase(course);
+                    }
+                    
+                    courses.erase(course);
+                }
+            }
+            if (! found) return vector<int>();
+        }
+        
+        return ans;
+    }
+};
+
 // Works. Tested. Much simpler. 
 // Use set, so no need to remove duplicate in prerequisites.
 class Solution3 {
