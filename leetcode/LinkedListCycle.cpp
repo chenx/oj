@@ -1,3 +1,21 @@
+// Works too.
+// 
+class Solution2 {
+public:
+    bool hasCycle(ListNode *head) {
+        if (! head || ! head->next) return false;
+        
+        ListNode * slow = head, * fast = head->next; // "slow = head, fast = head;"" works too.
+        while (fast && fast->next) { // "fast->next && fast->next->next" works too.
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) return true;
+        }
+        
+        return false;
+    }
+};
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
