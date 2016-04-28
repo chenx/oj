@@ -8,6 +8,30 @@
 #include <vector>
 using namespace std;
 
+// Works.
+class Solution4 {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans, tmp;
+        if (n == 0 || k == 0) return ans;
+        
+        for (int i = 1; i <= n; ++ i) {
+            tmp.push_back({i});
+            for (int j = 0, len = tmp.size() - 1; j < len; ++ j) {
+                if (tmp[j].size() <= k-1) {
+                    tmp.push_back(tmp[j]);
+                    tmp.back().push_back(i);
+                }
+            }
+        }
+        
+        for (auto t : tmp) 
+            if (t.size() == k) ans.push_back(t);
+
+        return ans;
+    }
+};
+
 // Works. Tested. Slightly modified from Solution2.
 class Solution3 {
 public:
