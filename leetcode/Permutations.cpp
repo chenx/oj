@@ -197,7 +197,7 @@ public:
         for (int i = 1; i < n; ++ i) {
             vector<vector<int>> v;
             for (int j = 0; j < ans.size(); ++ j) {
-                vector<int> u = ans[j];
+                vector<int> & u = ans[j];
                 for (int k = 0; k <= u.size(); ++ k) {
                     v.push_back(u);
                     // insert nums[i] to each position of u.
