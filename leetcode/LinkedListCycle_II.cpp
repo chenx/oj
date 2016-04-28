@@ -7,6 +7,32 @@
  * };
  */
 
+// Works too.
+class Solution3 {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if (! head || ! head->next) return NULL;
+        
+        ListNode * slow = head, * fast = head;//->next; // if use ->next, then include "*" below.
+        //while (fast && fast->next) { // works too.
+        while (fast->next && fast->next->next) { 
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) {
+                //slow = slow->next; // *.
+                fast = head;
+                while (slow != fast) {
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                return slow;
+            }
+        }
+        
+        return NULL;
+    }
+};
+
 // Works too. Maybe better.
 class Solution2 {
 public:
@@ -14,7 +40,7 @@ public:
         if (head == NULL || head->next == NULL) return NULL;
         
         ListNode *slow = head, *fast = head->next;
-        while (fast != NULL && fast->next != NULL) {
+        while (fast != NULL && fast->next != NULL) { 
             if (slow == fast) {
                 slow = head;
                 fast = fast->next;
