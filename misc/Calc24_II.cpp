@@ -1,34 +1,3 @@
-Attachment calc24.cpp successfully uploaded and added.
-Conversation opened. 1 unread message.
-
-Skip to content
-Using Gmail with screen readers
-Xin
- 
- 
-More 
-1 of 13,893
- 
-tmp
-Inbox
-	x
-Thomas Chen <txchen@gmail.com>
-	
-Attachments11:59 PM (0 minutes ago)
-		
-to me
-rt
-2 Attachments
-	
-Click here to Reply or Forward
-4.87 GB (32%) of 15 GB used
-Manage
-Terms - Privacy
-Last account activity: 22 minutes ago
-Details
-	
-	
-
 /**
  * This program calculates 24 from 4 given numbers. This provides a solution
  * to the popular poker game of "Calculating 24".
