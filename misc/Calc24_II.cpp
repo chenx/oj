@@ -22,6 +22,9 @@
  *   (4*(2*(3*1))), ((4*2)*(3*1)), (4*(2*3)*1), ...
  *   it might be good to unify such combinations into 1*2*3*4.
  *   (or maybe not necessary, this may be just fine.)
+ * 
+ * Reference: 
+ * [1] http://zhongguosou.com/game_lookup_tools/game_24_point.html
  *
  * Bug Fix Log:
  * - 4/29/2016, fixed a bug that ignores results with non-integer intermediates.
