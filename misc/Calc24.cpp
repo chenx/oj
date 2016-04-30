@@ -171,5 +171,3 @@ int main() {
     return 0;
 }
 
-calc24.cpp
-Displaying calc24_II.cpp.
