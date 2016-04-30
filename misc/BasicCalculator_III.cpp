@@ -201,8 +201,45 @@ public:
         else if (isdigit(*p)) {
             v = num(p);
         }
+        else if (! *p) { // useful for situation such as input is "".
+            v = 0;
+        }
+        else {
+            cout << "F: invalid input: " << p  << endl;
+            throw exception();
+        }
 
+        ignoreSpace(p);
+        return v;
+    }
 
+    int T(const char *& p) {
+        int v = F(p);
+
+        while (*p == '*' || *p == '/') {
+            char op = *p;
+            int u = F(++ p);
+            if (op == '*') v *= u;
+            else if (op == '/') v /= u;
+        }
+        return v;
+    }
+
+    int E(const char *& p) {
+        int v = T(p);
+
+        while (*p == '+' || *p == '-') {
+            char op = *p;
+            int u = T(++ p);
+            if (op == '+') v += u;
+            else if (op == '-') v -= u;
+        }
+        return v;
+    }
+};
+
+void test2() {
+    cout << "test2" << endl;
     Solution2 so;
 
     string in[] = {"3 + 4 * 4 - 2", "1 + 3 * (4 / 2 + 6) + 8",
@@ -220,7 +257,6 @@ public:
 
 void test1() {
     cout << "test1" << endl;
-
     Solution so;
 
     string in[] = {"3 + 4 * 4 - 2", "1 + 3 * (4 / 2 + 6) + 8"};
