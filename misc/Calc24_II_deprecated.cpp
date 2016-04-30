@@ -1,3 +1,6 @@
+// NOTE: this is deprecated due to a bug that may ignore results with non-integer 
+// intermediates. E.g., {3, 7, 3, 7} has a solution ((3/7)+3)*7, which was ignored
+// by this code, since here only even division are considered. - 4/29/2016
 /**
  * This program calculates 24 from 4 given numbers. This provides a solution
  * to the popular poker game of "Calculating 24".
