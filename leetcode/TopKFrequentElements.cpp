@@ -5,6 +5,7 @@ public:
     }
 };
 
+// Works. O(nlog(k)).
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
