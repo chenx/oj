@@ -13,7 +13,7 @@ public:
         for (auto n : nums) m[n] ++;
         
         priority_queue<pair<int, int>, vector<pair<int, int> >, comp> minQ;
-        for (auto e : m) { 
+        for (auto e : m) {  // klog(k) + (n-k)log(k) = nlog(k)
             minQ.push(pair<int, int>(e.first, e.second));
             if (minQ.size() > k) minQ.pop();
         }
