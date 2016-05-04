@@ -22,15 +22,15 @@ public:
     }
     
     string removeSpace(string s) {
-        int p = 0, start = 0, n = s.length();
+        int p = 0, i = 0, n = s.length();
         while (true) {
-            while (isspace(s[start])) ++ start;
-            if (start == n) break;
+            while (isspace(s[i])) ++ i;
+            if (i == n) break;
             
             if (p > 0) s[p ++] = ' ';
             
-            while (start < n && ! isspace(s[start])) 
-                s[p ++] = s[start ++];
+            while (i < n && ! isspace(s[i])) 
+                s[p ++] = s[i ++];
         }
         
         return s.substr(0, p);
