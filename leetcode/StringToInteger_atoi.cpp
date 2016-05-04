@@ -6,6 +6,36 @@
 //
 
 // Works too.
+// When i == n, isspace(s[i]) and isdigit(s[i]) will return false,
+// so no need to put i < n before them.
+class Solution6 {
+public:
+    int myAtoi(string str) {
+        int n = str.length();
+        if (n == 0) return 0;
+        
+        bool neg = false;
+        int i = 0;
+        
+        while (isspace(str[i])) ++ i;
+        if (str[i] == '+') ++ i;
+        else if (str[i] == '-') ++ i, neg = true;
+        
+        if (i == n) return 0;
+        int v = 0, v0;
+        for (; isdigit(str[i]); ++ i) {
+            v0 = v;
+            v = v * 10 + str[i] - '0';
+            if (v / 10 != v0) return neg ? INT_MIN : INT_MAX;
+        }
+        
+        if (neg) v = -v;
+        return v;
+    }
+};
+
+
+// Works too.
 class Solution5 {
 public:
     int myAtoi(string str) {
