@@ -1,3 +1,25 @@
+// Modified from Solution. Should work. Tested locally only.
+class Solution3 {
+public:
+    bool verifyPreorder(vector<int>& preorder) {
+        if (preorder.size() <= 1) return true;
+        int minVal = INT_MIN;
+        stack<int> st;
+
+        for (int i = 0; i < preorder.size(); i++) {
+            if (preorder[i] < minVal) return false;
+            while (!st.empty() && preorder[i] > st.top()) {
+                minVal = st.top();
+                st.pop();
+            }
+
+            st.push(preorder[i]);
+        }
+
+        return true;
+    }
+};
+
 // Works too. O(1) space. O(n) time. Tested. Modified from: 
 // https://leetcode.com/discuss/59334/simple-accepted-iterative-solution-space-reducing-running
 // Idea: In BST, preorder traversal, right branch node is already greater than left branch nodes.
@@ -8,7 +30,7 @@ public:
         int minIndex = -1;
         int top = 0, end = 0;
 
-        for (int i = 1; i < preorder.size(); i++) {
+        for (int i = 1; i < preorder.size(); i++) { // "int i = 0" works too.
             if (minIndex != -1 && preorder[i] < preorder[minIndex]) return false;
             //if (preorder[i] > preorder[i - 1]) // not needed
             while (top >= end && preorder[i] > preorder[top]) {
