@@ -29,8 +29,8 @@ public:
     }
 
     // Note: new items are added to front(). So in report_last_k(),
-    // going from begin() to end() is going to new to old.
-    // i.e., in deque, begin() is front(), end() is back().
+    // going from begin() to end() is going from old to new.
+    // i.e., in deque, begin() is back(), end() is front().
     void set(int value) {
         long t = current_time();
         if (val.empty() || t > last_set_time) {
