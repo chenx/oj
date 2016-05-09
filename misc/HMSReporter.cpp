@@ -4,7 +4,9 @@
 //
 // Two approaches are given below:
 // 1) use a circular array.
-// 2) use a deque. This method seems simpler.
+// 2) use a deque. 
+// Method 2 method seems simpler. 
+// Method 2 is also more general, if time granularity is smaller than 1 second.
 //
 // @by: X.C.
 // @on: 5/8/2016
