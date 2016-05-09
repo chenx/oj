@@ -48,10 +48,10 @@ public:
     }
 
     double report_second() {
-        return report_last_k(1); // this is incorrect. why?
-        long t = current_time();
-        if (t == last_set_time) return val.back().first;
-        else return 0;
+        return report_last_k(1); 
+        //long t = current_time();
+        //if (t == last_set_time) return val.back().first;
+        //else return 0;
     }
 
     double report_minute() {
