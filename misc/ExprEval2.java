@@ -1,3 +1,16 @@
+// 
+// Evaluate an expression tree. In Java.
+// Note the use of interface, exception.
+//
+// 1) This allows both unary and binary operators, and can be extended to 
+//    operators require more operands, by passing operands in a 
+//    chain-of-responsibility list. 
+// 2) Can print callStack to pinpoint where the exception happens.
+//
+// @by: X.C. 5/9/2016. Amz.
+// @last modified: 5/9/2016
+// @adapted from: ExprEval.java
+//
 import java.util.*;
 
 
