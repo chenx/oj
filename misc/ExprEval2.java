@@ -3,8 +3,8 @@
 // Note the use of interface, exception.
 //
 // 1) This allows both unary and binary operators, and can be extended to 
-//    operators require more operands, by passing operands in a 
-//    chain-of-responsibility list. 
+//    operators require more operands, by passing operands in a list of
+//    "Chain Of Responsibility" design pattern. 
 // 2) Can print callStack to pinpoint where the exception happens.
 //
 // @by: X.C. 5/9/2016. Amz.
