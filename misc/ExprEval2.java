@@ -27,10 +27,8 @@ class OpAdd extends Operator {
     Double calc(String op, ArrayList<Double> params) throws Exception {
         //System.out.println("this.op = " + this.op + ", op = " + op);
         if (op.equals(this.op)) {
-            if (params.size() == 2) {
-                return params.get(0) + params.get(1);
-            }
-            else throw new Exception("+ needs 2 operands");
+            if (params.size() != 2) throw new Exception("+ needs 2 operands");
+            return params.get(0) + params.get(1);
         }
         return next == null ? 0.0 : next.calc(op, params);
     }
@@ -41,10 +39,8 @@ class OpSub extends Operator {
     public OpSub(Operator op) { super(op); }
     Double calc(String op, ArrayList<Double> params) throws Exception {
         if (op.equals(this.op)) {
-            if (params.size() == 2) {
-                return params.get(0) - params.get(1);
-            }
-            else throw new Exception("- needs 2 operands");
+            if (params.size() != 2) throw new Exception("- needs 2 operands");
+            return params.get(0) - params.get(1);
         }
         return next == null ? 0.0 : next.calc(op, params);
     }
@@ -55,10 +51,8 @@ class OpMul extends Operator {
     public OpMul(Operator op) { super(op); }
     Double calc(String op, ArrayList<Double> params) throws Exception {
         if (op.equals(this.op)) {
-            if (params.size() == 2) {
-                return params.get(0) * params.get(1);
-            }
-            else throw new Exception("* needs 2 operands");
+            if (params.size() != 2) throw new Exception("* needs 2 operands");
+            return params.get(0) * params.get(1);
         }
         return next == null ? 0.0 : next.calc(op, params);
     }
@@ -69,12 +63,9 @@ class OpDiv extends Operator {
     public OpDiv(Operator op) { super(op); }
     Double calc(String op, ArrayList<Double> params) throws Exception {
         if (op.equals(this.op)) {
-            if (params.size() == 2) {
-                if (Math.abs(params.get(1)) < 0.000001) 
-                    throw new Exception("divide by 0"); 
-                return params.get(0) / params.get(1);
-            }
-            else throw new Exception("/ needs 2 operands");
+            if (params.size() != 2) throw new Exception("/ needs 2 operands");
+            if (Math.abs(params.get(1)) < 0.000001) throw new Exception("divide by 0");
+            return params.get(0) / params.get(1);
         }
         return next == null ? 0.0 : next.calc(op, params);
     }
