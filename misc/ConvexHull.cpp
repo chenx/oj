@@ -5,6 +5,7 @@
 // https://www.cs.swarthmore.edu/~adanner/cs97/s08/pdf/calipers.pdf
 // http://geomalgorithms.com/a10-_hull-1.html
 // https://geidav.wordpress.com/tag/rotating-calipers/
+// http://www.thefullwiki.org/Rotating_calipers
 // http://www.iasj.net/iasj?func=fulltext&aId=76643
 //
 // Implementation of Andrew's monotone chain 2D convex hull algorithm.
