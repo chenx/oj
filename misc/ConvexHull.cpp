@@ -4,6 +4,7 @@
 // https://en.wikipedia.org/wiki/Rotating_calipers
 // https://www.cs.swarthmore.edu/~adanner/cs97/s08/pdf/calipers.pdf
 // http://geomalgorithms.com/a10-_hull-1.html
+// http://www.iasj.net/iasj?func=fulltext&aId=76643
 //
 // Implementation of Andrew's monotone chain 2D convex hull algorithm.
 // Asymptotic complexity: O(n log n).
