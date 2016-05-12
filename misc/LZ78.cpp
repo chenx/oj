@@ -80,7 +80,7 @@ private:
     Node * root;
     void deleteNode(Node *); // used by destructor.
     bool deleteW(Node *, string s, int pos); // used by deleteW.
-    void lzAdd(const char *& s, string & output, int & phase);
+    void lzCompress(const char *& s, string & output, int & phase);
     void lzDecompress(const char *& s, 
              map<int, string> &mp, map<int, Node *> &mn, string & output, int & phase);
 };
@@ -149,11 +149,11 @@ string Trie::lzCompress(string input) {
     const char * s = input.c_str();
     int ph = 0; // phase
     while (*s) {
-        lzAdd(s, output, ph);
+        lzCompress(s, output, ph);
     }
     return output;
 }
-void Trie::lzAdd(const char *& s, string & output, int & ph) {
+void Trie::lzCompress(const char *& s, string & output, int & ph) {
     Node * current = root;
 
     for (; *s; ++ s) {
@@ -298,13 +298,13 @@ void test(string word, string expect) {
     cout << "input: " << word << "\ncompress expect: " << expect 
          << "\ncompress output: " << answer
          << "\n... compress: " << (answer == expect ? "pass" : "fail") << endl;
-    trie.draw();
+    //trie.draw();
 
     Trie trie2;
     string answer_decompress = trie2.lzDecompress(answer);
     cout << "decompress output: " << answer_decompress << endl;
     cout << "... decompress: " << (answer_decompress == word ? "pass" : "fail") << endl;
-    trie2.draw();
+    //trie2.draw();
 
     cout << endl;
 }
@@ -325,3 +325,21 @@ int main() {
     return 0;
 }
 
+
+/**
+Execution output:
+
+input: how now brown cow in town.
+compress expect: 0h0o0w0 0n2w4b0r6n4c6 0i5 0t9.
+compress output: 0h0o0w0 0n2w4b0r6n4c6 0i5 0t9.
+... compress: pass
+decompress output: how now brown cow in town.
+... decompress: pass
+
+input: how now brown cow in town. That is another story as I told you.
+compress expect: 0h0o0w0 0n2w4b0r6n4c6 0i5 0t9.4T1a14 12s4a5o14h0e8 0s14o8y20s4I4t2l0d4y2u0.
+compress output: 0h0o0w0 0n2w4b0r6n4c6 0i5 0t9.4T1a14 12s4a5o14h0e8 0s14o8y20s4I4t2l0d4y2u0.
+... compress: pass
+decompress output: how now brown cow in town. That is another story as I told you.
+... decompress: pass
+ */
