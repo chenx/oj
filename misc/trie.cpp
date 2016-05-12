@@ -2,8 +2,13 @@
 // Implementation of trie in C++.
 //
 // @From: http://login2win.blogspot.com/2011/06/c-tries.html
+// @Modified by: X.C.
 // @Created on: 3/26/2013
-// @Last modified: 3/26/2013
+// @Last modified: 5/12/2013
+//
+// @Log:
+//  5/12/2013 - added bottom up version of deleteWord(): deleteW().
+//              also cleaned some code.
 //
 
 #include <iostream>
@@ -12,16 +17,32 @@ using namespace std;
 
 class Node {
 public:
-    Node() : mContent(' '), mMarker(false), parent(NULL) {}
+    Node(char c) : mContent(c), mMarker(false), parent(NULL) {}
     ~Node() {}
     char content() { return mContent; }
     void setContent(char c) { mContent = c; } // can use this->mContent.
     bool wordMarker() { return mMarker; }
     void setWordMarker(bool v) { mMarker = v; }
-    Node * findChild(char c);
+    Node * findChild(char c) {
+        for (int i = 0; i < mChildren.size(); ++ i) {
+            if (c == mChildren[i]->content()) return mChildren[i]; // or mChildren.at(i).
+        }
+        return NULL;
+    }
     void appendChild(Node * child) { 
          mChildren.push_back(child); 
-         child->parent = this; /// by X.C.
+         child->parent = this;  // used by deleteWord() only. X.C.
+    }
+    void deleteChild(char c) {  // used by deleteW() only. X.C.
+        //cout << "delete child " << c << " from [" << content() << "]" << endl;
+        for (vector<Node *>::iterator it = mChildren.begin(); it != mChildren.end(); ++ it) {
+            if ((*it)->content() == c) {  //cout << "found and delete" << endl;
+                delete *it;  // free node, to avoid memory leak.
+                             // must be done before erase(), otherwise has runtime error.
+                mChildren.erase(it);
+                break;
+            }
+        }
     }
     // X.C. Use reference, so modification in Trie::deleteWord() is possible.
     vector<Node *> &children() { return mChildren; } 
@@ -30,7 +51,7 @@ private:
     char mContent;
     bool mMarker;
     vector<Node *> mChildren;
-    Node * parent; /// by X.C.
+    Node * parent; /// by X.C. used for delete only.
 };
 
 class Trie {
@@ -40,29 +61,22 @@ public:
     void addWord(string s);
     bool searchWord(string s);
     void deleteWord(string s);
+    void deleteW(string s);  // bottom up version of deleteWord().
     void draw(Node * n = NULL, int level = 0); /// by X.C. Call with draw().
 private:
     Node * root;
     void deleteNode(Node *); // used by destructor.
+    bool deleteW(Node *, string s, int pos); // used by deleteW.
 };
 
 
-Node * Node::findChild(char c) {
-    for (int i = 0; i < mChildren.size(); ++ i) {
-        if (c == mChildren[i]->content()) return mChildren[i]; // or mChildren.at(i).
-    }
-    return NULL;
-}
 
 Trie::Trie() {
-    root = new Node();
-    //cout << "new Trie created" << endl;
+    root = new Node(' ');  //cout << "new Trie created" << endl;
 }
 
 Trie::~Trie() {
-    // Free memory.
-    deleteNode(root);
-    //cout << "Trie destroyed" << endl;
+    deleteNode(root);  //cout << "Trie destroyed" << endl;
 }
 
 void Trie::deleteNode(Node * n) {
@@ -75,26 +89,17 @@ void Trie::deleteNode(Node * n) {
 
 void Trie::addWord(string s) {
     Node * current = root;
-    if (s.length() == 0) {
-        current->setWordMarker(true); // an empty word.
-        return;
-    }
     
     for (int i = 0; i < s.length(); ++ i) {
         Node * child = current->findChild(s[i]);
-        if (child) {
-            current = child;
-        } else {
-            Node * tmp = new Node();
-            tmp->setContent(s[i]);
-            current->appendChild(tmp);
-            current = tmp;
+        if (child == NULL) {
+            child = new Node(s[i]);
+            current->appendChild(child);
         }
-        
-        if (i == s.length() - 1) {
-            current->setWordMarker(true);
-        }
+        current = child;
     }
+        
+    current->setWordMarker(true);
 }
 
 bool Trie::searchWord(string s) {
@@ -107,10 +112,10 @@ bool Trie::searchWord(string s) {
     }
 
     return current->wordMarker();
-    //return false;
 }
 
-/// By X.C.
+// Top down version of deleteWord(). X.C.
+// This needs a parent pointer at each node. Not prefered.
 void Trie::deleteWord(string s) {
     Node * current = root;
     for (int i = 0; i < s.length(); ++ i) {
@@ -123,35 +128,66 @@ void Trie::deleteWord(string s) {
     
     //return; // in lazy delete mode (for efficiency), can ignore code below.
     
-    // Now, delete useless nodes.
-    if (current->children().size() > 0) { 
-        return; 
-    } else {
-        // delete nodes upward unless for current node n,
-        // n.wordMarker() || n.children().size() > 1.
-        // cout << "delete node: " << current->content() << endl;
-        while(1) {
-            Node * parent = current->getParent();
+    if (current->children().size() > 0) return;
+
+    // else, delete useless nodes.
+    // delete nodes upward unless for current node n,
+    // n.wordMarker() || n.children().size() > 1.
+    // cout << "delete node: " << current->content() << endl;
+    while(1) {
+        Node * parent = current->getParent();
             
-            // remove current node from parent's children list.
-            vector<Node *> &v = parent->children();
-            for (int i = 0; i < v.size(); ++ i) {
-                if (v[i] == current) {
-                    v.erase(v.begin() + i);
-                    break;
-                }
-            }
-            
-            delete current;
-            current = parent;
-            
-            if (current == root || 
-                current->wordMarker() || current->children().size() > 0) {
+        // remove current node from parent's children list.
+        vector<Node *> &v = parent->children();
+        for (int i = 0; i < v.size(); ++ i) {
+            if (v[i] == current) {
+                v.erase(v.begin() + i);
                 break;
             }
         }
+            
+        delete current;
+        current = parent;
+            
+        if (current == root || 
+            current->wordMarker() || current->children().size() > 0) {
+            break;
+        }
     }
 }
+
+// Bottom up version of deleteWord(). X.C.
+// This does not need a parent pointer at each node. Prefered.
+// This needs the Node::deleteChild() function instead.
+void Trie::deleteW(string s) {
+    deleteW(root, s, 0);
+}
+bool Trie::deleteW(Node * n, const string s, int pos) {
+    if (n == NULL) return false;
+    
+    // is end node.
+    if (pos == s.length()) {
+        n->setWordMarker(false);
+        if (n->children().size() == 0 && n != root) {
+            return true;
+        }
+        else return false;
+    }
+
+    // else, is intermediate node.
+    Node * child = n->findChild(s[pos]);
+    if (child == NULL) return false; 
+    if (deleteW(child, s, pos + 1)) {
+        n->deleteChild(s[pos]);  // remove child from n's children list.
+        if (n->children().size() == 0 && ! n->wordMarker() && n != root) {
+            return true;
+        }
+    }
+    // child is not deleted, or current node contains other child, or
+    // current node is an end marker, then do not delete n, and return false.
+    return false; 
+}
+
 
 // Call with draw(); omit default parameters.
 void Trie::draw(Node * n, int level) {
@@ -167,38 +203,32 @@ void Trie::draw(Node * n, int level) {
 }
 
 
-void testFind(Trie * trie, string word) {
-    if (! trie) return;
-    if (trie->searchWord(word)) {
-        cout << "Found: " << word << endl;
-    } else {
-        cout << "NOT found: " << word << endl;
-    }
+void testFind(Trie & trie, string word, bool expect) {
+    bool answer = trie.searchWord(word);
+    cout << (answer ? "Found: " : "Not found: ") << word 
+         << ". ..." << (answer == expect ? "pass" : "fail") << endl;
 }
 
 void test()
 {
-    Trie trie2;
-    Trie * trie = new Trie();
-    trie->addWord("");
-    trie->addWord(" ");
-    trie->addWord("Hello");
-    trie->addWord("Balloon");
-    trie->addWord("Ball");
+    Trie trie;
+    trie.addWord("");
+    trie.addWord(" ");
+    trie.addWord("Hello");
+    trie.addWord("Balloon");
+    trie.addWord("Ball");
 
-    trie->draw();
-    trie->deleteWord("Balloon");
-    trie->deleteWord("");
-    trie->deleteWord(" ");
-    trie->draw();
+    trie.draw();
+    trie.deleteW("Balloon");
+    trie.deleteW("");
+    trie.deleteW(" ");
+    trie.draw();
     
-    testFind(trie, "Hell");
-    testFind(trie, "Hello");
-    testFind(trie, "Helloo");
-    testFind(trie, "Ball");
-    testFind(trie, "Balloon");
-    
-    delete trie;
+    testFind(trie, "Hell", false);
+    testFind(trie, "Hello", true);
+    testFind(trie, "Helloo", false);
+    testFind(trie, "Ball", true);
+    testFind(trie, "Balloon", false);
 }
 
 int main() {
@@ -215,7 +245,6 @@ int main() {
 // 
 // This one is not so good since it wastes many space (26) at each node.
 // 
-
 #include <cstdio>
 #include <string>
 #include <cstring>
