@@ -4,10 +4,10 @@
 // @From: http://login2win.blogspot.com/2011/06/c-tries.html
 // @Modified by: X.C.
 // @Created on: 3/26/2013
-// @Last modified: 5/12/2013
+// @Last modified: 5/12/2016
 //
 // @Log:
-//  5/12/2013 - added bottom up version of deleteWord(): deleteW().
+//  5/12/2016 - added bottom up version of deleteWord(): deleteW().
 //              also cleaned some code.
 //
 
@@ -169,9 +169,9 @@ bool Trie::deleteW(Node * n, const string s, int pos) {
     if (pos == s.length()) {
         n->setWordMarker(false);
         if (n->children().size() == 0 && n != root) {
-            return true;
+            return true;   // ok for parent to delete n.
         }
-        else return false;
+        else return false; // parent should not delete n.
     }
 
     // else, is intermediate node.
@@ -180,12 +180,12 @@ bool Trie::deleteW(Node * n, const string s, int pos) {
     if (deleteW(child, s, pos + 1)) {
         n->deleteChild(s[pos]);  // remove child from n's children list.
         if (n->children().size() == 0 && ! n->wordMarker() && n != root) {
-            return true;
+            return true;  // ok for parent to delete n.
         }
     }
     // child is not deleted, or current node contains other child, or
     // current node is an end marker, then do not delete n, and return false.
-    return false; 
+    return false;  // parent should not delete n.
 }
 
 
