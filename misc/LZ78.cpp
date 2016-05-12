@@ -1,12 +1,12 @@
 //
 // Implementation of LZ78 compression algorithm based on trie in C++.
 //
-// Algorithm is from:
-// Data Structures and Algorithms in Java. Pages 576-578.
-// Michael T. Goodrich, Roberto Tamassia. 1998. ISBN 0-471-19308-9.
+// Algorithm is from [1].
 //
 // References:
-// [1] https://en.wikipedia.org/wiki/LZ77_and_LZ78
+// [1] Data Structures and Algorithms in Java. Pages 576-578.
+//     Michael T. Goodrich, Roberto Tamassia. 1998. ISBN 0-471-19308-9.
+// [2] https://en.wikipedia.org/wiki/LZ77_and_LZ78
 //
 // @By: X.C.
 // @Created on: 5/13/2016
