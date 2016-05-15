@@ -1,3 +1,14 @@
+// Modified from Solution2. This is easier to understand.
+class Solution3 {
+public:
+    int addDigits(int num) {
+        if (num <= 9) return num;
+        num %= 9;
+        if (num == 0) num = 9;
+        return num;
+    }
+};
+
 // This works too.
 // For number that from 0 to 9, the answer is themselves.
 // For number that is divisible by 9, the answer is 9.
