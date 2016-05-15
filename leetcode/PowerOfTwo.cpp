@@ -1,3 +1,14 @@
+// Works too.
+class Solution5 {
+    const static int m;
+public:
+    bool isPowerOfTwo(int n) {
+        return n > 0 && m % n == 0;
+    }
+};
+const int Solution::m = 1 << 31;
+
+
 // Works too! This is good.
 class Solution4 {
     const static int m = 1 << 31;
@@ -6,6 +17,7 @@ public:
         return n > 0 && m % n == 0;
     }
 };
+
 
 // Works too.
 class Solution3 {
@@ -18,6 +30,7 @@ public:
     }
 };
 
+
 // Works too.
 class Solution2 {
     int m;
@@ -28,6 +41,7 @@ public:
         return n > 0 && m % n == 0;
     }
 };
+
 
 //
 // Note: (n > 0) && (n & n-1 == 0) is incorrect, since it'll calculate n-1 == 0 first.
