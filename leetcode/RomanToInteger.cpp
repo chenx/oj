@@ -25,6 +25,21 @@ public:
         return v;
     }
     
+    // this works too.
+    int romanToInt2(string s) {
+        if (s == "") return 0;
+        
+        int v = 0, pre = getV(s[0]);
+        for (int i = 1; i < s.length(); ++ i) {
+            int cur = getV(s[i]);
+            if (cur > pre) v -= pre;
+            else v += pre;
+            pre = cur;
+        }
+        v += pre;
+        return v;
+    }
+    
     int getV(char c) {
         if (c == 'I') return 1;
         else if (c == 'V') return 5;
