@@ -1,3 +1,13 @@
+// Works. Same as Solution and Solution2.
+class Solution4 {
+public:
+    int hammingWeight(uint32_t n) {
+        int ct = 0;
+        for (; n > 0; n &= (n-1), ++ ct) ;
+        return ct;
+    }
+};
+
 // This works too.
 class Solution3 {
 public:
