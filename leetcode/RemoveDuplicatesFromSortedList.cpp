@@ -21,6 +21,7 @@ public:
     }
     
     // if no need to free duplicated node, can use this (like in Java), only 3 lines then.
+    // see: https://leetcode.com/discuss/37323/3-line-java-recursive-solution
     ListNode* deleteDuplicates2(ListNode* head) {
         if (! head || ! head->next) return head;
         head->next = deleteDuplicates(head->next);
