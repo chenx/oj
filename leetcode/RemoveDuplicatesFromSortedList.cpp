@@ -11,17 +11,14 @@ public:
     ListNode* deleteDuplicates(ListNode* head) {
         ListNode dummy(0);
         ListNode * n = & dummy;
-        n->next = head;
-        
-        while (n->next && n->next->next) {
+
+        for (n->next = head; n->next && n->next->next; ) {
             if (n->next->val == n->next->next->val) {
                 ListNode * tmp = n->next;
-                n->next = n->next->next;
+                n->next = tmp->next;
                 delete tmp;
             }
-            else {
-                n = n->next;
-            }
+            else n = n->next;
         }
         
         return dummy.next;
