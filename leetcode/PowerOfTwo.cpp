@@ -1,3 +1,13 @@
+// Works too. From: https://leetcode.com/problems/power-of-two/
+class Solution7 {
+public:
+    bool isPowerOfTwo(int n) {
+        bitset<64> b(n); // 64 bit for long long.
+        return b.count()==1;
+    }
+};
+
+
 // Works too.
 class Solution6 {
     const static int m;
