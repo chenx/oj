@@ -1,3 +1,17 @@
+// Works too.
+class Solution3 {
+public:
+    bool isAnagram(string s, string t) {
+        return sig(s) == sig(t);
+    }
+    
+    vector<int> sig(string s) {
+        vector<int> sig(256, 0);
+        for (auto c : s) sig[c] ++;
+        return sig;
+    }
+};
+
 // Works too. Tested.
 class Solution2 {
 public:
