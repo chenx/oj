@@ -7,7 +7,19 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
- 
+
+// Iterative version of Solution3. Works too.
+// See: https://leetcode.com/discuss/44959/3-lines-with-o-1-space-1-liners-alternatives
+class Solution5 {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (! root) return NULL;
+        while ((root->val - p->val) * (root->val - q->val) > 0) 
+            root = (root->val > p->val) ? root->left : root->right;
+        return root;
+    }
+};
+
 // Works too. Treat BST as a BT. More general. 
 class Solution4 {
 public:
