@@ -15,12 +15,12 @@ public:
         if (dividend == INT_MIN && divisor == -1) return INT_MAX;
         
         long long a = dividend, b = divisor;
-        bool neg = (a < 0) ^ (b < 0);
+        bool neg = (a < 0) ^ (b < 0);  // this works too: a < 0 ^ b < 0 
         if (a < 0) a = -a;
         if (b < 0) b = -b;
         
         int d = 0;
-        while ((b << d) <= a) ++ d;
+        while ((b << d) <= a) ++ d;  // this works too: while (b << d <= a) ++ d;
         
         int q = 0;
         for (-- d; d >= 0; -- d) {
