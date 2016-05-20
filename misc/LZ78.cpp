@@ -1,5 +1,5 @@
 //
-// Implementation of LZ78 compression algorithm based on trie in C++.
+// Implementation of LZ78 (Lempel-Ziv 1978) compression algorithm based on trie in C++.
 //
 // Algorithm is from [1].
 //
