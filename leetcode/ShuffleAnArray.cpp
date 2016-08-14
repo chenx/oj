@@ -14,6 +14,19 @@ public:
     vector<int> shuffle() {
         vector<int> nums = arr;
         
+        for (int i = nums.size(); i >= 1; -- i) {
+            int index = std::rand() % i;
+            swap(nums[i - 1], nums[index]);
+        }
+        
+        return nums;
+    }
+    
+    /** Returns a random shuffling of the array. */
+    // This works too.
+    vector<int> shuffle2() {
+        vector<int> nums = arr;
+        
         for (int n = nums.size(), i = n - 1; i >= 0; -- i) {
             int index = std::rand() % (i + 1);
             swap(nums[i], nums[index]);
