@@ -1,3 +1,4 @@
+// From: https://discuss.leetcode.com/topic/53938/my-c-c-solution-0ms-easy-to-understand
 class Solution {
 public:
     int getSum(int a, int b) {  // getSum(sum, carry)
