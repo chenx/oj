@@ -1,3 +1,21 @@
+// Works. Simplest. Use long long to avoid checking for overflow.
+class Solution7 {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        int x0 = x;
+
+        long long y = 0, y0;
+        while (x > 0) {
+            y0 = y;
+            y = y * 10 + (x % 10);
+            x /= 10;
+        }
+
+        return x0 == y;
+    }
+};
+
 // Works.
 class Solution6 {
 public:
