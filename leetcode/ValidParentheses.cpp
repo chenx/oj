@@ -127,6 +127,7 @@ public:
     }
 };
 
+// Works. Fastest.
 class Solution {
 public:
     bool isValid(string s) {
