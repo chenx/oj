@@ -5,6 +5,22 @@
 // @Last modified: 1/1/2013
 //
 
+// Works. Succinct. But slower due to use of hashmap.
+class Solution6 {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        unordered_map<char, char> m = {{'(', ')'}, {'{', '}'}, {'[', ']'}};
+
+        for (char x : s) {
+            if (m.find(x) != m.end()) st.push(m[x]);
+            else if (!st.empty() && st.top() == x) st.pop();
+            else return false;
+        }
+        return st.empty();
+    }
+};
+
 // Works. Not as optimal, but works.
 class Solution5 {
 public:
