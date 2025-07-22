@@ -5,6 +5,32 @@
 // @Last modified: 1/1/2013
 //
 
+// Works. Not as optimal, but works.
+class Solution5 {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        unordered_map<char, char> m = {{'(', ')'}, {'{', '}'}, {'[', ']'}};
+
+        for (char x : s) {
+            switch (x) {
+                case '{':
+                case '(':
+                case '[':
+                        st.push(m[x]);
+                        break;
+                case '}':
+                case ')':
+                case ']':
+                        if (st.empty() || st.top() != x) return false;
+                        st.pop();
+                        break;
+            }
+        }
+        return st.empty();
+    }
+};
+
 // Works.
 class Solution4 {
 public:
