@@ -5,6 +5,31 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution4 {
+public:
+    int romanToInt(string s) {
+        unordered_map<char, int> m = {
+            {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, 
+            {'C', 100}, {'D', 500}, {'M', 1000},
+        };
+
+        int v = 0, prev = 0;
+        for (int i = 0; i < s.length(); i ++) {
+            int cur = m[s[i]];
+            if (cur > prev) { 
+                v -= prev;
+            } else {
+                v += prev;
+            }
+            prev = cur;
+        }
+        v += prev;
+
+        return v;
+    }
+};
+
 // Works too. 
 class Solution3 {
 public:
