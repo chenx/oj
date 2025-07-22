@@ -5,7 +5,7 @@
 // @Last modified: 12/24/2012
 //
 
-// Works.
+// Works. Use map.
 class Solution4 {
 public:
     int romanToInt(string s) {
