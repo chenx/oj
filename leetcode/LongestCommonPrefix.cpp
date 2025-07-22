@@ -5,6 +5,31 @@
 // @Last modified: 1/21/2013
 //
 
+// O(1) in space. O(n*m) in time, n = strs.size(), m = max_length of str in strs.
+// Best solution without using sub function.
+class Solution6 {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int n = strs.size();
+        if (n == 0) return "";
+        
+        string s = strs[0];
+        int maxLen = s.length(), j;
+        for (int i = 1; i < n; i ++) {
+            for (j = 0; j < s.length(); j ++) {
+                if (strs[i][j] != s[j]) {
+                    break;
+                }
+            }
+            if (j < maxLen) {
+                maxLen = j;
+                s = s.substr(0, j);
+            }
+        }
+        return s;
+    }
+};
+
 /*
  * It's possible to use a Trie, but it seems like a over-kill.
  */
