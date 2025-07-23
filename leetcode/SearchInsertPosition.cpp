@@ -4,6 +4,26 @@
 // @Created on: 12/18/2012
 // @Last modified: 12/18/2012
 //
+
+class Solution2 {
+public:
+   int searchInsert(vector<int>& nums, int target) {
+       int L = 0, R = nums.size() - 1;
+
+
+       while (L <= R) {
+           int mid = L + (R - L)/2;
+           if (nums[mid] == target) return mid;
+           else if (nums[mid] < target) ++ L;
+           else -- R;
+       }
+
+
+       return L;
+   }
+};
+
+
 class Solution {
 public:
     int searchInsert(int A[], int n, int target) {
