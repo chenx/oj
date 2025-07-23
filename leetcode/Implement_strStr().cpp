@@ -193,6 +193,28 @@ public:
     }
 };
 
+// Works.
+class Solution8 {
+public:
+    int strStr(string haystack, string needle) {
+        int n = haystack.length(), m = needle.length();
+        if (n < m) return -1;
+
+        for (int i = 0; i <= n - m; i ++) {
+            int j = 0;
+            for (; j < m; j ++) {
+                if (haystack[i + j] != needle[j]) break;  // Notice: haystack[i + j]
+            }
+
+            if (j == m) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+};
+
 // This works too. Use new signature.
 class Solution {
 public:
