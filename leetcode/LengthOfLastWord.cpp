@@ -5,6 +5,20 @@
 // @Last modified: 12/19/2012
 //
 
+// This works. Better than Solution5.
+class Solution6 {
+public:
+    int lengthOfLastWord(string s) {
+        int n = s.length() - 1;
+        while (n >= 0 && s[n] == ' ') -- n;
+
+        int m = n;
+        while (m >= 0 && s[m] != ' ') -- m;
+
+        return n - m;
+    }
+};
+
 // Works. The best!
 class Solution5 {
 public:
