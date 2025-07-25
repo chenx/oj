@@ -28,7 +28,27 @@ struct TreeNode {
       TreeNode *right;
       TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
- 
+
+// Works.
+class Solution2 {
+public:
+    bool isBalanced(TreeNode* root) {
+        int height = 0;
+        return isBalancedBT(root, height);
+    }
+
+    bool isBalancedBT(TreeNode* root, int& height) {
+        if (!root) return true;
+
+        int hL = 0, hR = 0;
+        bool bL = isBalancedBT(root->left, hL);
+        bool bR = isBalancedBT(root->right, hR);
+        height = 1 + max(hL, hR);
+
+        return (abs(hL - hR) <= 1) && bL && bR;
+    }
+};
+
 class Solution {
 public:
     bool isBalanced(TreeNode *root) {
