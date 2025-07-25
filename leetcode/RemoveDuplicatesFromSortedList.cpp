@@ -5,6 +5,29 @@
 // @Last modified: 12/24/2012
 //
 
+// Works. Maybe best for interation solution.
+class Solution5 {
+public:
+   ListNode* deleteDuplicates(ListNode* head) {
+       if (!head || !head->next) return head;
+
+       ListNode *n = head;
+       while (n && n->next) {
+           if (n->val == n->next->val) {
+               ListNode *tmp = n->next;
+               n->next = tmp->next;
+               // tmp->next = NULL;
+               delete tmp;
+               // Note: do not advance n here. e.g., 1->1->1->2
+           } else {
+               n = n->next;
+           }
+       }
+
+       return head;
+   }
+};
+
 // Recursive solution. Works too.
 class Solution4 {
 public:
