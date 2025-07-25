@@ -9,7 +9,7 @@
 // Works. Use level order traversal. Time/Space: O(2^minHeight - 1). 
 // This is more space efficient if tree is not balanced.
 // But if tree is balanced, Solution is more efficent.
-class Solution3 {
+class Solution4 {
 public:
     int minDepth(TreeNode* root) {
         if (root == NULL) return 0;
@@ -46,7 +46,7 @@ public:
  */
 
 // Works too. Tested. Although Solution is preferred.
-class Solution2 {
+class Solution3 {
 public:
     int minDepth(TreeNode* root) {
         if (root == NULL) return 0;
@@ -62,7 +62,7 @@ public:
 };
 
 // Works. Preferred answer.
-class Solution {
+class Solution2 {
 public:
     int minDepth(TreeNode *root) {
         // Start typing your C/C++ solution below
@@ -75,6 +75,16 @@ public:
     }
 };
 
+class Solution {
+public:
+   int minDepth(TreeNode* root) {
+       if (!root) return 0;
+       if (!root->left && !root->right) return 1;
+       if (!root->left) return 1 + minDepth(root->right);
+       if (!root->right) return 1 + minDepth(root->left);
+       return 1 + min(minDepth(root->left), minDepth(root->right));
+   }
+};
 
 /**
 Minimum Depth of Binary Tree
