@@ -7,6 +7,32 @@
  * };
  */
 
+// Works too. Link tail of A to head of B; cycle exists if there is an intersection of A and B.
+class Solution5 {
+public:
+  ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+       if (!headA || !headB) return NULL;
+
+       ListNode *n = headA;
+       while (n->next) n = n->next;
+       n->next = headB;
+
+       ListNode *slow = headA, *fast = headA;
+       while (fast && fast->next) {
+           slow = slow->next;
+           fast = fast->next->next;
+           if (slow == fast) {
+               fast = headA;
+               for (; fast != slow; fast = fast->next, slow = slow->next) ;
+               n->next = NULL; // recover linked list structure.
+               return fast;
+           }
+       }
+       n->next = NULL; // recover linked list structure.
+       return NULL;
+   }
+}
+
 // Works. Almost same as Solution2.
 class Solution4 {
 public:
