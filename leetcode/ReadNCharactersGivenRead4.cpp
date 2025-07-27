@@ -1,3 +1,29 @@
+// Works. Maybe the best.
+class Solution6 {
+public:
+   /**
+    * @param buf Destination buffer
+    * @param n   Number of characters to read
+    * @return    The number of actual characters read
+    */
+   int read(char *buf, int n) {
+       // char* buf4 = new char[4];
+       char buf4[4];
+       int count = 0;
+
+       while (true) {
+           int m = min(n, read4(buf4));
+           memcpy(buf + count, buf4, m);
+           n -= m;
+           count += m;
+           if (m < 4) {
+               break;
+           }
+       }
+       return count;
+   }
+};
+
 // Should work. Tested locally. 
 // Adapted from the solution to ReadNCharactersGivenRead4_II, by adding
 // only the line "cur = 0;" at the beginning of the while loop.
