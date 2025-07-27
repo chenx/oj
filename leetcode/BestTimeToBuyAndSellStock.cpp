@@ -17,6 +17,19 @@ using namespace std;
 // @Last modified: 12/23/2012
 //
 
+// Works, but a bit tricky to understand.
+class Solution2 {
+public:
+   int maxProfit(vector<int>& prices) {
+       int maxProfit = 0, minPrice = INT_MAX;
+       for (int i = 0; i < prices.size(); i ++) {
+           minPrice = min(minPrice, prices[i]);
+           maxProfit = max(maxProfit, prices[i] - minPrice);
+       }
+       return maxProfit;
+   }
+};
+
 // 
 // a2 <= a <= b.
 // if current element n - a2 > b - a, update a and b;
