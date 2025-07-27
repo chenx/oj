@@ -1,3 +1,17 @@
+// Works. Tested. Similar to Solution4.
+class Solution5 {
+public:
+    bool isPalindrome(string s) {
+        int i = 0, j = s.length() - 1;
+        for (; i < j; ++ i, -- j) {
+            while (i < j && !isalnum(s[i])) ++ i;
+            while (i < j && !isalnum(s[j])) -- j;
+            if (tolower(s[i]) != tolower(s[j])) return false;
+        }
+        return true;
+    }
+};
+
 // Works. Tested. Best answer.
 // Use standard functions isalnum(), tolower(), toupper() in <cctype>.
 class Solution4 {
