@@ -1,3 +1,30 @@
+// Works for new output format. Tested.
+class Solution3 {
+public:
+    vector<vector<int>> findMissingRanges(vector<int>& nums, int lower, int upper) {
+        vector<vector<int>> ranges;
+        int n = nums.size();
+        if (n == 0) {
+            ranges.push_back(vector<int>({lower, upper}));
+            return ranges;
+        }
+
+        if (nums[0] - lower > 0) {
+            ranges.push_back(vector<int>({lower, nums[0] - 1}));
+        } 
+        for (int i = 1; i < n; i ++) {
+            if (nums[i] - nums[i - 1] > 1) {
+                ranges.push_back(vector<int>({nums[i-1] + 1, nums[i] - 1}));
+            }
+        }
+        if (upper - nums[n - 1] > 0) {
+            ranges.push_back(vector<int>({nums[n - 1] + 1, upper}));
+        }
+
+        return ranges;
+    }
+};
+
 // Should work. Not tested.
 class Solution2 {
 public:
