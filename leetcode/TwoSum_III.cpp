@@ -1,3 +1,27 @@
+// Works. add() - O(N), find() - O(1).
+class TwoSum7 {
+public:
+    TwoSum() {}
+    
+    void add(int number) {
+        for (int i = 0; i < v.size(); i ++) {
+            s.insert(number + v[i]);
+        }
+        
+        if (std::find(v.begin(), v.end(), number) == v.end()) {
+            v.push_back(number);
+        }
+    }
+    
+    bool find(int value) {
+        return s.find(value) != s.end();
+    }
+
+private:
+    vector<int> v;
+    unordered_set<int> s;
+};
+
 // Should work. Tested locally, not on lc.
 class Solution6 {
     map<int, int> m; // value, count
