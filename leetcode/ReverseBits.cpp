@@ -1,3 +1,19 @@
+// Works.
+class Solution2 {
+public:
+    int reverseBits(int n) {
+        int m = 0;
+        // while (n > 0) { // This does not work.
+        for (int i = 0; i < 32; i ++) {
+            int bit = n & 1;
+            n >>= 1;
+            m <<= 1;
+            m += bit;
+        }
+        return m;
+    }
+};
+
 // This works.
 class Solution {
 public:
