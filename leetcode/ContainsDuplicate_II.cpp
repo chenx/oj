@@ -1,3 +1,21 @@
+// Works. Easier to understand.
+class Solution2 {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int, int> m;
+        for (int i = 0; i < nums.size(); i ++) {
+            int n = nums[i];
+            if (m.find(n) == m.end()) {
+                m[n] = i;
+            } else {
+                if (i - m[n] <= k) return true;
+                else m[n] = i;
+            }
+        }
+        return false;
+    }
+};
+
 class Solution {
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
