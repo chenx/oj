@@ -1,6 +1,24 @@
 // Forward declaration of isBadVersion API.
 bool isBadVersion(int version);
 
+// Works. Best version.
+class Solution {
+public:
+   int firstBadVersion(int n) {
+       int L = 0, R = n;
+       while (L <= R) {
+           int M = L + (R - L)/2;
+           if (isBadVersion(M)) {
+               R = M - 1;
+           } else if (!isBadVersion(M)) {
+               L = M+1;
+           }
+       }
+       return R + 1;
+   }
+};
+
+
 // This works too. 
 // Find the right boundary of good ones, add by 1 for left boundary of bad ones.
 class Solution2 {
