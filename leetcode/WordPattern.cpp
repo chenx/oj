@@ -1,3 +1,36 @@
+// Works too.
+class Solution3 {
+public:
+    bool wordPattern(string pattern, string s) {
+        vector<string> words = split(s);
+        if (pattern.length() != words.size()) return false;
+
+        unordered_map<char, string> m1;
+        unordered_map<string, char> m2;
+        for (int i = 0; i < pattern.length(); i ++) {
+            if (m1.find(pattern[i]) == m1.end() && m2.find(words[i]) == m2.end()) {
+                m1[pattern[i]] = words[i];
+                m2[words[i]] = pattern[i];
+            } else if (m1[pattern[i]] != words[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    vector<string> split(string s) {
+        vector<string> result;
+        stringstream ss(s);
+        string word;
+
+        while (ss >> word) {
+            result.push_back(word);
+        }
+        return result;
+    }
+};
+
 // This works too.
 class Solution2 {
 public:
