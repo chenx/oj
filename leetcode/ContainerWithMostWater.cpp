@@ -5,6 +5,27 @@
 // @Last modified: 1/4/2013
 //
 
+// Hint 1
+//   If you simulate the problem, it will be O(n^2) which is not efficient.
+// Hint 2
+//   Try to use two-pointers. Set one pointer to the left and one to the right of the array. 
+//   Always move the pointer that points to the lower line.
+
+// Best so far.
+class Solution4 {
+public:
+    int maxArea(vector<int>& height) {
+        int maxA = 0, L = 0, R = height.size() - 1;
+        while (L < R) {
+            int A = min(height[L], height[R]) * (R - L);  // Note: Not R-L+1
+            maxA = max(maxA, A);
+            if (height[L] < height[R]) ++ L;
+            else -- R;
+        }
+        return maxA;
+    }
+};
+
 // Works too. Need to update L/R before while loop, to avoid timeout.
 class Solution3 {
 public:
