@@ -1,5 +1,26 @@
+class Solution3 {
+public:
+    int reverse(int x) {
+        bool neg = false;
+        if (x < 0) {
+            neg = true;
+            x = -x;
+        }
+
+        long long y = 0, y0;
+        while (x > 0) {
+            y0 = y * 10 + (x % 10);
+            if (y0 / 10 != y) return 0;
+            x /= 10;
+            y = y0;
+        }
+
+        return neg ? -y : y;
+    }
+};
+
 // This works. Overflow value is now 0, not INT_MAX in the past.
-class Solution {
+class Solution2 {
 public:
     int reverse(int x) {
         //if (x == Integer.MIN_VALUE) return 0; // not needed.
