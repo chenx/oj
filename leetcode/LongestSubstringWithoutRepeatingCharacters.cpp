@@ -8,6 +8,24 @@
 #include <iostream>
 using namespace std;
 
+class Solution10 {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int maxLen = 0;
+        int ct[256] = {0};
+
+        for (int begin = 0, end = 0; end < s.length(); end ++) {
+            while (ct[s[end]] == 1) {
+                if (ct[s[begin]] > 0) ct[s[begin]] --;
+                begin ++;
+            }
+            ct[s[end]] ++;
+            maxLen = max(maxLen, end - begin + 1);
+        }
+        return maxLen;
+    }
+};
+
 // Works. Re-written from Solution9, shorter.
 class Solution9_2 {
 public:
