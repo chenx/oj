@@ -15,6 +15,37 @@
  * };
  */
 
+class Solution4 {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *head = NULL, *tail = NULL;
+
+        int carry = 0;
+        for (; l1 && l2; l1 = l1->next, l2 = l2->next) {
+            appendNode(l1->val + l2->val + carry, carry, head, tail);
+        }
+
+        for (; l1; l1 = l1->next) appendNode(l1->val + carry, carry, head, tail);
+        for (; l2; l2 = l2->next) appendNode(l2->val + carry, carry, head, tail);
+        if (carry) appendNode(carry, carry, head, tail);
+        return head;
+    }
+
+    void appendNode(int sum, int& carry, ListNode*& head, ListNode*& tail) {
+        if (sum >= 10) sum -= 10, carry = 1;
+        else carry = 0;
+
+        if (!head) {
+            head = tail = new ListNode(sum);
+            tail->next = NULL;
+        } else {
+            tail->next = new ListNode(sum);
+            tail = tail->next;
+            tail->next = NULL;
+        }
+    }
+};
+
 // Works. Tested. Best answer so far.
 class Solution3 {
 public:
