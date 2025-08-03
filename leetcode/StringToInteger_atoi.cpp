@@ -5,6 +5,33 @@
 // @Last modified: 1/1/2013
 //
 
+// Works. 2025 version.
+class Solution7 {
+public:
+    int myAtoi(string s) {
+        long long v = 0;
+        bool neg = false;
+
+        int i = 0, n = s.length();
+        while (i < n && isspace(s[i])) ++ i;
+        if (s[i] == '+') ++ i;
+        else if (s[i] == '-') {
+            neg = true;
+            i ++;
+        }
+        while (i < n && isdigit(s[i])) {
+            v = v * 10 + (s[i] - '0');
+            if (v > INT_MAX) return neg ? INT_MIN : INT_MAX;
+            i ++;
+        }
+        if (neg) v = -v;
+        if (v > INT_MAX) v = INT_MAX;
+        if (v < INT_MIN) v = INT_MIN;
+
+        return v;
+    }
+};
+
 // Works too.
 // When i == n, isspace(s[i]) and isdigit(s[i]) will return false,
 // so no need to put i < n before them.
