@@ -5,6 +5,37 @@
 // @Last modified: 1/9/2013
 //
 
+// Works. 2025 version.
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if (dividend == INT_MIN && divisor == -1) return INT_MAX;
+        if (dividend == INT_MIN && divisor == 1) return INT_MIN;
+
+        bool neg = (dividend > 0 && divisor < 0) ||
+                   (dividend < 0 && divisor > 0);
+        long long d = dividend;
+        if (d < 0) d = -d;
+        long long v = divisor;
+        if (v < 0) v = -v;
+
+        int power = 0;
+        while ((v << power) <= d) power ++;
+        power --;
+
+        long long q = 0;
+        for (; power >= 0; power --) {
+            long long tmp = v << power;
+            if (tmp <= d) {
+                d -= tmp;
+                q += (1 << power);
+            }
+        }
+
+        return neg ? -q : q;
+    }
+};
+
 // Naive solution. Works but times out.
 class Solution6 {
 public:
