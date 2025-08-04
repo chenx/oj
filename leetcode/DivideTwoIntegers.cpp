@@ -5,6 +5,29 @@
 // @Last modified: 1/9/2013
 //
 
+// Naive solution. Works but times out.
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        bool neg = (dividend > 0 && divisor < 0) || 
+                   (dividend < 0 && divisor > 0);
+        long long d = dividend;
+        if (d < 0) d = -d;
+        long long v = divisor < 0 ? -divisor : divisor;
+
+        long long q = 0;
+        while (d >= v) {
+            q ++;
+            d -= v;
+        }
+
+        q = neg ? -q : q;
+        if (q > INT_MAX) q = INT_MAX;
+        if (q < INT_MIN) q = INT_MIN;
+        return q;
+    }
+};
+
 // Works. 
 // Seems this solved the ambiguous issue.
 // The only case that overflows is: INT_MIN / -1.
