@@ -19,6 +19,48 @@
  * 3) delete n1->next, not n1.
  * 4) release memory of the deleted node.
  */
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+// Works. Version 2025.
+class Solution6 {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if (n <= 0) return head;
+
+        ListNode *n1 = head, *n2 = head;
+
+        for (; n > 0 && n1; -- n) {
+            n1 = n1->next;
+        }
+        if (n > 0) return head;  // list length < n
+        if (!n1) {  // list length == n, remove head
+            ListNode *tmp = head;
+            head = head->next;
+            delete tmp;
+            return head;
+        }
+
+        while (n1->next) {
+            n1 = n1->next;
+            n2 = n2->next;
+        }
+
+        ListNode* tmp = n2->next;
+        n2->next = tmp ? tmp->next : NULL;
+        delete tmp;
+        return head;
+    }
+};
  
 // Works. Maybe best so far.
 class Solution5 {
