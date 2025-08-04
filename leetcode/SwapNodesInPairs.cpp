@@ -12,7 +12,33 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
- 
+
+class Solution8 {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (!head || !head->next) return head;
+
+        ListNode dummy;
+        dummy.next = head;
+
+        ListNode *n1 = head, *n2 = head->next, *prev = &dummy, *tail;
+        while (true) {
+            tail = n2->next;
+
+            prev->next = n2;
+            n2->next = n1;
+            n1->next = tail;
+
+            prev = n1;
+
+            if (!tail || !tail->next) break;
+            n1 = tail;
+            n2 = tail->next;
+        }
+        return dummy.next;
+    }
+};
+
 // Works. Tested. As good as Solution6.
 class Solution7 {
 public:
