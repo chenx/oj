@@ -6,7 +6,7 @@
 //
 
 // Naive solution. Works but times out.
-class Solution {
+class Solution6 {
 public:
     int divide(int dividend, int divisor) {
         bool neg = (dividend > 0 && divisor < 0) || 
