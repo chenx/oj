@@ -6,6 +6,51 @@
 // @Last modified: 12/13/2012
 //
 
+// Works. Version 2025.
+class Solution6 {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+        if (n < 4) return ans;
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < n - 3; i ++) {
+            if (i > 0 && nums[i-1] == nums[i]) continue;
+            vector<vector<int>> v = threeSum(nums, i + 1, target - nums[i]);
+            
+            for (auto e : v) {
+                vector<int> x = {nums[i], e[0], e[1], e[2]};
+                ans.push_back(x);
+            }
+        }
+        return ans;
+    }
+
+    vector<vector<int>> threeSum(vector<int>& nums, int L, int target) {
+        vector<vector<int>> ans;
+        int n = nums.size(), L0 = L;
+
+        for (; L < n - 2; ++ L) {
+            if (L > L0 && nums[L-1] == nums[L]) continue;
+            
+            for (int M = L + 1, R = n - 1; M < R; ) {
+                // Note this avoids overflow.
+                long long sum = (long long) nums[L] + nums[M] + nums[R];
+                if (sum == target) 
+                    ans.push_back({nums[L], nums[M], nums[R]});
+
+                if (sum <= target) 
+                    while (M < R && nums[M] == nums[++ M]) ;
+                else 
+                    while (M < R && nums[R] == nums[-- R]) ;
+            }
+        }
+        
+        return ans;
+    }
+};
+
 // Works. Shorter and cleaner than previous solutions.
 class Solution5 {
 public:
