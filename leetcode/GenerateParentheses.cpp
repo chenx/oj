@@ -19,7 +19,8 @@ public:
             ans.push_back(s);
             return;
         }
-        
+
+        // Switching the order of these 2 is ok.
         if (L > R) helper(ans, s + ")", n, L, R + 1);
         if (L < n) helper(ans, s + "(", n, L + 1, R);
     }
