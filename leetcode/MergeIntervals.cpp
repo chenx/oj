@@ -5,6 +5,41 @@
 // @Last modified: 1/9/2013
 //
 
+// Works. 2025 version.
+class Solution5 {
+public:
+   vector<vector<int>> merge(vector<vector<int>>& intervals) {
+       int n = intervals.size();
+       if (n <= 1) return intervals;
+
+
+       sort(intervals.begin(), intervals.end(), comp);
+
+
+       vector<vector<int>> ans;
+       for (int i = 1; i < n; i ++) {
+           auto& a = intervals[i-1], &b = intervals[i];
+           if (a[1] < b[0]) {
+               ans.push_back(a);
+           } else if (a[1] <= b[1]) {
+               b[0] = a[0];
+           } else {
+               b[0] = a[0], b[1] = a[1];
+           }
+       }
+       ans.push_back(intervals[n-1]);
+
+
+       return ans;
+   }
+
+
+   static bool comp(const vector<int>& a, const vector<int>& b) {
+       return a[0] < b[0];
+   }
+};
+
+
 // Works. Best so far.
 class Solution4 {
 public:
