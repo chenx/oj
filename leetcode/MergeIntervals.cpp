@@ -12,9 +12,7 @@ public:
        int n = intervals.size();
        if (n <= 1) return intervals;
 
-
        sort(intervals.begin(), intervals.end(), comp);
-
 
        vector<vector<int>> ans;
        for (int i = 1; i < n; i ++) {
@@ -28,11 +26,8 @@ public:
            }
        }
        ans.push_back(intervals[n-1]);
-
-
        return ans;
    }
-
 
    static bool comp(const vector<int>& a, const vector<int>& b) {
        return a[0] < b[0];
