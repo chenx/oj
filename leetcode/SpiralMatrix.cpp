@@ -20,7 +20,7 @@ public:
             for (i = m + 1; i < M; i ++) ans.push_back(matrix[i][N-1]);
             if (m == M - 1) break;
             for (j = N - 2; j >= n; j --) ans.push_back(matrix[M-1][j]);
-            if (N - 1 == n) break;
+            if (n == N - 1) break;
             for (i = M - 2; i > m; i --) ans.push_back(matrix[i][n]);
             m ++, n++, M --, N --;
         }
