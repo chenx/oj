@@ -5,6 +5,28 @@
 // @Last modified: 4/6/2012
 //
 
+// Works too.
+class Solution4 {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        vector<int> ans;
+        int rows = matrix.size(); // rows
+        if (rows == 0) return ans;
+        int cols = matrix[0].size(); // columns
+
+        int m = 0, n = 0, M = rows, N = cols, i, j;
+        while (m < M && n < N) {
+            for (j = n; j < N; j ++) ans.push_back(matrix[m][j]);
+            for (i = m + 1; i < M; i ++) ans.push_back(matrix[i][N-1]);
+            if (m == M - 1) break;
+            for (j = N - 2; j >= n; j --) ans.push_back(matrix[M-1][j]);
+            if (N - 1 == n) break;
+            for (i = M - 2; i > m; i --) ans.push_back(matrix[i][n]);
+            m ++, n++, M --, N --;
+        }
+        return ans;
+     }
+};
 
 //
 // Works. Best so far.  More clear. 
