@@ -5,6 +5,21 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution4 {
+public:
+    bool isValidBST(TreeNode* root) {
+        return helper(root, (long long) INT_MIN - 1, (long long) INT_MAX + 1);
+    }
+
+    bool helper(TreeNode* root, long long L, long long R) {
+        if (! root) return true;
+        return (root->val > L && root->val < R) &&
+          helper(root->left, L, root->val) &&
+          helper(root->right, root->val, R);
+    }
+};
+
 // Works. Tested.
 // Use NULL for the 2 extreme cases, to avoid INT_MIN, INT_MAX issue.
 class Solution3 {
