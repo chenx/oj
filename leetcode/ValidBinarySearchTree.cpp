@@ -10,6 +10,7 @@ class Solution4 {
 public:
     bool isValidBST(TreeNode* root) {
         return helper(root, (long long) INT_MIN - 1, (long long) INT_MAX + 1);
+        // Or: return helper(root, INT_MIN - 1ll, INT_MAX + 1ll);
     }
 
     bool helper(TreeNode* root, long long L, long long R) {
