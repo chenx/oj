@@ -9,6 +9,64 @@
 #include <vector>
 using namespace std;
 
+// Works.
+class Solution8 {
+public:
+   bool isValidSudoku(vector<vector<char>>& board) {
+       for (int i = 0; i < 9; i ++) {
+           if (!validRow(board, i) || ! validCol(board, i)) return false;
+       }
+
+
+       for (int i = 0; i < 9; i += 3) {
+           for (int j = 0; j < 9; j += 3) {
+               if (!validSquare(board, i, j)) return false;
+           }
+       }
+
+
+       return true;
+   }
+
+
+   bool validRow(vector<vector<char>>& board, int row) {
+       int ct[10] = {0};
+       for (int j = 0; j < 9; j ++) {
+           if (board[row][j] == '.') continue;
+           else {
+               if (++ ct[board[row][j] - '0'] > 1) return false;
+           }
+       }
+       return true;
+   }
+
+
+   bool validCol(vector<vector<char>>& board, int col) {
+       int ct[10] = {0};
+       for (int i = 0; i < 9; i ++) {
+           if (board[i][col] == '.') continue;
+           else {
+               if (++ ct[board[i][col] - '0'] > 1) return false;
+           }
+       }
+       return true;
+   }
+
+
+   bool validSquare(vector<vector<char>>& board, int row, int col) {
+       int ct[10] = {0};
+       for (int i = 0; i < 3; i ++) {
+           for (int j = 0; j < 3; j ++) {
+               if (board[row + i][col + j] == '.') continue;
+               else {
+                   if (++ ct[board[row + i][col + j] - '0'] > 1) return false;
+               }
+           }
+       }
+       return true;
+   }
+};
+
 
 // Works. Simplified from Solution6. Assume all chars are '.' or'1-9'.
 class Solution7 {
