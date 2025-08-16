@@ -5,7 +5,26 @@
 // @Last modified: 1/4/2013
 //
 
-// This works too.
+// Works. Log(m*n)
+class Solution {
+public:
+   bool searchMatrix(vector<vector<int>>& matrix, int target) {
+       if (matrix.size() == 0 || matrix[0].size() == 0) return false;
+       int rows = matrix.size(), cols = matrix[0].size();
+
+       int L = 0, R = rows * cols - 1;
+       while (L <= R) {
+           int M = L + (R-L)/2;
+           int row = M / cols, col = M - row * cols;
+           if (matrix[row][col] == target) return true;
+           else if (matrix[row][col] < target) L = M + 1;
+           else R = M -1;
+       }
+       return false;
+   }
+}
+
+// This works too. But is Log(m) + Log(n).
 class Solution2 {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
@@ -34,6 +53,7 @@ public:
     }
 };
 
+// Log(m) + Log(n).
 class Solution {
 public:
     // log(row) + log(column) solution.
