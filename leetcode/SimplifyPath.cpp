@@ -5,6 +5,42 @@
 // @Last modified: 12/25/2012
 //
 
+// Works. Best so far.
+class Solution4 {
+public:
+    string simplifyPath(string path) {
+        stack<string> s;
+
+        string cur;
+        for (int i = 0; i < path.length(); i ++) {
+            if (path[i] == '/') handleToken(s, cur);
+            else cur += path[i];
+        }
+        handleToken(s, cur);
+
+        // output
+        string ans = "";
+        for (; !s.empty(); s.pop()) {
+            ans = (ans == "") ? s.top() : (s.top() + "/" + ans);
+        }
+        ans = "/" + ans;
+        return ans;
+    }
+
+    void handleToken(stack<string>& s, string& cur) {
+        if (cur.empty() || cur == "/") {
+            // do nothing
+        } else if (cur == ".") {
+            // do nothing
+        } else if (cur == "..") {
+            if (!s.empty()) s.pop();
+        } else {
+            s.push(cur);
+        }
+        cur = "";
+    }
+};
+
 class Solution {
 public:
     // use a stack to hold all dir names. Pop when ".." is found, Ignore "/" and ".".
