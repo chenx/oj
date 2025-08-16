@@ -10,6 +10,35 @@
 using namespace std;
 
 
+// Works. Best solution. Simpple, easy to understand. O(mn).
+// First find all rows and columns that should be set to 0; then set them 0.
+class Solution4 {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        if (m == 0) return;
+        int n = matrix[0].size();
+
+        unordered_set<int> rows, cols;
+        for (int i = 0; i < m; i ++) {
+            for (int j = 0; j < n; j ++) {
+                if (matrix[i][j] == 0) {
+                    rows.insert(i);
+                    cols.insert(j);
+                }
+            }
+        }
+
+        for (int row : rows) {
+            for (int j = 0; j < n; j ++) matrix[row][j] = 0;
+        }
+        for (int col : cols) {
+            for (int i = 0; i < m; i ++) matrix[i][col] = 0;
+        }
+    }
+};
+
+
 void dumpMatrix(vector<vector<int> > &matrix) {
     for (int i = 0; i < matrix.size(); i ++) {
         for (int j = 0; j < matrix[0].size(); j ++) {
