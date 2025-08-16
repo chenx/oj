@@ -6,7 +6,7 @@
 //
 
 // Works. Log(m*n)
-class Solution {
+class Solution3 {
 public:
    bool searchMatrix(vector<vector<int>>& matrix, int target) {
        if (matrix.size() == 0 || matrix[0].size() == 0) return false;
@@ -24,7 +24,7 @@ public:
    }
 }
 
-// This works too. But is Log(m) + Log(n).
+// This works，but is Log(m) + Log(n).
 class Solution2 {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
