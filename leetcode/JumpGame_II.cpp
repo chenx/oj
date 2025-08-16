@@ -120,7 +120,7 @@ public:
     }
 };
 
-// This works. 11/9/2014
+// This works. 11/9/2014. Seems best, easiest to understand.
 class Solution6 {
 public:
     int jump(int A[], int n) {
