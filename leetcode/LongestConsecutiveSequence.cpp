@@ -59,7 +59,7 @@ public:
         int n = *s.begin(), len = 1;
         s.erase(n);
         
-        for (int i = n + 1; s.count(i); ++ i) { // ok to use: s.find(i) != s.end()
+        for (int i = n + 1; s.count(i); ++ i) { // Or: s.find(i) != s.end(); Or: s.contains(i).
             s.erase(i);
             ++ len;
         }
