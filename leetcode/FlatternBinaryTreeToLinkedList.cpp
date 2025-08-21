@@ -25,6 +25,49 @@ struct TreeNode {
       TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+// Works. Recursive. 2025-08-21
+class Solution4 {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* tail = NULL;
+        build(root, tail);
+    }
+
+    TreeNode* build(TreeNode* root, TreeNode*& tail) {
+        if (!root) {
+            tail = NULL;
+            return NULL;
+        }
+        if (!root->left && !root->right) {
+            tail = root;
+            return root;
+        }
+
+        TreeNode* Ltail = NULL, *Rtail = NULL;
+        TreeNode* L = build(root->left, Ltail);
+        TreeNode* R = build(root->right, Rtail);
+
+        root->left = NULL;
+
+        if (L && R) {
+            root->right = L;
+            // Ltail->left = NULL;
+            Ltail->right = R;
+            tail = Rtail;
+        } else if (L) {
+            root->right = L;
+            // Ltail->left = NULL;
+            // Ltail->right = NULL;
+            tail = Ltail;
+        } else if (R) {
+            root->right = R;
+            tail = Rtail;
+        }
+
+        return root;
+    }
+};
+
 // This works too. Use preorder traversal.
 class Solution3 {
 public:
