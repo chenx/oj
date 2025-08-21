@@ -5,7 +5,47 @@
 // @Last modified: 2/3/2013
 //
 
-// Works.
+// Works. DFS.
+class Solution5 {
+public:
+    void solve(vector<vector<char>>& board) {
+        int rows = board.size();
+        if (rows == 0) return;
+        int cols = board[0].size();
+
+        for (int i = 0; i < rows; i ++) {
+            mark(board, i, 0, rows, cols);
+            mark(board, i, cols-1, rows, cols);
+        }
+        for (int j = 0; j < cols; j ++) {
+            mark(board, 0, j, rows, cols);
+            mark(board, rows-1, j, rows, cols);
+        }
+
+        for (int i = 0; i < rows; i ++) {
+            for (int j = 0; j < cols; j ++) {
+                if (board[i][j] == 'O') board[i][j] = 'X';
+                else if (board[i][j] == 'K') board[i][j] = 'O';
+            }
+        }
+    }
+
+    void mark(vector<vector<char>>& board, int i, int j, int rows, int cols) {
+        if (board[i][j] != 'O') return;
+
+        static vector<vector<int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+
+        board[i][j] = 'K';
+        for (int k = 0; k < dirs.size(); k ++) {
+            int row = i + dirs[k][0], col = j + dirs[k][1];
+            if (row >= 0 && row < rows && col >= 0 && col < cols) {
+                mark(board, row, col, rows, cols);
+            }
+        }
+    }
+};
+
+// Works. BFS.
 class Solution4 {
     int m, n;
 public:
