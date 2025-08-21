@@ -137,6 +137,31 @@ public:
     
 };
 
+// Works. Leverl order traversal.
+class Solution5 {
+public:
+    Node* connect(Node* root) {
+        if (!root) return NULL;
+
+        queue<Node*> q;
+        q.push(root);
+
+        while(! q.empty()) {
+            for (int i = 0, len = q.size(); i < len; i ++) {
+               Node* n = q.front();
+               q.pop();
+
+               n->next = (i < len - 1) ? q.front() : NULL;
+
+               if (n->left) q.push(n->left);
+               if (n->right) q.push(n->right);
+            }
+        }
+
+       return root;
+    }
+};
+
 /*
 Problem:
 
