@@ -5,6 +5,32 @@
 // @Last modified: 12/26/2012
 //
 
+// Works. Level order traversal.
+class Solution5 {
+public:
+    Node* connect(Node* root) {
+        if (!root) return NULL;
+
+        queue<Node*> q;
+        q.push(root);
+
+        while(! q.empty()) {
+            for (int i = 0, len = q.size(); i < len; i ++) {
+                Node* n = q.front();
+                q.pop();
+
+                if (i < len - 1) {
+                    n->next = q.front();
+                }
+
+                if (n->left) q.push(n->left);
+                if (n->right) q.push(n->right);
+            }
+        }
+
+        return root;
+    }
+};
 
 // This works too and is the best!
 class Solution4 {
