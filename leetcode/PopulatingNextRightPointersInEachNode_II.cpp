@@ -137,8 +137,38 @@ public:
     
 };
 
-// Works. Leverl order traversal.
+// Works.
 class Solution5 {
+public:
+    Node* connect(Node* root) {
+        return conn(root, NULL);
+    }
+
+    Node* conn(Node* root, Node* next) {
+        if (!root) return NULL;
+        root->next = next;
+
+        Node* nextChild = getNextChild(next);
+
+        if (root->right) {
+            conn(root->right, nextChild);  // Note this goes first.
+            conn(root->left, root->right);
+        } else {
+            conn(root->left, nextChild);
+        }
+        return root;
+    }
+
+    Node* getNextChild(Node* next) {
+        if (!next) return NULL;
+        if (next->left) return next->left;
+        if (next->right) return next->right;
+        return getNextChild(next->next);
+    }
+};
+
+// Works. Leverl order traversal.
+class Solution6 {
 public:
     Node* connect(Node* root) {
         if (!root) return NULL;
