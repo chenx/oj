@@ -5,6 +5,38 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution6 {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy;
+        dummy.next = head;
+        ListNode * h = head, * prev = &dummy;
+        bool hasDup = false;
+
+        while (h) {
+            if (h->next && h->val == h->next->val) {
+                ListNode * tmp = h->next;
+                h->next = h->next->next;
+                delete tmp;
+                hasDup = true;
+            } else {
+                if (hasDup) {  // Remove the first duplicate node.
+                    ListNode * tmp = h;
+                    h = h->next;
+                    prev->next = h;
+                    delete tmp;
+                    hasDup = false;
+                } else {
+                    prev = h;
+                    h = h->next;
+                }
+            }
+        }
+        return dummy.next;
+    }
+};
+
 // Works. Tested. Best.
 class Solution5 {
 public:
