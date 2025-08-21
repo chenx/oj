@@ -5,6 +5,44 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution5 {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode dummy;
+        dummy.next = head;
+        ListNode *L = head, *Lprev = &dummy, *R = head, *Rnext = NULL;
+        
+        for (int i = 1; i < left; i ++) {
+            Lprev = L;
+            L = L->next;
+        }
+        for (int i = 1; i < right; i ++) {
+            R = R->next;
+        }
+        Rnext = R->next;
+        R->next= NULL; // don't forget this!
+
+        Lprev->next = reverse(L, R);
+        if (R) R->next = Rnext;
+        return dummy.next;
+    }
+
+    ListNode* reverse(ListNode* head, ListNode*& tail) {
+        tail = head;
+        ListNode * h = NULL;
+        
+        while (head != NULL) {
+            ListNode * tmp = h;
+            h = head;
+            head = head->next;
+            h->next = tmp;
+        }
+        
+        return h;
+    }
+};
+
 // Works. Tested. Use dummy node to simplify code.
 class Solution4 {
 public:
