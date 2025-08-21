@@ -19,9 +19,7 @@ public:
                 Node* n = q.front();
                 q.pop();
 
-                if (i < len - 1) {
-                    n->next = q.front();
-                }
+                n->next = (i < len - 1) ? q.front() : NULL;
 
                 if (n->left) q.push(n->left);
                 if (n->right) q.push(n->right);
