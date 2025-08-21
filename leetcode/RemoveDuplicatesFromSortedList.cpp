@@ -5,6 +5,25 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution6 {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode * h = head;
+
+        while (h) {
+            if (h->next && h->val == h->next->val) {
+                ListNode * tmp = h->next;
+                h->next = h->next->next;
+                delete tmp;
+            } else {
+                h = h->next;
+            }
+        }
+        return head;
+    }
+};
+
 // Works. Maybe best for interation solution.
 class Solution5 {
 public:
