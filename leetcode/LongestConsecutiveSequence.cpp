@@ -58,8 +58,10 @@ public:
     int getMaxLen(unordered_set<int> &s) {
         int n = *s.begin(), len = 1;
         s.erase(n);
-        
-        for (int i = n + 1; s.count(i); ++ i) { // Or: s.find(i) != s.end(); Or: s.contains(i).
+
+        // s.count(i) can be replaced by "s.find(i) != s.end()" Or "s.contains(i)".
+        // The "contains()" function in unorder_set or set is available since C++20.
+        for (int i = n + 1; s.count(i); ++ i) {
             s.erase(i);
             ++ len;
         }
