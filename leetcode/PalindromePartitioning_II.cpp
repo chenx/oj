@@ -16,6 +16,19 @@
 #include <string>
 using namespace std;
 
+// This should work, but OOO. Solution6_2 is the best.
+class Solution7 {
+public:
+    int minCut(string s) {
+        vector<vector<string>> partitions = partition(s);
+        int ct = INT_MAX;
+        for (const auto& p : partitions) {
+            if (ct > p.size()) ct = p.size();
+        }
+        return ct - 1;
+    }
+}
+
 // Works. Slightly modified from Solution6.
 class Solution6_2 {
 public:
