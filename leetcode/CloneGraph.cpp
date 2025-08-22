@@ -7,6 +7,34 @@
  * };
  */
 
+// Works. BFS, more clean than Solution6.
+class Solution7 {
+public:
+    Node* cloneGraph(Node* node) {
+        if (! node) return NULL;
+
+        unordered_map<Node*, Node*> m;
+        m[node] = new Node(node->val);
+
+        queue<Node*> q;
+        q.push(node);
+
+        while (! q.empty()) {
+            Node* n = q.front();
+            q.pop();
+
+            for (Node* neighbor : n->neighbors) {
+                if (! m.contains(neighbor)) {
+                    m[neighbor] = new Node(neighbor->val);
+                    q.push(neighbor);
+                }
+                m[n]->neighbors.push_back(m[neighbor]);
+            }
+        }
+
+        return m[node];
+    }
+}
 
 // Works. Tested. So far best BFS.
 class Solution6 {
