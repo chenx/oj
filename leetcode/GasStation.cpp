@@ -47,6 +47,10 @@ public:
 // The idea is: this can be converted to the maximum subarray sum problem: 
 //    find the max subarray, use the start of this subarray as the starting point.
 //    If this is not possible, then other starting points will not be possible either.
+//
+// This can be converted to the maximum subarray sub problem, because starting with this subarray,
+// you can accumulate the max amount of gas at the beginning to be used later.
+//
 // http://stackoverflow.com/questions/2286849/algorithm-for-truck-moving-around-a-circle-of-gas-stations
 //
 class Solution3 {
