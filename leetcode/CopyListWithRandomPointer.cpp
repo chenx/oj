@@ -7,8 +7,35 @@ struct RandomListNode {
     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
 };
 
+// Works. Best solution.
+class Solution4 {
+public:
+    Node* copyRandomList(Node* head) {
+        if (!head) return NULL;
 
-// This works. Best solution so far. 2/1/2016
+        Node *h, *n;
+        for (h = head; h; h = n->next) {
+            n = new Node(h->val);
+            n->next = h->next;
+            h->next = n;
+        }
+
+        for (h = head; h; h = h->next->next) {
+            h->next->random = h->random ? h->random->next : NULL;
+        }
+
+        Node* copy = head->next;
+        for(h = head; h; h = h->next) {
+            n = h->next;
+            h->next = n->next;
+            n->next = h->next ? h->next->next : NULL;
+        }
+
+        return copy;
+    }
+};
+
+// This works. 2/1/2016
 // Pay attention to how split is done.
 class Solution3 {
 public:
