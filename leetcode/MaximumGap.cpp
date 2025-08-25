@@ -152,7 +152,6 @@ You may assume all elements in the array are non-negative integers and fit in th
  */
 
 /**
-
 Solution Approach (Bucket Sort / Pigeonhole Principle):
 A common and efficient approach to solve this problem within the linear time and space constraints is to
 use a variation of bucket sort combined with the pigeonhole principle.
