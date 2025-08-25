@@ -1,3 +1,43 @@
+// Works.
+class Solution8 {
+public:
+    int compareVersion(string version1, string version2) {
+        vector<int> v1 = stringToVector(version1);
+        vector<int> v2 = stringToVector(version2);
+        return (v1.size() > v2.size()) ? -comp(v2, v1) : comp(v1, v2);
+    }
+
+    int comp(vector<int>& v1, vector<int>& v2) {
+        // v1 is shorter than v2.
+        int n1 = v1.size(), n2 = v2.size(), i = 0;
+        for (; i < n1; i ++) {
+            if (v1[i] < v2[i]) return -1;
+            if (v1[i] > v2[i]) return 1;
+        }
+
+        for (; i < n2; i ++) {
+            if (0 < v2[i]) return -1;
+        }
+        return 0;
+    }
+
+    vector<int> stringToVector(string& version) {
+        vector<int> v;
+        int n = 0;
+        for (int i = 0; i < version.length(); i ++) {
+            if (version[i] == '.') {
+                v.push_back(n);
+                n = 0;
+            } else {
+                n = n*10 + (version[i] - '0');
+            }
+        }
+        v.push_back(n);
+
+        return v;
+    }
+};
+
 // Works. Same as Solution6, but use string, not pointer.
 class Solution7 {
 public:
@@ -23,7 +63,7 @@ public:
         
         int v = 0;
         while (isdigit(version[p])) {
-            v = v * 10 + version[p] - '0';
+            v = v * 10 + (version[p] - '0');  // Parenthese are needed.
             ++ p;
         }
         return v;
