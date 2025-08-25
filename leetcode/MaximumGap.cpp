@@ -154,7 +154,8 @@ You may assume all elements in the array are non-negative integers and fit in th
 /**
 
 Solution Approach (Bucket Sort / Pigeonhole Principle):
-A common and efficient approach to solve this problem within the linear time and space constraints is to use a variation of bucket sort combined with the pigeonhole principle.
+A common and efficient approach to solve this problem within the linear time and space constraints is to
+use a variation of bucket sort combined with the pigeonhole principle.
 
     Handle Edge Cases:
     If the array has less than two elements, return 0. If all elements are the same, return 0.
@@ -163,16 +164,25 @@ A common and efficient approach to solve this problem within the linear time and
     Determine the minimum (minVal) and maximum (maxVal) values in the input array.
     
     Calculate Bucket Size:
-    Calculate the gap (or bucket size) which is the minimum possible difference between adjacent elements if they were evenly distributed. This can be calculated as ceil((maxVal - minVal) / (n - 1)), where n is the number of elements.
+    Calculate the gap (or bucket size) which is the minimum possible difference between adjacent elements
+    if they were evenly distributed. This can be calculated as ceil((maxVal - minVal) / (n - 1)), where n
+    is the number of elements.
     
     Create Buckets:
-    Create an array of buckets. Each bucket will store the minimum and maximum values that fall within its range. The number of buckets can be calculated as (maxVal - minVal) / gap + 1.
+    Create an array of buckets. Each bucket will store the minimum and maximum values that fall within its
+    range. The number of buckets can be calculated as (maxVal - minVal) / gap + 1.
     
     Distribute Elements into Buckets:
-    Iterate through the input array nums. For each number, determine its corresponding bucket index based on (num - minVal) / gap and update the minimum and maximum values within that bucket.
+    Iterate through the input array nums. For each number, determine its corresponding bucket index based
+    on (num - minVal) / gap and update the minimum and maximum values within that bucket.
     
     Find Maximum Gap:
-    Iterate through the buckets. The maximum gap will occur between the maximum element of a non-empty bucket and the minimum element of the next non-empty bucket. This is because, due to the chosen bucket size, any elements within the same bucket or adjacent elements in different buckets that are not separated by an empty bucket will have a difference less than or equal to the gap. The true maximum gap will be found when skipping over empty buckets. Keep track of the prevMax (the maximum value of the previously processed non-empty bucket) and update the maxGap by comparing bucket.min - prevMax. 
+    Iterate through the buckets. The maximum gap will occur between the maximum element of a non-empty
+    bucket and the minimum element of the next non-empty bucket. This is because, due to the chosen bucket
+    size, any elements within the same bucket or adjacent elements in different buckets that are not
+    separated by an empty bucket will have a difference less than or equal to the gap. The true maximum gap
+    will be found when skipping over empty buckets. Keep track of the prevMax (the maximum value of the
+    previously processed non-empty bucket) and update the maxGap by comparing bucket.min - prevMax. 
 
 This method avoids a full sort, allowing for linear time complexity, and uses linear extra space for the buckets.
  */
