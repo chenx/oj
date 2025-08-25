@@ -1,3 +1,23 @@
+// Works. Best. Same for the case of K.
+class Solution {
+public:
+    int lengthOfLongestSubstringTwoDistinct(string s) {
+        unordered_map<char, int> m;
+        int maxLen = 0;
+
+        for (int i = 0, j = 0, n = s.length(); i < n; i ++) {
+            m[s[i]] ++;
+            while (m.size() > 2) {
+                m[s[j]] --;
+                if (m[s[j]] == 0) m.erase(s[j]);
+                j ++;
+            }
+            maxLen = max(maxLen, i - j + 1);
+        }
+        return maxLen;
+    }
+};
+
 // This works. Tested.
 // From leetcode solution.
 // Note: 1) it's easy to extend from 2 to k. 2) to find minlen is also easy.
