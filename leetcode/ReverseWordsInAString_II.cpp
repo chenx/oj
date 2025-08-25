@@ -1,3 +1,26 @@
+// Works.
+class Solution5 {
+public:
+    void reverseWords(vector<char>& s) {
+        int begin = 0, i = 0, n = s.size();
+        for (; i < n; i ++) {
+            if (s[i] == ' ') {
+                reverse(s, begin, i - 1);
+                begin = i + 1;
+                continue;
+            }
+        }
+        reverse(s, begin, i - 1);
+        reverse(s, 0, n - 1);
+    }
+
+    void reverse(vector<char>& s, int begin, int end) {
+        while (begin < end) {
+            swap(s[begin ++], s[end --]);
+        }
+    }
+};
+
 // Should work. Modified from Solution3, on the function reverse().
 class Solution4 {
 public:
