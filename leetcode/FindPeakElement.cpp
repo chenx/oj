@@ -1,4 +1,29 @@
+// Works. Test. Best.
+// Previous test cases has error for test case [3,4,3,2,1].
+class Solution {
+public:
+    int findPeakElement(vector<int>& num) {
+        int n = num.size();
+        if (n <= 1) return 0;
+        if (n == 2) return (num[0] > num[1] ? 0 : 1);
+        
+        int L = 0, R = n - 1;
+        while (L <= R) {
+            int M = L + (R - L)/2;
+            
+            if (M == 0 && num[0] > num[1]) return 0;
+            if (M == n-1 && num[n-1] > num[n-2]) return n-1;
+            if (num[M] > num[M-1] && num[M] > num[M+1]) return M;
+            
+            if (num[M] < num[M+1]) L = M+1;
+            else R = M;
+        }
+        return 0; // does not matter.
+    }
+};
+
 // Works. Easy to understand. Logically sound.
+// But fails for test case [3,4,3,2,1]
 class Solution6 {
 public:
     int findPeakElement(const vector<int> &num) {
