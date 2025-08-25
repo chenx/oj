@@ -3,7 +3,7 @@ class Solution2 {
 public:
     int LongestSubstrWithAtMostKDistinctChar(string s, int k) {
         map<char, int> count;
-        int total = 0, maxLen = 0;
+        int maxLen = 0;
 
         for (int i = 0, j = 0; i < s.length(); ++ i) {
             ++ count[s[i]];
