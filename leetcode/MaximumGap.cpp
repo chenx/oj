@@ -1,3 +1,61 @@
+// Works. O(n) time, O(n) space.
+class Solution3 {
+public:
+    int maximumGap(vector<int>& nums) {
+        int n = nums.size();
+        if (n < 2) return 0;
+        int minVal = INT_MAX, maxVal = INT_MIN;
+        for (auto num : nums) {
+            minVal = min(minVal, num);
+            maxVal = max(maxVal, num);
+        }
+
+        long long maxDiff = (long long) maxVal - minVal;
+        int bucketSize = ceil(maxDiff / (n-1));
+        if (bucketSize == 0) bucketSize = 1;
+
+        int numBuckets = maxDiff / bucketSize + 1;
+        vector<vector<int>> buckets(numBuckets, vector<int>());
+
+        for (auto num: nums) {
+            int i = (num - minVal) / bucketSize;
+            if (buckets[i].size() == 0) {
+                buckets[i].push_back(num); // min
+                buckets[i].push_back(num); // max
+            } else {
+                buckets[i][0] = min(buckets[i][0], num);
+                buckets[i][1] = max(buckets[i][1], num);
+            }
+        }
+
+        int prevBucket = -1, maxGap = 0;
+        for (int i = 0; i < buckets.size(); i ++) {
+            if (buckets[i].size() > 0) {
+                if (prevBucket == -1) {
+                    maxGap = buckets[i][1] - buckets[i][0];
+                } else {
+                    maxGap = max(maxGap, buckets[i][1] - buckets[i][0]);
+                    maxGap = max(maxGap, buckets[i][0] - buckets[prevBucket][1]);
+                }
+                prevBucket = i;
+            }
+        }
+        return maxGap;
+    }
+
+    // This is O(n*log(n)) time.
+    int maximumGap2(vector<int>& nums) {
+        if (nums.size() < 2) return 0;
+        sort(nums.begin(), nums.end());  // n*log(n)
+
+        int maxGap = 0;
+        for (int i = 1; i < nums.size(); i ++) {
+            maxGap = max(maxGap, nums[i] - nums[i-1]);
+        }
+        return maxGap;
+    }
+};
+
 // Works too. O(n). Improved from Solution.
 class Solution2 {
 public:
