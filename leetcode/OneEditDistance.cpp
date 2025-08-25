@@ -1,8 +1,8 @@
-// Should Work. Not tested.
+// Works. Tested.
 class Solution2 {
-    bool IsOneEditDistance(string s, string t) {
+    bool isOneEditDistance(string s, string t) {
         int n1 = s.length(), n2 = t.length();
-        if (n1 > n2) return IsOneEditDistance(t, s);
+        if (n1 > n2) return isOneEditDistance(t, s);
         if (n2 > n1 + 1) return false;
 
         if (n1 == n2) {
