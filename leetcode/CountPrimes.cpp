@@ -1,3 +1,21 @@
+// Works. Most clean so far.
+class Solution6 {
+public:
+    int countPrimes(int n) {
+        if (n <= 1) return 0;
+
+        vector<int> P(n, 1);
+        for (int i = 2; i*i < n; ++ i) {
+            if (P[i] == 0) continue;
+            for (int j = i; j*i < n; ++ j) {
+                P[j*i] = 0;
+            }
+        }
+
+        return accumulate(P.begin() + 2, P.end(), 0);
+    }
+};
+
 // Works. Best so far.
 class Solution5 {
 public:
