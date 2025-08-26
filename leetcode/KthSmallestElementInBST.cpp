@@ -151,3 +151,36 @@ Hint:
     The optimal runtime complexity is O(height of BST).
 
  */
+
+/**
+To optimize finding the k-th smallest element in a frequently modified BST, the most efficient approach
+involves augmenting the BST nodes with additional information.
+
+Augmented BST with Node Counts:
+    Node Augmentation:
+    Modify each node in the BST to store an additional field, typically count or size, representing the
+    total number of nodes in its subtree (including itself).
+
+Maintaining Counts during Operations:
+
+    Insert: When inserting a new node, traverse the tree as usual. For every node encountered on the
+    path from the root to the insertion point, increment its count field.
+
+Delete: When deleting a node, traverse the tree to find the node. After performing the deletion 
+(and any necessary rebalancing, if it's a self-balancing BST like an AVL tree or Red-Black Tree), 
+decrement the count field of all nodes on the path from the root to the deleted node's effective position.
+
+Finding the k-th Smallest:
+    Start at the root.
+ 
+    At each node, compare k with the count of its left child's subtree (let's call it left_subtree_size).
+    - If k <= left_subtree_size, the k-th smallest element is in the left subtree. 
+      Recurse on the left child with the same k. 
+    - If k == left_subtree_size + 1, the current node is the k-th smallest element.
+    - If k > left_subtree_size + 1, the k-th smallest element is in the right subtree. 
+      Recurse on the right child with k - (left_subtree_size + 1). 
+
+This approach allows finding the k-th smallest element in O(log n) time (for balanced BSTs), as the 
+search path is guided by the subtree counts, similar to a binary search. Insert and delete operations
+also remain O(log n) as only the nodes along the path to the inserted/deleted node need their counts updated.
+ */
