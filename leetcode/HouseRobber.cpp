@@ -1,5 +1,41 @@
-// Works too. O(1) space!
+// Works. O(1) space.
+class Solution5 {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+
+        int a = nums[0], b = max(nums[0], nums[1]);
+        for (int i = 2; i < n; ++ i) {
+            int tmp = max(b, nums[i] + a);
+            a = b;
+            b = tmp;
+        }
+        return b;
+    }
+};
+
+// Works.
 class Solution4 {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+
+        vector<int> maxVal(n);
+        maxVal[0] = nums[0];
+        maxVal[1] = max(nums[0], nums[1]);
+        for (int i = 2; i < n; ++ i) {
+            maxVal[i] = max(maxVal[i-1], nums[i] + maxVal[i-2]);
+        }
+        return maxVal[n-1];
+    }
+};
+
+// Works too. O(1) space!
+class Solution3 {
 public:
     int rob(vector<int>& nums) {
         int n = nums.size();
@@ -17,7 +53,7 @@ public:
 };
 
 // Works too.
-class Solution3 {
+class Solution2 {
 public:
     int rob(vector<int>& nums) {
         int n = nums.size();
@@ -31,24 +67,6 @@ public:
         }
         
         return v[n];
-    }
-};
-
-// Works.
-class Solution2 {
-public:
-    int rob(vector<int>& nums) {
-        int n = nums.size();
-        if (n == 0) return 0;
-        if (n == 1) return nums[0];
-
-        vector<int> maxVal(n);
-        maxVal[0] = nums[0];
-        maxVal[1] = max(nums[0], nums[1]);
-        for (int i = 2; i < n; ++ i) {
-            maxVal[i] = max(maxVal[i-1], nums[i] + maxVal[i-2]);
-        }
-        return maxVal[n-1];
     }
 };
 
