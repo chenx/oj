@@ -30,10 +30,16 @@ public:
         // or:
         // return s.length() == 1 || (s.length() > 1 && s[0] != '0');
     }
-    
+
     bool le(string a, string b) {
-        return stoi(a) <= stoi(b);
+        if (a == "") a = "0";
+        if (b == "") b = "0";
+        return stol(a) <= stol(b);
     }
+
+    // bool le(string a, string b) {
+    //     return stoi(a) <= stoi(b);
+    // }
     
     /*int stoi(string s) {
         stringstream ss(s);
