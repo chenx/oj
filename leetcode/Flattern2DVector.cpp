@@ -1,4 +1,4 @@
-// Should work. Tested locally. Better than Solution.
+// Works. Tested. Better than Solution.
 // This goes through all rows of 2D vector.
 // By: X.C. 4/14/2016
 class Vector2D4 {
