@@ -1,3 +1,32 @@
+// Works.
+class WordDistance4 {
+    unordered_map<string, vector<int>> m;
+    unordered_map<string, int> cache;
+public:
+    WordDistance(vector<string>& wordsDict) {
+        for (int i = 0; i < wordsDict.size(); ++ i) {
+            m[wordsDict[i]].push_back(i);
+        }
+    }
+    
+    int shortest(string word1, string word2) {
+        if (word1 > word2) return shortest(word2, word1);
+        if (cache.contains(word1 + " " + word2)) return cache[word1 + " " + word2];
+
+        vector<int> &v1 = m[word1], &v2 = m[word2];
+        int n1 = v1.size(), n2 = v2.size(), minDist = INT_MAX;
+
+        for (int i = 0, j = 0; i < n1 && j < n2; ) {
+            minDist = min(minDist, abs(v1[i] - v2[j]));
+            if (v1[i] < v2[j]) ++ i;
+            else ++ j;
+        }
+
+        cache[word1 + " " + word2] = minDist;
+        return minDist;
+    }
+};
+
 // Should work. Tested locally. From lnkin intv.
 class WordDistance3 {
     map<string, vector<int> > m;
