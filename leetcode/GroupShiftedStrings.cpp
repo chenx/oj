@@ -1,4 +1,28 @@
-// Should work. Not tested.
+// Works. getKey() function here is more efficient than previous ones.
+class Solution3 {
+public:
+    vector<vector<string>> groupStrings(vector<string>& strings) {
+        unordered_map<string, vector<string>> m;
+        for (auto& s: strings) m[getKey(s)].push_back(s);
+
+        vector<vector<string>> ans;
+        for (auto& p : m) {
+            sort(p.second.begin(), p.second.end());
+            ans.push_back(p.second);
+        }
+        return ans;
+    }
+
+    string getKey(string& s) {
+        string k;
+        for (int i = 0; i < s.length(); ++ i) {
+            k += (s[i] - s[0] + 26) % 26  + 'a'; 
+        }
+        return k;
+    }
+};
+
+// Should work.
 class Solution2 {
 public:
     vector<vector<string>> groupStrings(vector<string>& strings) {
