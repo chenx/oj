@@ -12,6 +12,11 @@ private:
             if (col < base[row].size()) break;
             else col = 0;
         }
+        // or:
+        // while (row < base.size()) {
+        //     if (col < base[row].size()) break;
+        //     else col = 0, ++ row;
+        // }
     }
 
 public:
