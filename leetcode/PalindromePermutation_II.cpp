@@ -1,4 +1,68 @@
+// Works. 
+class Solution {
+public:
+    vector<string> generatePalindromes(string s) {
+        vector<string> ans;
+
+        unordered_map<char, int> ct;
+        for (char c : s) ++ ct[c];
+
+        vector<char> odd, even;
+        for (auto& e : ct) {
+            if (e.second & 1) odd.push_back(e.first);
+            else even.push_back(e.first);
+        }
+
+        vector<char> input;
+        for (int i = 0; i < even.size(); i ++) {
+            for (int j = 0; j < (ct[even[i]] / 2); ++ j) input.push_back(even[i]);
+        }
+
+        char mid;
+        if (s.length() & 1) {
+            if (odd.size() != 1) return ans;
+            mid = odd[0];  // the char in the middle.
+            for (int j = 0; j < (ct[mid] / 2); ++ j) input.push_back(mid);
+        } else {
+            if (odd.size() > 0) return ans;
+        }
+
+        sort(input.begin(), input.end());
+        do {
+            string p = to_string(input), q = p;
+            reverse(q.begin(), q.end());
+
+            if (s.length() & 1) ans.push_back(p + mid + q);
+            else ans.push_back(p + q);
+        } while (nextPermutation(input));
+
+        return ans;
+    }
+
+    string to_string(vector<char>& v) {
+        string s;
+        for (char c : v) s += c;
+        return s;
+    }
+
+    bool nextPermutation(vector<char> &num) {
+        int n = num.size();
+        if (n == 0) return false;
+
+        int i, j;
+        for (i = n-2; i >= 0 && num[i] >= num[i+1]; -- i) {} // find first num[i] < num[i+1].
+        if (i == -1) return false;
+
+        for (j = n-1; num[j] <= num[i]; -- j) {} // find first elem from right larger than num[i].
+        swap(num[i], num[j]);
+
+        reverse(num.begin() + i + 1, num.end());
+        return true;
+    }
+};
+
 // Should work. Only tested locally. X.C.
+// Not work if a letter appears more than twice. e.g., "aaaa". This will take it as "aa".
 class Solution2 {
 public:
     vector<string> generatePalindromes(string s) {
