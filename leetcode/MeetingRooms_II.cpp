@@ -8,13 +8,15 @@
  * };
  */
  
-// Tested. Works. Modified from Solution. O(n).
+// Tested. Works. Modified from Solution. O(n*log(n)).
 class Solution2 {
 public:
     int minMeetingRooms(vector<Interval>& intervals) {
         sort(intervals.begin(), intervals.end(), comp);
         priority_queue<int, vector<int>, greater<int>> min_heap;
         for(auto interval : intervals){
+            // If a meeting A's end start is later than the start time of the current meeting B, 
+            // remove meeting A. O(log(n)).
             if(!min_heap.empty() && min_heap.top() <= interval.start) min_heap.pop();
             min_heap.push(interval.end);
         }
