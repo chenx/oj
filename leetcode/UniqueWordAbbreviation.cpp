@@ -1,4 +1,27 @@
-// Should work. Not tested.
+// Works. Tested.
+class ValidWordAbbr3 {
+    unordered_map<string, set<string>> m;
+
+    string getAbbr(string& word) {
+        if (word.length() <= 2) return word;
+        return word[0] + to_string(word.length() - 2) + word[word.length() - 1];
+    }
+public:
+    ValidWordAbbr(vector<string>& dictionary) {
+        for (auto& word : dictionary) {
+            m[getAbbr(word)].insert(word);
+        }
+    }
+    
+    bool isUnique(string word) {
+        string abbr = getAbbr(word);
+        if (!m.contains(abbr)) return true;
+        set<string> a = m[abbr];
+        return a.size() == 1 && a.contains(word);
+    }
+};
+
+// Should work. Not tested. May not work if dictionary contains duplicates, e.g., {"a", "a"}.
 class ValidWordAbbr2 {
 public:
     ValidWordAbbr(vector<string> &dictionary) {
