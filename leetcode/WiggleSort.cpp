@@ -1,3 +1,14 @@
+// Works, but is O(nlog(n)). See previous solutions.
+class Solution5 {
+public:
+   void wiggleSort(vector<int>& nums) {
+       sort(nums.begin(), nums.end());
+       for (int i = 1; i < nums.size() - 1; i += 2) {
+           swap(nums[i], nums[i+1]);
+       }
+   }
+};
+
 // Works. Tested locally.
 class Solution4 {
 public:
