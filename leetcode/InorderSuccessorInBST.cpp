@@ -1,3 +1,41 @@
+// Works. But may not be that efficient: if p is the last node, it'll iterate through all nodes.
+class Solution4 {
+public:
+   TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+       if (!root) return NULL;
+
+
+       stack<TreeNode *> st;
+       TreeNode* n = root;
+       bool found = false;
+
+
+       while (true) {
+           while (n) {
+               st.push(n);
+               n = n->left;
+           }
+
+
+           if (st.empty()) {
+               return NULL;
+           }
+           n = st.top();
+           st.pop();
+
+
+           if (found) return n;
+           else if (n->val == p->val) {
+               if (!found) found = true;
+           }
+
+
+           n = n->right;
+       }
+       return NULL;
+   }
+};
+
 // Should work. Tested locally, not in lc. Bottom-up.
 // See: https://github.com/chenx/oj/blob/master/misc/BST_InorderSuccessor.cpp
 class Solution3 {
