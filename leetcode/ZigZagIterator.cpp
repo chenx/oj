@@ -1,3 +1,38 @@
+// Works. Most simple.
+class ZigzagIterator {
+    vector<int> a1, a2;
+    int i1, i2;
+    bool use1;
+public:
+    ZigzagIterator(vector<int>& v1, vector<int>& v2) {
+        a1 = v1;
+        a2 = v2;
+        i1 = i2 = 0;
+        use1 = true;
+    }
+
+    int next() {
+        if (!hasNext()) return -1;
+
+        if (i1 == a1.size()) use1 = false;
+        if (i2 == a2.size()) use1 = true;
+
+        int v = use1 ? a1[i1 ++] : a2[i2 ++];
+        use1 = !use1;
+        return v;
+    }
+
+    bool hasNext() {
+        return i1 < a1.size() || i2 < a2.size();
+    }
+};
+
+/**
+ * Your ZigzagIterator object will be instantiated and called as such:
+ * ZigzagIterator i(v1, v2);
+ * while (i.hasNext()) cout << i.next();
+ */
+
 // Should work. Tested locally only. By: XC
 // This works for any number of input vectors.
 class ZigzagIterator4 {
