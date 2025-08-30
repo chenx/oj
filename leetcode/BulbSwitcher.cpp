@@ -1,3 +1,15 @@
+// Works too.
+class Solution2 {
+public:
+    int bulbSwitch(int n) {
+        int ct = 0;
+        for (int i = 1; i * i <= n; ++ i) {
+            ++ ct;
+        }
+        return ct;
+    }
+};
+
 // 1^2, 2^2, 3^2, ... n.
 class Solution {
 public:
