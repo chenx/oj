@@ -1,3 +1,38 @@
+// Version 2. Works too.
+class comp {
+public:
+   bool operator()(const vector<int> & a, const vector<int> & b) {
+       return a[1] > b[1];
+   }
+};
+
+class Solution2 {
+public:
+   vector<int> topKFrequent(vector<int>& nums, int k) {
+       unordered_map<int, int> m;  // num, count
+       for (int num : nums) m[num] ++;
+
+
+       // Use minQ, so numbers with lower count are removed.
+       priority_queue<vector<int>, vector<vector<int>>, comp> minQ;
+       for (auto e : m) {
+           // vector<int> v(2);
+           // v[0] = e.first; v[1] = e.second;
+           minQ.push({e.first, e.second});
+           if (minQ.size() > k) minQ.pop();
+       }
+
+
+       vector<int> ans;
+       while (!minQ.empty()) {
+           ans.push_back(minQ.top()[0]);
+           minQ.pop();
+       }
+       return ans;
+   }
+};
+
+
 class comp {
 public:
     bool operator()(const pair<int, int> & a, const pair<int, int> & b) {
