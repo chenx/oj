@@ -1,3 +1,25 @@
+// Works. Won't time out.
+class Solution7 {
+    unordered_map<TreeNode*, int> m;
+public:
+    int rob(TreeNode* root) {
+        if (!root) return 0;
+
+        int v1 = getCachedVal(root->left) + getCachedVal(root->right);
+        int v2 = root->val;
+        if (root->left) v2 += getCachedVal(root->left->left) + getCachedVal(root->left->right);
+        if (root->right) v2 += getCachedVal(root->right->left) + getCachedVal(root->right->right);
+
+        return max(v1, v2);
+    }
+
+    int getCachedVal(TreeNode *n) {
+        if (!n) return 0;
+        if (!m.contains(n)) m[n] = rob(n);
+        return m[n];
+    }
+};
+
 // Works. Tested. Modified from Solution5. But Solution5 is most intuitive.
 class Solution6 {
 private:
