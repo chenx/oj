@@ -1,3 +1,35 @@
+// Works.
+class NumMatrix6 {
+    vector<vector<int>> base, sum;
+public:
+    NumMatrix(vector<vector<int>>& matrix) {
+       if (matrix.size() == 0 || matrix[0].size() == 0) return;
+       int m = matrix.size(), n = matrix[0].size();
+
+       base = matrix;
+       sum.resize(m + 1, vector<int>(n + 1, 0));
+
+       for (int i = 1; i <= m; ++ i)
+           for (int j = 1; j <= n; ++ j)
+               sum[i][j] = matrix[i-1][j-1] + sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1];   
+    }
+  
+    void update(int row, int col, int val) {
+       int diff = val - base[row][col];
+       for (int i = row + 1; i < sum.size(); ++ i) {
+           for (int j = col + 1; j < sum[0].size(); ++ j) {
+               sum[i][j] += diff;
+           }
+       }
+
+       base[row][col] = val;
+    }
+  
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        return sum[row2+1][col2+1] - sum[row2+1][col1] - sum[row1][col2+1] + sum[row1][col1];
+    }
+};
+
 // Should work. Tested locally. Further simplified form NumMatrix4.
 class NumMatrix5 {
 public:
