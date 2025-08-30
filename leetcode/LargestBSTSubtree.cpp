@@ -1,4 +1,4 @@
-// Should work. Tested locally. Re-written of Solution4.
+// Works. Re-written of Solution4.
 class Solution5 {
 public:
     int largestBSTSubtree(TreeNode* root) {
@@ -73,7 +73,7 @@ public:
     }
 };
 
-// Don't know if this bottom-up method works or not. Maybe not.
+// Don't know if this bottom-up method works or not. Test this does NOT work.
 class Solution3 {
 public:
     int largestBSTSubtree(TreeNode* root) {
@@ -110,8 +110,7 @@ public:
 };
 
 
-
-// Should work. Not tested. Similar to Solution.
+// Works. Similar to Solution.
 class Solution2 {
 public:
     int largestBSTSubtree(TreeNode* root) {
