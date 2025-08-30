@@ -1,3 +1,29 @@
+// Works. See:
+// https://leetcode.com/problems/verify-preorder-serialization-of-a-binary-tree/editorial/
+class Solution4 {
+public:
+    bool isValidSerialization(string preorder) {
+        vector<string> v = split(preorder);
+        
+        int slots = 1;
+        for (int i = 0; i < v.size(); ++ i) {
+            -- slots;  // both number and NULL node take one slot.
+            if (slots < 0) return false;
+            if (v[i] != "#") slots += 2;  // number adds 2 slots
+        }
+        
+        return slots == 0;
+    }
+
+    vector<string> split(string& s) {
+        istringstream iss(s);
+        string val;
+        vector<string> v;
+        while (getline(iss, val, ',')) v.push_back(val);
+        return v;
+    }
+};
+
 // Works. Tested. Modified from Solution and Solution2.
 class Solution3 {
 public:
