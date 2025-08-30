@@ -1,3 +1,29 @@
+// Works too.
+class NumArray7 {
+    vector<int> base, sum;
+public:
+    NumArray(vector<int>& nums) {
+        base = nums;
+
+        sum.resize(base.size());
+        sum[0] = base[0];
+        for (int i = 1; i < nums.size(); ++ i) sum[i] = sum[i-1] + base[i];
+    }
+    
+    void update(int index, int val) {
+        int diff = val - base[index];
+        for (int i = index; i < sum.size(); ++ i) sum[i] += diff;
+        base[index] = val;
+    }
+    
+    int sumRange(int left, int right) {
+        // This works too:
+        // if (left == 0) return sum[right];
+        // else return sum[right] - sum[left - 1];
+        return sum[right] - sum[left] + base[left];
+    }
+};
+
 // Works too. 1) omit parent()/lowbit() function. 2) use i+1 in add().
 class NumArray6 {
 public:
