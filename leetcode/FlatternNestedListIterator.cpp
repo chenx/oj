@@ -1,3 +1,34 @@
+// Works.
+class NestedIterator4 {
+    vector<int> list;
+    int len, index;
+
+    void flatten(vector<NestedInteger> &nestedList, vector<int>& list) {
+        for (int i = 0; i < nestedList.size(); ++ i) {
+            if (nestedList[i].isInteger()) {
+                list.push_back(nestedList[i].getInteger());
+            } else {
+                flatten(nestedList[i].getList(), list);
+            }
+        }
+    }
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        flatten(nestedList, list);
+        len = list.size();
+        index = 0;
+    }
+    
+    int next() {
+        if (!hasNext()) return -1;
+        return list[index ++];
+    }
+    
+    bool hasNext() {
+        return index < list.size();
+    }
+};
+
 // Should work. Tested locally. XC.
 class NestedIterator3 {
     stack<NestedInteger> s;
