@@ -1,3 +1,25 @@
+// Works.
+// Explanation: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/editorial/ 
+class Solution2 {
+public:
+    int maxSubArrayLen(vector<int>& nums, int k) {
+        unordered_map<int, int> m;
+        int n = nums.size();
+        m[0] = -1;
+        long long sum = 0, maxLen = 0;
+        for (int i = 0; i < n; ++ i) {
+            sum += nums[i];
+            if (!m.contains(sum)) m[sum] = i;
+            if (m.contains(sum - k)) maxLen = max(maxLen, i - m[sum - k]);
+        }
+        return maxLen;
+    }
+
+    long long max(long long a, long long b) {
+        return a > b ? a : b;
+    }
+};
+
 // Works. Tested. O(n).
 // From: https://leetcode.com/discuss/84037/c-easy-understand-solution-with-comment
 // O(n) complexity.
