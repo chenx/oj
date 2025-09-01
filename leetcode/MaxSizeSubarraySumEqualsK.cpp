@@ -8,7 +8,7 @@ public:
         m[0] = -1;
         long long sum = 0, maxLen = 0;
         for (int i = 0; i < n; ++ i) {
-            sum += nums[i];
+            sum += nums[i];  // Prefix sum.
             if (!m.contains(sum)) m[sum] = i;
             if (m.contains(sum - k)) maxLen = max(maxLen, i - m[sum - k]);
         }
