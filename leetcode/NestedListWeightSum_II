@@ -1,0 +1,26 @@
+// Two passes: get maxDepth in the first pass.
+// One pass: (maxDepth + 1) * sumOfElements - sumOfProducts
+// See: https://leetcode.com/problems/nested-list-weight-sum-ii/editorial/
+class Solution {
+public:
+   int depthSumInverse(vector<NestedInteger>& nestedList) {
+       int maxDepth = 0, sumAll = 0;
+       int depthSum = getDepthSum(nestedList, 1, maxDepth, sumAll);
+       return sumAll * (maxDepth + 1) - depthSum;
+   }
+
+
+   int getDepthSum(vector<NestedInteger>& nestedList, int depth, int &maxDepth, int& sumAll) {
+       int sum = 0;
+       maxDepth = max(depth, maxDepth);
+       for (int i = 0; i < nestedList.size(); ++ i) {
+           if (nestedList[i].isInteger()) {
+               sum += depth * nestedList[i].getInteger();
+               sumAll += nestedList[i].getInteger();
+           } else {
+               sum += getDepthSum(nestedList[i].getList(), depth + 1, maxDepth, sumAll);
+           }
+       }
+       return sum;
+   }
+};
