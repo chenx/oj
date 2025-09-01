@@ -1,6 +1,39 @@
 #include <iostream>
 using namespace std;
 
+// Slightly modified from Solution5 and more clear. Works.
+class Solution6 {
+public:
+    bool isMatch(string s, string p) {
+        int si = 0, si0 = 0, pi = 0, pi0 = 0;
+        bool starFound = false;
+        
+        while (true) {
+            if (si == s.length()) {
+                while (p[pi] == '*') ++ pi;
+                return pi == p.length();
+            }
+
+            if (s[si] == p[pi] || p[pi] == '?') {
+                ++ si;
+                ++ pi;
+            } else if (p[pi] == '*') {
+                starFound = true;
+                si0 = si;
+                pi0 = pi;
+                ++ pi;
+            } else {
+                if (starFound) {
+                    si = ++ si0;
+                    pi = pi0 + 1;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
+};
+
 // This works too. Modified from Solution4.
 class Solution5 {
 public:
@@ -359,3 +392,4 @@ public:
 };
 
  */
+
