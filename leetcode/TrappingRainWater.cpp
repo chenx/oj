@@ -8,6 +8,38 @@
 #include <stack>
 using namespace std;
 
+// Works. Best.
+class Solution5 {
+public:
+    int trap(vector<int>& height) {
+        if (height.size() <= 2) return 0;
+
+        int water = 0;
+        stack<int> ht;  // index
+        ht.push(0);
+
+        for (int i = 1; i < height.size(); ++ i) {
+            if (height[i] <= height[ht.top()]) {
+                ht.push(i);
+            } else {
+                int bottom = height[ht.top()];
+                ht.pop();
+                while (!ht.empty() && height[ht.top()] < height[i]) {
+                    int width = i - ht.top() - 1;
+                    water += (height[ht.top()] - bottom) * width;
+                    bottom = height[ht.top()];
+                    ht.pop();
+                }
+                if (!ht.empty()) {
+                    int width = i - ht.top() - 1;
+                    water += (height[i] - bottom) * width;
+                }
+                ht.push(i);
+            }
+        }
+        return water;
+    }
+};
 
 //
 // if bar height decreases (or if first bar), push to stack.
@@ -176,3 +208,4 @@ is able to trap after raining.
 For example,
 Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6. 
  */
+
