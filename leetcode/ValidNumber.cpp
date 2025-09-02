@@ -26,13 +26,11 @@ public:
                 ++ p;
                 while (isdigit(*p)) ++ p;
             }
-        }
-        else if (*p == '.') {  // .(d+)
+        } else if (*p == '.') {  // .(d+)
             ++ p;
             if (! isdigit(*p)) return false;
             while (isdigit(*p)) ++ p;
-        }
-        else {
+        } else {
             return false;
         }
         
@@ -44,7 +42,7 @@ public:
         }
         
         while (isspace(*p)) ++ p;
-        return ! *p;
+        return ! *p;  // Or: return *p == '\0';
     }
 };
 
@@ -467,3 +465,4 @@ You should gather all requirements up front before implementing one.
 Note 2: format of leetcode: (+|-)num(exp), num: [.][d]+ or [d]+([.]([d]+)), exp: e(+|-)[d]+
 Here "()" means the enclosed part happens 0 or 1 time. There can be space before or after, but not in between.
  */
+
