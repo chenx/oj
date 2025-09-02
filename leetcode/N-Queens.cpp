@@ -1,3 +1,47 @@
+// Works. Maybe the best, especially getConfig().
+class Solution6 {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        if (n == 0) return ans;
+
+        vector<int> board(n, 0);
+        solve(ans, board, 0);
+        return ans;
+    }
+
+    void solve(vector<vector<string>>& ans, vector<int>& board, int row) {
+        if (board.size() == row) {
+            ans.push_back(getConfig(board));
+            return;
+        }
+
+        for (int i = 0; i < board.size(); ++ i) {
+            board[row] = i;
+            if (! hasConflict(board, row)) solve(ans, board, row+1);
+        }
+    }
+
+    vector<string> getConfig(vector<int>& board) {
+        int n = board.size();
+        string default_row(n, '.');  // creat a string of n '.' chars.
+        vector<string> config(n, default_row);
+        for (int i = 0; i < n; ++ i) {
+            config[i][board[i]] = 'Q';
+        }
+        return config;
+    }
+
+    bool hasConflict(vector<int>& board, int row) {
+        for (int i = 0; i < row; ++ i) {
+            if (board[i] == board[row]) return true;
+            if (abs(board[row] - board[i]) == row - i) return true;
+        }
+
+        return false;
+    }
+};
+
 // Works too. Tested.
 class Solution5 {
 public:
@@ -290,3 +334,4 @@ There exist two distinct solutions to the 4-queens puzzle:
 ]
  */
  
+
