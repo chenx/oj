@@ -6,6 +6,32 @@
 #include <iostream>
 using namespace std;
 
+// Works. Cleaned up from Solution5.
+class Solution6 {
+public:
+    string getPermutation(int n, int k) {
+        vector<int> Factorial(n);
+        vector<string> nums(n);
+
+        Factorial[0] = 1;
+        nums[0] = "1";
+        for (int i = 1; i < n; ++ i) {
+            Factorial[i] = i * Factorial[i-1];
+            nums[i] = i + 1 + '0';
+        }
+
+        string ans;
+        -- k;
+        for (int i = n - 1; i >= 0; -- i) {
+            int index = k / Factorial[i];
+            ans += nums[index];
+            nums.erase(nums.begin() + index);
+            k -= index * Factorial[i];
+        }
+        return ans;
+    }
+};
+
 // Works.
 // from https://leetcode.com/problems/permutation-sequence/editorial/
 class Solution5 {
@@ -275,4 +301,5 @@ Given n and k, return the kth permutation sequence.
 Note: Given n will be between 1 and 9 inclusive.
 
  */
+
 
