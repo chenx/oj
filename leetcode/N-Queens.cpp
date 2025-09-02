@@ -24,8 +24,9 @@ public:
 
     vector<string> getConfig(vector<int>& board) {
         int n = board.size();
-        string default_row(n, '.');  // creat a string of n '.' chars.
-        vector<string> config(n, default_row);
+        // string default_row(n, '.');  // creat a string of n '.' chars.
+        // vector<string> config(n, default_row);
+        vector<string> config(n, string(n, '.'));
         for (int i = 0; i < n; ++ i) {
             config[i][board[i]] = 'Q';
         }
@@ -334,4 +335,5 @@ There exist two distinct solutions to the 4-queens puzzle:
 ]
  */
  
+
 
