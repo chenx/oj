@@ -6,6 +6,33 @@
 #include <iostream>
 using namespace std;
 
+// Works.
+// from https://leetcode.com/problems/permutation-sequence/editorial/
+class Solution5 {
+public:
+    string getPermutation(int n, int k) {
+        vector<int> factorials(n);  // Factorial system bases
+        vector<char> nums;          // Numbers
+        factorials[0] = 1; // Generate factorial system bases 0!, 1!, ..., (n - 1)!
+        nums.push_back('1');  // Generate numbers 1, 2, ..., n
+        for (int i = 1; i < n; ++i) {
+            factorials[i] = factorials[i - 1] * i;
+            nums.push_back(i + 1 + '0');
+        }
+
+        --k;  // Fit k in the interval 0 ... (n! - 1)
+        // Compute the factorial representation of k
+        string result = "";
+        for (int i = n - 1; i >= 0; -- i) {
+            int index = k / factorials[i];
+            result += nums[index];
+            nums.erase(nums.begin() + index);
+            k -= index * factorials[i];
+        }
+        return result;
+    }
+};
+
 // Works too.
 class Solution4 {
 public:
@@ -248,3 +275,4 @@ Given n and k, return the kth permutation sequence.
 Note: Given n will be between 1 and 9 inclusive.
 
  */
+
