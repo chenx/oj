@@ -7,6 +7,7 @@
 using namespace std;
 
 // Works. Cleaned up from Solution5.
+// Time: O(n^2) for deletion in for loop. Space: O(n).
 class Solution6 {
 public:
     string getPermutation(int n, int k) {
@@ -301,5 +302,6 @@ Given n and k, return the kth permutation sequence.
 Note: Given n will be between 1 and 9 inclusive.
 
  */
+
 
 
