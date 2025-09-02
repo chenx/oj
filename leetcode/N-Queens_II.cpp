@@ -9,6 +9,38 @@
 
 using namespace std;
 
+// Works. Best so far.
+class Solution4 {
+public:
+    int totalNQueens(int n) {
+        int total = 0;
+        vector<int> board(n, 0);
+        solve(total, board, 0);
+        return total;
+    }
+
+    void solve(int& total, vector<int>& board, int row) {
+        if (board.size() == row) {
+            ++ total;
+            return;
+        }
+
+        for (int i = 0; i < board.size(); ++ i) {
+            board[row] = i;
+            if (! hasConflict(board, row)) solve(total, board, row+1);
+        }
+    }
+
+    bool hasConflict(vector<int>& board, int row) {
+        for (int i = 0; i < row; ++ i) {
+            if (board[i] == board[row]) return true;
+            if (abs(board[row] - board[i]) == row - i) return true;
+        }
+
+        return false;
+    }
+};
+
 //
 // For large test set, will time out so far.
 // use iteration?
@@ -168,3 +200,4 @@ public:
     }    
 };
 */
+
