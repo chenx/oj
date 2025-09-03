@@ -10,7 +10,37 @@
 #include <stack>
 using namespace std;
 
-// Works. Best so far.
+// Works. DP.
+// From https://leetcode.com/problems/scramble-string/editorial/
+class Solution7 {
+public:
+    bool isScramble(string s1, string s2) {
+        int n = s1.size();
+        vector dp(n + 1, vector(n, vector<int>(n)));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dp[1][i][j] = s1[i] == s2[j];
+            }
+        }
+        for (int length = 2; length <= n; length++) {
+            for (int i = 0; i < n + 1 - length; i++) {
+                for (int j = 0; j < n + 1 - length; j++) {
+                    for (int newLength = 1; newLength < length; newLength++) {
+                        const vector<int>& dp1 = dp[newLength][i];
+                        const vector<int>& dp2 =
+                            dp[length - newLength][i + newLength];
+                        dp[length][i][j] |= dp1[j] && dp2[j + newLength];
+                        dp[length][i][j] |=
+                            dp1[j + length - newLength] && dp2[j];
+                    }
+                }
+            }
+        }
+        return dp[n][0][0];
+    }
+};
+
+// Works. Best so far. But times out for large input.
 class Solution6 {
 public:
     bool isScramble(string s1, string s2) {
@@ -434,3 +464,4 @@ We say that "rgtae" is a scrambled string of "great".
 Given two strings s1 and s2 of the same length, determine 
 if s2 is a scrambled string of s1. 
  */
+
