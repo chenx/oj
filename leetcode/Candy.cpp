@@ -1,4 +1,23 @@
 // Works too.
+class Solution4 {
+public:
+    int candy(vector<int>& ratings) {
+        int n = ratings.size();
+        vector<int> ct(n, 1);
+
+        for (int i = 1; i < n; ++ i) {
+            if (ratings[i] > ratings[i-1]) ct[i] = ct[i-1] + 1;
+        }
+
+        for (int i = n-2; i >= 0; -- i) {
+            if (ratings[i] > ratings[i+1]) ct[i] = max(ct[i], ct[i+1] + 1);
+        }
+
+        return accumulate(ct.begin(), ct.end(), 0);
+    }
+};
+
+// Works too.
 class Solution3 {
 public:
     int candy(vector<int>& ratings) {
@@ -102,3 +121,4 @@ You are giving candies to these children subjected to the following requirements
 
 What is the minimum candies you must give? 
  */
+
