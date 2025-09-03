@@ -10,6 +10,7 @@ class Solution5 {
 public:
     int numDistinct(string s, string t) {
         int n1 = s.length(), n2 = t.length();
+        // Note: use "unsigned int" instead of "int" for most recent version to avoid overflow.
         vector<vector<int> > v(n1 + 1, vector<int>(n2 + 1, 0));
         
         for (int j = 0; j <= n2; ++ j) v[0][j] = 0; // s == "", j can start from 1.
@@ -142,3 +143,4 @@ S = "rabbbit", T = "rabbit"
 
 Return 3. 
  */
+
