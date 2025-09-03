@@ -15,6 +15,35 @@
 #include <set>
 using namespace std;
 
+// Works. Adapted from Solution5. 2025-09-02
+class Solution7 {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n = s.length();
+        vector<bool> DP(1 + n, false);
+
+        unordered_set<string> dict;
+        for (auto& word: wordDict) dict.insert(word);
+
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.contains(t)) {
+                DP[i] = true;
+                continue;
+            }
+        
+            for (int j = 1; j < i; ++ j) {
+                string t = s.substr(j, i - j);
+                if (dict.contains(t) && DP[j]) {
+                    DP[i] = true;
+                    break;
+                }
+            }
+        }
+        return DP[n];
+    }
+};
+
 // Works, but time out for large input.
 class Solution6 {
 public:
@@ -253,4 +282,5 @@ dict = ["leet", "code"].
 
 Return true because "leetcode" can be segmented as "leet code".
 */
+
 
