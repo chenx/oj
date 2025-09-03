@@ -11,6 +11,7 @@ class Solution5 {
 public:
     int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
         if (beginWord == endWord) return 1;
+        if (!wordList.contains(endWord)) return 0;
         
         queue<pair<string, int>> q;
         q.push(pair<string, int>(beginWord, 1));
@@ -263,3 +264,4 @@ return its length 5.
 Note:
 Return 0 if there is no such transformation sequence. 
  */
+
