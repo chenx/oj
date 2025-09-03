@@ -6,6 +6,90 @@
 // @Last modified: 4/7/2013
 //
 
+class Solution2 {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        if (beginWord == endWord) return 1;
+        unordered_set<string> words;
+        for (auto w: wordList) words.insert(w);
+        if (!words.contains(endWord)) return 0;
+        
+        queue<pair<string, int>> q;
+        q.push(pair<string, int>(beginWord, 1));
+        
+        unordered_set<string> used;
+        used.insert(beginWord);
+        
+        while (! q.empty()) {
+            string w = q.front().first;
+            int dist = q.front().second + 1; // use +1
+            q.pop(); // don't forget this.
+            
+            for (int i = 0; i < w.length(); ++ i) {
+                char backup = w[i];
+                for (char c = 'a'; c <= 'z'; ++ c) {
+                    w[i] = c;
+                    
+                    if (w == endWord) return dist;
+                    else {
+                        if (words.count(w) && ! used.count(w)) {
+                            q.push(pair<string, int>(w, dist));
+                            used.insert(w); // don't forget this.
+                        }
+                    }
+                }
+                w[i] = backup;
+            }
+        }
+
+        return 0;
+    }
+};
+
+// Works. 2025-09-02
+class Solution6 {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        if (beginWord.length() != endWord.length()) return 1;
+        unordered_set<string> words;
+        for (auto w: wordList) words.insert(w);
+        if (!words.contains(endWord)) return 0;
+
+        int n = beginWord.length(), len = 0;
+
+        queue<pair<string, int>> q;
+        q.push(pair<string, int>(beginWord, 1));
+
+        unordered_set<string> used;
+        used.insert(beginWord);
+
+        while (!q.empty()) {
+            string s = q.front().first;
+            int len = q.front().second;
+            q.pop();
+
+            for (int i = 0; i < n; ++ i) {
+                char usedChar = s[i];
+                for (char c = 'a'; c <= 'z'; ++ c) {
+                    if (c == usedChar) continue;
+                    s[i] = c;
+
+                    // This is BFS, so first found path is the shortest.
+                    if (s == endWord) return len + 1;
+
+                    if (!used.contains(s) && words.contains(s)) {
+                        used.insert(s);
+                        q.push(pair<string, int>(s, len + 1));
+                    }
+                }
+                s[i] = usedChar;
+            }
+        }
+
+        return 0;
+    }
+};
+
 // Works. May be best so far.
 class Solution5 {
 public:
@@ -264,4 +348,5 @@ return its length 5.
 Note:
 Return 0 if there is no such transformation sequence. 
  */
+
 
