@@ -15,6 +15,27 @@
 #include <set>
 using namespace std;
 
+// Works, but time out for large input.
+class Solution6 {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> dict;
+        for (string& w : wordDict) dict.insert(w);
+        return helper(s, dict);
+    }
+
+    bool helper(string& s, unordered_set<string>& dict) {
+        if (dict.contains(s)) return true;
+
+        for (int i = 1; i < s.length(); ++ i) {
+            string s1 = s.substr(0, i), s2 = s.substr(i);
+            if (dict.contains(s1)) {
+                if (helper(s2, dict)) return true;
+            }
+        }
+        return false;
+    }
+};
 
 // Works too. Be careful of boundaries!
 // This should be the one easiest to memorize on boundaries.
@@ -232,3 +253,4 @@ dict = ["leet", "code"].
 
 Return true because "leetcode" can be segmented as "leet code".
 */
+
