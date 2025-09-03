@@ -4,6 +4,38 @@
 #include <vector>
 using namespace std;
 
+// Works. Best so far.
+class Solution7 {
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        vector<string> ans;
+        int n = s.length();
+        vector<vector<string>> DP(1 + n, vector<string>());
+
+        unordered_set<string> dict;
+        for (auto& word: wordDict) dict.insert(word);
+
+        for (int i = 1; i <= n; ++ i) {
+            string t = s.substr(0, i);
+            if (dict.contains(t)) {
+                DP[i].push_back(t);
+            }
+        
+            for (int j = 1; j < i; ++ j) {
+                string t = s.substr(j, i - j);
+                if (dict.contains(t) && DP[j].size() > 0) {
+                    vector<string> v = DP[j];
+                    for (string& u : v) {
+                        DP[i].push_back(u);
+                        DP[i].back() += " " + t;
+                    }
+                }
+            }
+        }
+        return DP[n];
+    }
+};
+
 // Works. Most clean form.
 // See: WorkdBreak, Palindrome Partitioning.
 class Solution6 {
@@ -366,3 +398,4 @@ dict = ["cat", "cats", "and", "sand", "dog"].
 
 A solution is ["cats and dog", "cat sand dog"]. 
 */
+
