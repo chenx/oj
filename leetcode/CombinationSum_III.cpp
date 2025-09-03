@@ -1,4 +1,5 @@
 // Works. From https://leetcode.com/problems/combination-sum-iii/editorial/
+// Time complexity: O(K×C(9,K)), Space Complexity: O(K)
 class Solution4 {
 public:
     void backtrack(int remain, int k, vector<int>& comb, int next_start,
