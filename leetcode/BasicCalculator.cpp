@@ -1,19 +1,32 @@
 /* Works. Further cleaned from Solution7, and ignored unnecessary details. Very good.
  * http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
+    E --> F {( "+" | "-" ) F}
+    F --> G | "-" G
+    G --> num | "(" E ")"
+
+    Include * and /:
     E --> T {( "+" | "-" ) T}
     T --> F {( "*" | "/" ) F}
-    F --> num | "(" E ")"
+    F --> G | "-" G
+    G --> num | "(" E ")"
  * Note: F could be: - T
  */
-class Solution8 {
+class Solution {
 public:
     int calculate(string s) {
         const char *p = s.c_str();
-        return E(p);
+        int v = E(p);
+        if (*p != '\0') throw exception();
+        return v;
     }
 
     void ignoreSpace(const char*& p) { while (isspace(*p)) ++ p; }
-    void expect(const char *& p, char c) { ++ p; }
+    void expect(const char *& p, char c) {
+        if (c != *p) {
+            throw exception();
+        }
+        ++ p; 
+    }
 
     int num(const char*& p) {
         int v = 0;
@@ -27,10 +40,27 @@ public:
         int v = 0;
         if (*p == '(') v = E(++ p), expect(p, ')'); 
         else if (isdigit(*p)) v = num(p); 
-        else if (! *p) v = 0; 
-        else throw exception(); 
 
         ignoreSpace(p);
+        return v;
+    }
+
+    int E(const char *& p) {
+        int v = F(p);
+        while (*p == '+' || *p == '-') {
+            if (*p == '+') v += F(++ p);
+            else v -= F(++ p);
+        }
+        return v;
+    }
+
+    // Use this if including * and / from T().
+    int E2(const char *& p) {
+        int v = T(p);
+        while (*p == '+' || *p == '-') {
+            if (*p == '+') v += T(++ p);
+            else v -= T(++ p);
+        }
         return v;
     }
 
@@ -42,17 +72,7 @@ public:
         }
         return v;
     }
-
-    int E(const char *& p) {
-        int v = T(p);
-        while (*p == '+' || *p == '-') {
-            if (*p == '+') v += T(++ p);
-            else v -= T(++ p);
-        }
-        return v;
-    }
 };
-
 
 // Works. Best so far.  Works for both BasicCalculator and BasicCalculator_II.
 // use isdigit(), and expect. Put all ignoreSpace() to F().
