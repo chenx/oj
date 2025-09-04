@@ -1,3 +1,30 @@
+// Works.
+// Time complexity: O(nlog(min(n,k))). Space complexity: O(min(n,k)).
+// From https://leetcode.com/problems/contains-duplicate-iii/editorial/
+class Solution3 {
+public:
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        set<int> set;
+        for (int i = 0; i < nums.size(); ++i) {
+            // Find the successor of current element
+            auto s = set.lower_bound(nums[i]);
+            if (s != set.end() && *s <= nums[i] + t) return true;
+
+            // Find the predecessor of current element
+            if (s != set.begin()) {
+                auto g = prev(s);
+                if (nums[i] <= *g + t) return true;
+            }
+
+            set.insert(nums[i]);
+            if (set.size() > k) {
+                set.erase(nums[i - k]);
+            }
+        }
+        return false;
+    }
+};
+
 // This works. O(n^2). O(nlog(n)) if nums array is not filled mostly with the same number.
 // See: https://leetcode.com/discuss/74439/c-20-ms-solution-beat-95%25
 class Solution2 {
