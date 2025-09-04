@@ -3,6 +3,71 @@
     E --> F {( "+" | "-" ) F}
     F --> G | "-" G
     G --> num | "(" E ")"
+ */
+class Solution9 {
+public:
+    int calculate(string s) {
+        const char* p = s.c_str();
+        int v = E(p);
+        if (*p != '\0') throw exception();
+        return v;
+    }
+
+    int E(const char*& p) {
+        int v = F(p);
+        while (*p == '+' || *p == '-') {
+            if (*p == '+') v += F(++ p);
+            else v -= F(++ p);
+        }
+        return v;
+    }
+
+    int F(const char*& p) {
+        bool neg = false;
+        if (*p == '-') {
+            neg = true;
+            ++ p;
+        }
+
+        int v = G(p);
+        return neg ? -v : v;
+    }
+
+    int G(const char*& p) {
+        ignoreSpace(p);
+
+        int v = 0;
+        if (*p == '(') {
+            v = E(++ p);
+            expect(p, ')');
+        } else if (isdigit(*p)) {
+            while (isdigit(*p)) {
+                v = v*10 + (*p - '0');
+                ++ p;
+            }
+        }
+
+        ignoreSpace(p);
+        return v;
+    }
+
+    void expect(const char *& p, char c) {
+        if (*p != c) {
+            throw exception();
+        }
+        ++ p;
+    }
+
+    void ignoreSpace(const char *& p) {
+        while (isspace(*p)) ++ p;
+    }
+};
+
+/* Works. Further cleaned from Solution7, and ignored unnecessary details. Very good.
+ * http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
+    E --> F {( "+" | "-" ) F}
+    F --> G | "-" G
+    G --> num | "(" E ")"
 
     Include * and /:
     E --> T {( "+" | "-" ) T}
