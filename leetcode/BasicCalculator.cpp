@@ -11,7 +11,7 @@
     G --> num | "(" E ")"
  * Note: F could be: - T
  */
-class Solution {
+class Solution8 {
 public:
     int calculate(string s) {
         const char *p = s.c_str();
