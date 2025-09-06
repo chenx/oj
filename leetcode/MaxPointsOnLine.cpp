@@ -1,3 +1,73 @@
+// Works. Tested. Sorting no needed.
+// struct comp {
+//     bool operator()(const vector<int>& a, const vector<int>& b) const {
+//         if (a[0] == b[0]) return a[1] < b[1];
+//         return a[0] < b[0];
+//     }
+// };
+
+class Solution3 {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        if (points.size() <= 1) return points.size();
+
+        vector<vector<int>> pts;
+        // map<vector<int>, int, comp> ptsCount;  // no need to sort.
+        map<vector<int>, int> ptsCount;
+        for (vector<int>& p : points) {
+            ++ ptsCount[p];
+            if (ptsCount[p] == 1) pts.push_back(p);
+        }
+        // sort(pts.begin(), pts.end(), comparePoint); // no need to sort.
+        
+        int n = pts.size();
+        if (n == 1) return 1;
+
+        map<vector<double>, vector<vector<int>>> mpt; // (slope, y_insection), point on line
+        map<vector<double>, int> mct;  // point, count
+
+        for (int i = 0; i < n - 1; ++ i) {
+            for (int j = i + 1; j < n; ++ j) {
+                vector<int>& a = pts[i], &b = pts[j];
+
+                vector<double> line(2);
+                if (a[0] == b[0]) {
+                    line[0] = INT_MAX;
+                    line[1] = a[0];
+                } else {
+                    line[0] = 1.0 * (b[1] - a[1]) / (b[0] - a[0]);
+                    line[1] = a[1] - line[0] * a[0];
+                }
+
+                if (!findPoint(mpt[line], a)) {
+                    mpt[line].push_back(a);
+                    mct[line] += ptsCount[a]; 
+                }
+                if (!findPoint(mpt[line], b)) {
+                    mpt[line].push_back(b);
+                    mct[line] += ptsCount[b]; 
+                }
+            }
+        } 
+
+        int maxCount = 0;
+        for (auto e : mct) maxCount = max(maxCount, e.second);
+        return maxCount;
+    }
+
+    bool findPoint(vector<vector<int>>& mpt, vector<int>& point) {
+        for (auto& pt : mpt) {
+            if (pt[0] == point[0] && pt[1] == point[1]) return true;
+        }
+        return false;
+    }
+
+    // static bool comparePoint(const vector<int>& a, const vector<int>& b) {
+    //     if (a[0] == b[0]) return a[1] < b[1];
+    //     return a[0] < b[0];
+    // }
+};
+
 // Works too. Tested. Simplified form Solution.
 // Note:
 // 1) should use map instead of unordered_map, when use custom Comp.
@@ -9,13 +79,13 @@ struct Comp {
     }
 };
 
-class Solution {
+class Solution2 {
 public:
     int maxPoints(vector<Point> &points) {
         if (points.size() <= 1) return points.size();
         
         vector<Point> pts;
-        map<Point, int, Comp> ptsCount;
+        map<Point, int, Comp> ptsCount;  // Note: sorting by Comp is not needed.
         for (auto p : points) {
             ptsCount[p] ++;
             if (ptsCount[p] == 1) pts.push_back(p);
@@ -194,4 +264,5 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
