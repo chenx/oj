@@ -1,4 +1,60 @@
+// Works. Tested.
+class Solution4 {
+public:
+    string alienOrder(vector<string>& words) {
+        set<char> charset;
+        for (string& word : words) {
+            for (char c : word) {
+                charset.insert(c);
+            }
+        }
+
+        unordered_map<char, set<char>> in, out;
+        for (int i = 1; i < words.size(); ++ i) {
+            string &a = words[i-1], &b = words[i];
+            int len = min(a.length(), b.length()), j;
+            for (j = 0; j < len; ++ j) {
+                if (a[j] != b[j]) {  // a[j] comes before b[j].
+                    out[a[j]].insert(b[j]);
+                    in[b[j]].insert(a[j]);
+                    break;
+                }
+            }
+            // Catch the case such as {"abc", "ab"}: this is not lexicographical.
+            if (j == len && len < a.length()) return "";
+        }
+
+        string ans;
+        for (char c: charset) {
+            if (in[c].size() == 0 && out[c].size() == 0) {
+                ans += c;
+                charset.erase(c);
+            }
+        }
+
+        while (! charset.empty()) {
+            bool found = false;
+            for (char c : charset) {
+                if (in[c].empty()) {  // first one lexicographically
+                    found = true;
+                    ans += c;
+
+                    for (char d : out[c]) {
+                        in[d].erase(c);
+                    }
+                    charset.erase(c);
+                    break;
+                }
+            }
+            if (!found) return "";
+        }
+        return ans;
+    }
+};
+
 // Should work. Tested locally. Shorter.
+// This does NOT work for the case such as {"abc", "ab"}: this is not lexicographical.
+// See Solution4 above.
 class Solution3 {
 public:
     string alienOrder(vector<string>& words) {
