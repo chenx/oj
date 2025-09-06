@@ -1,3 +1,35 @@
+// Works.
+struct comp {
+    bool operator()(const pair<double, int>& a, const pair<double, int>& b) {
+        return a.first > b.first;
+    }
+};
+class Solution3 {
+public:
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
+        vector<int> ans;
+        if (!root) return ans;
+
+        priority_queue<pair<double, int>, vector<pair<double, int>>, comp> minHeap;
+        inorderTraversal(root, target, minHeap);
+
+        int len = k < minHeap.size() ? k : minHeap.size();
+        for (int i = 0; i < len; ++ i) {
+            ans.push_back(minHeap.top().second);
+            minHeap.pop();
+        }
+
+        return ans;
+    }
+
+    void inorderTraversal(TreeNode* root, double target,
+        priority_queue<pair<double, int>, vector<pair<double, int>>, comp>& minHeap) {
+        if (!root) return;
+        inorderTraversal(root->left, target, minHeap);
+        minHeap.push(pair<double, int>(abs(root->val - target), root->val));
+        inorderTraversal(root->right, target, minHeap);
+    }
+};
 
 // Should work. Tested locally, not in lc. 
 // comp is the same as in Solution.
