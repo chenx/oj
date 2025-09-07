@@ -1,4 +1,41 @@
-// Solution2 works and is the best.
+// Works.
+class Solution5 {
+public:
+    int shortestDistance(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        auto total = grid;
+        int walk = 0, minDist, delta[] = {0, 1, 0, -1, 0};
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] == 1) { // building
+                    minDist = -1;
+                    auto dist = grid;
+                    queue<vector<int>> q;
+                    q.push({i, j});
+                    while (! q.empty()) {
+                        auto pos = q.front();
+                        q.pop();
+                        for (int d = 0; d < 4; ++ d) {
+                            int i = pos[0] + delta[d];
+                            int j = pos[1] + delta[d+1];
+                            if (i >= 0 && i < m && j >= 0 && j < n && grid[i][j] == walk) {
+                                -- grid[i][j];
+                                dist[i][j] = dist[pos[0]][pos[1]] + 1;
+                                total[i][j] += dist[i][j] - 1;
+                                q.push({i, j});
+                                if (minDist < 0 || minDist > total[i][j])
+                                    minDist = total[i][j];
+                            }
+                        }
+                    }
+                    walk--;
+                }
+            }
+        }
+        return minDist;
+    }
+};
 
 // Should work. Tested locally.
 // NOT work for: [[1]]
@@ -159,7 +196,7 @@ int shortestDistance(vector<vector<int>> grid) {
                 mindist = -1;
                 auto dist = grid;
                 queue<pair<int, int>> q;
-                q.emplace(i, j);
+                q.emplace(i, j);  // Same as: q.push(pair<int,int>(i, j));
                 while (q.size()) {
                     auto ij = q.front();
                     q.pop();
