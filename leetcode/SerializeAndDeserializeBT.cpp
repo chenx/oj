@@ -1,3 +1,57 @@
+// Works.
+class Codec4 {
+public:
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string s;
+        ser(root, s);
+        return s;
+    }
+
+    void ser(TreeNode* root, string& s) {
+        if (!root) {
+            if (s != "") s += " ";
+            s += "null";
+            return;
+        }
+
+        if (s != "") s += " ";
+        s += to_string(root->val);
+        ser(root->left, s);
+        ser(root->right, s);
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        vector<string> vals = split(data);
+
+        int pos = 0;
+        return des(vals, pos);
+    }
+
+    TreeNode* des(vector<string>& vals, int& pos) {
+        if (vals[pos] == "null") { // cannot do vals[pos ++]
+            if (pos < vals.size()) ++ pos;
+            return NULL;
+        }
+
+        TreeNode* root = new TreeNode(stoi(vals[pos ++]));
+        root->left = des(vals, pos);
+        root->right = des(vals, pos);
+        return root;
+    }
+
+    vector<string> split(string& data) {
+        vector<string> ans;
+        stringstream ss(data);
+        string val;
+        while (getline(ss, val, ' ')) {
+            ans.push_back(val);
+        }
+        return ans;
+    }
+};
+
 // Works. Tested. Best so far.
 class Codec3 {
 public:
