@@ -1,3 +1,47 @@
+// Works.
+class Solution3 {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        int ct = 0, nodes_ct = 0;
+        while (! edges.empty()) {
+            removeEdge(edges, nodes_ct);
+            ++ ct;
+        }
+        
+        return ct + (n - nodes_ct); // (n - nodes_ct): nodes not used in edges.
+    }
+    
+    void removeEdge(vector<vector<int>>& edges, int & nodes_ct) {
+        auto e = edges[0];
+        edges.erase(edges.begin()); // remove first edge.
+        
+        deque<int> q;
+        q.push_back(e[0]); // put first edge's 2 nodes on queue.
+        q.push_back(e[1]);
+        nodes_ct += 2;
+        
+        while (! q.empty()) {
+            int v = q.front();
+            q.pop_front();
+            
+            for (auto it = edges.begin(); it != edges.end(); ) {
+                if (v == (*it)[0] || v == (*it)[1]) { 
+                    // found edge with matching node.
+                    int u = (*it)[0] + (*it)[1] - v;  // get the other node.
+                    if (find(q.begin(), q.end(), u) == q.end()) { 
+                        q.push_back(u); // add the other node if it's not on queue.
+                        ++ nodes_ct;
+                    }
+                    edges.erase(it); // remove edge.
+                }
+                else {
+                    ++ it;
+                }
+            }
+        }
+    }
+};
+
 // Should work. Tested locally. 
 class Solution2 {
 public:
