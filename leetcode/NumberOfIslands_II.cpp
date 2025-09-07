@@ -27,6 +27,51 @@ roots: 0 0 -1 -1 7 7 -1 0 5
 ok
 */
 
+// Works.
+class Solution2 {
+public:
+    vector<int> numIslands2(int m, int n, vector<vector<int>>& positions) {
+        vector<int> ans;
+        vector<int> dirs = {-1, 0, 1, 0 , -1};
+        int islands = 0;
+        vector<int> roots(m*n, -1);
+
+        for (vector<int>& pos : positions) {
+            int idx_pos = pos[0] * n + pos[1];
+            if (roots[idx_pos] != -1) {  // already visited this cell.
+                ans.push_back(islands);
+                continue;
+            }
+
+            roots[idx_pos] = idx_pos;
+            ++ islands;
+
+            for (int k = 0; k < 4; ++ k) {
+                int x = pos[0] + dirs[k], y = pos[1] + dirs[k + 1];
+                int idx_new = x * n + y;
+                if (x >= 0 && x < m && y >= 0 && y < n && roots[idx_new] != -1)  {
+                    int root_pos = findRoot(roots, idx_pos), 
+                        root_new = findRoot(roots, idx_new);
+                    if (root_pos != root_new) {
+                        roots[root_pos] = root_new;
+                        -- islands;
+                    }
+                }
+            }
+            ans.push_back(islands);
+        }
+        return ans;
+    }
+
+    int findRoot(vector<int>& roots, int idx) {
+        while (idx != roots[idx]) {
+            roots[idx] = roots[roots[idx]];
+            idx = roots[idx];
+        }
+        return idx;
+    }
+};
+
 class Solution {
 public:
     vector<int> numIslands2(int m, int n, vector<pair<int, int>>& positions) {
@@ -36,6 +81,11 @@ public:
         int island = 0;
         for (auto pos : positions) {
             int x = pos.first, y = pos.second, idx_p = x * n + y;
+            if (roots[idx_p] != -1) {
+                ans.push_back(islands);
+                continue;
+            }
+
             roots[idx_p] = idx_p;
             ++island;
             for (auto dir : dirs) {
