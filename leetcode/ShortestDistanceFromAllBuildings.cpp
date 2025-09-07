@@ -1,4 +1,7 @@
+// Solution2 works and is the best.
+
 // Should work. Tested locally.
+// NOT work for: [[1]]
 class Solution4 {
     vector<pair<int, int> > dirs;
 public:
@@ -51,6 +54,7 @@ public:
 
 
 // Should work. Tested locally. XC.
+// NOT work for: [[1]]
 // See discussion after Solution3.
 class Solution3 {
 public:
@@ -143,7 +147,7 @@ to all buildings.
 
 
 
-// Solution2. Should work. Not tested.
+// Solution2. Works. Best answer so far.
 // From: https://leetcode.com/discuss/74453/36-ms-c-solution
 int shortestDistance(vector<vector<int>> grid) {
     int m = grid.size(), n = grid[0].size();
