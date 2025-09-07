@@ -1,7 +1,7 @@
 // Works. 
 // O(mlog(n) + nlog(m)) time.
 // From: https://leetcode.com/problems/smallest-rectangle-enclosing-black-pixels/editorial/
-class Solution2 {
+class Solution3 {
 public:
     int minArea(vector<vector<char>>& image, int x, int y) {
         int m = image.size(), n = image[0].size();
@@ -34,6 +34,39 @@ public:
                 i = mid + 1;
         }
         return i;
+    }
+};
+
+// Works. But time out for large input.
+class Solution2 {
+public:
+    int minArea(vector<vector<char>>& image, int x, int y) {
+        if (image.size() == 0 || image[0].size() == 0) return 0;
+        int m = image.size(), n = image[0].size();
+        int minx = INT_MAX, maxx = INT_MIN, miny = INT_MAX, maxy = INT_MIN;
+        vector<int> dirs = {-1, 0, 1, 0, -1};
+
+        queue<vector<int>> q;
+        q.push({x, y});
+
+        while (! q.empty()) {
+            vector<int> p = q.front();
+            q.pop();
+            image[p[0]][p[1]] = '.';
+
+            minx = min(minx, p[0]);
+            maxx = max(maxx, p[0]);
+            miny = min(miny, p[1]);
+            maxy = max(maxy, p[1]);
+
+            for (int k = 0; k < 4; ++ k) {
+                int x = p[0] + dirs[k], y = p[1] + dirs[k+1];
+                if (x >= 0 && x < m && y >= 0 && y < n && image[x][y] == '1') {
+                    q.push({x, y});
+                }
+            }
+        }
+        return (maxx - minx + 1) * (maxy - miny + 1);
     }
 };
 
