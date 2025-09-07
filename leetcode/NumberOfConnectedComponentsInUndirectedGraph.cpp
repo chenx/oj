@@ -1,3 +1,39 @@
+// Works too. Tested. By X.C.
+class Solution4 {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        map<int, set<int>> m;
+        set<int> s;
+        for (auto e: edges) {
+            m[e[0]].insert(e[1]);
+            m[e[1]].insert(e[0]);
+        }
+        for (int i = 0; i < n; ++ i) s.insert(i);
+
+        int count = 0;
+        while (!s.empty()) {
+            queue<int> q;
+            q.push(*s.begin());
+
+            while (! q.empty()) {  // remove all nodes connected to v.
+                int v = q.front();
+                q.pop();
+                s.erase(v);
+
+                if (m.contains(v)) {
+                    for (int u : m[v]) {
+                        q.push(u);
+                        m[u].erase(v);  // works w/o this, but less efficient.
+                    }
+                    m.erase(v);
+                }
+            }
+            ++ count;
+        }
+        return count;
+    }
+};
+
 // Works.
 class Solution3 {
 public:
