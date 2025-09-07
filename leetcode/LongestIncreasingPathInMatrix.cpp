@@ -1,4 +1,5 @@
 // Works. Tested.
+// DFS with memorization.
 class Solution3 {
 public:
     int longestIncreasingPath(const vector<vector<int>>& matrix) {
