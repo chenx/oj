@@ -1,3 +1,36 @@
+// Works. Adapted from Solution2.
+class Solution6 {
+public:
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+        vector<string> ans;
+
+        map<string, vector<string>> outBound;
+        for (auto& ticket : tickets) {
+            outBound[ticket[0]].push_back(ticket[1]);
+        }
+        for (auto& out : outBound) {
+            sort(out.second.begin(), out.second.end());
+        }
+
+        stack<string> s;
+        s.push("JFK");
+        while (!s.empty()) {
+            string airport = s.top();
+            vector<string>& toAirports = outBound[airport];
+            if (toAirports.empty()) {
+                ans.push_back(airport);
+                s.pop();
+            } else {
+                s.push(*toAirports.begin());
+                toAirports.erase(toAirports.begin());
+            }
+        }
+        reverse(ans.begin(), ans.end());
+
+        return ans;
+    }
+};
+
 // Works.
 class Solution5 {
 public:
