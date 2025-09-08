@@ -1,3 +1,23 @@
+// Works. Adapted from Solution4.
+class Solution5 {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        int ct = 0, i = 0;
+        long long top = 0;        
+        while (top < n) {
+            if (i < nums.size() && nums[i] <= top + 1) {
+                top += nums[i];
+                ++ i;
+            } else {
+                ++ ct; // patch number: top + 1.
+                top = top + (top + 1);
+            }
+        }
+
+        return ct;
+    }
+};
+
 // Works. Almost same as Solution3.
 class Solution4 {
 public:
