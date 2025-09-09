@@ -1,4 +1,4 @@
-// Works. add() - O(1), find() - O(1).
+// Works. add() - O(n), find() - O(1).
 class TwoSum8 {
 public:
     TwoSum() {}
