@@ -8,20 +8,28 @@ void inorder(TreeNode* root, vector<int>& ans) {
 }
 
 // Iterative
-void postorder(TreeNode* root, vector<int>& ans) {
-  if (!root) return;
+class Solution {
+public:
+   vector<int> postorderTraversal(TreeNode* root) {
+       vector<int> result;
+       if (!root) return result;
 
-  queue<TreeNode*> q;
-  q.push(root);
 
-  while (!q.empty()) {
-    TreeNode* n = q.front();
-    q.pop();
+       stack<TreeNode *> s;
+       s.push(root);
+       while(!s.empty()) {
+           TreeNode* n = s.top();
+           s.pop();
+           result.push_back(n->val);
 
-    ans.push_back(n->val);
-    if (q->right) q.push(q->right);
-    if (q->left) q.push(q->left);
-  }
 
-  reverse(ans.begin(), ans.end());
-}
+           if (n->left) s.push(n->left);
+           if (n->right) s.push(n->right);
+       }
+       reverse(result.begin(), result.end());
+
+
+       return result;
+   }
+};
+
