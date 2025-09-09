@@ -1,3 +1,22 @@
+// Works. add() - O(1), find() - O(1).
+class TwoSum8 {
+public:
+    TwoSum() {}
+    
+    void add(int number) {
+        for (int n : nums) sums.insert(number + n);
+        nums.insert(number);
+    }
+    
+    bool find(int value) {
+        return sums.count(value) > 0;
+    }
+
+private:
+    unordered_set<int> nums;
+    unordered_set<int> sums;
+};
+
 // Works. add() - O(N), find() - O(1).
 class TwoSum7 {
 public:
