@@ -11,15 +11,14 @@ void preorder(TreeNode* root, vector<int>& ans) {
 void preorder(TreeNode* root, vector<int>& ans) {
   if (!root) return;
 
-  queue<TreeNode*> q;
-  q.push(root);
+  stack<TreeNode *> s;  // use stack not queue!
+  s.push(root);
+  while(!s.empty()) {
+    TreeNode* n = s.top();
+    s.pop();
+    result.push_back(n->val);
 
-  while (!q.empty()) {
-    TreeNode* n = q.front();
-    q.pop();
-
-    ans.push_back(n->val);
-    if (q->left) q.push(q->left);
-    if (q->right) q.push(q->right);
+    if (n->right) s.push(n->right);
+    if (n->left) s.push(n->left);
   }
 }
