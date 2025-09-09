@@ -184,3 +184,6 @@
         cout << endl;
     }
 
+
+- substr(start, len)
+- substr(start)  // until end of string
