@@ -243,8 +243,8 @@ Key characteristics of std::multiset:
   - Eements are automatically sorted based on their values, using a comparison function (by default, std::less<Key>).
 - Duplicate Elements:
   - Unlike std::set, std::multiset allows multiple elements with equivalent values to be stored.
-- The std::multiset::lower_bound() function in C++ STL. It returns an iterator to the first element whose value is greater than or equal to the specified key.
-- The multiset::upper_bound member function of the std::multiset container in C++. It returns an iterator pointing to the first element in the multiset that is greater than a specified key.
+- The **std::multiset::lower_bound** function in C++ STL. It returns an iterator to the first element whose value is greater than or equal to the specified key.
+- The **std::multiset::upper_bound** member function of the std::multiset container in C++. It returns an iterator pointing to the first element in the multiset that is greater than a specified key.
 
 
 ### std::distance
