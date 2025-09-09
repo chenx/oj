@@ -29,7 +29,7 @@
     Use strtok() if don't need delimiters, or use custom function.
     See: https://github.com/chenx/oj/blob/master/misc/strtok.cpp
     
-### create priority queue
+### Create priority queue
 
   1) int
 ```
@@ -59,13 +59,19 @@
   }
 ```
 
-### create pair
+In summary, a default std::priority_queue<int> behaves as follows:
+- It stores int values.
+- It uses a std::vector<int> internally to manage the elements.
+- It functions as a max-heap, meaning the largest integer will always be accessible at the top using top().
+- The comparison is based on std::less<int>, which orders elements in ascending order for the underlying container, but results in a max-heap structure for the priority queue's interface.
+
+### Create pair
 
   1) pair<int, int> v = pair<int, int>(1, 2);
   2) auto v = make_pair(1, 2); // note the use of auto keyword.
   
 
-### convert int to string
+### Convert int to string
 
   1) A quick way: std::to_string(type val)
   Type can be int, long, double etc. 
@@ -101,7 +107,7 @@
     }
 ```
   
-### convert string to int/long/long-long:
+### Convert string to int/long/long-long:
 ```
   std::stoi(string val)
   std::stol(stirng val)
@@ -149,7 +155,7 @@
   See: http://www.informit.com/articles/article.aspx?p=1852519
   
 
-### find substring in a string: string.find(string s, int start_pos);
+### Find substring in a string: string.find(string s, int start_pos);
 ```
   string s = "abcb";
   int pos = s.find("b", 0); // returns 1.
@@ -223,9 +229,3 @@ Use this to avoid writing different functions for different data types:
   - element range (3): void splice (iterator position, list& x, iterator first, iterator last);
     Transfers the elements in the range [first, last) from list x into *this before the element pointed to by position.
     
-- In summary, a default std::priority_queue<int> behaves as follows:
-  - It stores int values.
-  - It uses a std::vector<int> internally to manage the elements.
-  - It functions as a max-heap, meaning the largest integer will always be accessible at the top using top().
-  - The comparison is based on std::less<int>, which orders elements in ascending order for the underlying container, but results in a max-heap structure for the priority queue's interface.
-
