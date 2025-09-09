@@ -9,9 +9,10 @@ void msort(vector<int>& nums, int left, int right) {
   msort(nums, left, M);
   msort(nums, M+1, right);
 
-  vector<int> copy(nums.size());
+  int n = nums.size();
+  vector<int> copy(n);
 
-  int i = 0, j = M+1, k = 0, n = nums.size();
+  int i = 0, j = M+1, k = 0;
   while (i <= M && j < n) {
     if (nums[i] < nums[j]) copy[k ++] = nums[i ++];
     else copy[k ++] = nums[j ++];
