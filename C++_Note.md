@@ -249,5 +249,5 @@ Key characteristics of std::multiset:
 
 ### std::distance
 
-The distance between two iterators is calculated using the std::distance function, which is available in the \<iterator> header. This function determines the number of elements between the first and last iterators in a given range.
+The distance between two iterators is calculated using the std::distance function, which is available in the &lt;iterator> header. This function determines the number of elements between the first and last iterators in a given range.
 
