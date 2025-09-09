@@ -229,3 +229,23 @@ Use this to avoid writing different functions for different data types:
   - element range (3): void splice (iterator position, list& x, iterator first, iterator last);
     Transfers the elements in the range [first, last) from list x into *this before the element pointed to by position.
     
+
+### std::multiset
+
+In C++, std::multiset is an associative container provided by the Standard Template Library (STL) that stores elements in a sorted order. It is similar to std::set, but with a key distinction: std::multiset allows for the storage of duplicate elements.
+
+Key characteristics of std::multiset:
+- Sorted Order:
+- Associative Container:
+  - Elements are stored in a way that allows for efficient retrieval based on their values, which serve as the keys.
+- Logarithmic Complexity:
+  - Search, insertion, and removal operations typically have logarithmic time complexity (O(log n)), due to its usual implementation as a self-balancing binary search tree (e.g., a red-black tree).
+  - Eements are automatically sorted based on their values, using a comparison function (by default, std::less<Key>).
+- Duplicate Elements:
+  - Unlike std::set, std::multiset allows multiple elements with equivalent values to be stored.
+- The multiset::lower_bound() function in C++ STL returns an iterator pointing to the first element in the multiset container that is not less than a specified key. This means it returns an iterator to either: 
+
+### std::distance
+
+The distance between two iterators is calculated using the std::distance function, which is available in the <iterator> header. This function determines the number of elements between the first and last iterators in a given range.
+
