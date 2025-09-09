@@ -195,7 +195,7 @@
     Unlike copying or moving elements, splice() only rearranges the internal pointers of the list nodes, 
     making it a constant-time operation for transferring single elements or entire lists (though range 
     splicing might have different complexities depending on the specific std::list implementation and C++ standard).
-  - entire list (1): void splice (iterator position, list& x);
+  - entire list (1): **void splice (iterator position, list& x);**
     Transfers all elements from list x into *this (the current list) before the element pointed to by position. 
     After the operation, x becomes empty. Transferring a single element.
   - single element (2): void splice (iterator position, list& x, iterator i);
