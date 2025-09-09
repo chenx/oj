@@ -185,5 +185,19 @@
     }
 
 
-- substr(start, len)
-- substr(start)  // until end of string
+- std::string substr (size_type pos = 0, size_type len = npos) const;
+- substr(pos)  // starting at pos, until end of string
+
+- std::int accumulate(begin, end, init, [func]);  // init is 0 by default.
+
+- list::splice(): allows for the efficient transfer of elements between lists or within the same list. Unlike copying or moving elements, splice() only rearranges the internal pointers of the list nodes, making it a constant-time operation for transferring single elements or entire lists (though range splicing might have different complexities depending on the specific std::list implementation and C++ standard).
+
+  - entire list (1): transfers all elements from list x into *this (the current list) before the element pointed to by position. After the operation, x becomes empty. Transferring a single element.
+    void splice (iterator position, list& x);
+
+  - single element (2): transfers the single element pointed to by it from list x into *this before the element pointed to by position. Transferring a range of elements.
+    void splice (iterator position, list& x, iterator i);
+
+  - element range (3): transfers the elements in the range [first, last) from list x into *this before the element pointed to by position.
+    void splice (iterator position, list& x, iterator first, iterator last);
+
