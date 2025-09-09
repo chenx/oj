@@ -195,13 +195,22 @@
     Unlike copying or moving elements, splice() only rearranges the internal pointers of the list nodes, 
     making it a constant-time operation for transferring single elements or entire lists (though range 
     splicing might have different complexities depending on the specific std::list implementation and C++ standard).
-  - entire list (1): **void splice (iterator position, list& x);**
+
+  - entire list (1): void splice (iterator position, list& x);
     Transfers all elements from list x into *this (the current list) before the element pointed to by position. 
     After the operation, x becomes empty. Transferring a single element.
+  
   - single element (2): void splice (iterator position, list& x, iterator i);
     Transfers the single element pointed to by it from list x into *this before the element pointed to by position. 
     Transferring a range of elements.
+  
   - element range (3): void splice (iterator position, list& x, iterator first, iterator last);
     Transfers the elements in the range [first, last) from list x into *this before the element pointed to by position.
     
+
+- In summary, a default std::priority_queue<int> behaves as follows:
+  - It stores int values.
+  - It uses a std::vector<int> internally to manage the elements.
+  - It functions as a max-heap, meaning the largest integer will always be accessible at the top using top().
+  - The comparison is based on std::less<int>, which orders elements in ascending order for the underlying container, but results in a max-heap structure for the priority queue's interface.
 
