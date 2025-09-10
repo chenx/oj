@@ -1,4 +1,4 @@
-# Classic quesitons
+# Classic Problems
 
 ## Easy
 
