@@ -8,7 +8,7 @@
  * };
  */
  
-// Tested. Works. Modified from Solution. O(n*log(n)).
+// Tested. Works. Modified from Solution. O(n*log(n)) time, O(n) space.
 class Solution2 {
 public:
     int minMeetingRooms(vector<Interval>& intervals) {
