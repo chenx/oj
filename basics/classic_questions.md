@@ -4,6 +4,15 @@
 
 ## Medium
 
+- Container with Most Water
+- Divide 2 integers
+- Generate parentheses
+- Letter combinations of a phone number
+- Longest substring without repeating characters (Medium)
+
+- Reverse Integer
+
+
 ## Hard
 
 - Calculator
@@ -35,16 +44,19 @@
   - Max rectangle
 - Skyline
 - Trapping rain water
+  - Container with Most Water
 
 - Text justification
 - Sliding window maximum (deque<int>)
 - Minumum window substring
+  - Longest substring without repeating characters (Medium)
 
 - Bust balloons
 - Candy
 - Find median from data stream
 - Patching Array
 - Valid number
+  - String to Integer (Atoi)
 
 - Edit distance
 - Distince subsequences
@@ -62,6 +74,7 @@
 
 - Max points on a line
 - Self-crossing
+
 
 ## Very hard
 
