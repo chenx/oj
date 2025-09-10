@@ -128,7 +128,7 @@ In summary, a default std::priority_queue<int> behaves as follows:
 
 ### set / map / unordered_map
   - set/map/unordered_set/unordered_map contains a "count()" method to judge if an element exists.
-    so instead of using: x.find(e) != x.end(), one can now use: x.count(e) > 0
+    - so instead of using: x.find(e) != x.end(), one can now use: x.count(e) > 0
   - There is a contains() method since C++20, so one can use: x.contains(e) 
   
 ### string.length() type is: std::basic_string<char>::size_type
