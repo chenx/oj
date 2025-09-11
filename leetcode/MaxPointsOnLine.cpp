@@ -1,3 +1,53 @@
+// Works too. Best so far.
+// Adapted from Solution3, use set instead of vector for mpt.second. 
+class Solution4 {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        if (points.size() <= 1) return points.size();
+
+        vector<vector<int>> pts;
+        map<vector<int>, int> ptsCount;
+        for (vector<int>& p : points) {
+            ++ ptsCount[p];
+            if (ptsCount[p] == 1) pts.push_back(p);
+        }
+        
+        int n = pts.size();
+        if (n == 1) return 1;
+
+        map<vector<double>, set<vector<int>>> mpt; // (slope, y_insection), point on line
+        map<vector<double>, int> mct;  // point, count
+
+        for (int i = 0; i < n - 1; ++ i) {
+            for (int j = i + 1; j < n; ++ j) {
+                vector<int>& a = pts[i], &b = pts[j];
+
+                vector<double> line(2);
+                if (a[0] == b[0]) {
+                    line[0] = INT_MAX;
+                    line[1] = a[0];
+                } else {
+                    line[0] = 1.0 * (b[1] - a[1]) / (b[0] - a[0]);
+                    line[1] = a[1] - line[0] * a[0];
+                }
+
+                if (!mpt[line].contains(a)) {
+                    mpt[line].insert(a);
+                    mct[line] += ptsCount[a]; 
+                }
+                if (!mpt[line].contains(b)) {
+                    mpt[line].insert(b);
+                    mct[line] += ptsCount[b]; 
+                }
+            }
+        } 
+
+        int maxCount = 0;
+        for (auto e : mct) maxCount = max(maxCount, e.second);
+        return maxCount;
+    }
+};
+
 // Works. Tested. Sorting no needed.
 // struct comp {
 //     bool operator()(const vector<int>& a, const vector<int>& b) const {
@@ -264,5 +314,6 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
 
