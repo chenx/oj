@@ -17,14 +17,14 @@ public:
             if (s[si] == p[pi] || p[pi] == '?') {
                 ++ si;
                 ++ pi;
-            } else if (p[pi] == '*') {
+            } else if (p[pi] == '*') {  // collapse all '*' into 1 '*'.
                 starFound = true;
                 si0 = si;
                 pi0 = pi;
                 ++ pi;
             } else {
-                if (starFound) {
-                    si = ++ si0;
+                if (starFound) {  // a letter s[si] is found, and p[pi] is NOT '*'
+                    si = ++ si0;  // // eats 1 more letter s[si], while p[pi] unchanged
                     pi = pi0 + 1;
                 } else {
                     return false;
@@ -392,4 +392,5 @@ public:
 };
 
  */
+
 
