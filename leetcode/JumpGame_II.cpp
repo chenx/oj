@@ -8,6 +8,32 @@
 #include <iostream>
 using namespace std;
 
+// Works.
+class Solution11 {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+
+        vector<int> DP(n, 0);
+        DP[n-1] = 0;
+
+        for (int i = n - 2; i >= 0; -- i) {
+            if (i + nums[i] >= n - 1) DP[i] = 1;
+            else {
+                for (int j = nums[i]; j > 0; -- j) {
+                    if (i + j < n && DP[i + j] > 0) {
+                        if (DP[i] == 0 || (DP[i] > 1 + DP[i + j])) {
+                            DP[i] = 1 + DP[i + j];
+                        }
+                    }
+                }
+            }
+        }
+        return DP[0];
+    }
+};
+
 // Works too. 
 class Solution10 {
 public:
@@ -323,3 +349,4 @@ int main() {
     cout << s.jump(A, n) << endl;
     return 0;
 }
+
