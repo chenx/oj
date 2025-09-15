@@ -5,6 +5,27 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution5 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size(), k = 0, v = nums[0], ct = 1;
+        for (int i = 1; i < n; ++ i) {
+            if (nums[i] == v) {
+                if (ct == 1) {
+                    nums[++ k] = nums[i];
+                    ++ ct;
+                }
+            } else {
+                v = nums[i];
+                ct = 1;
+                nums[++ k] = nums[i];
+            }
+        }
+        return k + 1;
+    }
+};
+
 // Works too. 2025-08-18
 class Solution4 {
 public:
@@ -124,3 +145,4 @@ Given sorted array A = [1,1,1,2,2,3],
 Your function should return length = 5, and A is now [1,1,2,2,3].
 
  */
+
