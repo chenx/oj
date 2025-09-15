@@ -5,6 +5,18 @@
 // @Last modified: 12/18/2012
 //
 
+// Works too. Best.
+class Solution2 {
+public:
+    int mySqrt(int x) {
+        double y = x;
+        while (y * y - x > 0.00001) {
+            y = (y + x/y) / 2.0;
+        }
+        return y;
+    }
+};
+
 class Solution {
 public:
     // Newton-Ralphson's method: x' = (x + c/x) / 2. Better!
@@ -60,3 +72,4 @@ public:
     }
 
 };
+
