@@ -1,6 +1,35 @@
 #include <iostream>
 using namespace std;
 
+// Works. In place, O(1) space.
+class Solution11 {
+public:
+    string reverseWords(string s) {
+        int i = 0, j = 0, p = 0, n = s.length();
+        reverse(s.begin(), s.end());
+        for (i = 0; i < n; ++ i) {
+            while (i < n && isspace(s[i])) ++ i;
+            if (i == n) break;
+            for (j = i; j < n && !isspace(s[j]); ) ++ j;
+
+            reverse(s.begin() + i, s.begin() + j);  // no need to do j-1
+            i = j;
+        }
+
+        for (i = 0; i < n; ++ i) {  // remove spaces.
+            while (i < n && isspace(s[i])) ++ i;
+            if (i == n) break;
+
+            if (p > 0) s[p ++] = ' ';
+            for (j = i; j < n && !isspace(s[j]); ) {
+                s[p ++] = s[j ++];
+            }
+            i = j;
+        }
+        return s.substr(0, p);
+    }
+};
+
 // Works.
 class Solution10 {
 public:
@@ -582,3 +611,4 @@ Clarification:
 Note: 
     it seems the removal of spaces can be a seprate task or problem.
  */
+
