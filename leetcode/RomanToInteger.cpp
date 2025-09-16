@@ -5,6 +5,30 @@
 // @Last modified: 12/24/2012
 //
 
+// Works.
+class Solution5 {
+public:
+    int romanToInt(string s) {
+        if (s.length() == 0) return 0;
+
+        map<char, int> m = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, 
+                            {'C', 100}, {'D', 500}, {'M', 1000}};
+
+        int v = m[s[0]], prev = v, cur = v;
+        for (int i = 1; i < s.length(); ++ i) {
+            cur = m[s[i]];
+            if (cur > prev) {
+                v = (v - prev) + (cur - prev);
+            } else {
+                v += cur;
+            }
+            prev = cur;
+        }
+
+        return v;
+    }
+};
+
 // Works. Use map.
 class Solution4 {
 public:
@@ -154,3 +178,4 @@ Given a roman numeral, convert it to an integer.
 
 Input is guaranteed to be within the range from 1 to 3999.
  */
+
