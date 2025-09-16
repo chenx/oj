@@ -7,6 +7,58 @@
 #include <iostream>
 using namespace std;
 
+// Works.
+class Solution6 {
+public:
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> ans, row;
+        int n = words.size(), rowLen = 0;
+
+        for (int i = 0; i < n; ) {
+            int len = rowLen + row.size() + words[i].length();
+            if (len > maxWidth) {
+                ans.push_back( writeRow(row, maxWidth, rowLen) );
+                row.clear();
+                rowLen = 0;
+            } else {
+                row.push_back(words[i]);
+                rowLen += words[i].length();
+                ++ i;
+            }
+        }
+        ans.push_back( writeLastRow(row, maxWidth, rowLen) );
+        return ans;
+    }
+
+    string writeRow(vector<string>& row, int maxWidth, int rowLen) {
+        string s;
+        if (row.size() == 1) {
+            s = row[0] + string(maxWidth - rowLen, ' ');
+            return s;
+        }
+
+        int spaces = maxWidth - rowLen, intervals = row.size() - 1;
+        int a = spaces / intervals;  // spaces per interval.
+        int b = spaces % intervals;  // b intervals use a+1 spaces, others use a spaces.
+        
+        int i = 0;
+        for (; i < b; ++ i) s += row[i] + string(a + 1, ' ');
+        for (; i < intervals; ++ i) s += row[i] + string(a,  ' ');
+        s += row[i];
+        return s;
+    }
+
+    string writeLastRow(vector<string>& row, int maxWidth, int rowLen) {
+        string s;
+        for (int i = 0; i < row.size(); ++ i) {
+            if (i > 0) s += " ";
+            s += row[i];
+        }
+        s += string(maxWidth - s.length(), ' ');
+        return s;
+    }
+};
+
 // Works. By: XC.
 class Solution5 {
 public:
@@ -235,3 +287,4 @@ public:
 int main() {
     return 0;
 }
+
