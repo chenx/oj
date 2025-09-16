@@ -1,7 +1,26 @@
+// Works.
+class Solution3 {
+public:
+    bool isIsomorphic(string s, string t) {
+        if (s.length() != t.length()) return false;
+
+        map<char, char> m1, m2;
+        int n = s.length();
+        for (int i = 0; i < n; ++ i) {
+            if (!m1.contains(s[i])) m1[s[i]] = t[i];
+            else if (m1[s[i]] != t[i]) return false;
+
+            if (!m2.contains(t[i])) m2[t[i]] = s[i];
+            else if (m2[t[i]] != s[i]) return false;
+        }
+        return true;
+    }
+};
+
 // This works too. Is better.
 // No need to get signature, just check match situation:
 // verify that each char in s matches 1 and only 1 char in t, and vice versa.
-class Solution {
+class Solution2 {
 public:
     bool isIsomorphic(string s, string t) {
         return check(s, t) && check(t, s);        
