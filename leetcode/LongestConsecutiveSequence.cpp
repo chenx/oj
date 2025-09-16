@@ -13,6 +13,31 @@
  * @On: 2/18/2013
  */
 
+class Solution5 {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int> s;
+        for (int num : nums) s.insert(num);
+
+        int maxLen = 0;
+        while (!s.empty()) {
+            int n = *s.begin();
+            s.erase(n);
+            int len = 1;
+            for (int i = n - 1; s.contains(i); -- i) { 
+                s.erase(i);
+                ++ len;
+            }
+            for (int i = n + 1; s.contains(i); ++ i) { 
+                s.erase(i);
+                ++ len;
+            }
+            maxLen = max(maxLen, len);
+        }
+        return maxLen;
+    }
+};
+
 // Works. Tested. Same as Solution3, just shorter. But Solution3 is easier to understand.
 class Solution4 {
 public:
@@ -151,3 +176,4 @@ The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
 
 Your algorithm should run in O(n) complexity. 
  */
+
