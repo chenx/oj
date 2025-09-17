@@ -1,3 +1,16 @@
+// Works.
+class Solution2 {
+public:
+    int countNodes(TreeNode* root) {
+        if (!root) return 0;
+        int L = 0, R = 0;
+        for (TreeNode *n = root; n; n = n->left) ++ L;
+        for (TreeNode *n = root; n; n = n->right) ++ R;
+        if (L == R) return pow(2, L) - 1;
+        return 1 + countNodes(root->left) + countNodes(root->right);
+    }
+};
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
