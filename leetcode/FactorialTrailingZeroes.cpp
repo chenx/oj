@@ -1,3 +1,19 @@
+// Works. But Solution2 is the best.
+class Solution3 {
+public:
+    int trailingZeroes(int n) {
+        int ct = 0;
+        for (int i = 5; i <= n; ++ i) {
+            int k = i;
+            while (k % 5 == 0 && k > 0) {
+                ++ ct;
+                k /= 5;
+            }
+        }
+        return ct;
+    }
+};
+
 // Works too. Saved one division than Solution.
 class Solution2 {
 public:
