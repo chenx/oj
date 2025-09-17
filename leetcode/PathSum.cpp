@@ -13,6 +13,21 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+// Works. Best answer.
+class Solution4 {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (!root) return false;
+
+        targetSum -= root->val;
+        if (!root->left && !root->right) {
+            return targetSum == 0;
+        }
+        return hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum);
+    }
+};
+
 class Solution {
 public:
     bool hasPathSum(TreeNode *root, int sum) {
@@ -107,3 +122,4 @@ Given the below binary tree and sum = 22,
 return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
  */
+
