@@ -5,6 +5,38 @@
 // @Last modified: 12/25/2012
 //
 
+// Works. Use vector instead of stack for storing directory strings.
+class Solution5 {
+public:
+    string simplifyPath(string path) {
+        vector<string> st;
+        string cur;
+        for (char c : path) {
+            if (c == '/') process(st, cur);
+            else cur += c;
+        }
+        process(st, cur);
+
+        string ans = "/";
+        for (auto& s : st) {
+            if (ans != "/") ans += "/";
+            ans += s;
+        }
+        return ans;
+    }
+
+    void process(vector<string>& st, string& cur) {
+        if (cur.empty() || cur == ".") {
+            // do nothing.
+        } else if (cur == "..") {
+            if (!st.empty()) st.pop_back();
+        } else {
+            st.push_back(cur);  // add new directory.
+        }
+        cur = "";
+    }
+};
+
 // Works. Best so far.
 class Solution4 {
 public:
@@ -188,3 +220,4 @@ For example,
 path = "/home/", => "/home"
 path = "/a/./b/../../c/", => "/c"
  */
+
