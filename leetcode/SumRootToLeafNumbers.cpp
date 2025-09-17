@@ -14,6 +14,25 @@
  * };
  */
 
+// Works too.
+class Solution6 {
+public:
+    int sumNumbers(TreeNode* root) {
+        int sum = 0, val = 0;
+        getSum(root, sum, val);
+        return sum;
+    }
+
+    void getSum(TreeNode* root, int& sum, int val) {
+        if (!root) return;  // This can be moved to the top of sumNumbers().
+        val = val * 10 + root->val;
+        if (!root->left && !root->right) sum += val;
+
+        if (root->left) getSum(root->left, sum, val);
+        if (root->right) getSum(root->right, sum, val);
+    }
+};
+
 // This works too.
 class Solution5 {
 public:
@@ -146,3 +165,4 @@ The root-to-leaf path 1->3 represents the number 13.
 
 Return the sum = 12 + 13 = 25. 
  */
+
