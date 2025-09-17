@@ -5,6 +5,20 @@
 // @Last modified: 12/24/2012
 //
 
+// Works too.
+class Solution8 {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int k = 0;
+        for (int i = 0; i < nums.size(); ++ i) {
+            if (nums[i] != val) {
+                nums[k ++] = nums[i];
+            }
+        }
+        return k;
+    }
+};
+
 // Works. Tested. Note this has the SAME structure as Solution6 !
 // Difference is: 
 // - in Solution6, the rest of the array after k are not changed.
@@ -159,3 +173,4 @@ public:
     }
 
 };
+
