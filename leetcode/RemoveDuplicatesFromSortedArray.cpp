@@ -5,8 +5,26 @@
 // @Last modified: 12/24/2012
 //
 
+// Works. Same as Solution.
+class Solution3 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return n;
+
+        int k = 1, cur = nums[0];
+        for (int i = 1; i < n; ++ i) {
+            if (nums[i] != cur) {
+                nums[k ++] = nums[i];
+                cur = nums[i];
+            }
+        }
+        return k;
+    }
+};
+
 // More efficient, less self-assignment.
-class Solution {
+class Solution2 {
 public:
     int removeDuplicates(int A[], int n) {
         if (n <= 1) return n;        
@@ -24,11 +42,10 @@ public:
     }
 };
 
-
-// This works too, and is simpler in code,
+// This works, and is simple in code,
 // but may have unnecessary self assignments at A[k ++] = A[i].
 
-class Solution2 {
+class Solution {
 public:
     int removeDuplicates(int A[], int n) {
         if (n <= 1) return n;        
@@ -62,3 +79,4 @@ Your function should return length = 2, with the first two elements
 of nums being 1 and 2 respectively. It doesn't matter what you 
 leave beyond the new length. 
  */
+
