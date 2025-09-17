@@ -5,9 +5,8 @@ public:
         if (x < 0) return false;
         int x0 = x;
 
-        long long y = 0, y0;
+        long long y = 0;
         while (x > 0) {
-            y0 = y;
             y = y * 10 + (x % 10);
             x /= 10;
         }
@@ -173,3 +172,4 @@ such case?
 
 There is a more generic way of solving this problem.
  */
+
