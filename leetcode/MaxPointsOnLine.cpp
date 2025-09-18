@@ -1,3 +1,44 @@
+// Works too.
+class Solution5 {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        set<vector<int>> pts;
+
+        for (auto& pt : points) pts.insert(pt);
+        int n = pts.size();
+        if (n <= 1) return n;
+        points = vector<vector<int>>(pts.begin(), pts.end());
+
+        map<vector<double>, set<vector<int>>> m;  // (slope, y_insection), point on line
+
+        for (int i = 0; i < n - 1; ++ i) {
+            for (int j = i + 1; j < n; ++ j) {
+                vector<int> &a = points[i], &b = points[j];
+                vector<double> line(2);
+
+                if (a[0] == b[0]) {
+                    line[0] = INT_MAX;
+                    line[1] = a[0];
+                } else {
+                    line[0] = 1.0 * (b[1] - a[1]) / (b[0] - a[0]);
+                    line[1] = a[1] - line[0] * a[0];
+                }
+
+                m[line].insert(a);
+                m[line].insert(b);
+            }
+        }
+
+        int maxVal = 0;
+        for (auto& e : m) {
+            if (e.second.size() > maxVal) {
+                maxVal = e.second.size();
+            }
+        }
+        return maxVal;
+    }
+};
+
 // Works too. Best so far.
 // Adapted from Solution3, use set instead of vector for mpt.second. 
 class Solution4 {
@@ -314,6 +355,7 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
 
 
