@@ -1,3 +1,26 @@
+// Recursive. Works too.
+class Solution2 {
+public:
+    int getMinimumDifference(TreeNode* root) {
+        int minDiff = INT_MAX;
+        TreeNode * prev = NULL;
+        inorder(root, prev, minDiff);
+        return minDiff;
+    }
+
+    // Note: use reference for prev.
+    void inorder(TreeNode* root, TreeNode*& prev, int& minDiff) {
+        if (!root) return;
+
+        inorder(root->left, prev, minDiff);
+        if (prev) {
+            minDiff = min(minDiff, abs(prev->val - root->val));
+        }
+        prev = root;
+        inorder(root->right, prev, minDiff);
+    }
+};
+
 // Inorder traversal.
 class Solution {
 public:
