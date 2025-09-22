@@ -25,6 +25,8 @@ public:
         ignoreSpace(p);
 
         int v = 0;
+        // Note: this if condition is needed. If no match it'll try -E.
+        // Otherise for '-' E, it'll eat this '-' can get error/
         if (*p == '(') {
             v = G(++ p);
             expect(p, ')');
