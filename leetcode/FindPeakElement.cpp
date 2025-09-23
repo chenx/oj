@@ -13,7 +13,7 @@ public:
             
             if (M == 0 && num[0] > num[1]) return 0;
             if (M == n-1 && num[n-1] > num[n-2]) return n-1;
-            if (num[M] > num[M-1] && num[M] > num[M+1]) return M;
+            if (M > 0 && M < n-1 && num[M] > num[M-1] && num[M] > num[M+1]) return M;
             
             if (num[M] < num[M+1]) L = M+1;
             else R = M;
