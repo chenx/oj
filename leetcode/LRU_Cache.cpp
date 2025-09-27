@@ -8,7 +8,58 @@ set(key, value) - Set or insert the value if the key is not already present.
 When the cache reached its capacity, it should invalidate the least recently 
 used item before inserting a new item. 
  */
- 
+
+// Works too.
+// Contrary to prevous solutions, now most recent element is added to back, pop from front.
+//
+// Note: 
+// dll.front() is a reference to the first element, it's not an iterator.
+// dll.back() is a reference to the last element, it's not an iterator.
+// dll.begin() returns an iterator to the first element.
+// dll.end() returns an iterator after the last element.
+// To get an iterator to the last element, use "*it = dll.end(), -- it;", or "-- dll.end()"
+// dll.end() - 1 will cause compile error.
+// splice (iterator position, list& x, iterator i); Transfers the single element pointed to by it from list x 
+// into *this BEFORE the element pointed to by position.
+class LRUCache6 {
+    struct Node {
+        int key;
+        int val;
+        Node(int k, int v): key(k), val(v) {}
+    };
+    list<Node> dll;
+    unordered_map<int, list<Node>::iterator> mp;
+    int capacity;
+public:
+    LRUCache(int capacity) {
+        this->capacity = capacity;
+    }
+    
+    int get(int key) {
+        if (!mp.contains(key)) return -1;
+
+        dll.splice(dll.end(), dll, mp[key]);
+        mp[key] = -- dll.end();
+
+        return mp[key]->val;
+    }
+    
+    void put(int key, int value) {
+        if (mp.contains(key)) { // update
+            mp[key]->val = value;
+            dll.splice(dll.end(), dll, mp[key]);
+            mp[key] = -- dll.end();
+        } else { // insert
+            dll.push_back(Node(key, value));
+            mp[key] = -- dll.end();
+
+            if (dll.size() > capacity) {
+                mp.erase(dll.front().key);
+                dll.pop_front();
+            }
+        }
+    }
+};
 
 // Version5. Works too. Modified from Version4.
 // Note if you use STL list, then you don't need prev/next pointers in Node,
@@ -23,13 +74,6 @@ used item before inserting a new item.
 // The second version (2) transfers only the element pointed by i from x into the container.
 // The third version (3) transfers the range [first,last) from x into the container.
 //
-// Note: 
-// dll.front() is a reference to the first element, it's not an iterator.
-// dll.back() is a reference to the last element, it's not an iterator.
-// dll.begin() returns an iterator to the first element.
-// dll.end() returns an iterator after the last element.
-// To get an iterator to the last element, use *it = dll.end(), -- it;
-// dll.end() - 1 will cause compile error.
 class LRUCache {
 private:
     struct Node {
@@ -594,5 +638,6 @@ public:
     }
 };
 */
+
 
 
