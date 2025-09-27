@@ -24,6 +24,7 @@ used item before inserting a new item.
 // The third version (3) transfers the range [first,last) from x into the container.
 //
 // Note: 
+// dll.front() is a reference to the first element, it's not an iterator.
 // dll.back() is a reference to the last element, it's not an iterator.
 // dll.begin() returns an iterator to the first element.
 // dll.end() returns an iterator after the last element.
@@ -593,4 +594,5 @@ public:
     }
 };
 */
+
 
