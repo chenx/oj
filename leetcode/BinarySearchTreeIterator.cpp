@@ -2,6 +2,38 @@
 #include <stack>
 using namespace std;
 
+// Works. Most simple.
+class BSTIterator3 {
+    stack<TreeNode *> s;
+    TreeNode * n = NULL;
+public:
+    BSTIterator(TreeNode* root) {
+        n = root;
+    }
+    
+    int next() {
+        if (!hasNext()) return -1;
+
+        while (n) {
+            s.push(n);
+            n = n->left;
+        }
+        if (s.empty()) {
+            return -1;
+        }
+        n = s.top();
+        s.pop();
+        int ret = n->val;
+        n = n->right;
+
+        return ret;
+    }
+    
+    bool hasNext() {
+        return n != NULL || !s.empty();
+    }
+};
+
 /**
  * Definition for binary tree
  */
