@@ -23,6 +23,12 @@ used item before inserting a new item.
 // The second version (2) transfers only the element pointed by i from x into the container.
 // The third version (3) transfers the range [first,last) from x into the container.
 //
+// Note: 
+// dll.back() is a reference to the last element, it's not an iterator.
+// dll.begin() returns an iterator to the first element.
+// dll.end() returns an iterator after the last element.
+// To get an iterator to the last element, use *it = dll.end(), -- it;
+// dll.end() - 1 will cause compile error.
 class LRUCache {
 private:
     struct Node {
@@ -587,3 +593,4 @@ public:
     }
 };
 */
+
