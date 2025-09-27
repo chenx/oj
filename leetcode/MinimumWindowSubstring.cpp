@@ -5,6 +5,31 @@
 // @Last modified: 1/9/2013
 //
 
+// Works.
+class Solution4 {
+public:
+    string minWindow(string s, string t) {
+        int minLen = 0, total = 0, begin = 0, minStart = 0;
+        unordered_map<char, int> toFind, found;
+        for (char c : t) ++ toFind[c];
+
+        for (int i = 0; i < s.length(); ++ i) {
+            if (++ found[s[i]] <= toFind[s[i]]) ++ total;
+
+            if (total == t.length()) {
+                while (toFind[s[begin]] == 0 || found[s[begin]] > toFind[s[begin]]) {
+                    -- found[s[begin]];
+                    ++ begin;
+                }
+                if (minLen == 0 || minLen > i - begin + 1) {
+                    minLen = i - begin + 1;
+                    minStart = begin;
+                }
+            }
+        }
+        return s.substr(minStart, minLen);
+    }
+};
 
 // Works. Optimized.
 class Solution3 {
@@ -183,3 +208,4 @@ return the empty string "".
 If there are multiple such windows, you are guaranteed that 
 there will always be only one unique minimum window in S. 
  */
+
