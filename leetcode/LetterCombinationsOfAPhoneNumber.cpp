@@ -5,6 +5,32 @@
 // @Last modified: 1/15/2013
 //
 
+// Works. Slightly more clean.
+class Solution6 {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        if (digits.length() == 0) return ans;
+
+        getCombinations(ans, digits, 0, "");
+        return ans;
+    }
+
+    void getCombinations(vector<string>& ans, string& digits, int pos, string s) {
+        if (pos == digits.length()) {
+            ans.push_back(s);
+            return;
+        }
+
+        static vector<string> buttons = 
+            {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        string comb = buttons[digits[pos] - '0'];
+        for (char c : comb) {
+            getCombinations(ans, digits, pos + 1, s + c);
+        }
+    }
+};
+
 // Works.
 class Solution5 {
 public:
@@ -171,3 +197,4 @@ Note:
 Although the above answer is in lexicographical order, 
 your answer could be in any order you want. 
  */
+
