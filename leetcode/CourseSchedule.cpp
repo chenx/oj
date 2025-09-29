@@ -14,7 +14,7 @@ public:
         }
         
         while (! courses.empty()) {
-            bool found = false;
+            bool found = false;  // Important to avoid infinite cycle.
             for (auto course : courses) { // find in courses, not in "in".
                 // This does not work: if (!in.contains(course))
                 if (in[course].size() == 0) { // in degree is 0. Course has no prerequisite.
