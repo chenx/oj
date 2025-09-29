@@ -17,6 +17,34 @@
 #include <string>
 using namespace std;
 
+// Works.
+class Solution6 {
+public:
+    string longestPalindrome(string s) {
+        int n = s.length(), maxLen = 0, start = 0;
+        if (n <= 1) return s;
+
+        for (int i = 0; i < n; ++ i) {
+            getLen(s, i, i, maxLen, start);
+            if (i < n-1 && s[i] == s[i+1]) {
+                getLen(s, i, i+1, maxLen, start);
+            }
+        }
+        return s.substr(start, maxLen);
+    }
+
+    void getLen(string& s, int i, int j, int& maxLen, int& start) {
+        while (i > 0 && j < s.length() - 1) {
+            if (s[i-1] != s[j+1]) break;
+            -- i, ++ j;
+        }
+        if (maxLen < j - i + 1) {
+            maxLen = j - i + 1;
+            start = i;
+        }
+    }
+};
+
 // This works too. Clean. 2/4/2016.
 class Solution5 {
 public:
@@ -192,3 +220,4 @@ int main() {
     cout << s.longestPalindrome(x) << endl;
     return 0;
 }
+
