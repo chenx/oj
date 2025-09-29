@@ -106,6 +106,29 @@ In summary, a default std::priority_queue<int> behaves as follows:
         return val;
     }
 ```
+
+### Convert char to string
+
+1) Using std::string constructor:
+```
+  std::string s(1, 'A'); // Creates a string with one 'A'
+```
+
+2) Using std::string initializer list:
+```
+  std::string s = {c};
+```
+
+3) Using push_back() method:
+```
+  std::string s;
+  s.push_back('A);
+```
+
+4) Using std::format() (C++20 and later):
+```
+std::string s = std::format("{}", 'A'); // Formats 'A' into a string
+```
   
 ### Convert string to int/long/long-long:
 ```
