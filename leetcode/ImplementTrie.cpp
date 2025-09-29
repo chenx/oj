@@ -1,3 +1,77 @@
+// Works too.
+class Trie2 {
+    struct TrieNode {
+        char content;
+        bool wordMarker = false;
+        vector<TrieNode *> children;
+
+        TrieNode() {}
+        
+        TrieNode(char c) {
+            content = c;
+        }
+
+        // May check find(c) == NULL before calling this.
+        TrieNode* appendChild(char c, bool check_first = true) {
+            TrieNode * node = NULL;
+            if (check_first) {
+                node = findChild(c);
+                if (node) return node;
+            }
+
+            node = new TrieNode(c);
+            children.push_back(node);
+            return node;
+        }
+
+        TrieNode* findChild(char c) {
+            for (auto& child : children) {
+                if (child->content == c) return child;
+            }
+            return NULL;
+        }
+
+        void setWordMarker(bool val) {
+            wordMarker = val;
+        }
+        bool isWordMarker() {
+            return wordMarker;
+        }
+    };
+
+    TrieNode root;
+public:
+    Trie() {}
+    
+    void insert(string word) {
+        TrieNode* n = &root;
+        for (int i = 0; i < word.length(); ++ i) {
+            n = n->appendChild(word[i]);
+        }
+        n->setWordMarker(true);
+    }
+    
+    bool search(string word) {
+        TrieNode* n = &root;
+        for (int i = 0; i < word.length(); ++ i) {
+            TrieNode *m = n->findChild(word[i]);
+            if (m == NULL) return false;
+            n = m;
+        }
+        return n->isWordMarker();
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* n = &root;
+        for (int i = 0, len = prefix.length(); i < len; ++ i) {
+            TrieNode *m = n->findChild(prefix[i]);
+            if (m == NULL) return false;
+            n = m;
+        }
+        return true;
+    }
+};
+
 class TrieNode {
 public:
     // Initialize your data structure here.
