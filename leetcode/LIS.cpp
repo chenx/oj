@@ -1,3 +1,36 @@
+// Works. Easier to understand. O(n*log(n)) time. O(n) space.
+class Solution4 {
+public:
+    // for each new num: if it's greater than last element of current list, append;
+    // else, scan current list, find the first existing elem that's greater than num, 
+    // replace it with num. e.g.,
+    // [1 3 6 2 4 5] -> 1 3 6 -> 1 2 6 ->  1 2 4 -> 1 2 4 5
+    // 
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return n;
+
+        vector<int> v;
+        v.push_back(nums[0]);
+
+        for (int i = 1; i < n; ++ i) {
+            if (nums[i] > v[v.size()-1]) {
+                v.push_back(nums[i]);
+            } else {
+                int L = 0, R = v.size()-1;
+                while (L <= R) {
+                    int M = L+(R-L)/2;
+                    if (nums[i] > v[M]) L = M+1;
+                    else R = M-1;
+                }
+
+                v[L] = nums[i];
+            }
+        }
+        return v.size();
+    }
+};
+
 // Works too. Tested. Modified from Solution.
 // To avoid memorizing the detail of >, >=, <, <=,
 // add in 2 places:
