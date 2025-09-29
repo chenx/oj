@@ -15,6 +15,33 @@
 #include <set>
 using namespace std;
 
+// Works. 
+// Given n = s.length(), m = wordDict.size(), and k as the average length of the words in wordDict,
+// Time complexity: O(n⋅n), Space: O(n + m*k).
+class Solution8 {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n = s.length();
+        vector<bool> DP(n+1, false);
+        unordered_set<string> st(wordDict.begin(), wordDict.end());
+
+        for (int i = 1; i <= n; ++ i) {
+            if (st.contains(s.substr(0, i))) {
+                DP[i] = true;
+            } else {
+                for (int j = 1; j < i; ++ j) {
+                    string t = s.substr(j, i-j);
+                    if (DP[j] && st.contains(t)) {
+                        DP[i] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return DP[n];
+    }
+};
+
 // Works. Adapted from Solution5. 2025-09-02
 class Solution7 {
 public:
@@ -282,5 +309,6 @@ dict = ["leet", "code"].
 
 Return true because "leetcode" can be segmented as "leet code".
 */
+
 
 
