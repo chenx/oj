@@ -18,12 +18,14 @@ public:
                 if (in[course].empty()) {
                     found = true;
                     ans.push_back(course);
-                    
+                    courses.erase(course);
+
                     for (auto c: out[course]) {
                         in[c].erase(course);
                     }
-                    
-                    courses.erase(course);
+                    // Works with or without these 2 lines:
+                    // in.erase(course);
+                    // out.erase(course);
                 }
             }
             if (! found) return vector<int>();
