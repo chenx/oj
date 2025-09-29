@@ -1,5 +1,8 @@
 // Time: O(n) + O(m*n) = O(m*n), Space: O(n)
 // n = equations.size(), m = queries.size().
+//
+// Another solution is Union Find, where Time complexity is O((m+n)*log(n)). See
+// https://leetcode.com/problems/evaluate-division/editorial
 class Solution {
 public:
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
