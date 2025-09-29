@@ -16,13 +16,17 @@ public:
         while (! courses.empty()) {
             bool found = false;
             for (auto course : courses) { // find in courses, not in "in".
-                if (in[course].size() == 0) { // in degree is 0.
+                // This does not work: if (!in.contains(course))
+                if (in[course].size() == 0) { // in degree is 0. Course has no prerequisite.
                     found = true;
 
                     for (auto c : out[course]) {
                         in[c].erase(course);
                     }
                     courses.erase(course);
+                    // Works with or without the below 2 lines.
+                    // in.erase(course);
+                    // out.erase(course);
                 }
             }
             if (found == false) break;
