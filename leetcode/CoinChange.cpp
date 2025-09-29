@@ -1,3 +1,29 @@
+// Works.
+class Solution4 {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if (amount == 0) return 0;
+        vector<int> DP(1+amount, -1);
+
+        for (int i = 1; i <= amount; ++ i) {
+            for (int j = 0; j < coins.size(); ++ j) {
+                if (i < coins[j]) continue;
+                else if (i == coins[j]) {
+                    DP[i] = 1;
+                    break;
+                } else {
+                    if (DP[i - coins[j]] > 0) {
+                        if (DP[i] == -1 || DP[i] > 1 + DP[i - coins[j]]) {
+                            DP[i] = 1 + DP[i - coins[j]];
+                        }
+                    }
+                }
+            }
+        }
+        return DP[amount];
+    }
+};
+
 // Works too.
 class Solution3 {
 public:
