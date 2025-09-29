@@ -1,3 +1,51 @@
+// Works. Slightly better.
+// Time complexity: O( M(4⋅3^(L−1)) ), where M is the number of cells in the board and L is the maximum length of words.
+// Space Complexity: O(N), where N is the total number of letters in the dictionary.
+class Solution7 {
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string> ans;
+        
+        Trie trie;
+        for (auto& word : words) trie.insert(word);
+        TrieNode * root = trie.getRoot();
+
+        int m = board.size(), n = board[0].size();
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                TrieNode * n = root->findChild(board[i][j]);
+                if (n != NULL) {
+                    bfs(ans, board, i, j, string(1, board[i][j]), n);
+                }
+            }
+        }
+
+        return vector<string>(ans.begin(), ans.end());
+    }
+
+    void bfs(vector<string>& ans, vector<vector<char>>& board, int i, int j, string word, TrieNode* n) {
+        if (n->isWordMarker()) {
+            ans.push_back(word); 
+            n->setWordMarker(false);  // !!!
+        }
+        char c = board[i][j];
+        board[i][j] = '.';
+
+        static vector<int> dirs = {-1, 0, 1, 0, -1};
+        for (int k = 0; k < 4; ++ k) {
+            int x = i + dirs[k], y = j + dirs[k+1];
+            if (x >= 0 && x < board.size() && y >= 0 && y < board[0].size() && board[x][y] != '.') {
+                TrieNode * m = n->findChild(board[x][y]);
+                if (m != NULL) {
+                    bfs(ans, board, x, y, word + board[x][y], m);
+                }
+            }
+        }
+        board[i][j] = c;
+    }
+};
+
 // Solution6. Works. Don't use the "used" matrix. More clean.
 class Solution6 {
     int m, n;
