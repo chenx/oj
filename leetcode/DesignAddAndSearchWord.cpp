@@ -62,6 +62,12 @@ private:
                 if (search(word, pos + 1, root->getChildren()[i]))
                     return true;
             }
+
+            // Can also use:
+            // for (auto& child : n->getChildren()) {
+            //     if (search2(word, i+1, child)) return true;
+            // }
+
             return false;
         }
         else {
