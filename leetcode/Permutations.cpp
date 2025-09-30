@@ -87,12 +87,12 @@ public:
             reverse(num.begin(), num.end()); // go to first permutation.
             return false;
         }
-        
-        // swap e[i] with the minimal rhs number e[j], where e[i] < e[j].
+
+        // swap e[i] with the minimal rhs number e[j], where e[j] > e[i].
         for (j = len - 1; num[j] <= num[i]; -- j) ;
         swap (num[i], num[j]);
         
-        // sort the rhs of e[i] in DESC order.
+        // sort the rhs of e[i] in ASC order.
         reverse(num.begin() + i + 1, num.end());
         
         return true;
@@ -292,3 +292,4 @@ For example,
 [1,2,3] have the following permutations:
 [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1]. 
  */
+
