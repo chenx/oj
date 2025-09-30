@@ -9,6 +9,7 @@
 using namespace std;
 
 // Works. Recursive.
+// Time: O(k * C(n,k)) = O(n! / ((n-k)!(k-1)!)). Space: O(k)
 class Solution5 {
 public:
     vector<vector<int>> combine(int n, int k) {
@@ -256,5 +257,6 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
  */
+
 
 
