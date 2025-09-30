@@ -5,6 +5,32 @@
 // @Last modified: 12/18/2012
 //
 
+// Works. O(n) time, O(1) space.
+class Solution6 {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (!head || !head->next) return head;
+
+        int len = 0;
+        for (ListNode *h = head; h; h = h->next) ++ len;
+        k %= len;
+        if (k == 0) return head;
+
+        ListNode * h = head, * prev = NULL;
+        for (int i = 0; i < len - k; ++ i) {
+            prev = h;
+            h = h->next;
+        }
+        prev->next = NULL;
+
+        ListNode * t = h;
+        for (; t->next; t = t->next) {}
+        t->next = head;
+
+        return h;
+    }
+};
+
 // Works too. Tested. Use dummy head node.
 class Solution5 {
 public:
@@ -170,3 +196,4 @@ Given 1->2->3->4->5->NULL and k = 2,
 return 4->5->1->2->3->NULL.
 
  */
+
