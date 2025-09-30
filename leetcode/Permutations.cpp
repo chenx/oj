@@ -5,6 +5,29 @@
 // @Last modified: 1/9/2013
 //
 
+// Works. Recursive solution. Time: O(n!), Space: O(n).
+class Solution9 {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        getPerm(ans, nums, 0);
+        return ans;
+    }
+
+    void getPerm(vector<vector<int>>& ans, vector<int>& nums, int pos) {
+        if (pos == nums.size() - 1) {
+            ans.push_back(nums);
+            return;
+        }
+
+        for (int i = pos; i < nums.size(); ++ i) {
+            swap(nums[pos], nums[i]);
+            getPerm(ans, nums, pos+1);
+            swap(nums[pos], nums[i]);
+        }
+    }
+};
+
 class Solution {
 public:
     vector<vector<int> > permute(vector<int> &num) {
@@ -292,4 +315,5 @@ For example,
 [1,2,3] have the following permutations:
 [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1]. 
  */
+
 
