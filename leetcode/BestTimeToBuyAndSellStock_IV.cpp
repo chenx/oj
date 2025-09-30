@@ -1,3 +1,25 @@
+// Tested. Works. Simplified from Solution4.
+class Solution5 {
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        int n = prices.size();
+        if (n <= 1 || k == 0) return 0;
+
+        vector<int> cur(n + 1, 0), prev(n + 1, 0);
+        for (int x = 0; x < k; ++ x) {
+            int low = prices[0];
+            for (int i = 1; i < n; ++ i) {
+                cur[i] = max(cur[i-1], prices[i] - low);
+                // prices[i] - prev[i-1] means you cannot get the profit from prev[i-1]
+                // if you use prices[i].
+                low = min(low, prices[i] - prev[i-1]);
+            }
+            prev = cur;
+        }
+        return cur[n - 1];
+    }
+};
+
 // Works. Tested. 
 class Solution4 {
 public:
