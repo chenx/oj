@@ -23,12 +23,19 @@ public:
             ans.push_back(v);
             return;
         }
-
-        for (int i = pos + 1; i <= n; ++ i) {
-            if (pos > 0 && i <= v[pos-1]) continue; // avoid duplicates
+        
+        int start = pos == 0 ? 1 : v[pos-1] + 1;
+        for (int i = start; i <= n; ++ i) {
             v[pos] = i;
             comb(ans, n, k, pos+1, v);
         }
+
+        // // This also works:
+        // for (int i = pos + 1; i <= n; ++ i) {
+        //     if (pos > 0 && i <= v[pos-1]) continue; // avoid duplicates
+        //     v[pos] = i;
+        //     comb(ans, n, k, pos+1, v);
+        // }
     }
 };
 
@@ -249,4 +256,5 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
  */
+
 
