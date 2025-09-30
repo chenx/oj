@@ -10,6 +10,31 @@ using namespace std;
 
 // Works. Recursive.
 // Time: O(k * C(n,k)) = O(n! / ((n-k)!(k-1)!)). Space: O(k)
+class Solution6 {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans;
+        vector<int> v;
+        comb(ans, n, k, 1, v);
+        return ans;
+    }
+
+    void comb(vector<vector<int>>& ans, int n, int k, int pos, vector<int>& v) {
+        if (v.size() == k) {
+            ans.push_back(v);
+            return;
+        }
+
+        for (int i = pos; i <= n; ++ i) {
+            v.push_back(i);
+            comb(ans, n, k, i+1, v);
+            v.pop_back();
+        }
+    }
+};
+
+// Works. Recursive.
+// Time: O(k * C(n,k)) = O(n! / ((n-k)!(k-1)!)). Space: O(k)
 class Solution5 {
 public:
     vector<vector<int>> combine(int n, int k) {
@@ -257,6 +282,7 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
  */
+
 
 
 
