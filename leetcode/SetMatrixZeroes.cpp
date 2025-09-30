@@ -9,8 +9,46 @@
 #include <vector>
 using namespace std;
 
+// Works. Best. Time: O(mn), Space: O(1).
+// From: https://leetcode.com/problems/set-matrix-zeroes/editorial
+class Solution5 {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        if (matrix.size() == 0 || matrix[0].size() == 0) return;
 
-// Works. Best solution. Simpple, easy to understand. O(mn).
+        int m = matrix.size(), n = matrix[0].size();
+        bool row0 = false, col0 = false;
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (matrix[i][j] == 0) {
+                    // mark first row/col to be set to 0.
+                    matrix[i][0] = matrix[0][j] = 0;
+                    if (i == 0) row0 = true; // mark first row to be set to 0
+                    if (j == 0) col0 = true; // mark first col to be set to 0
+                }
+            }
+        }
+
+        for (int i = 1; i < m; ++ i) {
+            if (matrix[i][0] == 0) {
+                for (int j = 1; j < n; ++ j) matrix[i][j] = 0;
+            }
+        }
+        for (int j = 1; j < n; ++ j) {
+            if (matrix[0][j] == 0) {
+                for (int i = 1; i < m; ++ i) matrix[i][j] = 0;
+            }
+        }
+        if (row0) {
+            for (int j = 0; j < n; ++ j) matrix[0][j] = 0;
+        }
+        if (col0) {
+            for (int i = 0; i < m; ++ i) matrix[i][0] = 0;
+        }
+    }
+};
+
+// Works. Best solution. Simpple, easy to understand. Time: O(mn), Space: O(m+n).
 // First find all rows and columns that should be set to 0; then set them 0.
 class Solution4 {
 public:
@@ -257,3 +295,4 @@ int main() {
             
     return 0;
 }
+
