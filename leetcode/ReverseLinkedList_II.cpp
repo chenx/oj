@@ -5,6 +5,47 @@
 // @Last modified: 12/24/2012
 //
 
+class Solution6 {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode dummy;
+        dummy.next = head;
+
+        ListNode * leftPrevNode = getNode(&dummy, left-1), 
+                 * rightNode = getNode(&dummy, right);
+
+        ListNode* rightTail = rightNode ? rightNode->next : NULL;
+        if (rightNode) rightNode->next = NULL;
+
+        ListNode* leftTail = NULL;
+        leftPrevNode->next = rev(leftPrevNode->next, leftTail);
+        if (leftTail) leftTail->next = rightTail;
+        return dummy.next;
+    }
+
+    ListNode* getNode(ListNode* head, int count) {
+        for (int i = 0; i < count; ++ i) {
+            head = head->next;
+            if (!head) break;
+        }
+        return head;
+    }
+
+    ListNode* rev(ListNode* head, ListNode*& tail) {
+        tail = head;
+        if (!head) return NULL;
+
+        ListNode * h = NULL;
+        while (head) {
+            ListNode* tmp = head;
+            head = head->next;
+            tmp->next = h;
+            h = tmp;
+        }
+        return h;
+    }
+};
+
 // Works.
 class Solution5 {
 public:
@@ -243,3 +284,4 @@ Note:
 Given m, n satisfy the following condition:
 1 ≤ m ≤ n ≤ length of list. 
  */
+
