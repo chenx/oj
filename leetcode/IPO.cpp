@@ -1,3 +1,6 @@
+// Works.
+// From: https://leetcode.com/problems/ipo/editorial/?envType=study-plan-v2&envId=top-interview-150
+// Complexity: Time: O(n log(n)), Space: O(n).
 class Solution {
 public:
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
