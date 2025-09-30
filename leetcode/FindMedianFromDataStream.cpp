@@ -1,3 +1,36 @@
+// Works.
+class MedianFinder3 {
+    priority_queue<int, vector<int>, less<int>> maxHeap;
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+public:
+    MedianFinder() {}
+    
+    void addNum(int num) {
+        // All elements in minHeap > elements in maxHeap.
+        int v1 = maxHeap.empty() ? INT_MIN : maxHeap.top();
+        int v2 = minHeap.empty() ? INT_MAX : minHeap.top();
+
+        if (num > v1) minHeap.push(num);
+        else maxHeap.push(num);
+
+        int diff = minHeap.size() - maxHeap.size();
+        if (diff == 2) {
+            maxHeap.push(minHeap.top());
+            minHeap.pop();
+        } else if (diff == -2) {
+            minHeap.push(maxHeap.top());
+            maxHeap.pop();
+        }
+    }
+    
+    double findMedian() {
+        if (minHeap.empty() && maxHeap.empty()) return 0;
+        if (maxHeap.size() > minHeap.size()) return maxHeap.top();
+        if (maxHeap.size() < minHeap.size()) return minHeap.top();
+        return (maxHeap.top() + minHeap.top()) / 2.0;
+    }
+};
+
 // This works too. Slightly modified from MedianFinder.
 // Note minQ elements are all larger than maxQ elements.
 class MedianFinder2 {
