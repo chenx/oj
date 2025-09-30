@@ -1,4 +1,5 @@
 // Works. Adapted from Solution3.
+// Time: O(mn), Space: O(1)
 class Solution4 {
     vector<vector<int>> dirs = {
         {-1, -1}, {0, -1}, {1, -1},
