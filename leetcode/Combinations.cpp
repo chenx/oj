@@ -8,6 +8,30 @@
 #include <vector>
 using namespace std;
 
+// Works. Recursive.
+class Solution5 {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> ans;
+        vector<int> v(k, 0);
+        comb(ans, n, k, 0, v);
+        return ans;
+    }
+
+    void comb(vector<vector<int>>& ans, int n, int k, int pos, vector<int>& v) {
+        if (pos == k) {
+            ans.push_back(v);
+            return;
+        }
+
+        for (int i = pos + 1; i <= n; ++ i) {
+            if (pos > 0 && i <= v[pos-1]) continue; // avoid duplicates
+            v[pos] = i;
+            comb(ans, n, k, pos+1, v);
+        }
+    }
+};
+
 // Works.
 class Solution4 {
 public:
@@ -225,3 +249,4 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
  */
+
