@@ -8,6 +8,8 @@
  */
 
 // Works. BFS, more clean than Solution6.
+// Time O(n+m), Space O(n).
+// n - number of nodes, m - number of edges.
 class Solution7 {
 public:
     Node* cloneGraph(Node* node) {
@@ -242,3 +244,4 @@ Visually, the graph looks like the following:
          \_/
 
  */
+
