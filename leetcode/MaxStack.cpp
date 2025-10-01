@@ -1,3 +1,5 @@
+// A set is a balanced tree. *set.rbegin() is always the one with the largest value.
+//
 // From https://leetcode.com/problems/max-stack/editorial/
 // Time Complexity: O(logN) for each operation except for initialization.
 // Space Complexity: O(N), the maximum size of the two balanced trees.
