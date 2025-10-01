@@ -19,7 +19,7 @@ public:
             return;
         }
         
-        for (j = n-1; num[j] <= num[i]; -- j) {} // find first elem from right larger than num[i].
+        for (j = n-1; num[i] >= num[j]; -- j) {} // find first elem from right larger than num[i].
         swap(num[i], num[j]);
         
         reverse(num.begin() + i + 1, num.end());
@@ -115,3 +115,4 @@ its corresponding outputs are in the right-hand column.
 3,2,1 ¡ú 1,2,3
 1,1,5 ¡ú 1,5,1        
  */
+
