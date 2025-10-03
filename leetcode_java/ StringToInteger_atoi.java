@@ -1,3 +1,33 @@
+class Solution2 {
+    public int myAtoi(String s) {
+        int v = 0;
+        Character sign = ' ';
+        boolean digitIsRead = false;
+        for (int i = 0; i < s.length(); ++ i) {
+            char c = s.charAt(i);
+            if (c == '+' || c == '-') {
+                if (digitIsRead || sign != ' ') break;
+                sign = c;
+            } else if (Character.isDigit(c)) {
+                digitIsRead = true;
+                // if (v > Integer.MAX_VALUE / 10 || 
+                //    (v == Integer.MAX_VALUE / 10 && (c - '0') > Integer.MAX_VALUE % 10)) {
+                //     return sign == '-' ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+                // }
+                int v0 = v*10 + (c - '0');
+                if (v0 / 10 != v) return sign == '-' ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+                v = v0;
+            } else if (c == ' ') {
+                if (digitIsRead || sign != ' ') break;
+            } else {
+                break;
+            }
+        }
+        if (sign == '-') v = -v;
+        return v;
+    }
+}
+
 public class Solution {
     public int myAtoi(String str) {
         int len = str.length(), i = 0;
