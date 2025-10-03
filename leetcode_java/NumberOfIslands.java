@@ -1,3 +1,33 @@
+class Solution {
+    public int numIslands(char[][] grid) {
+        int m = grid.length, n = grid[0].length, count = 0;;
+        
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] == '1') {
+                    ++ count;
+                    bfs(grid, i, j);
+                }
+            }
+        }
+        return count;
+    }
+    
+    void bfs(char[][] grid, int i, int j) {
+        int m = grid.length, n = grid[0].length;
+        grid[i][j] = '2';
+        
+        for (int k = 0; k < dirs.length - 1; ++ k) {
+            int x = i + dirs[k], y = j + dirs[k+1];
+            if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length) {
+                if (grid[x][y] == '1') bfs(grid, x, y);
+            }
+        }
+    }
+    
+    private int[] dirs = {-1, 0, 1, 0, -1};
+}
+
 public class Solution {
     private int rows, cols;
     
