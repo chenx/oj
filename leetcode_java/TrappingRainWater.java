@@ -11,14 +11,14 @@ class Solution {
                 stack.pop();
                 while (!stack.isEmpty() && height[stack.peek()] <= height[i]) {
                     int width = i - stack.peek() - 1;
-                    water += (height[stack.peek()] - bottom) * width;
+                    water += width * (height[stack.peek()] - bottom);
                     
                     bottom = height[stack.peek()];
                     stack.pop();
                 }
                 if (!stack.isEmpty()) {
                     int width = i - stack.peek() - 1;
-                    water += (height[i] - bottom) * width;
+                    water += width * (height[i] - bottom);
                 }
                 stack.push(i);
             }
