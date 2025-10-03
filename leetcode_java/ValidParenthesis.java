@@ -1,3 +1,28 @@
+class Solution {
+    public boolean isValid(String s) {
+        HashMap<Character, Character> mp = new HashMap<>(Map.of('(', ')', '[', ']', '{', '}'));
+        Stack<Character> stack = new Stack<Character>();
+        
+        for (int i = 0; i < s.length(); ++ i) {
+            char c = s.charAt(i);
+            
+            switch(c) {
+                case '(':
+                case '[':
+                case '{':
+                    stack.push(mp.get(c));
+                    break;
+                case ')':
+                case ']':
+                case '}':
+                    if (stack.isEmpty() || stack.peek() != c) return false;
+                    stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+
 public class Solution {
     public boolean isValid(String s) {
         int n = s.length();
