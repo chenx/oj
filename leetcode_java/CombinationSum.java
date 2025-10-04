@@ -1,3 +1,34 @@
+class Solution2 {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<List<Integer>>> ans = new ArrayList<>();
+        Arrays.sort(candidates);
+        
+        for (int i = 1; i <= target; ++ i) {
+            List<List<Integer>> row = new ArrayList<>();
+            for (int j = 0; j < candidates.length; ++ j) {
+                if (i < candidates[j]) {
+                    break;
+                } else if (i == candidates[j]) {
+                    row.add(new ArrayList<Integer>(Arrays.asList(i)));
+                    break;
+                } else {
+                    List<List<Integer>> v = ans.get(i - candidates[j] - 1);
+                    for (int k = 0; k < v.size(); ++ k) {
+                        int size = v.get(k).size();
+                        if (candidates[j] >= v.get(k).get(size - 1)) {  // need this!
+                            List<Integer> copy =  new ArrayList<>(v.get(k)); // copy
+                            copy.add(candidates[j]);
+                            row.add(copy);
+                        }
+                    }
+                }
+            }
+            ans.add(row);
+        }
+        return ans.get(target - 1);
+    }
+}
+
 // This works.
 public class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
