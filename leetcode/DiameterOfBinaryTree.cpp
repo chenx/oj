@@ -1,3 +1,5 @@
+// Similar to BinaryTreeMaximumPathSum
+// Time: O(n), Space: O(n)
 class Solution {
 public:
     int diameterOfBinaryTree(TreeNode* root) {
