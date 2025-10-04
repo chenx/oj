@@ -7,6 +7,34 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
+class Solution2 {
+    public int[][] merge(int[][] intervals) {
+        List<int[]> ans = new ArrayList<>();
+        
+        Arrays.sort(intervals, (a, b) -> { return a[0] - b[0]; });  // lamda function.
+        
+        for (int i = 0; i < intervals.length - 1; ++ i) {
+            int[] a = intervals[i], b = intervals[i+1];
+            
+            if (a[1] < b[0]) {
+                ans.add(a);
+            } else if (a[1] <= b[1]) {
+                b[0] = a[0];
+            } else {  // a[1] > b[1]
+                b[0] = a[0];
+                b[1] = a[1];
+            }
+        }
+        ans.add(intervals[intervals.length - 1]);  // add last item.
+        
+        int[][] ret = new int[ans.size()][2];
+        for (int i = 0; i < ans.size(); ++ i) {
+            ret[i] = ans.get(i);
+        }
+        return ret;
+    }
+}
+
 public class Solution {
     public List<Interval> merge(List<Interval> intervals) {
         int len = intervals.size();
