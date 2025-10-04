@@ -1,5 +1,34 @@
+class Solution3 {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        getPerm(ans, nums, 0);
+        return ans;
+    }
+    
+    void getPerm(List<List<Integer>> ans, int[] nums, int pos) {
+        if (pos == nums.length - 1) {
+            List<Integer> row = new ArrayList<>();
+            for (int i = 0; i < nums.length; ++ i) row.add(nums[i]);
+            ans.add(row);
+            return;
+        }
+        
+        for (int i = pos; i < nums.length; ++ i) {
+            swap(nums, i, pos);
+            getPerm(ans, nums, pos + 1);
+            swap(nums, i, pos);
+        }
+    }
+    
+    private void swap(int[] nums, int a, int b) {
+        int tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
+    }
+}
+
 // Recursive version.
-public class Solution {
+public class Solution2 {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> list = new ArrayList<List<Integer>>();
         int n = nums.length;
