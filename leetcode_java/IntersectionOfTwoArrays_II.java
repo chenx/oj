@@ -1,5 +1,29 @@
 class Solution {
+    // Array are sorted.
     public int[] intersect(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0, j = 0; i < nums1.length && j < nums2.length; ) {
+            if (nums1[i] < nums2[j]) ++ i;
+            else if (nums1[i] > nums2[j]) ++ j;
+            else {
+                ans.add(nums1[i]);
+                ++i;
+                ++j;
+            }
+        }
+        
+        int[] res = new int[ans.size()];
+        for (int i = 0; i < ans.size(); ++ i) {
+            res[i] = ans.get(i);
+        }
+        return res;
+    }
+
+    // Array are NOT sorted.
+    public int[] intersect2(int[] nums1, int[] nums2) {
         HashMap<Integer, Integer> h = new HashMap<>();
         for (int n : nums1) {
             int count = h.get(n) != null ? h.get(n) : 0;
