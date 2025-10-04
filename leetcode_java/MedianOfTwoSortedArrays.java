@@ -1,3 +1,29 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int total = nums1.length + nums2.length;
+        if (total % 2 == 1) {
+            return getKth(nums1, 0, nums2, 0, total/2 + 1);
+        } else {
+            return (getKth(nums1, 0, nums2, 0, total/2) +
+                    getKth(nums1, 0, nums2, 0, total/2 + 1)) / 2.0;
+        }
+    }
+    
+    double getKth(int[] A, int offset1, int[] B, int offset2, int k) {
+        int m = A.length - offset1, n = B.length - offset2;
+        if (m > n) return getKth(B, offset2, A, offset1, k);
+        if (m == 0) return B[offset2 + k - 1];  // Important: this MUST go before the line below.
+        if (k == 1) return Math.min(A[offset1], B[offset2]);
+        
+        int pa = Math.min((int)(k/2), m), pb = k - pa;
+        if (A[offset1 + pa - 1] < B[offset2 + pb - 1]) {
+            return getKth(A, offset1 + pa, B, offset2, k - pa);
+        } else {
+            return getKth(A, offset1, B, offset2 + pb, k - pb);
+        }
+    }
+}
+
 public class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int m = nums1.length, n = nums2.length, len = m + n;
