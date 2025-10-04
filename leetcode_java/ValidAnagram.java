@@ -1,4 +1,17 @@
 // This works.
+class Solution2 {
+    public boolean isAnagram(String s, String t) {
+        char[] a = s.toCharArray(), b = t.toCharArray();
+        Arrays.sort(a);
+        Arrays.sort(b);
+        
+        String s2 = String.valueOf(a);
+        String t2 = String.valueOf(b);
+        // String s2 = Arrays.toString(a);
+        // String t2 = Arrays.toString(b);
+        return s2.equals(t2);
+    }
+}
 
 public class Solution {
     public boolean isAnagram(String s, String t) {
