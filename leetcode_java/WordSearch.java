@@ -1,3 +1,37 @@
+class Solution2 {
+    public boolean exist(char[][] board, String word) {
+        for (int i = 0; i < board.length; ++ i) {
+            for (int j = 0; j < board[0].length; ++ j) {
+                if (board[i][j] == word.charAt(0)) {
+                    if (bfs(board, i, j, word, 0)) return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean bfs(char[][] board, int i, int j, String word, int pos) {
+        if (pos == word.length() - 1) return true;
+        
+        char c = board[i][j];
+        board[i][j] = '.';
+        
+        for (int k = 0; k < dirs.length - 1; ++ k) {
+            int x = i + dirs[k], y = j + dirs[k+1];
+            if (x >= 0 && x < board.length && y >= 0 && y < board[0].length) {
+                if (board[x][y] == word.charAt(pos + 1)) {
+                    if (bfs(board, x, y, word, pos+1)) return true;
+                }
+            }
+        }
+        
+        board[i][j] = c;
+        return false;
+    }
+    
+    private int[] dirs = {-1, 0, 1, 0, -1};
+}
+
 public class Solution {
     public boolean exist(char[][] board, String word) {
         if (board.length == 0 || board[0].length == 0) return false;
