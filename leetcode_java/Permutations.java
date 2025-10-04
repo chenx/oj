@@ -1,3 +1,49 @@
+class Solution4 {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        
+        int[] arr = new int[nums.length];
+        for (int i = 0; i < nums.length; ++ i) arr[i] = i;
+        
+        do {
+            List<Integer> row = new ArrayList<>();
+            for (int index : arr) row.add(nums[index]);
+            ans.add(row);
+        } while (nextPerm(arr));
+
+        return ans;
+    }
+    
+    private boolean nextPerm(int[] nums) {
+        int n = nums.length;
+        if (n <= 1) return false;
+        
+        int i, j;
+        // find from rhs for the first e[i] that e[i] < e[i+1]
+        for (i = n-2; i >= 0 && nums[i] >= nums[i+1]; --i) ;
+        if (i < 0) return false;
+        
+        // find from rhs for the first e[j] > e[i]
+        for (j = n-1; nums[i] >= nums[j]; -- j) ;
+        
+        swap(nums, i, j);
+        reverse(nums, i+1, nums.length - 1);  // reverse nums[i+1, end]
+        return true;
+    }
+    
+    private void reverse(int[] nums, int i, int j) {
+        while (i < j) {
+            swap(nums, i ++, j --);
+        }
+    }
+    
+    private void swap(int[] nums, int a, int b) {
+        int tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
+    }
+}
+
 class Solution3 {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
