@@ -245,3 +245,56 @@ class MyComp implements Comparator<ListNode> {
   - LinkedTreeSet is based on TreeSet, but use a DLL to provider order.
   - Queue can be LinkedList (DLL) or PriorityQueue (array)
 
+- Data Structures
+
+void test() {
+        String s = "abc";
+        int len = s.length();
+        s = s.substring(0, s.length() - 2); // remove last element
+
+        int[] a = {1,2,3};
+        a = new int[]{4,5,6};
+        len = a.length;
+
+        List<Integer> list = new ArrayList<>();
+        list.add(5);
+        int v = list.get(0); // 1
+        len = list.size();
+        list.remove(list.size() - 1);
+
+        List<Integer> list2 = new LinkedList<>();
+        list.add(4);
+        v = list.get(0);
+        len = list.size();
+        list.remove(list.size() - 1);
+
+        HashMap<Integer, Integer> m = new HashMap<>();
+        m.put(1, 2);
+        m.get(1); // 2
+        m.containsKey(1); // true
+        m.containsValue(2); // true
+        len = m.size();
+
+        HashSet<Integer> set = new HashSet<>();
+        set.add(1);
+        set.contains(1);
+        len = set.size();
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);
+        stack.pop();
+        stack.peek(); // stack.top();
+        stack.size();
+
+        // Throws-exception versions: add(e), remove(), element()
+        // Returns-special-value versions: offer(e), poll(), peek() (returning null or false on failure).
+        Queue<Integer> q = new LinkedList<>();
+        q.add(1);
+        q.remove();
+        len = q.size();
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        pq.add(1);
+        pq.remove();
+        len = pq.size();
+    }
