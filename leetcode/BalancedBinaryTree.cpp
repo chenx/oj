@@ -29,6 +29,21 @@ struct TreeNode {
       TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+// Works. Java version. Easier to understand.
+class Solution3 {
+    int height;
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+        return (Math.abs(height(root.left) - height(root.right)) <= 1) &&
+                isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    private int height(TreeNode root) {
+        if (root == null) { return 0; }
+        return 1 + Math.max(height(root.left), height(root.right));
+    }
+}
+
 // Works.
 class Solution2 {
 public:
@@ -75,3 +90,4 @@ public:
 int main() {
     return 0;
 }
+
