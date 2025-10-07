@@ -1,3 +1,34 @@
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+
+        // Based on patience sort:
+        // if nums[i] > all current elem in INC seq, put at the end;
+        // else, insert in the middle, replace the next larger value.
+        // 1, 3, 6, 2, 5 : 1, 3, 6 -> 1, 2, 6 -> 1, 2, 5
+
+        int result[] = new int[n];
+        int len = 0;
+        for (int i = 0; i < n; ++ i) {
+            if (len == 0 || nums[i] > result[len - 1]) {
+                result[len ++] = nums[i];
+            } else {
+                int L = 0, R = len - 1;
+                while (L <= R) {
+                    int M = L + (R-L)/2;
+                    if (nums[i] > result[M]) {
+                        L = M + 1;
+                    } else {
+                        R = M - 1;
+                    }
+                }
+                result[L] = nums[i];
+            }
+        }
+        return len;
+    }
+}
+
 // O(n log(n))
 public class Solution {
     public int lengthOfLIS(int[] nums) {
