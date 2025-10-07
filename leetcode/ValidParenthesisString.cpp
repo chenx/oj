@@ -1,4 +1,5 @@
 // From: https://leetcode.com/problems/valid-parenthesis-string/editorial
+// O(n) time, O(1) space.
 class Solution {
 public:
     bool checkValidString(string s) {
