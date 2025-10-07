@@ -1,6 +1,55 @@
 // Works.
+class Solution3 {
+public:
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        int n = routes.size();
+        if (n <= 1) return 0;
+        if (source == target) return 0;
+
+        map<int, vector<int>> ajList;  // <stop, routes> map
+        for (int i = 0; i < routes.size(); ++ i) {
+            for (auto stop : routes[i]) {
+                ajList[stop].push_back(i);
+            }
+        }
+
+        queue<pair<int, int>> q;
+        set<int> usedRoutes;
+
+        for (auto route : ajList[source]) {
+            // pair<vector<int>, int>: pair of <route, distance>
+            q.push(pair<int, int>(route, 1));
+            usedRoutes.insert(route);
+        }
+
+        while (!q.empty()) {
+            int route = q.front().first;
+            int distance = q.front().second;
+            q.pop();
+
+            if (find(routes[route].begin(), routes[route].end(), target) != routes[route].end()) {
+                return distance;
+            }
+
+            // search for the next route.
+            // for each bus stop in route, look for other routes that contains it
+            // if contains it, push the route to the back of the queue
+            for (int stop : routes[route]) {
+                for (auto nextRoute : ajList[stop]) {
+                    if (usedRoutes.count(nextRoute) > 0) continue;
+                    usedRoutes.insert(nextRoute);
+                    q.push(pair<int, int>(nextRoute, distance + 1));
+                }
+            }
+        }
+
+        return -1;
+    }
+};
+
+// Works.
 // From https://leetcode.com/problems/bus-routes/editorial
-class Solution {
+class Solution2 {
 public:
     int numBusesToDestination(vector<vector<int>>& routes, int source,
                               int target) {
