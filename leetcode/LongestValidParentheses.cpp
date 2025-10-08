@@ -5,6 +5,39 @@
 // @Last modified: 1/21/2013
 //
 
+// works.
+class Solution6 {
+public:
+    int longestValidParentheses(string s) {
+        int n = s.length();
+
+        int count = 0, len = 0, maxLen = 0;
+        for (int i = 0; i < n; ++ i) {
+            ++ len;
+            if (s[i] == '(') {
+                ++ count;
+            } else {
+                -- count;
+                if (count == 0) maxLen = max(len, maxLen);
+                else if (count < 0) { len = 0; count = 0; }
+            }
+        }
+
+        len = 0, count = 0;
+        for (int i = n-1; i >= 0; -- i) {
+            ++ len;
+            if (s[i] == ')') {
+                ++ count;
+            } else {
+                -- count;
+                if (count == 0) maxLen = max(len, maxLen);
+                else if (count < 0) { len = 0; count = 0; }
+            }
+        }
+        return maxLen;
+    }
+};
+
 // Same as Solution3, but shortened.
 class Solution5 {
 public:
@@ -22,8 +55,9 @@ public:
     }
     
     void getLen(bool isOpen, int &len, int &count, int &maxLen) {
-        if (isOpen) ++ len, ++ count; 
-        else ++ len, -- count; 
+        ++ len;
+        if (isOpen) ++ count; 
+        else -- count; 
 
         if (count == 0) maxLen = max(maxLen, len);
         else if (count < 0) len = count = 0;
@@ -203,3 +237,4 @@ For example, the longest substring without repeating letters for "abcabcbb" is "
 which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
 
  */
+
