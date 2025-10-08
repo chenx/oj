@@ -17,6 +17,10 @@ slice()
 includes()
 length
 
+#### sort array with custom comparator
+
+intervals.sort((a, b) => { return a[0] - b[0]; });
+
 ### Map
 
 const map = new Map();
