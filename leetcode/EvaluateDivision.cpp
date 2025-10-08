@@ -1,3 +1,113 @@
+class Solution3 {
+public:
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        // get all equations and corresponding value
+        // do a BFS from denominator until nominator is found.
+        unordered_map<string, set<pair<string, double>>> mp; // <denom, <nom, value>>
+        for (int i = 0; i < equations.size(); ++ i) {
+            mp[equations[i][0]].insert({equations[i][1], values[i]});
+            mp[equations[i][1]].insert({equations[i][0], 1.0 / values[i]});
+        }
+
+        vector<double> ans;
+        for (auto query : queries) {
+            string start = query[0], end = query[1];
+            if (!mp.contains(start) || !mp.contains(end)) {
+                ans.push_back(-1.0);
+                continue;
+            }
+            if (start == end) {
+                ans.push_back(1.0);
+                continue;
+            }
+
+            queue<pair<string, double>> q; // 
+            q.push({start, 1.0});
+
+            set<string> used;
+            used.insert(start);
+            bool found = false;
+
+            while (!q.empty()) {
+                string denom = q.front().first;
+                double val = q.front().second;
+                q.pop();
+
+                for (auto option : mp[denom]) {
+                    if (!used.contains(option.first)) {
+                        if (end == option.first) {
+                            ans.push_back(val * option.second);
+                            found = true;
+                            break;
+                        }
+                        used.insert(option.first);
+                        q.push({option.first, val * option.second});
+                    }
+                }
+                if (found) break;
+            }
+            if (!found) ans.push_back(-1.0);
+        }
+
+        return ans;
+    }
+};
+
+class Solution2 {
+public:
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
+        // get all equations and corresponding value
+        // do a BFS from denominator until nominator is found.
+        unordered_map<string, set<pair<string, double>>> mp; // <denom, <nom, value>>
+        for (int i = 0; i < equations.size(); ++ i) {
+            mp[equations[i][0]].insert({equations[i][1], values[i]});
+            mp[equations[i][1]].insert({equations[i][0], 1.0 / values[i]});
+        }
+
+        vector<double> ans;
+        for (auto query : queries) {
+            string start = query[0], end = query[1];
+            if (!mp.contains(start) || !mp.contains(end)) {
+                ans.push_back(-1.0);
+                continue;
+            }
+            if (start == end) {
+                ans.push_back(1.0);
+                continue;
+            }
+
+            queue<pair<string, double>> q; // 
+            q.push({start, 1.0});
+
+            set<string> used;
+            used.insert(start);
+            bool found = false;
+
+            while (!q.empty()) {
+                string denom = q.front().first;
+                double val = q.front().second;
+                q.pop();
+
+                if (denom == end) {
+                    ans.push_back(val);
+                    found = true;
+                    break;
+                }
+
+                for (auto option : mp[denom]) {
+                    if (!used.contains(option.first)) {
+                        used.insert(option.first);
+                        q.push({option.first, val * option.second});
+                    }
+                }
+            }
+            if (!found) ans.push_back(-1.0);
+        }
+
+        return ans;
+    }
+};
+
 // Time: O(n) + O(m*n) = O(m*n), Space: O(n)
 // n = equations.size(), m = queries.size().
 //
