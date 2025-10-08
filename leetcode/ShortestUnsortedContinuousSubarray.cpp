@@ -23,11 +23,11 @@ public:
 };
 
 /**
-from lhs, find first e[i] > e[i+1]
-from rhs, find first e[j] > e[j+1] 
+from lhs, find first e[i] > e[i+1], then minVal after this
+from rhs, find first e[j] > e[j+1], the maxVal before this
 
-from lhs, find first e[x] > e[i]
-from rhs, find first e[y] < e[j]
+from lhs, find first e[x] > minVal
+from rhs, find first e[y] < maxVal
 
 sort the range [x .. y]
  */
