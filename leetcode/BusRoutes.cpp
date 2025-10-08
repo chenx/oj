@@ -1,4 +1,46 @@
 // Works.
+class Solution4 {
+public:
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        if (source == target) return 0;
+
+        map<int, vector<int>> stopRoutes;  // <stop, routes>
+        for (int i = 0; i < routes.size(); ++ i) {
+            for (int stop : routes[i]) {
+                stopRoutes[stop].push_back(i);
+            }
+        }
+
+        set<int> used;
+
+        queue<pair<int, int>> q;
+        for (auto route : stopRoutes[source]) {
+            q.push({route, 1});
+            used.insert(route);
+        }
+
+        while (!q.empty()) {
+            int route = q.front().first;
+            int dist = q.front().second;
+            q.pop();
+
+            for (int stop : routes[route]) {
+                if (stop == target) return dist;
+
+                auto nextRoutes = stopRoutes[stop];
+                for (int nextRoute : nextRoutes) {
+                    if (used.contains(nextRoute)) continue;
+                    used.insert(nextRoute);
+                    q.push({nextRoute, dist + 1});
+                }
+            }
+        }
+
+        return -1;
+    }
+};
+
+// Works.
 class Solution3 {
 public:
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
