@@ -6,6 +6,45 @@
 // @Last modified: 4/7/2013
 //
 
+// Works. Best.
+class Solution3 {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        if (beginWord == endWord) return 0;
+
+        set<string> words(wordList.begin(), wordList.end());
+
+        set<string> used;
+        queue<pair<string, int>> q; // word, dist
+        used.insert(beginWord);
+        q.push({beginWord, 1});
+
+        while (!q.empty()) {
+            string word = q.front().first;
+            int dist = q.front().second;
+            q.pop();
+
+            for (int i = 0; i < word.length(); ++ i) {
+                char c = word[i];
+
+                for (char d = 'a'; d <= 'z'; ++ d) {
+                    if (d == c) continue;
+                    word[i] = d;
+
+                    if (words.contains(word) && ! used.contains(word)) {
+                        if (word == endWord) return dist + 1;  // return here early insetad of after q.pop().
+                        used.insert(word);
+                        q.push({word, dist + 1});
+                    }
+                }
+                word[i] = c;
+            }
+        }
+
+        return 0;
+    }
+};
+
 class Solution2 {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
@@ -348,5 +387,6 @@ return its length 5.
 Note:
 Return 0 if there is no such transformation sequence. 
  */
+
 
 
