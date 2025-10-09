@@ -1,3 +1,38 @@
+// Same as Solution, just cleaned up.
+class Solution2 {
+public:
+    int minimumOperationsToWriteY(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int yPattern[3] = {0}, nonYPattern[3] = {0};  
+
+        for (int i = 0; i < n; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (i == j && i <= n/2) { // left arm of Y
+                    ++ yPattern[grid[i][j]];
+                } else if (i + j == n-1 && i <= n/2) {
+                    ++ yPattern[grid[i][j]];
+                } else if (j == n/2 && i >= n/2) {
+                    ++ yPattern[grid[i][j]];
+                } else {
+                    ++ nonYPattern[grid[i][j]];
+                }
+            }
+        }
+
+        int total = n*n, minOperations = INT_MAX;
+        for (int i = 0; i < 3; ++ i) {
+            for (int j = 0; j < 3; ++ j) {
+                if (i != j) {
+                    int operations = total - yPattern[i] - nonYPattern[j];
+                    minOperations = min(minOperations, operations);
+                }
+            }
+        }
+
+        return minOperations;
+    }
+};
+
 // From https://leetcode.com/problems/minimum-operations-to-write-the-letter-y-on-a-grid/
 class Solution {
 public:
