@@ -3,7 +3,7 @@
 // Use Rabin-Karp method to find dup string. Polynomial rolling hash.
 // See https://en.wikipedia.org/wiki/Rolling_hash
 // Time: O(NlogN), Space: O(N)
-typedef unsigned long long ull;
+typedef unsigned long long ull;  // max 2^64 - 1
 
 class Solution {
     ull prefixHash[30010], powers[30010];
