@@ -1,3 +1,63 @@
+// Version 2. Works.
+typedef unsigned long long ULL;
+
+class Solution {
+public:
+    // Arrays for polynomial hash computation
+    ULL powers[30010];      // powers[i] stores base^i
+    ULL prefixHash[30010];  // prefixHash[i] stores hash of s[0...i-1]
+  
+    string longestDupSubstring(string s) {
+        // Initialize hash parameters
+        const int BASE = 131;  // Prime base for polynomial rolling hash
+        int n = s.size();
+      
+        // Precompute powers of base
+        powers[0] = 1;
+        prefixHash[0] = 0;
+        for (int i = 0; i < n; ++i) {
+            powers[i + 1] = powers[i] * BASE;
+            prefixHash[i + 1] = prefixHash[i] * BASE + s[i];
+        }
+      
+        // Binary search on the length of duplicate substring
+        int left = 0, right = n - 1;
+        string result = "";
+      
+        while (left < right) {
+            int mid = 1 + left + (right - left) / 2;
+            string dup = findDupOfLength(s, mid);
+          
+            if (dup.empty()) { // No duplicate of this length, try smaller lengths
+                right = mid - 1;
+            } else { // Found duplicate, try larger lengths
+                left = mid;
+                result = dup;
+            }
+        }
+      
+        return result;
+    }
+  
+private:
+    // Check if there exists a duplicate substring of given length
+    string findDupOfLength(string& s, int len) {
+        int n = s.size();
+        set<ULL> seenHashes;
+      
+        // Slide window of size len through the string
+        for (int i = 0; i + len - 1 < n; ++i) {
+            int j = i + len; // end index
+            ULL currentHash = prefixHash[j] - prefixHash[i] * powers[j - i];
+            if (seenHashes.contains(currentHash)) {
+                return s.substr(i, len);
+            }
+            seenHashes.insert(currentHash);
+        }
+      
+        return "";  // No duplicate of this length found
+    }
+};
 
 // Works.
 // From https://leetcode.com/problems/longest-duplicate-substring/editorial/
