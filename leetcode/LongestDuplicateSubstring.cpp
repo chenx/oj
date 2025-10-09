@@ -1,4 +1,5 @@
 // Version 3. Works.
+// Binary Search + Rabin-Karp
 // Use Rabin-Karp method to find dup string. Polynomial rolling hash.
 // See https://en.wikipedia.org/wiki/Rolling_hash
 // Time: O(NlogN), Space: O(N)
