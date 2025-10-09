@@ -14,19 +14,21 @@ public:
         powers[0] = 1;
         prefixHash[0] = 0;
         for (int i = 0; i < n; ++ i) { // rolling hash.
-            powers[i+1] = powers[i] * BASE;
+            powers[i+1] = powers[i] * BASE;  ////// i+1
             prefixHash[i+1] = prefixHash[i] * BASE + s[i];
         }
 
+        // binary search: if an answer of length k exists, there answer of shorter length
+        // also exist: k-1, k-2, ..., 1
         string ans;
         int L = 0, R = n - 1;
         while (L < R) {
             int M = 1 + L + (R-L)/2;
             string dup = findDup(s, M);
             if (dup.empty()) {
-                R = M - 1;
+                R = M - 1;  ///////
             } else {
-                L = M;
+                L = M;  //////
                 ans = dup;
             }
         }
@@ -37,7 +39,7 @@ public:
         set<ull> foundHashes;
 
         for (int i = 0; i + len <= s.length(); ++ i) {
-            int j = i + len;
+            int j = i + len;  ///// end index
             ull hash = prefixHash[j] - prefixHash[i] * powers[j-i];
             if (foundHashes.contains(hash)) {
                 return s.substr(i, len); // found
