@@ -1,3 +1,49 @@
+// Version 3. Works.
+typedef unsigned long long ull;
+
+class Solution {
+    ull prefixHash[30010], powers[30010];
+    int BASE = 113;
+public:
+    string longestDupSubstring(string s) {
+        int n = s.length();
+        powers[0] = 1;
+        prefixHash[0] = 0;
+        for (int i = 0; i < n; ++ i) { // rolling hash.
+            powers[i+1] = powers[i] * BASE;
+            prefixHash[i+1] = prefixHash[i] * BASE + s[i];
+        }
+
+        string ans;
+        int L = 0, R = n - 1;
+        while (L < R) {
+            int M = 1 + L + (R-L)/2;
+            string dup = findDup(s, M);
+            if (dup.empty()) {
+                R = M - 1;
+            } else {
+                L = M;
+                ans = dup;
+            }
+        }
+        return ans;
+    }
+
+    string findDup(string& s, int len) {
+        set<ull> foundHashes;
+
+        for (int i = 0; i + len <= s.length(); ++ i) {
+            int j = i + len;
+            ull hash = prefixHash[j] - prefixHash[i] * powers[j-i];
+            if (foundHashes.contains(hash)) {
+                return s.substr(i, len); // found
+            }
+            foundHashes.insert(hash);
+        }
+        return ""; // not found
+    }
+};
+
 // Version 2. Works.
 typedef unsigned long long ULL;
 
