@@ -1,3 +1,36 @@
+class Solution3 {
+public:
+    int minimumOperationsToWriteY(vector<vector<int>>& grid) {
+        int n = grid.size();
+        vector<int> yPattern(3, 0), notYPattern(3, 0);
+
+        for (int i = 0; i < n; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if ((i == j && i <= n/2) || 
+                    (i + j == n-1 && i <= n/2) ||
+                    (j == n/2 && i >= n/2)
+                   ) {
+                    ++ yPattern[grid[i][j]];
+                } else {
+                    ++ notYPattern[grid[i][j]];
+                }
+            }
+        }
+
+        int total = n*n; // total number of operations
+        int minTotal = INT_MAX;
+        // try all 3x3 combinations of values in Y and not in Y.
+        for (int i = 0; i < 3; ++ i) {
+            for (int j = 0; j < 3; ++ j) {
+                if (i != j) {
+                    minTotal = min(minTotal, total - yPattern[i] - notYPattern[j]);
+                }
+            }
+        }
+        return minTotal;
+    }
+};
+
 // Same as Solution, just cleaned up.
 class Solution2 {
 public:
