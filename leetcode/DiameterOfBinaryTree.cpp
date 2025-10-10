@@ -1,4 +1,4 @@
-// Similar to BinaryTreeMaximumPathSum
+// Similar to BinaryTreeMaximumPathSum and BalancedBinaryTree
 // Time: O(n), Space: O(n)
 class Solution {
 public:
