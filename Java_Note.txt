@@ -196,6 +196,10 @@ h.clear();
 Integer key = 1;
 Object value = h.remove(key); // key: 1
 
+// Add 1 to an entry. Both work, prefer the 2nd one:
+map.put(timestamp, map.get(timestamp) != null ? 1 + map.get(timestamp) : 1);
+map.put(timestamp, 1 + map.getOrDefault(timestamp, 0));
+
 // sort
 System.out.println("Unsorted HashMap: " + map);
 TreeMap sortedHashMap = new TreeMap(map);     
