@@ -1,3 +1,24 @@
+// Works.
+class HitCounter2 {
+    Queue<Integer> hits; // timestamp
+
+    public HitCounter() {
+        hits = new LinkedList<>();
+    }
+    
+    public void hit(int timestamp) {
+        hits.add(timestamp); // add to back
+    }
+    
+    public int getHits(int timestamp) {
+        while (!hits.isEmpty()) {
+            if (timestamp - hits.peek() >= 300) hits.remove(); // remove from front
+            else break;
+        }
+        return hits.size();
+    }
+}
+
 class HitCounter {
     HashMap<Integer, Integer> map = new HashMap<>();
 
