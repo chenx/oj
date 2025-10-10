@@ -1,7 +1,7 @@
 // Dynamic Programming with Binary Search
 // Time Complexity: O(KNlogN).
 // Space Complexity: O(KN).
-class Solution2 {
+class Solution {
 public:
     int superEggDrop(int K, int N) {
         return dp(K, N);
@@ -14,18 +14,18 @@ public:
             if (N == 0) ans = 0;
             else if (K == 1) ans = N;
             else {
-                int lo = 1, hi = N;
-                while (lo + 1 < hi) {
-                    int x = (lo + hi) / 2;
-                    int t1 = dp(K-1, x-1);
-                    int t2 = dp(K, N-x);
+                int L = 1, R = N;
+                while (L + 1 < R) {
+                    int M = (L + R) / 2;
+                    int t1 = dp(K-1, M-1);
+                    int t2 = dp(K, N-M);
 
-                    if (t1 < t2) lo = x;
-                    else if (t1 > t2) hi = x;
-                    else lo = hi = x;
+                    if (t1 < t2) L = M;
+                    else if (t1 > t2) R = M;
+                    else L = R = M;
                 }
-                ans = 1 + min(max(dp(K-1, lo-1), dp(K, N-lo)),
-                              max(dp(K-1, hi-1), dp(K, N-hi)));
+                ans = 1 + min(max(dp(K-1, L-1), dp(K, N-L)),
+                              max(dp(K-1, R-1), dp(K, N-R)));
             }
             memo[N * 100 + K] = ans;
         }
