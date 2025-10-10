@@ -6,7 +6,8 @@ class HitCounter {
     }
     
     public void hit(int timestamp) {
-        map.put(timestamp, map.get(timestamp) != null ? 1 + map.get(timestamp) : 1);
+        // map.put(timestamp, map.get(timestamp) != null ? 1 + map.get(timestamp) : 1);
+        map.put(timestamp, 1 + map.getOrDefault(timestamp, 0));
     }
     
     public int getHits(int timestamp) {
