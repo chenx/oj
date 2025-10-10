@@ -3,6 +3,7 @@ public:
     int minimumOperationsToWriteY(vector<vector<int>>& grid) {
         int n = grid.size();
         vector<int> yPattern(3, 0), notYPattern(3, 0);
+        // Or: int yPattern[3] = {0}, notYPattern[3] = {0};
 
         for (int i = 0; i < n; ++ i) {
             for (int j = 0; j < n; ++ j) {
