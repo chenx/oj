@@ -5,6 +5,7 @@ class Solution2 {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < s.length(); ++ i) {
+            // Note: cannot use s[i] here, which is a string, not a char.
             if (!sb.isEmpty() && sb.charAt(sb.length() - 1) == s.charAt(i)) {
                 sb.deleteCharAt(sb.length() - 1);
             } else {
