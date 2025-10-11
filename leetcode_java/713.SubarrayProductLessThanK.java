@@ -1,3 +1,5 @@
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
     public int numSubarrayProductLessThanK(int[] nums, int k) {
         if (k <= 1) return 0;
