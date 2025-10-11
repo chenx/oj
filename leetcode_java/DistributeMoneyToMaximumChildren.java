@@ -1,3 +1,14 @@
+// Same as Solution, just removed comments.
+class Solution2 {
+    public int distMoney(int money, int children) {
+        if (money < children) return -1;
+        if (money > children * 8) return children - 1;
+        if (money == children * 8 - 4) return children - 2;
+        // money - 8x >= children - x => 7x <= (money - children)
+        return (money - children) / 7;
+    }
+}
+
 // From https://algo.monster/liteproblems/2591
 class Solution {
     public int distMoney(int money, int children) {
