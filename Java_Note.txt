@@ -221,6 +221,13 @@ while (it.hasNext()) {
 
 -- Java PriorityQueue
 
+Method 1:
+
+Queue<Integer> maxHeap = new PriorityQueue<>(
+            (a, b) -> { return mp.get(a) - mp.get(b); } );
+
+Method 2:
+
 Comparator<ListNode> comp = new MyComp();
 PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(comp);
 
