@@ -112,6 +112,11 @@ public static <T extends Object> List<T> cloneList(List<T> list) {
     return ((List<T>) ((ArrayList<T>) list).clone());
 }
 
+-- Convert Integer ArrayList to int array
+
+List<Integer> ret = new ArrayList<>();
+return ret.stream().mapToInt(Integer::intValue).toArray();
+
 
 -- Java List API
 http://docs.oracle.com/javase/7/docs/api/java/util/List.html
