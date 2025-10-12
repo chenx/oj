@@ -205,6 +205,8 @@ System.out.println("Unsorted HashMap: " + map);
 TreeMap sortedHashMap = new TreeMap(map);     
 System.out.println("Sorted HashMap: " + sortedHashMap); 
 
+// Increment value with default value
+map.put(i, 1 + map.getOrDefault(i, 0));
 
 -- Java HashSet
 
