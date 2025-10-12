@@ -13,7 +13,7 @@ class Solution {
             if (maxHeap.size() > k) maxHeap.poll();
         }
 
-        int[] ret = new int[maxHeap.size()];
+        int[] ret = new int[k];
         int count = 0;
         while (! maxHeap.isEmpty()) {
             ret[count ++] = maxHeap.poll();
