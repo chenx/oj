@@ -5,18 +5,23 @@ class Solution {
             mp.put(i, 1 + mp.getOrDefault(i, 0));
         }
 
-        Queue<Integer> maxHeap = new PriorityQueue<>(
+        Queue<Integer> minHeap = new PriorityQueue<>(
             (a, b) -> { return mp.get(a) - mp.get(b); } );
 
         for (int v : mp.keySet()) {
-            maxHeap.add(v);
-            if (maxHeap.size() > k) maxHeap.poll();
+            minHeap.add(v);
+            if (minHeap.size() > k) minHeap.poll();
         }
+        // Or:
+        // for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+        //     minHeap.add(entry.getKey());
+        //     if (minHeap.size() > k) minHeap.poll();
+        // }
 
         int[] ret = new int[k];
         int count = 0;
-        while (! maxHeap.isEmpty()) {
-            ret[count ++] = maxHeap.poll();
+        while (! minHeap.isEmpty()) {
+            ret[count ++] = minHeap.poll();
         }
         return ret;
     }
