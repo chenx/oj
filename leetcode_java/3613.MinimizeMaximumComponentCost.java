@@ -1,5 +1,37 @@
-// From: https://algo.monster/liteproblems/3613
+// Same as Solution, no comment.
+class Solution2 {
+    private int[] parent; 
 
+    public int minCost(int n, int[][] edges, int k) {
+        if (n == k) return 0;
+
+        parent = new int[n];
+        Arrays.setAll(parent, i -> i);
+        Arrays.sort(edges, (a, b) -> a[2] - b[2]);
+
+        int count = n;
+        for (int[] edge : edges) {
+            int u = edge[0], v = edge[1], weight = edge[2];
+
+            int parentU = find(u), parentV = find(v);
+            if (parentU != parentV) {
+                parent[parentU] = parentV;
+                count -= 1;
+                if (count <= k) return weight;
+            }
+        }
+        return 0;
+    }
+
+    private int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
+}
+
+// From: https://algo.monster/liteproblems/3613
 class Solution {
     // Parent array for Union-Find (Disjoint Set Union) data structure
     private int[] parent;
