@@ -100,6 +100,11 @@ public class CrunchifyIterateThroughList {
 	}
 }
 
+-- StringBuilder vs StringBuffer
+
+StringBuffer: thread-safe, synchronized; lower in performance
+StringBuilder: not threadsafe; faster in performance. Good for single-threaded program
+
 
 -- clone a list
 http://stackoverflow.com/questions/54909/how-do-i-clone-a-generic-list-in-java
