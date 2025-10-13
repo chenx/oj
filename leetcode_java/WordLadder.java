@@ -1,3 +1,46 @@
+class Solution3 {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if (beginWord.equals(endWord)) return 1;
+
+        HashSet<String> words = new HashSet<>();
+        for (String word : wordList) words.add(word);
+
+        Queue<Pair<String, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair<>(beginWord, 1));
+
+        HashSet<String> visited = new HashSet<>();
+        visited.add(beginWord);
+
+        while (! queue.isEmpty()) {
+            String word = queue.peek().getKey();
+            int dist = queue.peek().getValue();
+            queue.remove();
+
+            char[] wordArray = word.toCharArray();
+            for (int i = 0; i < wordArray.length; ++ i) {
+                char backup = wordArray[i];
+
+                for (char c = 'a'; c <= 'z'; ++ c) {
+                    if (c == backup) continue;
+                    wordArray[i] = c;
+                    String next = new String(wordArray);
+                    // String next = String.valueOf(wordArray); // also works
+
+                    if (words.contains(next) && ! visited.contains(next)) {
+                        if (next.equals(endWord)) return 1 + dist;
+
+                        queue.add(new Pair<>(next, 1 + dist));
+                        visited.add(next);
+                    }
+                }
+                wordArray[i] = backup;
+            }
+        }
+
+        return 0;
+    }
+}
+
 // This works. 
 // Optimized from Solution, and passes all tests.
 // Note the use of toCharArray(), and let j be char type to avoid cast.
