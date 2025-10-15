@@ -1,3 +1,52 @@
+// Search on even index only.
+// See https://leetcode.com/problems/single-element-in-a-sorted-array/editorial/
+// Time: O(log n), Space: O(1)
+class Solution3 {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        int lo = 0;
+        int hi = nums.size() - 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (mid % 2 == 1) mid--;
+            if (nums[mid] == nums[mid + 1]) {
+                lo = mid + 2;
+            } else {
+                hi = mid;
+            }
+        }
+        return nums[lo];
+    }
+};
+
+class Solution2 {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        int lo = 0;
+        int hi = nums.size() - 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            bool halvesAreEven = (hi - mid) % 2 == 0;
+            if (nums[mid + 1] == nums[mid]) {
+                if (halvesAreEven) {
+                    lo = mid + 2;
+                } else {
+                    hi = mid - 1;
+                }
+            } else if (nums[mid - 1] == nums[mid]) {
+                if (halvesAreEven) {
+                    hi = mid - 2;
+                } else {
+                    lo = mid + 1;
+                }
+            } else {
+                return nums[mid];
+            }
+        }
+        return nums[lo];
+    }
+};
+
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
