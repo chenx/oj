@@ -1,3 +1,36 @@
+// Use expireTime instead of timestamp.
+class AuthenticationManager2 {
+    int ttl;
+    map<string, int> map; // <tokenId, expireTime>
+
+public:
+    AuthenticationManager(int timeToLive) {
+        ttl = timeToLive;
+    }
+    
+    void generate(string tokenId, int currentTime) {
+        map[tokenId] = currentTime + ttl;
+    }
+    
+    void renew(string tokenId, int currentTime) {
+        if (map.contains(tokenId) && currentTime < map[tokenId]) {
+            map[tokenId] = currentTime + ttl;
+        }
+    }
+    
+    int countUnexpiredTokens(int currentTime) {
+        set<string> toRemove;
+        int ct = 0;
+        for (auto [tokenId, expireTime] : map) {
+            if (currentTime < expireTime) ++ ct;
+            else toRemove.insert(tokenId);
+        }
+        for (string tokenId : toRemove) map.erase(tokenId);
+
+        return ct;
+    }
+};
+
 // Works.
 class AuthenticationManager {
     int ttl;
