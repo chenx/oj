@@ -12,7 +12,8 @@ class Solution {
                 target /= 2;
         }
 
-        return ans + startValue - target;
+        // (startValue - target) is for the substract one steps.
+        return ans + (startValue - target);
     }
 }
 
