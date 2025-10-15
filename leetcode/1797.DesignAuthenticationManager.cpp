@@ -21,10 +21,24 @@ public:
     int countUnexpiredTokens(int currentTime) {
         int ct = 0;
         for (auto [tokenId, timestamp] : map) {
+            // Note this map.erase in for loop causes discrepancy and error.
             // if (currentTime - timestamp >= ttl) map.erase(tokenId);
             // else ++ ct;
             if (currentTime - timestamp < ttl) ++ ct;
         }
+        return ct;
+    }
+
+    // This version removes expired entries.
+    int countUnexpiredTokens2(int currentTime) {
+        set<string> toRemove;
+        int ct = 0;
+        for (auto [tokenId, timestamp] : map) {
+            if (currentTime - timestamp < ttl) ++ ct;
+            else toRemove.insert(tokenId);
+        }
+        for (string tokenId : toRemove) map.erase(tokenId);
+
         return ct;
     }
 };
