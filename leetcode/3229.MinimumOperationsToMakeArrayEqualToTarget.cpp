@@ -1,7 +1,31 @@
-// See https://algo.monster/liteproblems/3229
-// O(n) time. O(1) space.
 typedef long long ll;
 
+// Same as Solution. Just removed comments.
+class Solution2 {
+public:
+    long long minimumOperations(vector<int>& nums, vector<int>& target) {
+        ll totalOperations = abs(target[0] - nums[0]);
+      
+        for (int i = 1; i < nums.size(); ++i) {
+            long currentDiff = target[i] - nums[i];
+            long previousDiff = target[i - 1] - nums[i - 1];
+
+            if (currentDiff * previousDiff > 0) {
+                ll additionalOps = abs(currentDiff) - abs(previousDiff);
+                if (additionalOps > 0) {
+                    totalOperations += additionalOps;
+                }
+            } else {
+                totalOperations += abs(currentDiff);
+            }
+        }
+
+        return totalOperations;
+    }
+};
+
+// See https://algo.monster/liteproblems/3229
+// O(n) time. O(1) space.
 class Solution {
 public:
     long long minimumOperations(vector<int>& nums, vector<int>& target) {
