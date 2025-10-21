@@ -7,6 +7,14 @@ class Node {
     }
 };
 
+// Class node can also be defined as:
+// var Node = function(key, value) {
+//     this.key = key;
+//     this.value = value;
+//     this.prev = null;
+//     this.next = null;
+// }
+
 /**
  * @param {number} capacity
  */
