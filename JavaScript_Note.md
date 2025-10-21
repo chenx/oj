@@ -21,7 +21,13 @@ const DP = new Array(n).fill(-1);
 
 ## Methods
 
-### List / Array
+### No list
+
+Javascript has no built-in data structure of linked list, doubly linked list, stack or queue.
+
+Linked list, stack and queue can be mimicked by Array. DLL has to be implemented.
+
+### Array
 
 const list = [];
 const list = new Array();
@@ -32,6 +38,10 @@ splice()
 slice()
 includes()
 length
+
+Loop through an array:
+- for (const n of arr)
+- arr.forEach()
 
 #### sort array with custom comparator
 
