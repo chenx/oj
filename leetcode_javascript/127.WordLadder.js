@@ -16,10 +16,10 @@ var ladderLength = function(beginWord, endWord, wordList) {
         const used = new Set();
         used.add(beginWord);
 
-        const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); // !!!
 
         while (queue.length > 0) {
-            const [word, dist] = queue.pop();
+            const [word, dist] = queue.shift();  // !!! <-------- shift() == pop()
 
             const wordArray = word.split('');
             for (let i = 0; i < wordArray.length; ++ i) {
