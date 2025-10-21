@@ -19,7 +19,7 @@ var ladderLength = function(beginWord, endWord, wordList) {
         const letters = 'abcdefghijklmnopqrstuvwxyz'.split(''); // !!!
 
         while (queue.length > 0) {
-            const [word, dist] = queue.shift();  // !!! <-------- shift() == pop()
+            const [word, dist] = queue.shift();  // !!! <-------- shift() == front()
 
             const wordArray = word.split('');
             for (let i = 0; i < wordArray.length; ++ i) {
