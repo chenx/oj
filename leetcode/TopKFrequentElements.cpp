@@ -1,3 +1,39 @@
+// This works with both minHeap and maxHeap.
+// With maxHeap, you get the top k.
+// With minHeap, smaller entries are removed early, and you end up with top k.
+// minHeap solution is better: Space: O(k), Time: O(n log k).
+// maxHeap: Space: O(n), Time, O(n log n)
+
+// Works too. Using maxHeap.
+class comp {
+public:
+    bool operator()(vector<int>& a, vector<int>& b) {
+        return a[1] < b[1];
+    }
+};
+
+class Solution3 {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        map<int, int> mp; // num, count
+        for (int n : nums) ++ mp[n];
+
+        priority_queue<vector<int>, vector<vector<int>>, comp> maxHeap;
+        for (auto e : mp) {
+            maxHeap.push({e.first, e.second});
+        }
+
+        vector<int> ans;
+        int count = 0;
+        while (!maxHeap.empty() && count < k) {
+            ans.push_back(maxHeap.top()[0]);
+            maxHeap.pop();
+            ++ count;
+        }
+        return ans;
+    }
+};
+
 // Version 2. Works too.
 class comp {
 public:
