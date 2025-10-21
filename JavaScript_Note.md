@@ -70,6 +70,10 @@ size
 
 // iterate through map entries
 for (const [key, value] of map.entries()) {}
+
+// Initialize with values
+const entries = [['{', '}'], ['[', ']'], ['(', ')']];
+const map = new Map(entries);
 ```
 
 ### Set
