@@ -14,6 +14,14 @@ var isAlnum = (c) => {
     return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
+### Convert number to string
+
+num.toString()
+
+### Split string to char array
+
+const arr = str.split('');
+
 ## Initialize an array of size n with default value -1
 
 const DP = new Array(n).fill(-1);
