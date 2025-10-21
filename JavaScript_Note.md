@@ -59,6 +59,7 @@ intervals.sort((a, b) => { return a[0] - b[0]; });
 
 ### Map
 
+```
 const map = new Map();
 set(k,v)
 has(k)
@@ -66,15 +67,18 @@ get(k)
 delete(k)
 clear()
 size
+```
 
 ### Set
 
+```
 const set = new Set()
 add(v)
 has(v)
 delete(v)
 clear()
 size
+```
 
 get first value: set.values().next().value
 
