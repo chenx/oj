@@ -67,6 +67,9 @@ get(k)
 delete(k)
 clear()
 size
+
+// iterate through map entries
+for (const [key, value] of map.entries()) {}
 ```
 
 ### Set
