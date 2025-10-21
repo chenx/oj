@@ -1,3 +1,19 @@
+# JavaScript Note
+
+## String
+
+str.length (Java: str.length())
+
+str.charAt()
+
+str.toLowerCase()
+
+There is no isAlnum(), need to define yourself.
+
+var isAlnum = (c) => {
+    return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+}
+
 ## Initialize an array of size n with default value -1
 
 const DP = new Array(n).fill(-1);
