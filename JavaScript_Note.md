@@ -23,9 +23,11 @@ const DP = new Array(n).fill(-1);
 
 ### No list
 
-Javascript has no built-in data structure of linked list, doubly linked list, stack or queue.
+Javascript has no built-in data structure of linked list, doubly linked list, stack, queue or priority_queue.
 
-Linked list, stack and queue can be mimicked by Array. DLL has to be implemented.
+Linked list, stack and queue can be mimicked by Array.
+
+DLL and priority queue have to be implemented.
 
 ### Array
 
