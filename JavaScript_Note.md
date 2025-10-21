@@ -75,3 +75,6 @@ has(v)
 delete(v)
 clear()
 size
+
+get first value: set.values().next().value
+
