@@ -45,6 +45,7 @@ offer/poll//peek  (when queue is full/empty, returns null)
 Have to implement. A quick implementation:
 
 ```
+// From https://www.reddit.com/r/leetcode/comments/wuxw3s/how_do_you_make_a_priority_queue_in_javascript/
 class MyMinHeap {
     constructor(compareFunc) {
         this.compareFunc = compareFunc;
