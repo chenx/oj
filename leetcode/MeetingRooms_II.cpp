@@ -15,9 +15,9 @@ public:
         sort(intervals.begin(), intervals.end(), comp);
         priority_queue<int, vector<int>, greater<int>> min_heap;
         for(auto interval : intervals){
-            // If a meeting A's end start is later than the start time of the current meeting B, 
+            // If a meeting A's end start is later than the end time of the current meeting B, 
             // remove meeting A. O(log(n)).
-            if(!min_heap.empty() && min_heap.top() <= interval.start) min_heap.pop();
+            if(!min_heap.empty() && interval.start >= min_heap.top()) min_heap.pop();
             min_heap.push(interval.end);
         }
         return min_heap.size();
