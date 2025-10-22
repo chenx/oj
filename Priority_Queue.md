@@ -46,7 +46,7 @@ Have to implement. A quick implementation:
 
 ```
 // From https://www.reddit.com/r/leetcode/comments/wuxw3s/how_do_you_make_a_priority_queue_in_javascript/
-class MyMinHeap {
+class MyPriorityHeap {
     constructor(compareFunc) {
         this.compareFunc = compareFunc;
         this.heap = [];
@@ -83,7 +83,7 @@ Example usage:
 var minMeetingRooms = function(intervals) {
     intervals.sort((a, b) => a[0] - b[0]);
 
-    const minHeap = new MyMinHeap((a, b) => a - b);
+    const minHeap = new MyPriorityHeap((a, b) => a - b);
     for (let i = 0; i < intervals.length; ++ i) {
         if (!minHeap.empty() && intervals[i][0] >= minHeap.top()) minHeap.pop();
         minHeap.push(intervals[i][1]);
