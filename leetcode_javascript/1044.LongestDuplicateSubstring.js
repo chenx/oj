@@ -1,3 +1,43 @@
+// Use BigInt, where numbers ends with 'n'.
+var longestDupSubstring = function(s) {
+    const n = s.length;
+    const powers = Array(30010).fill(0n);
+    const rollingHashes = Array(30010).fill(0n);
+    const BASE = 131n;
+
+    powers[0] = 1n;
+    rollingHashes[0] = 0n;
+    for (let i = 0; i < n; ++ i) {
+        powers[i+1] = powers[i] * BASE;
+        rollingHashes[i+1] = rollingHashes[i] * BASE + (BigInt) (s.charCodeAt(i));
+    }
+
+    let L = 0, R = n-1, ret = '';
+    while (L < R) {
+        let M = 1 + Math.floor( (L+R)/2 );
+        const dup = findDup(s, M);
+        if (dup === '') {
+            R = M-1;
+        } else {
+            ret = dup;
+            L = M;
+        }
+    }
+    return ret;
+
+    function findDup(s, len) {
+        const foundHashes = new Set();
+
+        for (let i = 0; i + len <= s.length; ++ i) {
+            j = i + len;
+            const hash = rollingHashes[j] - rollingHashes[i] * powers[j-i];
+            if (foundHashes.has(hash)) return s.substring(i, j);
+            foundHashes.add(hash);
+        }
+        return '';
+    }
+};
+
 /**
  * @param {string} s
  * @return {string}
