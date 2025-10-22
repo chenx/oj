@@ -76,3 +76,18 @@ class MyMinHeap {
     }
 };
 ```
+
+Example usage:
+```
+var minMeetingRooms = function(intervals) {
+    intervals.sort((a, b) => a[0] - b[0]);
+
+    const minHeap = new MyMinHeap((a, b) => a[1] - b[1]);
+    for (let i = 0; i < intervals.length; ++ i) {
+        if (!minHeap.empty() && intervals[i][0] >= minHeap.top()) minHeap.pop();
+        minHeap.push(intervals[i][1]);
+    }
+
+    return minHeap.size;
+};
+```
