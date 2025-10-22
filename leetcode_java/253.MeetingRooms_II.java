@@ -4,6 +4,7 @@ class Solution2 {
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]); 
 
         // minHeap
+        // maxHeap will be: new PriorityQueue(Collections.reverseOrder())
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         for (int i = 0; i < n; ++ i) {
             // start time of intervals[i] >= end time of the previous meeting.
