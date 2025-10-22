@@ -39,3 +39,40 @@ size(), isEmpty()
 add/remove/element (when queue is full/empty, throws an exception)
 offer/poll//peek  (when queue is full/empty, returns null)
 ```
+
+## JavaScript
+
+Have to implement. A quick implementation:
+
+```
+class MyMinHeap {
+    constructor(compareFunc) {
+        this.compareFunc = compareFunc;
+        this.heap = [];
+    }
+        
+    push(val) {
+        this.heap.unshift(val);
+        // this.heap.push(val); // why this does not work?
+        this.heap.sort(this.compareFunc);
+    }
+        
+    pop() {
+        if (this.size === 0) return null;
+        return this.heap.shift();
+    }
+        
+    top() {
+        if(this.size === 0) return null;
+        return this.heap[0];
+    }
+        
+    get size() {
+        return this.heap.length;
+    }
+
+    empty() {
+        return this.heap.length === 0;
+    }
+};
+```
