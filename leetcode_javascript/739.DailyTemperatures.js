@@ -10,7 +10,7 @@ var dailyTemperatures = function(temperatures) {
     for (let i = n-1; i >= 0; -- i) {
         const t = temperatures[i];
         if (t >= hottest) {
-            hottest = t;
+            hottest = t;  // ans[i] = 0
             continue;
         }
 
