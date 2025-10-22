@@ -59,12 +59,12 @@ class MyPriorityHeap {
     }
         
     pop() {
-        if (this.size === 0) return null;
-        return this.heap.shift();
+        if (this.heap.size === 0) return null;
+        this.heap.shift();
     }
         
     top() {
-        if(this.size === 0) return null;
+        if(this.heap.size === 0) return null;
         return this.heap[0];
     }
         
