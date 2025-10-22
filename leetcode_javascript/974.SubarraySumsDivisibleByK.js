@@ -1,3 +1,5 @@
+// Time complexity: O(n+k)
+// Space complexity: O(k)
 /**
  * @param {number[]} nums
  * @param {number} k
