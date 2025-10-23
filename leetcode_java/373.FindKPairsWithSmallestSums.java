@@ -9,15 +9,16 @@ class Solution {
         visited.add(new Pair(0, 0));
 
         minHeap.add(new Pair(nums1[0] + nums2[0], new Pair(0, 0)));
-        while (! minHeap.isEmpty() && ans.size() < k) {
+        while (! minHeap.isEmpty() && ans.size() < k) {  // NOTE: ans.size() < k
             int sum = minHeap.peek().getKey();
             int i = minHeap.peek().getValue().getKey();
             int j = minHeap.peek().getValue().getValue();
             minHeap.remove();
 
-            List<Integer> item = new ArrayList();
-            item.add(nums1[i]); item.add(nums2[j]);
-            ans.add(item);
+            // List<Integer> item = new ArrayList();
+            // item.add(nums1[i]); item.add(nums2[j]);
+            // ans.add(item);
+            ans.add(new ArrayList(Arrays.asList(nums1[i], nums2[j])));
 
             if (i + 1 < nums1.length && !visited.contains(new Pair(i+1, j))) {
                 minHeap.add(new Pair(nums1[i+1] + nums2[j], new Pair(i+1, j)));
