@@ -1,4 +1,32 @@
-class Solution {
+// Two pointers, after sorting.
+class Solution3 {
+    public int[] twoSum(int[] nums, int target) {
+        int n = nums.length;
+        int[][] arr = new int[n][2];  // num, index
+        for (int i = 0; i < n; ++ i) {
+            arr[i][0] = nums[i];
+            arr[i][1] = i;
+        }
+
+        Arrays.sort(arr, (a, b) -> a[0] - b[0]);
+        int L = 0, R = arr.length - 1;
+
+        while (L < R) {
+            int sum = arr[L][0] + arr[R][0];
+            if (sum == target) {
+                return new int[]{arr[L][1], arr[R][1]};
+            } else if (sum > target) {
+                -- R;
+            } else {
+                ++ L;
+            }
+        }
+        return new int[]{-1, -1};
+    }
+}
+
+// Use Hashtable.
+class Solution2 {
     public int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> m = new HashMap<>();
         int[] v = new int[2];
