@@ -11,6 +11,7 @@ var subarraysDivByK = function(nums, k) {
     modGroups[0] = 1;
 
     nums.forEach(num => {
+        // num belongs to the mod group prefixMod.
         prefixMod = (prefixMod + num % k + k) % k;
         // for num, there are modGroups[prefixMod] subarrays where sum / k = 0
         result += modGroups[prefixMod];
