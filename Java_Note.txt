@@ -200,6 +200,18 @@ while(keySetIterator.hasNext()){
   System.out.println("key: " + key + " value: " + map.get(key));
 }
 
+// Iterate using for-loop.
+HashMap<Character, Integer> map = new HashMap();
+for (int val : map.values()) {
+	ans += val > 0 ? val : 0;
+}
+for (char key : map.keySet()) {
+	ans += (map.getOrDefault(key, 0) > 0) ? map.get(key) : 0;
+}
+for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+	ans += (entry.getValue() > 0) ? entry.getValue() : 0;
+}
+
 h.size();
 h.clear();
 
@@ -228,6 +240,13 @@ h.remove(1);
 Iterator it = h.iterator();
 while (it.hasNext()) {
     System.out.println(it.next());
+}
+
+// Iterate through a set by for-loop.
+HashSet<Integer> set = new HashSet();
+set.add(1);
+for (int n : set) {
+	int a = n;
 }
 
 
