@@ -1,3 +1,38 @@
+// Better solution
+class MedianFinder2 {
+    Queue<Integer> minHeap;
+    Queue<Integer> maxHeap;
+
+    public MedianFinder() {
+        minHeap = new PriorityQueue<Integer>();
+        maxHeap = new PriorityQueue<Integer>((a, b) -> b - a);
+    }
+    
+    public void addNum(int num) {
+        if (!minHeap.isEmpty() && num > minHeap.peek()) {
+            minHeap.add(num);
+        } else {
+            maxHeap.add(num);
+        }
+
+        if (minHeap.size() - maxHeap.size() == 2) {
+            maxHeap.add(minHeap.poll());
+        } else if (maxHeap.size() - minHeap.size() == 2) {
+            minHeap.add(maxHeap.poll());
+        }
+    }
+    
+    public double findMedian() {
+        int minval = minHeap.isEmpty() ? 0 : minHeap.peek();
+        int maxval = maxHeap.isEmpty() ? 0 : maxHeap.peek();
+
+        if (minHeap.size() > maxHeap.size()) return minval;
+        if (maxHeap.size() > minHeap.size()) return maxval;
+        return (minval + maxval) / 2.0;
+    }
+}
+
+
 // Keep 2 priority queues: maxQ, minQ. 
 // All elements in maxQ are less than elements in minQ.
 // Insert new element to corresponding side, then balance the size of the 2 queues.
