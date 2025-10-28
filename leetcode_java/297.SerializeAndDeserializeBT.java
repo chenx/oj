@@ -1,3 +1,106 @@
+public class Codec3 {
+    StringBuilder sb;
+    int pos;
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        sb = new StringBuilder();
+        ser(root);
+        return sb.toString();
+    }
+
+    private void ser(TreeNode root) {
+        if (root == null) {
+            if (! sb.isEmpty()) {
+                sb.append(" ");
+            }
+            sb.append("null");
+            return;
+        }
+
+        if (! sb.isEmpty()) {
+            sb.append(" ");
+        }
+        sb.append("" + root.val);
+        ser(root.left);
+        ser(root.right);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        String[] values = data.split(" ");
+        pos = 0;
+        return des(values);
+    }
+
+    private TreeNode des(String[] values) {
+        if (values[pos].equals("null")) {
+            if (pos < values.length) ++ pos;
+            return null;
+        }
+        int val = Integer.valueOf(values[pos ++]);
+        TreeNode root = new TreeNode(val);
+        root.left = des(values);
+        root.right = des(values);
+        return root;
+    }
+}
+
+
+public class Codec2 {
+    StringBuilder sb;
+    int pos;
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        sb = new StringBuilder();
+        ser(root);
+        return sb.toString();
+    }
+
+    private void ser(TreeNode root) {
+        if (root == null) {
+            if (! sb.isEmpty()) {
+                sb.append(" ");
+            }
+            sb.append("null");
+            return;
+        }
+
+        if (! sb.isEmpty()) {
+            sb.append(" ");
+        }
+        sb.append("" + root.val);
+        ser(root.left);
+        ser(root.right);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        String[] values = data.split(" ");
+        pos = 0;
+        return des(values);
+    }
+
+    private TreeNode des(String[] values) {
+        if (values[pos].equals("null")) {
+            if (pos < values.length) ++ pos;
+            return null;
+        }
+        try {
+            int val = Integer.parseInt(values[pos ++]);
+            TreeNode root = new TreeNode(val);
+            root.left = des(values);
+            root.right = des(values);
+            return root;
+        } catch (NumberFormatException e) {
+            System.err.println("error: " + e);
+            return null;
+        }
+    }
+}
+
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
