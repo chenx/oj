@@ -1,3 +1,82 @@
+class Solution {
+    // Graph represented as adjacency list where each node stores list of [neighbor, time] pairs
+    private List<int[]>[] graph;
+    // Track visited nodes to avoid counting their values multiple times
+    private boolean[] visited;
+    // Node values array
+    private int[] nodeValues;
+    // Maximum time constraint for the path
+    private int timeLimit;
+    // Store the maximum quality found
+    private int maxQuality;
+
+    public int maximalPathQuality(int[] values, int[][] edges, int maxTime) {
+        int nodeCount = values.length;
+      
+        // Initialize the graph as adjacency list
+        graph = new List[nodeCount];
+        Arrays.setAll(graph, index -> new ArrayList<>());
+      
+        // Build undirected graph from edges
+        for (int[] edge : edges) {
+            int nodeU = edge[0];
+            int nodeV = edge[1];
+            int travelTime = edge[2];
+          
+            // Add bidirectional edges
+            graph[nodeU].add(new int[] {nodeV, travelTime});
+            graph[nodeV].add(new int[] {nodeU, travelTime});
+        }
+     
+        // Initialize visited array and mark starting node as visited
+        visited = new boolean[nodeCount];
+        visited[0] = true;
+      
+        // Store values and time limit for use in DFS
+        this.nodeValues = values;
+        this.timeLimit = maxTime;
+      
+        // Start DFS from node 0 with initial time 0 and initial quality as value of node 0
+        dfs(0, 0, values[0]);
+      
+        return maxQuality;
+    }
+
+    /**
+     * Performs depth-first search to find the maximum quality path
+     * @param currentNode - current node in the path
+     * @param currentTime - accumulated time spent so far
+     * @param currentQuality - accumulated quality value so far
+     */
+    private void dfs(int currentNode, int currentTime, int currentQuality) {
+        // Update maximum quality when we return to node 0
+        if (currentNode == 0) {
+            maxQuality = Math.max(maxQuality, currentQuality);
+        }
+      
+        // Explore all neighbors of current node
+        for (int[] neighborInfo : graph[currentNode]) {
+            int neighborNode = neighborInfo[0];
+            int travelTime = neighborInfo[1];
+            int newTime = currentTime + travelTime;
+          
+            // Only continue if we have enough time remaining
+            if (newTime <= timeLimit) {
+                if (visited[neighborNode]) {
+                    // If neighbor is already visited, don't add its value again
+                    dfs(neighborNode, newTime, currentQuality);
+                } else {
+                    // Mark as visited, add its value, explore, then backtrack
+                    visited[neighborNode] = true;
+                    dfs(neighborNode, newTime, currentQuality + nodeValues[neighborNode]);
+                    visited[neighborNode] = false;  // Backtrack
+                }
+            }
+        }
+    }
+}
+
+
 // Works, but time out for large input
 // bfs; if time exceeds, stop; when crossing 0, record max.
 class Solution {
