@@ -1,3 +1,25 @@
+class Solution2 {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+
+        for (String str : strs) {
+            char[] arr = str.toCharArray();
+            Arrays.sort(arr);
+            String key = new String(arr);
+            if (! map.containsKey(key)) {
+                map.put(key, new ArrayList<String>());
+            }
+            map.get(key).add(str);
+        }
+
+        List<List<String>> ans = new ArrayList<List<String>>();
+        for (ArrayList<String> list : map.values()) {
+            ans.add(list);
+        }
+        return ans;
+    }
+}
+
 public class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> ans = new ArrayList<List<String>>();
