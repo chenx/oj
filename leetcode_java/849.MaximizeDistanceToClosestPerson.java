@@ -1,3 +1,24 @@
+class Solution2 {
+    public int maxDistToClosest(int[] seats) {
+        int n = seats.length, prev = -1, next = 0, maxDist = 0;
+
+        for (int i = 0; i < n; ++ i) {
+            if (seats[i] == 1) {
+                prev = i;
+            } else {
+                while ((next < n && seats[next] == 0) || next < i) {
+                    ++ next;
+                }
+
+                int left = prev == -1 ? n : i - prev;
+                int right = next == n ? n : next - i;
+                maxDist = Math.max(maxDist, Math.min(left, right));
+            }
+        }
+        return maxDist;
+    }
+}
+
 // https://leetcode.com/problems/maximize-distance-to-closest-person/editorial/
 class Solution {
     public int maxDistToClosest(int[] seats) {
