@@ -1,4 +1,66 @@
-class Solution {
+// DFS. Works. Better than BFS since this does not need to keep state of the path expicitly.
+class Solution3 {
+    int maxQuality;
+    int maxTime;
+    int[] nodeValues;
+    boolean[] visited;
+    HashMap<Integer, List<int[]>> graph; // <node u, List<node v, time>>
+
+    public int maximalPathQuality(int[] values, int[][] edges, int maxTime) {
+        int n = values.length;
+        if (n == 0) return 0;
+
+        graph = new HashMap<Integer, List<int[]>>();
+        for (int i = 0; i < n; ++ i) {
+            graph.put(i, new ArrayList<int[]>());
+        }
+
+        for (int i = 0; i < edges.length; ++ i) {
+            graph.get(edges[i][0]).add( new int[]{edges[i][1], edges[i][2]} );
+            graph.get(edges[i][1]).add( new int[]{edges[i][0], edges[i][2]} );
+        }
+
+        visited = new boolean[n];
+        visited[0] = true;
+
+        maxQuality = values[0];
+        this.maxTime = maxTime;
+
+        nodeValues = values;
+
+        dfs(0, 0, values[0]);
+        return maxQuality;
+    }
+
+    private void dfs(int node, int time, int quality) {
+        // if (node == 0) { // This also works.
+        //     maxQuality = Math.max(quality, maxQuality);
+        // }
+
+        for (int[] entry : graph.get(node)) {
+            int nextNode = entry[0];
+            int nextTime = entry[1];
+
+            int newTime = time + nextTime;
+            if (newTime > maxTime) continue;
+
+            if (nextNode == 0) { // This also works in addition to the one above the for loop.
+                maxQuality = Math.max(quality, maxQuality);
+            }
+
+            if (visited[nextNode]) {
+                dfs(nextNode, newTime, quality);
+            } else {
+                visited[nextNode] = true;
+                dfs(nextNode, newTime, quality + nodeValues[nextNode]);
+                visited[nextNode] = false;
+            }
+        }
+    }
+}
+
+
+class Solution2 {
     // Graph represented as adjacency list where each node stores list of [neighbor, time] pairs
     private List<int[]>[] graph;
     // Track visited nodes to avoid counting their values multiple times
