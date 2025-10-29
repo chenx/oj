@@ -1,4 +1,4 @@
-class Solution {
+class Solution3 {
     public String customSortString(String order, String s) {
         HashMap<Character, Integer> map = new HashMap();
         for (char ch : s.toCharArray()) map.put(ch, map.getOrDefault(ch, 0) + 1);
@@ -23,7 +23,20 @@ class Solution {
 }
 
 class Solution2 {
-    public String customSortString2(String order, String s) {
+    public String customSortString(String order, String s) {
+        Character[] arr = new Character[s.length()];
+        for (int i = 0; i < s.length(); ++ i) arr[i] = s.charAt(i);
+        // Arrays.sort(arr, (a, b) -> { return order.indexOf(a) - order.indexOf(b) ; } ); // This works too.
+        Arrays.sort(arr, (a, b) -> order.indexOf(a) - order.indexOf(b) ); 
+
+        StringBuilder sb = new StringBuilder();
+        for (Character c : arr) sb.append(c);
+        return sb.toString();
+    }
+}
+
+class Solution {
+    public String customSortString(String order, String s) {
         // char[] chars = s.toCharArray();
         Character[] arr = new Character[s.length()];
         for (int i = 0; i < s.length(); ++ i) arr[i] = s.charAt(i);
