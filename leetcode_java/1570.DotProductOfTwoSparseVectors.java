@@ -1,3 +1,27 @@
+// Use HashMap.
+class SparseVector2 {
+    public HashMap<Integer, Integer> map; // pos, value
+    
+    SparseVector(int[] nums) {
+        map = new HashMap<Integer, Integer>();
+
+        for (int i = 0; i < nums.length; ++ i)  {
+            map.put(i, nums[i]);
+        }
+    }
+    
+	// Return the dotProduct of two sparse vectors
+    public int dotProduct(SparseVector vec) {
+        int sum = 0;
+        for (int key : map.keySet()) {
+            if (vec.map.containsKey(key)) {
+                sum += map.get(key) * vec.map.get(key);
+            }
+        }
+        return sum;
+    }
+}
+
 class SparseVector {
     public int[] nums;
     
