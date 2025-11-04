@@ -21,6 +21,11 @@ class Solution {
             }
         }
         return ans.toArray(new int[ans.size()][]);
+        // or:
+        // int[][] ret = new int[ans.size()][2];
+        // for (int i = 0; i < ans.size(); ++ i) {
+        //     ret[i] = ans.get(i);
+        // }
     }
 }
 
