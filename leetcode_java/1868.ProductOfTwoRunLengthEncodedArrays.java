@@ -1,3 +1,47 @@
+// From: https://algo.monster/liteproblems/1868
+class Solution2 {
+    public List<List<Integer>> findRLEArray(int[][] encoded1, int[][] encoded2) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        int index2 = 0; // Pointer for encoded2 array
+
+        // Iterate through each run-length pair in encoded1
+        for (int[] pair1 : encoded1) {
+            int value1 = pair1[0];
+            int frequency1 = pair1[1];
+
+            // Process the current segment from encoded1
+            while (frequency1 > 0) {
+                // Take the minimum frequency between current segments of both arrays
+                int minFrequency = Math.min(frequency1, encoded2[index2][1]);
+
+                // Calculate the product of values from both arrays
+                int productValue = value1 * encoded2[index2][0];
+
+                // Check if we can merge with the last segment in result
+                int lastIndex = result.size() - 1;
+                if (lastIndex >= 0 && result.get(lastIndex).get(0) == productValue) {
+                    // Merge with the last segment by updating its frequency
+                    result.get(lastIndex).set(1, result.get(lastIndex).get(1) + minFrequency);
+                } else { // Add a new segment to the result
+                    result.add(new ArrayList<>(List.of(productValue, minFrequency)));
+                }
+
+                // Decrease the remaining frequencies
+                frequency1 -= minFrequency;
+                encoded2[index2][1] -= minFrequency;
+
+                // Move to the next segment in encoded2 if current one is exhausted
+                if (encoded2[index2][1] == 0) {
+                    index2++;
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
 // Ok, but times out for large input.
 class Solution {
     public List<List<Integer>> findRLEArray(int[][] encoded1, int[][] encoded2) {
