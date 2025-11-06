@@ -1,3 +1,23 @@
+// Same as Solution, just shorter.
+class Solution2 {
+    public int minEatingSpeed(int[] piles, int h) {
+        int left = 1, right = 1;
+        for (int p : piles) right = Math.max(right, p);
+
+        while (left < right) {
+            int mid = left + (right - left)/2;
+            int hours = 0;
+            for (int p : piles) {
+                hours += Math.ceil( (double) p / mid );
+            }
+
+            if (hours <= h) right = mid;
+            else left = mid + 1;
+        }
+        return right;
+    }
+}
+
 // From https://leetcode.com/problems/koko-eating-bananas/editorial/
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
