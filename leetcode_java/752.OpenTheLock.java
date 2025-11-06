@@ -1,3 +1,6 @@
+// Time complexity: O(4(d+10^4))
+// Space complexity: O(4(d+10^4))
+// Here n=10 is the number of slots on a wheel, w=4 is the number of wheels, and d is the number of elements in the deadends array.
 class Solution {
     public int openLock(String[] deadends, String target) {
         if (target.equals("0000")) return 0;
