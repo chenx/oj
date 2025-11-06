@@ -74,10 +74,10 @@ class Solution {
         for (int i = 1; i < arr.length; ++ i) {
             if (val == arr[i]) { ++ count; }
             else {
-                List<Integer> entry = new ArrayList();
-                entry.add(val); entry.add(count);
-                // ret.add(new ArrayList<>( Arrays.asList( new int[]{val, count} ) ));
-                ret.add(entry);
+                // List<Integer> entry = new ArrayList();
+                // entry.add(val); entry.add(count);
+                // ret.add(entry);
+                ret.add(new ArrayList<>( List.of( val, count ) ));
                 count = 1;
                 val = arr[i];
             }
