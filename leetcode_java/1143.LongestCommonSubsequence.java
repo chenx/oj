@@ -1,3 +1,24 @@
+// Best. O(mn) for both Time and Space.
+class Solution2 {
+  public int longestCommonSubsequence(String text1, String text2) {
+    int m = text1.length(), n = text2.length();
+    int[][] DP = new int[m + 1][n + 1]; // Make a grid of 0's.
+
+    for (int i = 0; i < m; ++ i) {
+      for (int j = 0; j < n; ++ j) {
+        if (text1.charAt(i) == text2.charAt(j)) {
+          DP[i+1][j+1] = 1 + DP[i][j];
+        } else {
+          DP[i+1][j+1] = Math.max(DP[i+1][j], DP[i][j+1]);
+        }
+      }
+    }
+
+    return DP[m][n];
+  }
+}
+
+// From: https://leetcode.com/problems/longest-common-subsequence/editorial/
 class Solution {
   public int longestCommonSubsequence(String text1, String text2) {
     int m = text1.length(), n = text2.length();
@@ -17,6 +38,15 @@ class Solution {
   }
 }
 
+/**
+Similar Questions:
+
+Longest Palindromic Subsequence
+Delete Operation for Two Strings
+Shortest Common Supersequence
+Maximize Number of Subsequences in a StringMedium
+Subsequence With the Minimum Score
+ */
 
 /**
 1143. Longest Common Subsequence
