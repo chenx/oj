@@ -6,6 +6,37 @@
 // @Last modified: 12/13/2012
 //
 
+// Use sort and 2-pointer.
+class Solution7 {
+public:
+    vector<int> twoSum(vector<int> nums, int target) {
+        int n = nums.size();
+        vector<vector<int>> input;
+        for (int i = 0; i < n; ++ i) {
+            input.push_back({nums[i], i});
+        }
+
+        sort(input.begin(), input.end(), comp);
+
+        int l = 0, r = n-1;
+        while (l < r) {
+            int sum = input[l][0] + input[r][0];
+            if (sum == target) {
+                return {input[l][1], input[r][1]};
+            } else if (sum > target) {
+                -- r;
+            } else {
+                ++ l;
+            }
+        }
+        return {-1, -1};
+    }
+
+    static bool comp(const vector<int>& a, const vector<int>& b) {
+        return a[0] < b[0];
+    }
+}
+
 // Works. 
 // Use new specification: index is 0-based.
 class Solution6 {
@@ -177,3 +208,4 @@ You may assume that each input would have exactly one solution.
 Input: numbers={2, 7, 11, 15}, target=9
 Output: index1=1, index2=2 
  */
+
