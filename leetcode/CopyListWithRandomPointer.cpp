@@ -14,7 +14,7 @@ public:
         if (!head) return NULL;
 
         Node *h, *n;
-        for (h = head; h; h = n->next) {
+        for (h = head; h; h = h->next->next) {
             n = new Node(h->val);
             n->next = h->next;
             h->next = n;
@@ -192,3 +192,4 @@ int main() {
 Return a deep copy of the list. 
 
 */
+
