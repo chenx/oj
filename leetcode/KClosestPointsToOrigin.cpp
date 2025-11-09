@@ -4,6 +4,27 @@ struct comp {
     }
 };
 
+// Better than Solution 1.
+class Solution2 {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        priority_queue<pair<vector<int>, int>, vector<pair<vector<int>, int>>, comp> maxHeap;
+
+        for (int i = 0; i < points.size(); ++ i) {
+            auto p = points[i];
+            maxHeap.push({ p, p[0]*p[0] + p[1]*p[1] });
+            if (maxHeap.size() > k) maxHeap.pop();
+        }
+
+        vector<vector<int>> ans;
+        while (! maxHeap.empty()) {
+            ans.push_back(maxHeap.top().first);
+            maxHeap.pop();
+        }
+        return ans;
+    }
+};
+
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
