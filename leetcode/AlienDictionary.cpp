@@ -25,12 +25,12 @@ public:
         }
 
         string ans;
-        for (char c: charset) {
-            if (in[c].size() == 0 && out[c].size() == 0) {
-                ans += c;
-                charset.erase(c);
-            }
-        }
+        // for (char c: charset) {
+        //     if (in[c].size() == 0 && out[c].size() == 0) {
+        //         ans += c;
+        //         charset.erase(c);
+        //     }
+        // }
 
         while (! charset.empty()) {
             bool found = false;
