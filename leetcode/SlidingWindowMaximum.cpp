@@ -1,3 +1,29 @@
+// Invariant: nums[q.back()] is alwasy the largest number of the current window.
+// Best answer so far.
+class Solution3 {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> ans;
+        deque<int> q;
+
+        int i = 0;
+        for (; i < k; ++ i) {
+            while (! q.empty() && nums[i] >= nums[q.back()]) q.pop_back();
+            q.push_back(i);
+        }
+        for (; i < nums.size(); ++ i)    {
+            ans.push_back(nums[q.front()]);
+            if (i - q.front() == k) q.pop_front();
+            
+            while (! q.empty() && nums[i] >= nums[q.back()]) q.pop_back();
+            q.push_back(i);
+        }
+        if (! q.empty()) ans.push_back(nums[q.front()]);
+        return ans;
+    }
+};
+
+
 // Works too. Slightly better than Solution.
 // Note: see code comments.
 class Solution2 {
