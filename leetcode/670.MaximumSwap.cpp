@@ -1,3 +1,4 @@
+
 // From https://leetcode.com/problems/maximum-swap/editorial/
 // 2 passes:
 // 1) from right to left, find the largest digit to the right of the current digit
@@ -11,6 +12,7 @@ public:
         vector<int> maxOnRight(n, 0);
         maxOnRight[n-1] = n-1;
         for (int i = n-2; i >= 0; -- i) {
+            // if (str[i] > str[maxOnRight[i+1]]) maxOnRight[i] = i;  // this also works.
             if (str[i+1] > str[maxOnRight[i+1]]) maxOnRight[i] = i + 1;
             else maxOnRight[i] = maxOnRight[i+1];
         }
