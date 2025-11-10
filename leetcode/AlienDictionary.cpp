@@ -17,7 +17,7 @@ public:
                 if (a[j] != b[j]) {  // a[j] comes before b[j].
                     out[a[j]].insert(b[j]);
                     in[b[j]].insert(a[j]);
-                    break;
+                    break;  // order is decided by this ONE char. So stop.
                 }
             }
             // Catch the case such as {"abc", "ab"}: this is not lexicographical.
