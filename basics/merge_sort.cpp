@@ -20,7 +20,7 @@ void msort(vector<int>& nums, int left, int right) {
     else copy[k ++] = nums[j ++];
   }
   while (i <= M) copy[k ++] = nums[i ++];
-  while (j <= n) copy[k ++] = nums[j ++];
+  while (j < n) copy[k ++] = nums[j ++];
 }
 
 
