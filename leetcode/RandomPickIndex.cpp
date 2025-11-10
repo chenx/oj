@@ -1,3 +1,20 @@
+class Solution2 {
+    unordered_map<int, vector<int>> m;
+public:
+    Solution(vector<int>& nums) {
+        for (int i = 0, n = nums.size(); i < n; i ++) {
+            m[nums[i]].push_back(i);
+        }
+    }
+    
+    int pick(int target) {
+        int ct = m[target].size();
+        if (ct == 0) return -1;
+        return m[target][rand() % ct];
+    }
+};
+
+
 class Solution {
    unordered_map<int, vector<int>> m;
 public:
