@@ -1,3 +1,42 @@
+class Allocator2 {
+private:
+    vector<int> memory;
+
+public:
+    Allocator(int n) {
+        memory = vector<int>(n, 0);
+    }
+    
+    int allocate(int size, int mID) {
+        int freeSpaces = 0;
+
+        for (int i = 0; i < memory.size(); ++ i) {
+            if (memory[i] == 0) {
+                ++ freeSpaces;
+                if (freeSpaces == size) {
+                    int startIndex = i - size + 1;
+                    fill(memory.begin() + startIndex, memory.begin() + i + 1, mID);
+                    return startIndex;
+                }
+            } else {
+                freeSpaces = 0;
+            }
+        }
+        return -1;
+    }
+    
+    int freeMemory(int mID) {
+        int count = 0;
+        for (int i = 0; i < memory.size(); ++ i) {
+            if (memory[i] == mID) {
+                memory[i] = 0;
+                ++ count;
+            }
+        }
+        return count;
+    }
+};
+
 // From: https://algo.monster/liteproblems/2502
 class Allocator {
 private:
