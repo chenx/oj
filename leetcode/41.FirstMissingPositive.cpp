@@ -6,6 +6,8 @@
 //
 
 // Best so far.
+// Time complexity: O(n^2)
+// Space complexity: O(1)
 class Solution3 {
 public:
     int firstMissingPositive(vector<int>& nums) {
@@ -150,5 +152,6 @@ and [3,4,-1,1] return 2.
 
 Your algorithm should run in O(n) time and uses constant space. 
  */
+
 
 
