@@ -5,6 +5,26 @@
 // @Last modified: 1/15/2013
 //
 
+// Best so far.
+class Solution3 {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        int n = nums.size();
+
+        for (int i = 0; i < n; ++ i) {
+            // Use cycle sort to place positive elements smaller than n at the correct index
+            while (nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]) {
+                swap(nums[nums[i] - 1], nums[i]);
+            }
+        }
+
+        for (int i = 0; i < n; ++ i) {
+            if (nums[i] != i + 1) return i + 1;
+        }
+        return n + 1;
+    }
+};
+
 //
 // This is modified from Solution.firstMissingPositive()
 // by combining the while and if in the latter.
@@ -130,4 +150,5 @@ and [3,4,-1,1] return 2.
 
 Your algorithm should run in O(n) time and uses constant space. 
  */
+
 
