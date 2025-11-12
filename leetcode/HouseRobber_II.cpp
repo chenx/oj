@@ -1,3 +1,25 @@
+class Solution4 {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
+
+        return max(getAmount(nums, 0, 1), getAmount(nums, 1, 0));
+    }
+
+    int getAmount(vector<int>& nums, int start, int offset) {
+        int a = 0, b = nums[start];
+        for (int i = 2; i < nums.size(); ++ i) {
+            // A[i] = max(A[i-1], nums[i-1] + A[i-2]);
+            int tmp = max(b, nums[i-offset] + a);
+            a = b;
+            b = tmp;
+        }
+        return b;
+    }
+};
+
 // Works too.
 class Solution3 {
 public:
