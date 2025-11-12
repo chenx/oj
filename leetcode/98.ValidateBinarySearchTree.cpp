@@ -129,7 +129,7 @@ public:
 
 
 /**
-Validate Binary Search Tree
+98. Validate Binary Search Tree
 Difficulty: Medium
 
 Given a binary tree, determine if it is a valid binary search tree (BST).
@@ -140,4 +140,5 @@ Assume a BST is defined as follows:
     The right subtree of a node contains only nodes with keys greater than the node's key.
     Both the left and right subtrees must also be binary search trees.
  */
+
 
