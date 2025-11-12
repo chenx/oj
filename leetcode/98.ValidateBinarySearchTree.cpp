@@ -6,11 +6,27 @@
 //
 
 // Works.
+class Solution5 {
+public:
+    bool isValidBST(TreeNode* root) {
+        return isBST(root, NULL, NULL);
+    }
+
+    bool isBST(TreeNode* root, TreeNode* left, TreeNode* right) {
+        if (!root) return true;
+        if (left && root->val <= left->val) return false;
+        if (right && root->val >= right->val) return false;
+
+        return isBST(root->left, left, root) && isBST(root->right, root, right);
+    }
+};
+
+// Works.
 class Solution4 {
 public:
     bool isValidBST(TreeNode* root) {
-        return helper(root, (long long) INT_MIN - 1, (long long) INT_MAX + 1);
-        // Or: return helper(root, INT_MIN - 1ll, INT_MAX + 1ll);
+        return helper(root, INT_MIN - 1ll, INT_MAX + 1ll);
+        // Or: return helper(root, (long long) INT_MIN - 1, (long long) INT_MAX + 1);
     }
 
     bool helper(TreeNode* root, long long L, long long R) {
@@ -124,3 +140,4 @@ Assume a BST is defined as follows:
     The right subtree of a node contains only nodes with keys greater than the node's key.
     Both the left and right subtrees must also be binary search trees.
  */
+
