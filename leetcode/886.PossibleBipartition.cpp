@@ -1,3 +1,43 @@
+class Solution2 {
+    bool bfs(vector<int>& colors, int i, map<int, vector<int>>& adj) {
+        queue<int> q;
+        q.push(i);
+        colors[i] = 0;
+
+        while (! q.empty()) {
+            int next = q.front();
+            q.pop();
+
+            for (int neighbor : adj[next]) {
+                if (colors[neighbor] == colors[next]) return false;
+                if (colors[neighbor] == -1) {
+                    colors[neighbor] = 1 - colors[next];
+                    q.push(neighbor);
+                }
+            }
+        }
+        return true;
+    }
+
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        map<int, vector<int>> adj;  // use map instead of vector.
+        for (auto e : dislikes) {
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
+        }
+
+        vector<int> colors(n+1, -1);
+
+        for (int i = 1; i <= n; ++ i) {
+            if (colors[i] == -1) {
+                if (! bfs(colors, i, adj)) return false;
+            }
+        }
+        return true;
+    }
+};
+
 class Solution {
 public:
     bool bfs(int source, vector<vector<int>>& adj, vector<int>& color) {
