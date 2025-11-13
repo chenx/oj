@@ -9,6 +9,45 @@ When the cache reached its capacity, it should invalidate the least recently
 used item before inserting a new item. 
  */
 
+class LRUCache7 {
+private:
+    struct Node {
+        int key;
+        int val;
+        Node(int key, int val) : key(key), val(val) {}
+    };
+    list<Node> dll;
+    map<int, list<Node>::iterator> map;
+    int capacity;
+
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+    
+    int get(int key) {
+        if (! map.contains(key)) return -1;
+
+        dll.splice(dll.begin(), dll, map[key]);
+        map[key] = dll.begin();
+        return dll.front().val;
+    }
+    
+    void put(int key, int value) {
+        if (! map.contains(key)) {
+            if (dll.size() == this->capacity) {
+                map.erase(dll.back().key);
+                dll.pop_back();
+            }
+
+            dll.push_front(Node(key, value));
+            map[key] = dll.begin();
+        } else {
+            dll.splice(dll.begin(), dll, map[key]);
+            map[key] = dll.begin();
+            dll.front().val = value;
+        }
+    }
+};
+
 // Works too.
 // Contrary to prevous solutions, now most recent element is added to back, pop from front.
 //
@@ -638,6 +677,7 @@ public:
     }
 };
 */
+
 
 
 
