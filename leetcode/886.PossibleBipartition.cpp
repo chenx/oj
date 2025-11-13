@@ -1,3 +1,40 @@
+// DFS
+class Solution3 {
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        map<int, set<int>> adj;
+        for (auto e : dislikes) {
+            adj[e[0]].insert(e[1]);
+            adj[e[1]].insert(e[0]);
+        }
+
+        vector<int> colors(n+1, -1);
+
+        for (int i = 1; i <= n; ++ i) {
+            if (colors[i] == -1) {
+                if (! dfs(colors, adj, i)) return false;
+            }
+        }
+        return true;
+    }
+
+    bool dfs(vector<int>& colors, map<int, set<int>>& adj, int i) {
+        if (colors[i] == -1) {
+            colors[i] = 0;
+        }
+
+        for (int neighbor : adj[i]) {
+            if (colors[neighbor] == colors[i]) return false;
+            if (colors[neighbor] == -1) {
+                colors[neighbor] = 1 - colors[i];
+                if (! dfs(colors, adj, neighbor)) return false;
+            }
+        }
+        return true;
+    }
+};
+
+// BFS
 class Solution2 {
     bool bfs(vector<int>& colors, int i, map<int, vector<int>>& adj) {
         queue<int> q;
