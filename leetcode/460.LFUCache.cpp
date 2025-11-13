@@ -1,3 +1,65 @@
+class LFUCache3 {
+    struct Node {
+        int key;
+        int val;
+        Node(int key, int val) : key(key), val(val) {}
+    };
+    // key: frequency, value: list of original key-value pairs that have the same frequency.
+    map<int, list<Node>> frequencies;
+    // key: original key, value: iterator of key/value pair iterator in the frequencies map's list.
+    map<int, pair<int, list<Node>::iterator>> cache;
+    int capacity;
+    int minf; // minimum frequency.
+
+    void insert(int key, int frequency, int value) {
+        frequencies[frequency].push_back({key, value});
+        cache[key] = {frequency, --frequencies[frequency].end()};
+    }
+
+public:
+    LFUCache(int capacity) : capacity(capacity), minf(0) {}
+
+    int get(int key) {
+        if (! cache.contains(key)) {
+            return -1;
+        }
+        const int f = cache[key].first;
+        const auto it = cache[key].second;
+        const Node kv = *it;
+        frequencies[f].erase(it);
+        if (frequencies[f].empty()) {
+            frequencies.erase(f);
+
+            if (minf == f) {
+                ++minf;
+            }
+        }
+
+        insert(key, f + 1, kv.val);
+        return kv.val;
+    }
+
+    void put(int key, int value) {
+        if (cache.contains(key)) {
+            cache[key].second->val = value;
+            get(key);
+            return;
+        }
+        if (capacity == cache.size()) {
+            cache.erase(frequencies[minf].front().key);
+            frequencies[minf].pop_front();
+
+            if (frequencies[minf].empty()) {
+                frequencies.erase(minf);
+            }
+        }
+
+        minf = 1;
+        insert(key, 1, value);
+    }
+};
+
+
 class LFUCache2 {
     // key: frequency, value: list of original key-value pairs that have the same frequency.
     map<int, list<pair<int, int>>> frequencies;
