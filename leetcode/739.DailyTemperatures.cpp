@@ -1,3 +1,25 @@
+class Solution2 {
+public:
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        int n = temperatures.size(), hottest = 0;
+        vector<int> result(n, 0);
+
+        for (int i = n - 1; i >= 0; -- i) {
+            int curT = temperatures[i];
+            if (curT >= hottest) { // NOTE: use ">=" instead of ">" !!!
+                hottest = curT;
+            } else {
+                int days = 1;
+                while (curT >= temperatures[i + days]) {
+                    days += result[i + days];
+                }
+                result[i] = days;
+            }
+        }
+        return result;
+    }
+};
+
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
         int n = temperatures.length;
