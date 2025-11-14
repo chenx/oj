@@ -1,3 +1,4 @@
+// N = words.size(), L is the maximum possible length of a word.
 // Time complexity: O(L^2 * N)
 // Space complexity: O(N)
 class Solution2 {
