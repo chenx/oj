@@ -1,7 +1,80 @@
+// Works.
+class Solution4 {
+    vector<vector<int>> DP;
+public:
+    int superEggDrop(int k, int n) {
+        DP.resize(k+1, vector<int>(n+1, -1));
+        return calc(k, n);
+    }
+
+    // F(k, n) = 1 + min{h=1..n}( max(F(k-1, h-1), F(k, n-h)) )
+    int calc(int k, int n) {
+        if (n == 0) {
+            return 0;
+        }
+        if (k == 1) {
+            return n;
+        }
+        if (DP[k][n] == -1) {
+            // int minVal = INT_MAX;
+            // for (int h = 1; h <= n; ++ h) {
+            //     int val = max(calc(k-1, h-1), calc(k, n-h));
+            //     minVal = min(minVal, val);
+            // }
+            int L = 1, R = n;
+            while (L + 1 < R) {
+                int M = (L + R) / 2;
+                int t1 = calc(k-1, M-1);
+                int t2 = calc(k, n-M);
+
+                if (t1 < t2) L = M;
+                else if (t1 > t2) R = M;
+                else L = R = M;
+            }
+            DP[k][n] = 1 + min(max(calc(k-1, L-1), calc(k, n-L)),
+                               max(calc(k-1, R-1), calc(k, n-R)));
+        }
+        return DP[k][n];
+    }
+};
+
+// Time out for large input.
+class Solution3 {
+    vector<vector<int>> DP;
+public:
+    int superEggDrop(int k, int n) {
+        DP.resize(k+1, vector<int>(n+1, -1));
+        return calc(k, n);
+        // return DP[k][n];
+    }
+
+    // F(k, n) = 1 + min{h=1..n}( max(F(k-1, h-1), F(k, n-h)) )
+    int calc(int k, int n) {
+        if (n == 0) {
+            DP[k][n] = 0;
+            return 0;
+        }
+        if (k == 1) {
+            DP[k][n] = n;
+            return n;
+        }
+        if (DP[k][n] == -1) {
+            int minVal = INT_MAX;
+            for (int h = 1; h <= n; ++ h) {
+                int val = max(calc(k-1, h-1), calc(k, n-h));
+                minVal = min(minVal, val);
+            }
+            DP[k][n] = minVal + 1;
+        }
+        return DP[k][n];
+    }
+}
+
+
 // Dynamic Programming with Binary Search
 // Time Complexity: O(KNlogN).
 // Space Complexity: O(KN).
-class Solution3 {
+class Solution2 {
 public:
     int superEggDrop(int K, int N) {
         return dp(K, N);
@@ -40,7 +113,7 @@ public:
 // Time Complexity: O(KlogN)
 // Space Complexity: O(1)
 // F(k, n) = 1 + min{h=1..n}( max(F(k-1, h-1), F(k, n-h)) )
-class Solution2 {
+class Solution {
 public:
     int superEggDrop(int K, int N) {
         int L = 1, R = N;
@@ -66,37 +139,6 @@ public:
     }
 };
 
-// Time out for large input.
-class Solution {
-    vector<vector<int>> DP;
-public:
-    int superEggDrop(int k, int n) {
-        DP.resize(k+1, vector<int>(n+1, -1));
-        return calc(k, n);
-        // return DP[k][n];
-    }
-
-    // F(k, n) = 1 + min{h=1..n}( max(F(k-1, h-1), F(k, n-h)) )
-    int calc(int k, int n) {
-        if (n == 0) {
-            DP[k][n] = 0;
-            return 0;
-        }
-        if (k == 1) {
-            DP[k][n] = n;
-            return n;
-        }
-        if (DP[k][n] == -1) {
-            int minVal = INT_MAX;
-            for (int h = 1; h <= n; ++ h) {
-                int val = max(calc(k-1, h-1), calc(k, n-h));
-                minVal = min(minVal, val);
-            }
-            DP[k][n] = minVal + 1;
-        }
-        return DP[k][n];
-    }
-}
 
 /**
 887. Super Egg Drop
