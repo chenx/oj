@@ -8,6 +8,8 @@ public:
     }
 
     map<int, int> memo;
+
+    // F(k, n) = 1 + min{h=1..n}( max(F(k-1, h-1), F(k, n-h)) )
     int dp(int K, int N) {
         if (!memo.contains(N * 100 + K)) {
             int ans;
