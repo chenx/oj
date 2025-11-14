@@ -31,7 +31,7 @@ public:
                 else if (t1 > t2) R = M;
                 else L = R = M;
             }
-            DP[k][n] = 1 + max(calc(k-1, L-1), calc(k, n-L));
+            DP[k][n] = 1 + max(calc(k-1, L-1), calc(k, n-L)); // L == R, so use R works too.
         }
         return DP[k][n];
     }
