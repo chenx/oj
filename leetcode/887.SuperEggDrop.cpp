@@ -9,7 +9,7 @@ public:
 
     map<int, int> memo;
 
-    // F(k, n) = 1 + min{h=1..n}( max(F(k-1, h-1), F(k, n-h)) )
+    // F(k, n) = 1 + min{h=1..k}( max(F(k-1, h-1), F(k, n-h)) )
     int dp(int K, int N) {
         if (!memo.contains(N * 100 + K)) {
             int ans;
@@ -39,6 +39,7 @@ public:
 // From https://leetcode.com/problems/super-egg-drop/editorial/
 // Time Complexity: O(KlogN)
 // Space Complexity: O(1)
+// F(k, n) = 1 + min{h=1..k}( max(F(k-1, h-1), F(k, n-h)) )
 class Solution {
 public:
     int superEggDrop(int K, int N) {
