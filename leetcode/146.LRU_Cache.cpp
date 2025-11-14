@@ -27,6 +27,11 @@ public:
         if (! map.contains(key)) return -1;
 
         dll.splice(dll.begin(), dll, map[key]);
+        // Move node to the front of dll. Same as:
+        // Node node = *map[key];
+        // dll.erase(map[key]);
+        // dll.push_front(node);
+     
         map[key] = dll.begin();
         return dll.front().val;
     }
@@ -677,6 +682,7 @@ public:
     }
 };
 */
+
 
 
 
