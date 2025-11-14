@@ -1,3 +1,5 @@
+// Time complexity: O(L^2 * N)
+// Space complexity: O(N)
 class Solution2 {
     int getMaxLen(string& word, set<string>& dict, map<string, int>& memo) {
         if (memo.contains(word)) return memo[word];
