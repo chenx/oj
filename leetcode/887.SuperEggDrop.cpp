@@ -21,6 +21,7 @@ public:
             //     int val = max(calc(k-1, h-1), calc(k, n-h));
             //     minVal = min(minVal, val);
             // }
+            // Reaches min when h = L = R: calc(k-1, h-1) == calc(k, n-h)
             int L = 1, R = n;
             while (L + 1 < R) {
                 int M = (L + R) / 2;
