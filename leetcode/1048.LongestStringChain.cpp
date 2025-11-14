@@ -1,8 +1,33 @@
+class Solution2 {
+    int getMaxLen(string& word, set<string>& dict, map<string, int>& memo) {
+        if (memo.contains(word)) return memo[word];
+
+        int maxLen = 1;
+        for (int i = 0; i < word.length(); ++ i) {
+            string next = word.substr(0, i) + word.substr(i+1);
+            if (dict.contains(next)) {
+                maxLen = max(maxLen, 1 + getMaxLen(next, dict, memo));
+            }
+        }
+        memo[word] = maxLen;
+        return maxLen;
+    }
+
+public:
+    int longestStrChain(vector<string>& words) {
+        set<string> dict(words.begin(), words.end());
+        map<string, int> memo;
+        int maxLen = 0;
+        for (auto word : words) {
+            maxLen = max(maxLen, getMaxLen(word, dict, memo));
+        }
+        return maxLen;
+    }
+};
+
 
 class Solution {
-    
 private:
-
     int dfs(unordered_set<string> &words, unordered_map<string, int> &memo, string currentWord) {
         // If the word is encountered previously we just return its value present in the map (memoization).
         if (memo.find(currentWord) != memo.end()) {
