@@ -30,7 +30,9 @@ from lhs, find first e[x] > minVal
 from rhs, find first e[y] < maxVal
 
 sort the range [x .. y]
+return y-x+1 if x < y, or -1
  */
+
 
 /**
 581. Shortest Unsorted Continuous Subarray
