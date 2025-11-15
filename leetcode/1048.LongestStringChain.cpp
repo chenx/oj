@@ -1,3 +1,58 @@
+// Works too. But Solution 3 is the best.
+class Solution4 {
+public:
+    int longestStrChain(vector<string>& words) {
+        std::map<int, set<string>> map; // words by length of word.
+        for (string& word: words) {
+            map[word.length()].insert(word);
+        }
+
+        std::map<string, int> memo;
+        
+        int maxLen = 0;
+        for (string& word : words) {
+            maxLen = max(maxLen, getChainLen(word, map, memo));
+        }
+
+        return maxLen;
+    }
+
+    int getChainLen(string& word, std::map<int, set<string>>& mp, std::map<string, int>& memo) {
+        if (memo.contains(word)) return memo[word];
+        // if (word.length() == 1) return 1;
+
+        set<string> nextWords = mp[word.length() - 1];
+
+        int maxLen = 0;
+        for (auto next : nextWords) {
+            if (diffByOne(word, next)) {
+                maxLen = max(maxLen, getChainLen(next, mp, memo));
+            }
+        }
+        return memo[word] = 1 + maxLen;
+    }
+
+    bool diffByOne(string word, string next) {
+        if (word.length() != next.length() + 1) return false;
+
+        int diffFound = false;
+        int i = 0, j = 0;
+        while (i < word.length() && j < next.length()) {
+            if (word[i] != next[j]) {
+              if (diffFound) return false;
+              ++ i;
+              diffFound = true;
+            } else {
+              ++ i, ++ j;
+            }
+        }
+
+        if (diffFound) return i == word.length() && j == next.length();
+        else return (i == word.length() - 1) && j == next.length();
+        // return (i == word.length() || i == word.length()-1) && j == next.length();
+    }
+};
+
 class Solution3 {
 private:
     int getChainLen(string& word, std::map<int, set<string>>& mp, std::map<string, int>& memo) {
