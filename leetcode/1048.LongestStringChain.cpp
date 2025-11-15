@@ -1,3 +1,39 @@
+class Solution3 {
+private:
+    int getChainLen(string& word, std::map<int, set<string>>& mp, std::map<string, int>& memo) {
+        if (memo.contains(word)) return memo[word];
+
+        set<string> nextWords = mp[word.length() - 1];
+
+        int maxLen = 0;
+        for (int i = 0; i < word.length(); ++ i) {
+            string next = word.substr(0, i) + word.substr(i + 1);
+            if (nextWords.contains(next)) {
+                maxLen = max(maxLen, getChainLen(next, mp, memo));
+            }
+        }
+
+        return memo[word] = 1 + maxLen;
+    }
+
+public:
+    int longestStrChain(vector<string>& words) {
+        std::map<int, set<string>> map; // words by length of word.
+        for (string& word: words) {
+            map[word.length()].insert(word);
+        }
+
+        std::map<string, int> memo;
+        
+        int maxLen = 0;
+        for (string& word : words) {
+            maxLen = max(maxLen, getChainLen(word, map, memo));
+        }
+    
+        return maxLen;
+    }
+};
+
 // N = words.size(), L is the maximum possible length of a word.
 // Time complexity: O(L^2 * N)
 // Space complexity: O(N)
