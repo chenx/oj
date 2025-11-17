@@ -33,7 +33,6 @@ public:
        int n = nums.size();
        if (n == 0) return ans;
 
-
        ans.push_back(vector<int>(1, nums[0]));
        for (int i = 1; i < n; i ++) {
            vector<vector<int>> v;
@@ -106,6 +105,35 @@ public:
        for (int i = 0; i < n; i ++) {
            if (s[i] == 0) {
                s[i] = pos + 1;
+               permutation(ans, nums, s, pos + 1, n);
+               s[i] = 0;
+           }
+       }
+   }
+}
+
+// Recursive
+class Solution3_2 {
+public:
+   vector<vector<int>> permute(vector<int>& nums) {
+       vector<vector<int>> ans;
+       int n = nums.size();
+       if (n == 0) return ans;
+
+       vector<int> s(n, 0);
+       permutation(ans, nums, s, 0, n);
+       return ans;
+   }
+
+   void permutation(vector<vector<int>>& ans, vector<int>& nums, vector<int> s, int pos, int n) {
+       if (n == pos) {
+           ans.push_back(v);
+           return;
+       }
+
+       for (int i = 0; i < n; i ++) {
+           if (s[i] == 0) {
+               s[i] = nums[pos]; // <----- Different from Solution3 here.
                permutation(ans, nums, s, pos + 1, n);
                s[i] = 0;
            }
