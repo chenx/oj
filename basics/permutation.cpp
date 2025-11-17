@@ -117,25 +117,24 @@ class Solution3_2 {
 public:
    vector<vector<int>> permute(vector<int>& nums) {
        vector<vector<int>> ans;
-       int n = nums.size();
-       if (n == 0) return ans;
+       if (nums.size() == 0) return ans;
 
-       vector<int> s(n, 0);
-       permutation(ans, nums, s, 0, n);
+       vector<int> output(n, 0);
+       permutation(ans, nums, s, 0);
        return ans;
    }
-
-   void permutation(vector<vector<int>>& ans, vector<int>& nums, vector<int> s, int pos, int n) {
-       if (n == pos) {
-           ans.push_back(v);
+   void permutation(vector<vector<int>>& ans, vector<int>& nums, vector<int> output, int pos) {
+       if (pos == output.size()) {
+           ans.push_back(output);
            return;
        }
 
-       for (int i = 0; i < n; i ++) {
-           if (s[i] == 0) {
-               s[i] = nums[pos]; // <----- Different from Solution3 here.
-               permutation(ans, nums, s, pos + 1, n);
-               s[i] = 0;
+       // for the same value of input, assign it to every possible position of output.
+       for (int i = 0; i < output.size(); i ++) {
+           if (output[i] == 0) {
+               output[i] = nums[pos]; // <----- Different from Solution3 here.
+               permutation(ans, nums, output, pos + 1);
+               output[i] = 0;
            }
        }
    }
@@ -149,7 +148,8 @@ public:
        result.push_back(output);
        return;
      }
-   
+
+     // for the same pos of output, assign every possible value of input.
      for (int i = 0; i < input.size(); ++ i) {
        output[pos] = input[i];
        auto input2 = input;
