@@ -112,3 +112,30 @@ public:
        }
    }
 }
+
+// Recursive
+class Solution4 {
+public:
+   void getPerm(vector<int>& input, vector<int> output, int pos, vector<vector<int>>& result) {
+     if (pos == output.size()) {
+       result.push_back(output);
+       return;
+     }
+   
+     for (int i = 0; i < input.size(); ++ i) {
+       output[pos] = input[i];
+       auto input2 = input;
+       input2.erase(input2.begin() + i);
+       getPerm(input2, output, pos+1, result);
+     }
+   }
+   
+   vector<vector<int>> getPermutations(vector<int>& input) {
+     vector<vector<int>> result;
+     vector<int> output(input.size());
+   
+     getPerm(input, output, 0, result);
+   
+     return result;
+   }
+};
