@@ -1,3 +1,44 @@
+// Same as Solution.
+class Solution2 {
+public:
+    vector<double> A(double a, double b) {
+        vector<double> v = {a + b, a - b, b - a, a * b};
+        if (abs(a) > 0.00001) v.push_back(b/a);
+        if (abs(b) > 0.00001) v.push_back(a/b);
+        return v;
+    }
+
+    bool calc(vector<double>& input) {
+        int n = input.size();
+        if (n == 1) {
+            return abs(input[0] - 24) < 0.00001;
+        }
+
+        for (int i = 0; i < n; ++ i) {
+            for (int j = i + 1; j < n; ++ j) {
+                vector<double> newInput;
+                for (int k = 0; k < n; ++ k) {
+                    if (k != i && k != j) newInput.push_back(input[k]);
+                }
+        
+                vector<double> tmp = A(input[i], input[j]);
+                for (double t : tmp) {
+                    newInput.push_back(t);
+                    if (calc(newInput)) return true;
+                    newInput.pop_back();
+                }
+
+            }
+        }
+        return false;        
+    }
+
+    bool judgePoint24(vector<int>& cards) {
+        vector<double> input(cards.begin(), cards.end());
+        return calc(input);
+    }
+};
+
 class Solution {
 public:
     // All possible operations we can perform on two numbers.
