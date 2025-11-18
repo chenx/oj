@@ -1,3 +1,106 @@
+// Brute force, list all permutations.
+class Solution3 {
+public:
+    vector<double> F(double a, double b) {
+        vector<double> v = {a + b, a - b, b - a, a * b};
+        if (abs(a) > 0.00001) v.push_back(b/a);
+        if (abs(b) > 0.00001) v.push_back(a/b);
+        return v;
+    }
+
+    bool has24(vector<double>& A) {
+        for (auto a : A) {
+            if (abs(a - 24) < 0.00001) return true;
+        }
+        return false;
+    }
+
+    bool calc(vector<double>& input) {
+        int a = input[0], b = input[1], c = input[2], d = input[3];
+        auto A = F(a, b), B = F(b, c), C = F(c, d);
+
+        // ((a b) c) d
+        for (auto n : A) {
+            auto B = F(n, c);
+            for (auto m : B) {
+                auto C = F(m, d);
+                if (has24(C)) return true;
+            }
+        }
+
+        // (a b) (c d)
+        for (auto n : A) {
+            for (auto m : C) {
+                auto D = F(n, m);
+                if (has24(D)) return true;
+            }
+        }
+
+        // (a (b c)) d
+        for (auto n : B) {
+            auto C = F(a, n);
+            for (auto m : C) {
+                auto D = F(m, d);
+                if (has24(D)) return true;
+            }
+        }
+
+        // a ((b c) d)
+        for (auto n : B) {
+            auto C = F(n, d);
+            for (auto m : C) {
+                auto D = F(a, m);
+                if (has24(D)) return true;
+            }
+        }
+
+        // a (b (c d))
+        for (auto n : C) {
+            auto B = F(b, n);
+            for (auto m : B) {
+                auto C = F(a, m);
+                if (has24(C)) return true;
+            }
+        }
+
+        return false;
+    }
+
+    void getPerm(vector<vector<double>>& result, 
+                 vector<double>& input, vector<double> output, int pos) {
+        if (pos == output.size()) {
+            result.push_back(output);
+            return;
+        }
+
+        for (int i = 0; i < input.size(); ++ i) {
+            output[pos] = input[i];
+            auto input2 = input;
+            input2.erase(input2.begin() + i);
+            getPerm(result, input2, output, pos + 1);
+        }
+    }
+
+    vector<vector<double>> getPermutations(vector<double>& input) {
+        vector<vector<double>> result;
+        vector<double> output (input.size());
+        getPerm(result, input, output, 0);
+        return result;
+    }
+
+    bool judgePoint24(vector<int>& cards) {
+        vector<double> input(cards.begin(), cards.end());
+        vector<vector<double>> permutations = getPermutations(input);
+        cout << "permutations size = " << permutations.size() << endl;
+        for (auto perm : permutations) {
+            // for (auto x : perm) cout << x << " ";
+            // cout << endl;
+            if (calc(perm)) return true;
+        }
+        return false;
+    }
+};
+
 // Same as Solution.
 class Solution2 {
 public:
@@ -39,6 +142,9 @@ public:
     }
 };
 
+// https://leetcode.com/problems/24-game/editorial/
+// Time complexity: O(N3⋅3N−1⋅N!⋅(N−1)!).
+// Space complexity: O(N2).
 class Solution {
 public:
     // All possible operations we can perform on two numbers.
