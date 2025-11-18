@@ -1,3 +1,27 @@
+// Same as Solution.
+class Solution2 {
+public:
+    vector<int> canSeePersonsCount(vector<int>& heights) {
+        int n = heights.size();
+        vector<int> result(n);  // Store the count of people each person can see
+        stack<int> monotonicStack;  // Monotonic decreasing stack to track heights
+
+        for (int i = n - 1; i >= 0; i--) { // Traverse from right to left
+            while (! monotonicStack.empty() && monotonicStack.top() < heights[i]) {
+                result[i]++;
+                monotonicStack.pop(); // Pop all people shorter (visible) than current person
+            }
+          
+            if (! monotonicStack.empty()) {
+                result[i]++; // this person is taller and blocking the view, but still visible.
+            }
+          
+            monotonicStack.push(heights[i]); // Add current person's height to the stack
+        }
+        return result;
+    }
+};
+
 // From: https://algo.monster/liteproblems/1944
 // Time Complexity: O(n)
 // Space Complexity: O(n)
