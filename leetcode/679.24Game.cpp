@@ -1,7 +1,7 @@
 // Same as Solution.
 class Solution2 {
 public:
-    vector<double> A(double a, double b) {
+    vector<double> getResultsOfTwoElements(double a, double b) {
         vector<double> v = {a + b, a - b, b - a, a * b};
         if (abs(a) > 0.00001) v.push_back(b/a);
         if (abs(b) > 0.00001) v.push_back(a/b);
@@ -21,7 +21,7 @@ public:
                     if (k != i && k != j) newInput.push_back(input[k]);
                 }
         
-                vector<double> tmp = A(input[i], input[j]);
+                vector<double> tmp = getResultsOfTwoElements(input[i], input[j]);
                 for (double t : tmp) {
                     newInput.push_back(t);
                     if (calc(newInput)) return true;
