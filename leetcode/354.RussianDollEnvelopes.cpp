@@ -4,10 +4,9 @@
 class Solution {
 public:
     int maxEnvelopes(vector<vector<int>>& envelopes) {
-        int n = envelopes.size();
-
         sort(envelopes.begin(), envelopes.end(), comp);
 
+        int n = envelopes.size();
         vector<int> secondDim(n);
         for (int i = 0; i < n; ++i) secondDim[i] = envelopes[i][1];
         return lengthOfLIS(secondDim);
