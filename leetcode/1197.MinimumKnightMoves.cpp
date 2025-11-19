@@ -1,3 +1,30 @@
+// DFS (Top-Down Dynamic Programming)
+// dfs(x,y) = min( dfs(∣x−2∣,∣y−1∣), dfs(∣x−1∣,∣y−2∣) ) + 1
+// From: https://leetcode.com/problems/minimum-knight-moves/editorial/
+// Time Complexity: O(∣x⋅y∣)
+// Space Complexity: O(∣x⋅y∣)
+class Solution3 {
+public:
+    map<string, int> memo;
+
+    int dfs(int x, int y) {
+        string key = to_string(x) + "," + to_string(y);
+        if (memo.contains(key)) return memo[key];
+
+        if (x + y == 0) return 0; // at origin.
+        if (x + y == 2) return 2; // around origin, takes 2 steps to come to origin.
+        
+        int ret = min(dfs(abs(x - 1), abs(y - 2)),
+                      dfs(abs(x - 2), abs(y - 1))) + 1;
+        memo[key] = ret;
+        return ret;
+    }
+
+    int minKnightMoves(int x, int y) {
+        return dfs(abs(x), abs(y));
+    }
+};
+
 // Same as Solution.
 class Solution2 {
 public:
