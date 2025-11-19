@@ -14,6 +14,8 @@ public:
             ans = max(ans, min(precnt, cnt));
             // Both subarrays are part of the same increasing segment represented by cnt
             ans = max(ans, cnt / 2);
+
+            // if (ans >= k) return true; // return early.
         }
         return ans >= k;
     }
