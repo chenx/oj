@@ -1,3 +1,37 @@
+// Same as Solution.
+class Solution2 {
+    int getDistance(vector<int>& a, vector<int>& b) {
+        return abs(a[0] - b[0]) + abs(a[1] - b[1]);
+    }
+public:
+    vector<int> assignBikes(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+        vector<tuple<int, int, int>> pairs; // <distance, worker, bike>
+
+        for (int i = 0; i < workers.size(); ++ i) {
+            for (int j = 0; j < bikes.size(); ++ j) {
+                int distance = getDistance(workers[i], bikes[j]);
+                pairs.push_back( {distance, i, j} );
+            }
+        }
+        sort(pairs.begin(), pairs.end());
+
+        vector<int> workerStatus(workers.size(), -1); // bike number assigned to each worker
+        vector<int> bikeIsUsed(bikes.size(), -1); // worker number assigned to each bike.
+
+        int count = 0;
+        for (auto [dist, workerIndex, bikeIndex] : pairs) {
+            if (workerStatus[workerIndex] == -1 && bikeIsUsed[bikeIndex] == -1) {
+                workerStatus[workerIndex] = bikeIndex;
+                bikeIsUsed[bikeIndex] = workerIndex;
+                ++ count;
+            }
+
+            if (count == bikes.size()) break;
+        }
+        return workerStatus;
+    }
+};
+
 class Solution {
 public:
     int findDistance(vector<int>& worker, vector<int>& bike) {
