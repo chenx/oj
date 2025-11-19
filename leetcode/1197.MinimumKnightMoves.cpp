@@ -1,3 +1,39 @@
+// Same as Solution.
+class Solution2 {
+public:
+    int minKnightMoves(int x, int y) {
+        x = abs(x), y = abs(y);
+        int offsets[8][2] = {{1, 2}, {2, 1}, {2, -1}, {1, -2},
+                             {-2, 1}, {-1, 2}};
+
+        unordered_set<string> visited;
+
+        queue<vector<int>> queue;
+        queue.push({0, 0, 0}); // (x, y, distance)
+
+        while (queue.size() > 0) {
+            int currLevelSize = queue.size();
+            for (int i = 0; i < currLevelSize; i++) {
+                vector<int> curr = queue.front();
+                queue.pop();
+
+                if (curr[0] == x && curr[1] == y) {
+                    return curr[2];
+                }
+
+                for (auto offset : offsets) {
+                    vector<int> next = {curr[0] + offset[0], curr[1] + offset[1], curr[2] + 1};
+                    if (! visited.contains(to_string(next[0]) + "," + to_string(next[1]))) {
+                        visited.insert(to_string(next[0]) + "," + to_string(next[1]));
+                        queue.push(next);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+
 // BFS.
 // From: https://leetcode.com/problems/minimum-knight-moves/editorial/
 // Time Complexity: O((max(∣x∣,∣y∣))^2)
