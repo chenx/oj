@@ -1,3 +1,4 @@
+// For a valid triangle, sum of the smaller 2 sides > the largest side.
 // From https://leetcode.com/problems/largest-perimeter-triangle/
 // Best.
 // O(nlogn)
