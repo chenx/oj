@@ -20,17 +20,18 @@ private:
 public:
     Excel(int height, char width) {
         Formulas.resize(height, vector<Formula>(width - 'A' + 1, Formula({}, 0)));
-        // Formulas = vector<vector<Formula>>(height, vector<Formula>(width - 'A' + 1));
     }
     
     void set(int row, char column, int val) {
-        Formulas[row - 1][column - 'A'] = Formula(map<string, int>(), val);
+        // Formulas[row - 1][column - 'A'] = Formula(map<string, int>(), val);
+        Formulas[row - 1][column - 'A'].val = val;
+        Formulas[row - 1][column - 'A'].cells.clear();
+
         topologicalSort(row - 1, column - 'A');
         execute_stack();
     }
     
     int get(int row, char column) {
-        // if (Formulas[row - 1][column - 'A'] == NULL) return 0;
         return Formulas[row - 1][column - 'A'].val;
     }
     
@@ -47,10 +48,9 @@ private:
     void topologicalSort(int r, int c) {
         for (int i = 0; i < Formulas.size(); i++)
             for (int j = 0; j < Formulas[0].size(); j++) {
-                char col = 'A' + c;
-                string key = col + to_string(r + 1);
+                string key = string(1, 'A' + c) + to_string(r + 1);
                 cout << "key = " << key << endl;
-                if (Formulas[i][j].cells.contains(col + to_string(r + 1))) {
+                if (Formulas[i][j].cells.contains(key)) {
                     topologicalSort(i, j);
                 }
             }
