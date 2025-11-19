@@ -1,3 +1,27 @@
+// Same as Solution2.
+class Solution5 {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        heights.push_back(0);
+
+        stack<int> stack;
+        int maxArea = 0;
+
+        for (int i = 0; i < heights.size();) {
+            if (stack.empty() || heights[i] > heights[stack.top()]) {
+                stack.push(i);
+                ++ i;
+            } else {
+                int ht = heights[stack.top()];
+                stack.pop();
+                int width = stack.empty() ? i : i - stack.top() - 1;
+                maxArea = max(maxArea, ht * width);
+            }
+        }
+        return maxArea;
+    }
+};
+
 //
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
@@ -157,3 +181,4 @@ For example,
 Given heights = [2,1,5,6,2,3],
 return 10. 
  */
+
