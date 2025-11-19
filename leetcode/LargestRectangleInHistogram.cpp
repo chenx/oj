@@ -1,4 +1,6 @@
 // Same as Solution2.
+// Time complexity: O(n)
+// Space complexity: O(n)
 class Solution5 {
 public:
     int largestRectangleArea(vector<int>& heights) {
@@ -181,4 +183,5 @@ For example,
 Given heights = [2,1,5,6,2,3],
 return 10. 
  */
+
 
