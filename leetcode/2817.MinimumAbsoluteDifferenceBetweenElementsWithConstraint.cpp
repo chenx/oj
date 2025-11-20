@@ -1,4 +1,5 @@
 // From: https://algo.monster/liteproblems/2817
+// Time: O(n log n)
 class Solution2 {
 public:
     int minAbsoluteDifference(vector<int>& nums, int x) {
@@ -34,6 +35,7 @@ public:
 };
 
 // Times out for large input.
+// Time: O(n^2)
 class Solution {
 public:
     int minAbsoluteDifference(vector<int>& nums, int x) {
