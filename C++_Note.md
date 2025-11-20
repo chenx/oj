@@ -67,7 +67,7 @@ In summary, a default std::priority_queue<int> behaves as follows:
 
 ### Sort with custom comparator
 
-For vector container, use a "static bool comp()" function in the same class; or a struct/class (either a inner class or an outer class), but needs to be a class object.
+For vector container, use a "static bool comp()" function in the same class; or a struct/class (either an inner class or outer class), but needs to be a class object.
 
 For non-vector container, such as priority_queue above, use a struct/class, just the struct/class name will work.
 
