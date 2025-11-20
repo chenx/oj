@@ -15,7 +15,7 @@ public:
         return ans;
     }
 
-    double area(int[] P, int[] Q, int[] R) {
+    double area(vector<int>& P, vector<int>& Q, vector<int>& R) {
         return 0.5 * abs(P[0]*Q[1] + Q[0]*R[1] + R[0]*P[1]
                          -P[1]*Q[0] - Q[1]*R[0] - R[1]*P[0]);
     }
