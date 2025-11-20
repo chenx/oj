@@ -65,10 +65,38 @@ In summary, a default std::priority_queue<int> behaves as follows:
 - It functions as a max-heap, meaning the largest integer will always be accessible at the top using top().
 - The comparison is based on std::less<int>, which orders elements in ascending order for the underlying container, but results in a max-heap structure for the priority queue's interface.
 
+### Sort with custom comparator
+
+For vector container, use a "static bool comp()" function in the same class; or a struct/class (either a inner class or an outer class), but needs to be a class object.
+
+For non-vector container, such as priority_queue above, use a struct/class, just the struct/class name will work.
+
+```
+class Solution() {
+public:
+  void func() {
+    vector<vector<int>> arr = {{1,2}, {0, 1}};
+    sort(arr.begin(), arr.end(), comp);
+    // sort(arr.begin(), arr.end(), comp2());
+  }
+
+  static bool comp(vector<int>& a, vector<int>& b) {
+    return a[0] < b[0];
+  }
+
+  struct comp2 {
+    bool operator()(vector<int>& a, vector<int>& b) {
+      return a[0] < b[0];
+    }
+  };
+};
+```
+
 ### Create pair
 
   1) pair<int, int> v = pair<int, int>(1, 2);
   2) auto v = make_pair(1, 2); // note the use of auto keyword.
+  3) pair<int, int> v = {1, 2); // C++ 20
   
 
 ### Convert int to string
