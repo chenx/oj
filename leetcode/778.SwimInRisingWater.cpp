@@ -1,3 +1,46 @@
+// Same as Solution. Use different way of comparator.
+class Solution2 {
+public:
+    int swimInWater(vector<vector<int>>& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+
+        int m = grid.size(), n = grid[0].size();
+
+        auto comp = [&grid](vector<int>& a, vector<int>& b) {
+            return grid[a[0]][a[1]] > grid[b[0]][b[1]];
+        };
+        priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap(comp);
+
+        int directions[5] = {1, 0, -1, 0, 1};
+        set<vector<int>> visited;
+
+        int minTime = 0;
+        minHeap.push({0, 0});
+        visited.insert({0, 0});
+
+        while (! minHeap.empty()) {
+            int i = minHeap.top()[0];
+            int j = minHeap.top()[1];
+            minHeap.pop();
+
+            minTime = max(minTime, grid[i][j]);
+            if (i == m - 1 && j == n - 1) return minTime;
+
+            for (int k = 0; k < 4; ++ k) {
+                int x = i + directions[k], y = j + directions[k+1];
+                if (x >= 0 && x < m && y >= 0 && y < n) {
+                    if (! visited.contains({x, y})) {
+                        visited.insert({x, y});
+                        minHeap.push({x, y});
+                    }
+                }
+            }
+        }
+
+        return 0;
+    }
+};
+
 // See: https://leetcode.com/problems/swim-in-rising-water/editorial/
 // Use Heap.
 // Another method is Binary Search and DFS.
