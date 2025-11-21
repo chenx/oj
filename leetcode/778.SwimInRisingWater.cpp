@@ -1,8 +1,8 @@
 // See: https://leetcode.com/problems/swim-in-rising-water/editorial/
 // Use Heap.
 // Another method is Binary Search and DFS.
-// Time Complexity: O(N2logN). We may expand O(N2) nodes, and each one requires O(logN) time to perform the heap operations.
-// Space Complexity: O(N2), the maximum size of the heap.
+// Time Complexity: O(N^2logN). We may expand O(N2) nodes, and each one requires O(logN) time to perform the heap operations.
+// Space Complexity: O(N^2), the maximum size of the heap.
 class Solution {
 public:
     int swimInWater(vector<vector<int>>& grid) {
