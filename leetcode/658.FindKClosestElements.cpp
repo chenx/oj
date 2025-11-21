@@ -1,3 +1,33 @@
+// Binary Search to find the left bound. 
+// See https://leetcode.com/problems/find-k-closest-elements/editorial/
+// Time complexity: O(log(N−k)+k).
+// Space: O(1).
+class Solution4 {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int left = 0;
+        int right = arr.size() - k;
+        
+        // Binary search against the criteria described
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (x - arr[mid] > arr[mid + k] - x) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        
+        // Create output in correct format
+        vector<int> result;
+        for (int i = left; i < left + k; i++) {
+            result.push_back(arr[i]);
+        }
+        
+        return result;
+    }
+};
+
 // Sort
 // Time: O(nlogn)
 class Solution3 {
