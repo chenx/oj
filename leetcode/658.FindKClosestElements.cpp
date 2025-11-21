@@ -1,3 +1,25 @@
+// Sort
+// Time: O(nlogn)
+class Solution3 {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        vector<vector<int>> input;
+        for (int a : arr) input.push_back({a, abs(a - x)});
+        sort(input.begin(), input.end(), comp);
+
+        vector<int> result(k);
+        for (int i = 0; i < k; ++ i) result[i] = input[i][0];
+        sort(result.begin(), result.end());
+
+        return result;
+    }
+
+    static bool comp(vector<int>& a, vector<int>& b) {
+        if (a[1] == b[1]) return a[0] < b[0];
+        return a[1] < b[1];
+    }
+};
+
 // Use minHeap.
 // Time: O(nlogn)
 class Solution2 {
@@ -27,7 +49,7 @@ public:
 };
 
 // Use maxHeap.
-// Time: O(n(logk + logn)) = O(nlogn)
+// Time: O((klogk + nlogk))
 class Solution {
 public:
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
