@@ -87,6 +87,8 @@ In summary, a default std::priority_queue<int> behaves as follows:
 
 ### Sort with custom comparator
 
+https://ayanc.medium.com/passing-custom-parameter-in-c-custom-comparator-81e4daaf25a4
+
 For vector container, use a "static bool comp()" function in the same class; or a struct/class (either an inner class or outer class), but needs to be a class object.
 
 For non-vector container, such as priority_queue above, use a struct/class, just the struct/class name will work.
@@ -110,6 +112,30 @@ public:
     }
   };
 };
+```
+
+For priority_queue, if need to pass a parameter to the comparator, do it this way:
+```
+    int swimInWater(vector<vector<int>>& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+
+        int m = grid.size(), n = grid[0].size();
+
+        Comp comp(grid); // <--
+        priority_queue<vector<int>, vector<vector<int>>, Comp> minHeap(comp); // <--
+
+        return 0;
+    }
+
+    struct Comp {
+        vector<vector<int>> grid;
+
+        Comp(vector<vector<int>>& grid) : grid(grid) {} // pass in parameter
+
+        bool operator()(vector<int>& a, vector<int>& b) {
+            return grid[a[0]][a[1]] > grid[b[0]][b[1]];
+        }
+    };
 ```
 
 ### Create pair
