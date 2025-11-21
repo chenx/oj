@@ -6,7 +6,9 @@
 // that is n positions before the original iterator. Essentially, it performs std::advance(it, -n) and 
 // returns the resulting iterator.
 //
-class MyCalendar {
+// Time Complexity: O(NlogN). For each new event, we search that the event is legal in O(logN) time, then insert it in O(logN) time.
+// Space Complexity: O(N), the size of the calendar.
+class MyCalendar2 {
 private:
     set<pair<int, int>> calendar;
 
@@ -29,6 +31,28 @@ public:
         return true;
     }
 };
+
+// From: https://leetcode.com/problems/my-calendar-i/editorial/
+// Brute force
+// Time Complexity: O(N2)
+// Space Complexity: O(N), the size of the calendar.
+class MyCalendar {
+private:
+    vector<pair<int, int>> calendar;
+
+public:
+    bool book(int start, int end) {
+        for (const auto [s, e] : calendar) {
+            if (start < e && s < end) {
+                return false;
+            }
+        }
+        calendar.push_back({start, end});
+        return true;
+    }
+};
+
+
 
 /**
  * Your MyCalendar object will be instantiated and called as such:
