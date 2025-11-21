@@ -1,4 +1,5 @@
 // From: https://leetcode.com/problems/minimum-operations-to-make-the-integer-zero/editorial/
+// Seems a math problem instead of algorithm problem.
 //
 // Enumeration.
 // __builtin_popcountll is a GCC (GNU Compiler Collection) built-in function used in C and C++ to 
