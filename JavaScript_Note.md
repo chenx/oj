@@ -38,7 +38,7 @@ Linked list, stack and queue can be mimicked by Array.
 DLL and priority queue have to be implemented.
 
 ### Array
-
+```
 const list = [];
 const list = new Array();
 
@@ -48,6 +48,7 @@ splice()
 slice()
 includes()
 length
+```
 
 Loop through an array:
 - for (const n of arr)
