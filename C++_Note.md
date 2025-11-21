@@ -116,6 +116,7 @@ public:
 
 For priority_queue, if need to pass a parameter to the comparator, do it this way:
 ```
+    // Custom Comparator Class with Parameters.
     int swimInWater(vector<vector<int>>& grid) {
         if (grid.size() == 0 || grid[0].size() == 0) return 0;
 
@@ -136,6 +137,21 @@ For priority_queue, if need to pass a parameter to the comparator, do it this wa
             return grid[a[0]][a[1]] > grid[b[0]][b[1]];
         }
     };
+```
+
+Or use lambda function with captured variables:
+```
+    int swimInWater(vector<vector<int>>& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+
+        int m = grid.size(), n = grid[0].size();
+
+        // use reference "&grid" to avoid making a copy.
+        auto comp = [&grid](vector<int>& a, vector<int>& b) {.
+            return grid[a[0]][a[1]] > grid[b[0]][b[1]];
+        };
+        priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap(comp);
+    }
 ```
 
 ### Create pair
