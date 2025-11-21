@@ -1,3 +1,22 @@
+class Solution2 {
+public:
+    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
+        int count = 0;
+        for (int i = 0; i < fruits.size(); ++ i) {
+            bool found = false;
+            for (int j = 0; j < baskets.size(); ++ j) {
+                if (fruits[i] <= baskets[j]) {
+                    baskets[j] = 0;
+                    found = true;
+                    break;
+                }
+            }
+            count += found ? 0 : 1;
+        }
+        return count;
+    }
+};
+
 // From: https://leetcode.com/problems/fruits-into-baskets-ii/editorial/
 class Solution {
 public:
