@@ -39,7 +39,10 @@ public:
                     }
                 }
                 emptyLand --;
-                
+
+                // Once from a building minDist is INT_MAX, next cycles will also be INT_MAX
+                // because emptyLand decreases by 1, but no grid[x][y] decreases correspondingly,
+                // so "grid[x][y] == emptyLand" always fail, and no grid[x][y] can be visited in later cycle(s).
                 if (minDist == INT_MAX) return -1;
             }
         }
