@@ -1,3 +1,53 @@
+// Works. Slightly modified from Solution6.
+class Solution7 {
+public:
+    int shortestDistance(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size();
+        vector<vector<int>> total(m, vector<int> (n, 0));
+        int emptyLand = 0, minDist, delta[] = {0, 1, 0, -1, 0};
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] != 1) continue; 
+                // otherwise, grid[i][j] == 1, is a building
+
+                queue<vector<int>> q;
+                q.push({i, j});
+
+                int steps = 0;
+                minDist = INT_MAX;
+
+                while (! q.empty()) {
+                    ++ steps;
+                    
+                    for (int level = q.size(); level > 0; -- level) {
+                        auto pos = q.front();
+                        q.pop();
+
+                        for (int d = 0; d < 4; ++ d) {
+                            int x = pos[0] + delta[d];
+                            int y = pos[1] + delta[d+1];
+                            if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == emptyLand) {
+                                -- grid[x][y]; // decrease it to be emptyLand of next cycle.
+
+                                q.push({x, y});
+                                total[x][y] += steps;
+
+                                minDist = min(minDist, total[x][y]);
+                            }
+                        }
+                    }
+                }
+                emptyLand --;
+                
+                if (minDist == INT_MAX) return -1;
+            }
+        }
+
+        return minDist;
+    }
+};
+
 // Works. Simplified from Solution5.
 // Time Complexity: O(N2⋅M2)
 // Space Complexity: O(N⋅M)
