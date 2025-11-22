@@ -75,16 +75,22 @@ Hint 1
 Consider infected children as 0 and non-infected as 1, then divide the array into segments with the same value.
 
 Hint 2
-For each segment of non-infected children whose indices are [i, j] and indices (i - 1) and (j + 1), if they exist, are already infected. Then if i == 0 or j == n - 1, each second there is only one kid that can be infected (which is at the other endpoint).
+For each segment of non-infected children whose indices are [i, j] and indices (i - 1) and (j + 1), if they exist, 
+are already infected. Then if i == 0 or j == n - 1, each second there is only one kid that can be infected 
+(which is at the other endpoint).
 
 Hint 3
-If i > 0 and j < n - 1, we have two choices per second since the children at the two endpoints can both be the infect candidates. So there are 2j - i orders to infect all children in the segment.
+If i > 0 and j < n - 1, we have two choices per second since the children at the two endpoints can both be 
+the infect candidates. So there are 2j - i orders to infect all children in the segment.
 
 Hint 4
 Each second we can select a segment and select one endpoint from it.
 
 Hint 5
-The answer is: S! / (len[1]! * len[2]! * ... * len[m]! * lenstart! * lenend!) * 2k where len[1], len[2], ..., len[m] are the lengths of each segment of non-infected children that have an infected child at both endpoints, lenstart and lenend denote the number of non-infected children with infected child at one endpoint, S is the total length of all segments of non-infected children, and k = (len[1] - 1) + (len[2] - 1) + ... + (len[m] - 1).
+The answer is: S! / (len[1]! * len[2]! * ... * len[m]! * lenstart! * lenend!) * 2k where len[1], len[2], ..., len[m] 
+are the lengths of each segment of non-infected children that have an infected child at both endpoints, lenstart 
+and lenend denote the number of non-infected children with infected child at one endpoint, S is the total length 
+of all segments of non-infected children, and k = (len[1] - 1) + (len[2] - 1) + ... + (len[m] - 1).
  */
 
 /**
