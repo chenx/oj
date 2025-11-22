@@ -167,3 +167,47 @@ public:
      return result;
    }
 };
+
+// Recursive
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class Solution5 {
+public:
+   void permute(std::vector<int>& arr, int l) {
+       if (l == arr.size()) {
+           for (int x : arr) std::cout << x << " ";
+           std::cout << "\n";
+           return;
+       }
+   
+       for (int i = l; i < arr.size(); i++) {
+           std::swap(arr[l], arr[i]);
+           permute(arr, l + 1);
+           std::swap(arr[l], arr[i]); // backtrack
+       }
+   }
+   
+   int main() {
+       std::vector<int> v = {1, 2, 3};
+       permute(v, 0);
+   }
+};
+
+// C++ std lib: std::next_permutation()
+#include <algorithm>
+
+class Solution6 {
+public:
+   int main() {
+       std::vector<int> v = {1, 2, 3};
+       sort(v.begin(), v.end());
+       do {
+         for (int i = 0; i < v.size(); ++ i) std::cout << v[i] << " ";
+         std::cout << "\n";
+       } while (std::next_permutation(v.begin(), v.end()));
+   }
+};
