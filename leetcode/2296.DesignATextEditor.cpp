@@ -1,5 +1,50 @@
 // See https://algo.monster/liteproblems/2296
+// Works and faster.
+class TextEditor2 {
+    string textBeforeCursor;
+    string textAfterCursor; // stored in reverse order, so it's faster.
 
+public:
+    TextEditor() {}
+    
+    void addText(string text) {
+        textBeforeCursor += text;
+    }
+    
+    int deleteText(int k) {
+        int len = textBeforeCursor.length(), deleteLen = min(k, len);
+        // textBeforeCursor = textBeforeCursor.substr(0, len - deleteLen);
+        textBeforeCursor.resize(len - deleteLen);
+        return deleteLen;
+    }
+    
+    string cursorLeft(int k) {
+        int len = textBeforeCursor.length(), moveLen = min(k, len);
+
+        while (moveLen -- ) {
+            textAfterCursor += textBeforeCursor.back();
+            textBeforeCursor.pop_back();
+        }
+
+        int startIndex = max(0, (int) textBeforeCursor.length() - 10);
+        return textBeforeCursor.substr(startIndex);
+    }
+    
+    string cursorRight(int k) {
+        int len = textAfterCursor.length(), moveLen = min(k, len);
+
+        while (moveLen --) {
+            textBeforeCursor += textAfterCursor.back();
+            textAfterCursor.pop_back(); // textAfterCursor is stored in reverse order.
+        }
+
+        int startIndex = max(0, (int) textBeforeCursor.length() - 10);
+        return textBeforeCursor.substr(startIndex);
+    }
+};
+
+
+// Works. But time out for large input.
 class TextEditor {
     string textBeforeCursor;
     string textAfterCursor;
