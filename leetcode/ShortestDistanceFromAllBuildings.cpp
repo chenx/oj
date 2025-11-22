@@ -31,8 +31,8 @@ public:
                                 -- grid[x][y]; // decrease it to be emptyLand of next cycle.
 
                                 q.push({x, y});
-                                total[x][y] += steps;
 
+                                total[x][y] += steps;
                                 minDist = min(minDist, total[x][y]);
                             }
                         }
