@@ -18,6 +18,30 @@ var isAlnum = (c) => {
 
 num.toString()
 
+### Convert stringi to number
+
+1) parseInt()
+
+let num = parseInt(str);
+
+let hexInt = parseInt('0xF', 16);
+
+2) Number() or +
+
+let num = Number(1.23);
+
+let num2 = +'1.23';
+
+3) Math.floor(), Math.ceil(), or Math.round()
+
+
+Use parseInt() when you need to extract an integer from a string that might contain 
+non-numeric characters after the initial number (e.g., "100px").
+
+Use Number() or the unary plus operator (+) when you expect the entire string to 
+represent a valid number, and you want to convert it, potentially including decimal values.
+
+
 ### Split string to char array
 
 const arr = str.split('');
