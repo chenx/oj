@@ -1,4 +1,19 @@
+/**
+Let's think through this step by step. If we have multiple rabbits all saying "2", each is claiming to be 
+part of a group of 3 rabbits. Could they all be the same color? Well, if we have 3 or fewer rabbits saying 
+"2", they could all be the same color (one group of 3). But if we have 4 rabbits saying "2", we'd need at 
+least 2 color groups since one group can only hold 3 rabbits.
+
+This leads us to a greedy approach: for rabbits giving the same answer x, we should pack them into groups 
+of size x + 1 as efficiently as possible. If we have v rabbits giving answer x, and each color group holds 
+x + 1 rabbits, we need ceil(v / (x + 1)) groups.
+
+The ceiling division can be calculated as (v + x) // (x + 1), and since each group contains x + 1 rabbits, 
+the total number of rabbits for this answer is ceil(v / (x + 1)) * (x + 1), which equals ((v + x) // (x + 1)) * (x + 1).
+ */
+
 // From: https://algo.monster/liteproblems/781
+//
 class Solution {
 public:
     int numRabbits(vector<int>& answers) {
@@ -37,7 +52,7 @@ public:
 // From: https://leetcode.com/problems/rabbits-in-forest/editorial/
 // Time Complexity: O(N), where N is the number of rabbits that answered.
 // Space Complexity: O(N).
-
+//
 class Solution {
 public:
     int numRabbits(vector<int>& answers) {
