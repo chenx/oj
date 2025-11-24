@@ -1,3 +1,45 @@
+// Works. But time out for large input.
+// Time: O(N^2)
+class Solution2 {
+public:
+    int longestSubarray(vector<int>& nums) {
+        if (nums.size() == 1) return 1;
+        // Return longest non-drecreasing array after removing 1 element each time.
+        int n = nums.size(), maxLen = 0;
+        for (int i = 0; i < n; ++ i) {
+            maxLen = max(maxLen, getMaxNonDecreasingLen(nums, i));
+        }
+        return maxLen + 1;
+    }
+
+    int getMaxNonDecreasingLen(vector<int>& nums, int indexToIgnore) {
+        int n = nums.size();
+        if (n == 0) return 0;
+
+        int maxLen = 1, len = 1;
+        for (int i = 1; i < n; ++ i) {
+            if (indexToIgnore == i) continue;
+
+            int diff = nums[i] - nums[i-1];
+            if (i - 1 == indexToIgnore) {
+                if (i == 1) continue;
+                diff = nums[i] - nums[i-2];
+            }
+
+            if (diff >= 0) {
+                ++ len;
+                // maxLen = max(maxLen, len);
+            } else {
+                maxLen = max(maxLen, len);
+                len = 1;
+            }
+        }
+        maxLen = max(maxLen, len);
+        return maxLen;
+    }
+};
+
+
 // Works. But OOM for large input.
 class Solution {
 public:
