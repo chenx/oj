@@ -1,3 +1,29 @@
+// From: https://www.youtube.com/watch?v=37ZfxBxwf6M
+//
+class Solution {
+public:
+    long long countDistinct(long long n) {
+        string s = to_string(n);
+        int len = s.length();
+        long long total = 0, power = 9;
+
+        for (int i = 1; i < len; ++ i) {
+            total += power;
+            power *= 9;
+        }
+
+        for (int i = 0; i < len; ++ i) {
+            int digit = s[i] - '0';
+            for (int d = 1; d < digit; ++ d) {
+                int rem = len - 1 - i;
+                total += pow(9, rem);
+            }
+            if (digit == 0) break;
+            if (i == len - 1) total += 1;
+        }
+        return total;
+    }
+};
 
 
 // Brute force. Times out for large input.
