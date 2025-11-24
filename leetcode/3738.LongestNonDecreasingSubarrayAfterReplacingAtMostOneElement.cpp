@@ -1,3 +1,6 @@
+// DP
+// See Python solution: https://blog.csdn.net/codename_cys/article/details/154679776
+
 // Works. But time out for large input.
 // Time: O(N^2)
 class Solution2 {
@@ -44,7 +47,6 @@ public:
 class Solution {
 public:
     int longestSubarray(vector<int>& nums) {
-        // Python: https://blog.csdn.net/codename_cys/article/details/154679776
         // Return longest non-drecreasing array after removing 1 element each time.
         int n = nums.size(), maxLen = 0;
         for (int i = 0; i < n; ++ i) {
