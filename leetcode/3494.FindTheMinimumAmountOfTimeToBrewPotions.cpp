@@ -1,29 +1,28 @@
 // From: https://walkccc.me/LeetCode/problems/3494/
 // Time: O(nm)
 // Space: O(1)
+
 class Solution {
 public:
     long long minTime(vector<int>& skill, vector<int>& mana) {
         long sumSkill = accumulate(skill.begin(), skill.end(), 0L);
-    long prevWizardDone = sumSkill * mana[0];
+        long prevWizardDone = sumSkill * mana[0];
 
-    for (int j = 1; j < mana.size(); ++j) {
-      long prevPotionDone = prevWizardDone;
-      for (int i = skill.size() - 2; i >= 0; --i) {
-        // start time for wizard i brewing potion j
-        // = max(end time for wizard i brewing potion j - 1,
-        //       the earliest start time for wizard i + 1 brewing potion j
-        //       (coming from previous iteration)
-        //       - time for wizard i brewing potion j)
-        prevPotionDone -= static_cast<long>(skill[i + 1]) * mana[j - 1];
-        prevWizardDone =
-            max(prevPotionDone,
-                prevWizardDone - static_cast<long>(skill[i]) * mana[j]);
-      }
-      prevWizardDone += sumSkill * mana[j];
-    }
+        for (int i = 1; i < mana.size(); ++ i) {
+            long prevPotionDone = prevWizardDone;
+            for (int j = skill.size() - 2; j >= 0; -- j) {
+                // start time for wizard j brewing potion i
+                // = max(end time for wizard j brewing potion i - 1,
+                //       the earliest start time for wizard j + 1 brewing potion i
+                //       (coming from previous iteration)
+                //       - time for wizard j brewing potion i)
+                prevPotionDone -= (long) (skill[j + 1]) * mana[i - 1];
+                prevWizardDone = max(prevPotionDone, prevWizardDone - (long) (skill[j]) * mana[i]);
+            }
+            prevWizardDone += sumSkill * mana[i];
+        }
 
-    return prevWizardDone;
+        return prevWizardDone;
     }
 };
 
