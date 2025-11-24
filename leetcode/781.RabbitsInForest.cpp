@@ -40,7 +40,9 @@ public:
             // reporting the same answer
             // Formula: ceiling(frequency / groupSize) * groupSize
             // which equals (frequency + groupSize - 1) / groupSize * groupSize
-            int numGroups = (frequency + groupSize - 1) / groupSize;
+
+            // int numGroups = (frequency + groupSize - 1) / groupSize;
+            int numGroups = 1 + (frequency - 1) / groupSize;
             minRabbits += numGroups * groupSize;
         }
       
