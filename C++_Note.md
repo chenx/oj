@@ -315,9 +315,20 @@ Use this to avoid writing different functions for different data types:
     }
 ```
 
-### substr()
-- std::string substr (size_type pos = 0, size_type len = npos) const;
-- substr(pos)  // starting at pos, until end of string
+### substr
+
+substr(): used in C++ and JavaScript
+- std::string substr (size_type startIndex = 0, size_type len = npos) const;
+- substr(startIndex)  // starting at pos, until end of string
+
+substring(): used in Java and JavaScript
+- substring(startIndex, endIndex)
+
+Or:
+- C++: substr()
+- Java: substring()
+- JavaScript: both substr() and substring()
+
 
 ### accumulate()
 - std::int accumulate(begin, end, init, [func]);  // init is 0 by default.
