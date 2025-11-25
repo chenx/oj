@@ -16,12 +16,6 @@ function combination(array, k) {
             curCombination.pop();
         }
     }
-
-    function swap(array, i, j) {
-        const tmp = array[i];
-        array[i] = array[j];
-        array[j] = tmp;
-    }
 }
 
 console.log(combination([1,2,3,4], 3));
