@@ -77,6 +77,21 @@ Loop through an array:
 
 intervals.sort((a, b) => { return a[0] - b[0]; });
 
+#### Remove/replace array elements in place
+
+The splice() method of Array instances changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.
+
+The splice() method returns an array containing the deleted elements. If no elements are removed, it returns an empty array.
+
+```
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+splice(start)
+splice(start, deleteCount)
+splice(start, deleteCount, item1)
+splice(start, deleteCount, item1, item2)
+splice(start, deleteCount, item1, item2, /* …, */ itemN)
+```
+
 ### Map
 
 ```
