@@ -1,6 +1,6 @@
 // Queue.
-// Time: O(n)
-// Space: O(n)
+// Time: O(3000) =~ O(1)
+// Space: O(3000) =~ O(1)
 class RecentCounter {
     queue<int> q;
 public:
