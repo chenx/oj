@@ -191,6 +191,12 @@ Or use lambda function with captured variables:
     }
 ```
 
+Note:
+- Capture by reference ([&]):
+  - Allows the lambda to access variables from its enclosing scope by reference.
+- Parameter by reference ((int& param)):
+  - Allows the lambda to receive arguments passed to it during invocation by reference.
+
 ### Create pair
 
   1) pair<int, int> v = pair<int, int>(1, 2);
