@@ -1,5 +1,42 @@
 # C++ Notes
 
+### concatenate strings in an array
+
+``
+string words[] = {"ab", "c"};
+string result = accumulate(words.begin(), words.end(), string{}); // "abc"
+
+```
+
+### replace char
+
+Replace all occurences of 'a' by 'x'.
+```
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+int main() {
+    std::string str = "hello world";
+    std::replace(str.begin(), str.end(), 'o', 'x'); // Replace all 'o' with 'x'
+    std::cout << str << std::endl; // Output: hellx wxrld
+    return 0;
+}
+```
+
+Replace a string:
+```
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string str = "hello world";
+    str.replace(6, 5, "there"); // Replace "world" (starting at index 6, length 5) with "there"
+    std::cout << str << std::endl; // Output: hello there
+    return 0;
+}
+```
+
 ### split function
 
   1) split with delimiter char.
