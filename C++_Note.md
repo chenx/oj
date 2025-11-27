@@ -177,6 +177,7 @@ For priority_queue, if need to pass a parameter to the comparator, do it this wa
 ```
 
 Or use lambda function with captured variables:
+
 ```
     int swimInWater(vector<vector<int>>& grid) {
         if (grid.size() == 0 || grid[0].size() == 0) return 0;
@@ -196,6 +197,7 @@ Note:
   - Allows the lambda to access variables from its enclosing scope by reference.
 - Parameter by reference ((int& param)):
   - Allows the lambda to receive arguments passed to it during invocation by reference.
+
 
 ### Create pair
 
