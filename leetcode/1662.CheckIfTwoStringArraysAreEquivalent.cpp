@@ -1,4 +1,5 @@
 // See: https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/editorial/
+// Concatenate all strings and compare.
 // Time: O(n)
 // Space: O(n)
 class Solution {
