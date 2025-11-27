@@ -2,7 +2,7 @@
 
 ### concatenate strings in an array
 
-``
+```
 string words[] = {"ab", "c"};
 string result = accumulate(words.begin(), words.end(), string{}); // "abc"
 
