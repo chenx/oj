@@ -1,3 +1,16 @@
+class Solution6 {
+public:
+    bool isPalindrome(string s) {
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            while (i < j && ! isalnum(s[i])) ++ i;
+            while (i < j && ! isalnum(s[j])) -- j;
+            if (tolower(s[i ++]) != tolower(s[j --])) return false;
+        }
+        return true;
+    }
+};
+
 // Works. Tested. Similar to Solution4.
 class Solution5 {
 public:
@@ -153,3 +166,4 @@ Have you consider that the string might be empty? This is a good question to ask
 
 For the purpose of this problem, we define empty string as valid palindrome.
  */
+
