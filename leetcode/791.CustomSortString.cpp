@@ -1,3 +1,14 @@
+class Solution2 {
+public:
+    string customSortString(string order, string s) {
+        // also can use [&order]
+        sort(s.begin(), s.end(), [&](char a, char b) {
+            return order.find(a) < order.find(b);
+        });
+        return s;
+    }
+};
+
 class Solution {
 public:
     string customSortString(string order, string s) {
