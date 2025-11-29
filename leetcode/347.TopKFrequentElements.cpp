@@ -16,7 +16,7 @@ public:
         map<int, int> count; // num, count
         for (int n : nums) ++ count[n];
 
-        auto comp = [&count](int a, int b) {
+        auto comp = [&](int a, int b) {
             return count[a] > count[b];
         };
         priority_queue<int, vector<int>, decltype(comp)> minHeap(comp);
