@@ -1,3 +1,39 @@
+// Same as Solution. Better naming from 'total' to 'balance'.
+// Time complexity : O(n), where n is the length of the input string.
+// Space complexity : O(n), where n is the length of the input string.
+class Solution2 {
+public:
+    string minRemoveToMakeValid(string s) {
+        int openCount = 0, balance = 0;
+
+        string t;
+        // Remove ')'
+        for (char ch : s) {
+            if (ch == '(') {
+                ++ openCount;
+                ++ balance;
+            } else if (ch == ')') {
+                if (balance == 0) continue;
+                -- balance;
+            }
+            t += ch;
+        }
+
+        // Remove '(' on RHS
+        string result;
+        int openToKeep = openCount - balance;
+        for (char ch : t) {
+            if (ch == '(') {
+                if (openToKeep == 0) continue;
+                -- openToKeep;
+            }
+            result += ch;
+        }
+        return result;
+    }
+};
+
+
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
