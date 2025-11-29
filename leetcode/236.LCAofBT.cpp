@@ -1,12 +1,19 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+class Solution2 {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (!root || !p || !q) return NULL;
+
+        if (root == p || root == q) return root;
+        TreeNode* L = lowestCommonAncestor(root->left, p, q);
+        TreeNode* R = lowestCommonAncestor(root->right, p, q);
+
+        // if (L && R) return root;
+        // return L ? L : R;
+        return (L && R) ? root : (L ? L : R);
+    }
+};
+
+
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -20,7 +27,7 @@ public:
 };
 
 /**
-Lowest Common Ancestor of a Binary Tree
+236. Lowest Common Ancestor of a Binary Tree
 Difficulty: Medium
 
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
