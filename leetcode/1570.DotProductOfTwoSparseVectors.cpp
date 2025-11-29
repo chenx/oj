@@ -1,10 +1,16 @@
-class SparseVector {
+// 
+// Time complexity: O(n) for creating the Hash Map; O(L) for calculating the dot product.
+// Space complexity: O(L) for creating the Hash Map, as we only store elements that are non-zero. O(1) for calculating the dot product.
+//
+class SparseVector2 {
 public:
     map<int, int> map;
     
     SparseVector(vector<int> &nums) {
         for (int i = 0; i < nums.size(); ++ i) {
-            map[i] = nums[i];
+            if (nums[i] != 0) {
+                map[i] = nums[i];
+            }
         }
     }
     
@@ -19,6 +25,29 @@ public:
         return sum;
     }
 };
+
+
+// Naive. But in reality may be more efficient, since map solution is costly in using map.
+// Time complexity: O(n) for calculating the dot product.
+// Space complexity: O(1)
+class SparseVector {
+public:
+    vector<int> array;
+    
+    SparseVector(vector<int> &nums) {
+        array = nums;
+    }
+    
+    // Return the dotProduct of two sparse vectors
+    int dotProduct(SparseVector& vec) {
+        int sum = 0;
+        for (int i = 0; i < array.size(); ++ i) {
+            sum += array[i] * vec.array[i];
+        }
+        return sum;
+    }
+};
+
 
 // Your SparseVector object will be instantiated and called as such:
 // SparseVector v1(nums1);
