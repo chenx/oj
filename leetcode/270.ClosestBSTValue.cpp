@@ -1,3 +1,32 @@
+class Solution4 {
+public:
+    int closestValue(TreeNode* root, double target) {
+        if (! root) return 0;
+
+        double minDiff = abs(root->val - target);
+        int val = root->val;
+
+        getClosestValue(root, target, minDiff, val);
+        return val;
+    }
+
+    void getClosestValue(TreeNode* root, double target, double& minDiff, int& val) {
+        if (! root) return;
+
+        double diff = abs(root->val - target);
+        if (diff < minDiff) {
+            minDiff = diff;
+            val = root->val;
+        } else if (diff == minDiff) {
+            val = min(val, root->val);
+        }
+
+        getClosestValue(root->left, target, minDiff, val);
+        getClosestValue(root->right, target, minDiff, val);
+    }
+};
+
+
 // Should work. Tested locally, not in lc. O(n).
 class Solution3 {
 public:
@@ -99,11 +128,11 @@ public:
 };
 
 /**
-Closest Binary Search Tree Value My Submissions Question
+270. Closest Binary Search Tree Value My Submissions Question
 Difficulty: Easy
 
-Given a non-empty binary search tree and a target value, 
-find the value in the BST that is closest to the target.
+Given the root of a binary search tree and a target value, return the value in the BST that is closest to the target. 
+If there are multiple answers, print the smallest.
 
 Note:
 Given target value is a floating point.
