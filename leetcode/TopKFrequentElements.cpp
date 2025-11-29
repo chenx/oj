@@ -1,3 +1,40 @@
+// Note: could do quick select too.
+// See: https://leetcode.com/problems/top-k-frequent-elements/editorial/
+// Time complexity: O(N) in the average case, O(N2) in the worst case.
+//
+// But never do this in real practice for 2 reaons (in addition to complexity):
+// 1) It's outperformer. Yes, it works in a linear time αN, but the constant α is so large 
+//    that in practice it often works even slower than N2.
+// 2) It doesn't work with duplicates.
+
+// minHeap.
+// Time: O(n + n * log(k))
+// Space: O(n + k)
+class Solution4 {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        map<int, int> count; // num, count
+        for (int n : nums) ++ count[n];
+
+        auto comp = [&count](int a, int b) {
+            return count[a] > count[b];
+        };
+        priority_queue<int, vector<int>, decltype(comp)> minHeap(comp);
+
+        for (auto [num, frequency] : count) {
+            minHeap.push(num);
+            if (minHeap.size() > k) minHeap.pop();
+        }
+
+        vector<int> ans;
+        while (!minHeap.empty()) {
+            ans.push_back(minHeap.top());
+            minHeap.pop();
+        }
+        return ans;
+    }
+};
+
 // This works with both minHeap and maxHeap.
 // With maxHeap, you get the top k.
 // With minHeap, smaller entries are removed early, and you end up with top k.
