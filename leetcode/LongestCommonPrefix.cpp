@@ -5,6 +5,27 @@
 // @Last modified: 1/21/2013
 //
 
+class Solution7 {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int n = strs.size();
+        if (n == 0) return "";
+
+        string& s = strs[0];
+        int maxLen = s.length();
+        for (int i = 1; i < n; ++ i) {
+            string& t = strs[i];
+
+            int j = 0, len = min(s.length(), t.length());
+            for (; j < len; ++ j) {
+                if (s[j] != t[j]) break;
+            }
+            maxLen = min(maxLen, j);
+        }
+        return s.substr(0, maxLen);
+    }
+};
+
 // O(1) in space. O(n*m) in time, n = strs.size(), m = max_length of str in strs.
 // Best solution without using sub function.
 class Solution6 {
@@ -170,3 +191,4 @@ public:
         return p;
     }
 };
+
