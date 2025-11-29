@@ -1,5 +1,5 @@
 // See: https://leetcode.com/problems/goat-latin/editorial/
-// Time: O(n^2)
+// Time: O(n^2), n is the length of input string, in the worst case.
 // Space: O(n^2)
 //
 class Solution2 {
@@ -8,9 +8,9 @@ public:
         string result, word, padding;
         stringstream ss(sentence);
 
-        while (ss >> word) {
+        while (ss >> word) { // O(n)
             if (! isVowel(word[0])) {
-                word = word.substr(1) + word[0];
+                word = word.substr(1) + word[0]; // O(n)
             }
 
             padding += "a";
