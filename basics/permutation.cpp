@@ -8,7 +8,7 @@ public:
 
        int i, j;
        // Find first i, nums[i] < nums[i+1]
-       for (i = n-2; i >= 0 && nums[i] >= nums[i+1]; i --) ;
+       for (i = n-2; i >= 0 && nums[i] >= nums[i+1]; -- i) ;
        if (i == -1) {
            reverse(nums.begin(), nums.end());
            return;
@@ -16,7 +16,7 @@ public:
 
 
        // Find first item from right, nums[j] > nums[i]
-       for (j = n-1; nums[j] <= nums[i]; --j) ;
+       for (j = n-1; nums[i] >= nums[j]; --j) ;
        swap(nums[i], nums[j]);
        reverse(nums.begin() + i + 1, nums.end());
    }
