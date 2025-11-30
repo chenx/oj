@@ -15,7 +15,7 @@ public:
        }
 
 
-       // Find first item from right, nums[j] > nums[i]
+       // Find first item from right, nums[i] < nums[j]
        for (j = n-1; nums[i] >= nums[j]; --j) ;
        swap(nums[i], nums[j]);
        reverse(nums.begin() + i + 1, nums.end());
