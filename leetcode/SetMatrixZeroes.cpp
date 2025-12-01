@@ -29,12 +29,12 @@ public:
             }
         }
 
-        for (int i = 1; i < m; ++ i) {
+        for (int i = 1; i < m; ++ i) {  // i starts from 1 !!!
             if (matrix[i][0] == 0) {
                 for (int j = 1; j < n; ++ j) matrix[i][j] = 0;
             }
         }
-        for (int j = 1; j < n; ++ j) {
+        for (int j = 1; j < n; ++ j) {  // j starts from 1 !!!
             if (matrix[0][j] == 0) {
                 for (int i = 1; i < m; ++ i) matrix[i][j] = 0;
             }
@@ -295,4 +295,5 @@ int main() {
             
     return 0;
 }
+
 
