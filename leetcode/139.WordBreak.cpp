@@ -1,3 +1,28 @@
+
+class Solution9 {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n = s.length();
+        vector<bool> DP(n + 1, false);
+        set<string> words(wordDict.begin(), wordDict.end());
+
+        for (int i = 1; i <= n; ++ i) {
+            if (words.contains(s.substr(0, i))) {
+                DP[i] = true;
+                continue;
+            }
+
+            for (int j = 1; j < i; ++ j) {
+                if (DP[j] && words.contains(s.substr(j, i - j))) {
+                    DP[i] = true;
+                    break;
+                }
+            }
+        }
+        return DP[n];
+    }
+};
+
 //
 // Note that WordBreak, WordBreak_II, PalindromePartitioning, PalindromePartitioning_II are
 // actually different aspects of the same problem. Just that one uses a dictionary for valid
@@ -301,7 +326,10 @@ int main() {
 }
 
 /*
-Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+139. Word Break
+
+Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of 
+one or more dictionary words.
 
 For example, given
 s = "leetcode",
@@ -309,6 +337,7 @@ dict = ["leet", "code"].
 
 Return true because "leetcode" can be segmented as "leet code".
 */
+
 
 
 
