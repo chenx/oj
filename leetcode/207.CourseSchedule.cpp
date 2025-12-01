@@ -1,3 +1,76 @@
+// BFS (Topological Sort Using Kahn's Algorithm).
+// Here, n be the number of courses and m be the size of prerequisites.
+// Time complexity: O(m+n)
+// Space complexity: O(m+n)
+class Solution6 {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        set<int> courses;
+        for (int i = 0; i < numCourses; ++ i) courses.insert(i);
+
+        map<int, set<int>> in, out;
+        for (auto pre : prerequisites) {
+            in[pre[0]].insert(pre[1]);
+            out[pre[1]].insert(pre[0]);
+        }
+
+        queue<int> q;
+
+        for (int course : courses) {
+            if (in[course].size() == 0) {
+                q.push(course);
+            }
+        }
+
+        int count = 0;
+        while (! q.empty()) {
+            int course = q.front();
+            q.pop();
+            ++ count;
+
+            for (int nextCourse : out[course]) {
+                in[nextCourse].erase(course);
+                if (in[nextCourse].empty()) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+        return count == numCourses;
+    }
+};
+
+class Solution5 {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        set<int> courses;
+        for (int i = 0; i < numCourses; ++ i) courses.insert(i);
+
+        map<int, set<int>> in, out;
+        for (auto pre : prerequisites) {
+            in[pre[0]].insert(pre[1]);
+            out[pre[1]].insert(pre[0]);
+        }
+
+        while (! courses.empty()) {
+            bool found = false; // found next course to finish first.
+            for (int course : courses) {
+                if (in[course].size() == 0) {
+                    found = true;
+
+                    for (int nextCourse : out[course]) {
+                        // remove course from prerequeist list of nextCourse.
+                        in[nextCourse].erase(course); 
+                    }
+                    courses.erase(course);
+                    // break; // works with or without this.
+                }
+            }
+            if (!found) return false;
+        }
+        return true;
+    }
+};
+
 // Works. Shorter and easier to understand.
 class Solution4 {
 public:
