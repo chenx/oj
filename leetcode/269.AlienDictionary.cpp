@@ -1,3 +1,61 @@
+// BFS
+// Let N be the total number of strings in the input list.
+// Let C be the total length of all the words in the input list, added together.
+// U: unique letters in the alphabet. 26 in this case.
+// Time complexity : O(C)
+// Space: O(U+min(U^2,N)), this is O(1) if U = 26.
+class Solution5 {
+public:
+    string alienOrder(vector<string>& words) {
+        set<char> charset;
+        map<char, set<char>> in, out;
+        for (string& word : words) { // O(C)
+            for (char ch : word) charset.insert(ch);
+        }
+
+        for (int i = 1; i < words.size(); ++ i) { // O(C)
+            string& a = words[i-1], &b = words[i];
+            int len = min(a.length(), b.length()), j = 0;
+            for (; j < len; ++ j) {
+                if (a[j] != b[j]) { // a is before b in charset.
+                    in[b[j]].insert(a[j]); 
+                    out[a[j]].insert(b[j]);
+                    break;
+                }
+            }
+            if (j == len && j < a.length()) return "";  // invalid dictionary.
+        }
+
+        string result;
+        queue<char> q;
+
+        for (char ch : charset) {
+            if (in[ch].empty()) { // in degree is 0.
+                q.push(ch);
+                result += ch;
+            }
+        }
+
+        while (! q.empty()) {
+            char nextChar = q.front();
+            q.pop();
+
+            for (char ch : out[nextChar]) {
+                in[ch].erase(nextChar);
+
+                if (in[ch].empty()) {
+                    q.push(ch);
+                    result += ch;
+                }
+            }
+        }
+
+        // If result.length() != charset.size(), some char(s) are invalid.
+        return result.length() == charset.size() ? result : "";
+    }
+};
+
+
 // Works. Tested.
 class Solution4 {
 public:
