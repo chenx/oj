@@ -1,8 +1,53 @@
 // Prefix Sums with Binary Search
+class Solution4 {
+    vector<int> prefixSum;
+public:
+    Solution(vector<int>& w) {
+        for (int i = 0; i < w.size(); ++ i) {
+            if (i == 0) prefixSum.push_back(w[i]);
+            else prefixSum.push_back(w[i] + prefixSum.back());
+        }
+    }
+    
+    int pickIndex() {
+        int bucket = rand() % prefixSum.back();
+        int left = 0, right = prefixSum.size() - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (prefixSum[mid] > bucket) right = mid - 1;
+            else left = mid + 1;
+        }
+        return left;
+    }
+};
+
+
+// Prefix Sums with Linear Search.
+class Solution3 {
+    vector<int> prefixSum;
+public:
+    Solution(vector<int>& w) {
+        for (int i = 0; i < w.size(); ++ i) {
+            if (i == 0) prefixSum.push_back(w[i]);
+            else prefixSum.push_back(w[i] + prefixSum.back());
+        }
+    }
+    
+    int pickIndex() {
+        int bucket = rand() % prefixSum.back();
+        for (int i = 0; i < prefixSum.size(); ++ i) {
+            if (bucket < prefixSum[i]) return i;
+        }
+        return 0;
+    }
+};
+
+
+// Prefix Sums with Binary Search
 // See: https://leetcode.com/problems/random-pick-with-weight/editorial/
 // Time: O(log n) for pickIndex.
 // Space: O(n)
-class Solution {
+class Solution2 {
     vector<int> prefixSums;
 
 public:
