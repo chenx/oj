@@ -17,6 +17,8 @@ public:
 
 // From: https://leetcode.com/problems/greatest-sum-divisible-by-three/editorial/
 // DP
+// Let f(i,j) be the maximum sum achievable using the first i elements such that the sum modulo 3 equals j.
+// f(i,j)=max{f(i−1,j),f(i−1,(j−nums[i])mod3)+nums[i]}
 // Time complexity: O(n).
 // Space complexity: O(1).
 //
