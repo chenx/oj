@@ -1,3 +1,18 @@
+// Use vector as stack.
+// Time: O(n)
+// Space: O(n)
+class Solution2 {
+public:
+    vector<int> findBuildings(vector<int>& heights) {
+        vector<int> result;
+        for (int i = heights.size() - 1; i >= 0; -- i) {
+            if (result.empty() || heights[i] > heights[result.back()]) result.push_back(i);
+        }
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
+
 class Solution {
 public:
     vector<int> findBuildings(vector<int>& heights) {
