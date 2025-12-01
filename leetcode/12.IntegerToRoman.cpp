@@ -1,3 +1,20 @@
+class Solution4 {
+public:
+    string intToRoman(int num) {
+        vector<string> roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        vector<int> val = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+
+        string result;
+        for (int i = 0; i < roman.size(); ++ i) {
+            while (num >= val[i]) {
+                num -= val[i];
+                result += roman[i];
+            }
+        }
+        return result;
+    }
+};
+
 //
 // Symbol Value
 // I 	    1
@@ -112,10 +129,11 @@ public:
 
 
 /**
-Integer to Roman
+12.Integer to Roman
 Difficulty: Medium
 
 Given an integer, convert it to a roman numeral.
 
 Input is guaranteed to be within the range from 1 to 3999.
  */
+
