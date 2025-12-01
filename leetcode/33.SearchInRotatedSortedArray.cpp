@@ -173,7 +173,8 @@ int FindSortedArrayRotationPivot(int A[], int N) {
 }
 
 /*
-Problem:
+33. Search in Rotated Sorted Array
+Medium
 
 Suppose a sorted array is rotated at some pivot unknown to you beforehand.
 
@@ -185,3 +186,4 @@ index, otherwise return -1.
 You may assume no duplicate exists in the array.
 
  */
+
