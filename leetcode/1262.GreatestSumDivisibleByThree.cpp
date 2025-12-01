@@ -1,3 +1,20 @@
+// Same as Solution.
+class Solution2 {
+public:
+    int maxSumDivThree(vector<int>& nums) {
+        vector<int> f = {0, INT_MIN, INT_MIN};
+        for (int num : nums) {
+            vector<int> g = f;
+            for (int i = 0; i < 3; ++i) {
+                int k = (i + num % 3) % 3;
+                g[k] = max(g[k], f[i] + num);
+            }
+            f = g;
+        }
+        return f[0];
+    }
+};
+
 // From: https://leetcode.com/problems/greatest-sum-divisible-by-three/editorial/
 // DP
 // Time complexity: O(n).
