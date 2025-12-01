@@ -18,9 +18,8 @@ public:
             s.push(n);
             n = n->left;
         }
-        if (s.empty()) {
-            return -1;
-        }
+        // if (s.empty()) return -1;  // This won't happen.
+
         n = s.top();
         s.pop();
         int ret = n->val;
@@ -151,7 +150,9 @@ int main() {
 
 
 /**
-Binary Search Tree Iterator 
+173. Binary Search Tree Iterator 
+Medium
+
 Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
 
 Calling next() will return the next smallest number in the BST.
