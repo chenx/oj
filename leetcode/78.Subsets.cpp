@@ -1,3 +1,21 @@
+// Time, Space: O(n * 2^n)
+class Solution7 {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> result = {{}};
+
+        for (int i = 0; i < nums.size(); ++ i) {
+            for (int j = 0, len = result.size(); j < len; ++ j) {
+                auto row = result[j];
+                row.push_back(nums[i]);
+                result.push_back(row);
+            }
+        }
+        return result;
+    }
+};
+
+
 //
 // http://www.leetcode.com/onlinejudge#
 // 3sum.
@@ -210,6 +228,8 @@ int main() {
 }
 
 /*
+78. Subsets
+
 Problem:
 Given a set of distinct integers, S, return all possible subsets.
 
@@ -230,3 +250,4 @@ If S = [1,2,3], a solution is:
   []
 ]
  */
+
