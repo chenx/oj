@@ -1,8 +1,29 @@
+class Solution3 {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
+        map<int, vector<int>> map;
+        for (int i = nums.size() - 1; i >= 0; -- i) {
+            for (int j = 0; j < nums[i].size(); ++ j) {
+                map[i + j].push_back(nums[i][j]);
+            }
+        }
+        
+        vector<int> result;
+        for (int sum = 0; map.contains(sum); ++ sum) {
+            for (int num : map[sum]) {
+                result.push_back(num);
+            }
+        }
+        return result;
+    }
+};
+
+
 // Group Elements by the Sum of Row and Column Indices
 // From: https://leetcode.com/problems/diagonal-traverse-ii/editorial/
 // Time complexity: O(n)
 // Space complexity: O(n)
-class Solution {
+class Solution2 {
 public:
     vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
         map<int, vector<int>> groups;
