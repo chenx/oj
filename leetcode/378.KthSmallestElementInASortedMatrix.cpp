@@ -1,3 +1,32 @@
+class Solution2 {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        auto comp = [](vector<int>& a, vector<int>& b) {
+            return a[0] > b[0];  // ">" for minHeap.
+        };
+        priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap(comp);
+
+        for (int i = 0; i < matrix.size(); ++ i) {
+            minHeap.push({matrix[i][0], i, 0});
+        }
+
+        while (! minHeap.empty()) {
+            int val = minHeap.top()[0];
+            int i = minHeap.top()[1];
+            int j = minHeap.top()[2];
+            minHeap.pop();
+
+            if (-- k == 0) return val;
+
+            if (j + 1 < matrix[0].size()) {
+                minHeap.push({matrix[i][j + 1], i, j + 1});
+            }
+        }
+        return 0;
+    }
+};
+
+
 struct comp {
     bool operator()(vector<int> &a, vector<int> &b) {
         return a[0] > b[0];
