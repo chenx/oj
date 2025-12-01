@@ -1,3 +1,24 @@
+class Solution5 {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return;
+
+        int i, j;
+        // find first i from RHS, such that nums[i] < nums[i+1]
+        for (i = nums.size() - 2; i >= 0 && nums[i] >= nums[i+1]; -- i) ;
+        if (i == -1) {
+            reverse(nums.begin(), nums.end());
+            return;
+        }
+
+        // from first j from RHS, such that nums[i] < nums[j]
+        for (j = nums.size() - 1; nums[i] >= nums[j]; -- j) ;
+        swap(nums[i], nums[j]);
+        reverse(nums.begin() + i + 1, nums.end());
+    }
+};
+
 //
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
@@ -121,7 +142,7 @@ public:
 };
 
 /*
-Problem:
+24. Next Permutation
 
  Implement next permutation, which rearranges numbers into the 
  lexicographically next greater permutation of numbers.
@@ -137,5 +158,6 @@ its corresponding outputs are in the right-hand column.
 3,2,1 ¡ú 1,2,3
 1,1,5 ¡ú 1,5,1        
  */
+
 
 
