@@ -1,4 +1,5 @@
 // BFS.
+// Time: O(n), Space: O(n)
 class Solution4 {
 public:
     vector<int> restoreArray(vector<vector<int>>& adjacentPairs) {
@@ -15,7 +16,6 @@ public:
             if (neighbors.size() == 1) {
                 q.push(num);
                 used.insert(num);
-                nums.push_back(num);
                 break;
             }
         }
@@ -24,11 +24,12 @@ public:
             int nextNum = q.front();
             q.pop();
 
+            nums.push_back(nextNum);
+
             for (int neighbor : adjList[nextNum]) {
                 if (! used.contains(neighbor)) {
                     q.push(neighbor);
                     used.insert(neighbor);
-                    nums.push_back(neighbor);
                 }
             }
         }
