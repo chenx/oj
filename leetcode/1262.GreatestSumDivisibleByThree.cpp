@@ -1,3 +1,40 @@
+// Same as Solution3.
+class Solution4 {
+public:
+    int maxSumDivThree(vector<int>& nums) {
+        // Use v[0], v[1], v[2] to represent a, b, c respectively.
+        vector<int> v[3];
+        for (int num : nums) {
+            v[num % 3].push_back(num);
+        }
+        sort(v[1].begin(), v[1].end()); // same as: sort(v[1].begin(), v[1].end(), less<int>());
+        sort(v[2].begin(), v[2].end());
+        int tot = accumulate(nums.begin(), nums.end(), 0);
+        int remove = INT_MAX;
+
+        if (tot % 3 == 0) {
+            remove = 0;
+        } else if (tot % 3 == 1) {
+            if (v[1].size() >= 1) {
+                remove = min(remove, v[1][0]);
+            }
+            if (v[2].size() >= 2) {
+                remove = min(remove, v[2][0] + v[2][1]);
+            }
+        } else {
+            if (v[1].size() >= 2) {
+                remove = min(remove, v[1][0] + v[1][1]);
+            }
+            if (v[2].size() >= 1) {
+                remove = min(remove, v[2][0]);
+            }
+        }
+
+        return tot - remove;
+    }
+};
+
+
 // Greedy + Backward Thinking
 // Time complexity: O(nlogn).
 // Space complexity: O(n).
