@@ -1,3 +1,75 @@
+// Works for both 224 and 227.
+// E := F +|- F
+// F := T *|/ T
+// T := num | (E)
+class Solution9 {
+public:
+    int calculate(string s) {
+        int pos = 0;
+        int val = E(s, pos);
+        expect(s[pos], '\0', "expecting EOF but getting '" + string(1, s[pos]) + "'");
+        return val;
+    }
+
+    void expect(char ch, char expectedValue, string msg) {
+        if (ch != expectedValue) {
+            cout << msg << endl;
+            throw new exception();
+        }
+    }
+
+    int E(string& s, int& pos) {
+        int val = F(s, pos);
+        while (s[pos] == '+' || s[pos] == '-') {
+            if (s[pos] == '+') val += F(s, ++ pos);
+            else val -= F(s, ++ pos);
+        }
+        return val;
+    }
+
+    int F(string& s, int& pos) {
+        int val = T(s, pos);
+        while (s[pos] == '*' || s[pos] == '/') {
+            if (s[pos] == '*') val *= T(s, ++ pos);
+            else {
+                int tmp = T(s, ++ pos);
+                if (tmp == 0) throw new exception();
+                val /= tmp;
+            }
+        }
+        return val;
+    }
+
+    int T(string& s, int& pos) {
+        ignoreSpace(s, pos);
+
+        int val = 0;
+        if (s[pos] == '(') {
+            val = E(s, ++ pos);
+            expect(s[pos], ')', "expecting ), but getting " + string(1, s[pos]));
+            ++ pos; // ignore ')'
+        } else if (isdigit(s[pos])) {
+            val = getNum(s, pos);
+        }
+        
+        ignoreSpace(s, pos);
+        return val;
+    }
+
+    int getNum(string& s, int& pos) {
+        int val = 0;
+        while (isdigit(s[pos])) {
+            val = val * 10 + (s[pos] - '0');
+            ++ pos;
+        }
+        return val;
+    }
+
+    void ignoreSpace(string& s, int& pos) {
+        while (isspace(s[pos])) ++ pos;
+    }
+};
+
 /* Works. Further cleaned from Solution7, and ignored unnecessary details. Very good.
  * http://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
     E --> T {( "+" | "-" ) T}
