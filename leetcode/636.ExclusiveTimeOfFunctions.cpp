@@ -4,25 +4,25 @@
 class Solution {
 public:
     vector<int> exclusiveTime(int n, vector<string>& logs) {
-        vector<int> result(n, 0); 
+        vector<int> result(n, 0);
         stack<int> funcIdStack;
 
         auto item = split(logs[0]);
+        funcIdStack.push(stoi(item[0])); 
+        int prevTime = stoi(item[2]);
 
-        funcIdStack.push(stoi(item[0]));
-        int prevTime = stoi(item[2]); // start time of first log.
-
-        for (string& log : logs) {
+        for (string log : logs) {
             auto item = split(log);
+            int funcId = stoi(item[0]);
             int curTime = stoi(item[2]);
 
             if (item[1] == "start") {
                 if (! funcIdStack.empty()) {
                     result[funcIdStack.top()] += curTime - prevTime;
                 }
-                funcIdStack.push(stoi(item[0]));
+                funcIdStack.push(funcId);
                 prevTime = curTime;
-            } else { // end.
+            } else { // stop
                 result[funcIdStack.top()] += curTime - prevTime + 1;
                 funcIdStack.pop();
                 prevTime = curTime + 1;
