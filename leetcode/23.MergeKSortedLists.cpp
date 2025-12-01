@@ -1,3 +1,35 @@
+// Time complexity : O(Nlogk) where k is the number of linked lists.
+// Space: O(k) 
+class Solution6 {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        auto comp = [&](ListNode* a, ListNode* b) {
+            return a->val > b->val;
+        };
+        priority_queue<ListNode*, vector<ListNode*>, decltype(comp)> minHeap(comp);
+
+        for (auto list : lists) {
+            if (list != NULL) minHeap.push(list);
+        }
+
+        ListNode dummy;
+        ListNode * curNode = &dummy;
+        while (! minHeap.empty()) {
+            ListNode* node = minHeap.top();
+            minHeap.pop();
+
+            if (node->next != NULL) {
+                minHeap.push(node->next);
+            }
+
+            curNode->next = node;
+            curNode = node;
+            node->next = NULL;
+        }
+        return dummy.next;
+    }
+};
+
 //
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
@@ -322,9 +354,10 @@ int main() {
 
 
 /**
-Merge k Sorted Lists
+23. Merge k Sorted Lists
 Difficulty: Hard
 
 Merge k sorted linked lists and return it as one sorted list. 
 Analyze and describe its complexity. 
  */
+
