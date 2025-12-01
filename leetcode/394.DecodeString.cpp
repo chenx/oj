@@ -1,3 +1,39 @@
+// Time Complexity: O(maxK⋅n), where maxK is the maximum value of k and n is the length of a given string s.
+// Space Complexity: O(m+n), where m is the number of letters(a-z) and n is the number of digits(0-9) in string s.
+class Solution2 {
+public:
+    string decodeString(string s) {
+        stack<string> strStack;
+        stack<int> numStack;
+
+        int count = 0;
+        string cur;
+        for (char ch : s) {
+            if (isdigit(ch)) {
+                count = count * 10 + (ch - '0');
+            } else if (ch == '[') {
+                strStack.push(cur);
+                numStack.push(count);
+                cur = "";
+                count = 0;
+            } else if (ch == ']') {
+                string str = strStack.top();
+                strStack.pop();
+
+                int ct = numStack.top();
+                numStack.pop();
+
+                for (; ct > 0; -- ct) str += cur;
+                cur = str;
+            } else {
+                cur += ch;
+            }
+        }
+        return cur;
+    }
+};
+
+
 class Solution {
 public:
     string decodeString(string s) {
