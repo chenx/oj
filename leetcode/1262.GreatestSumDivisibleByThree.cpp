@@ -6,7 +6,7 @@ public:
         for (int num : nums) {
             vector<int> g = f;
             for (int i = 0; i < 3; ++i) {
-                int k = (i + num % 3) % 3;
+                int k = (i + num % 3) % 3; // This also works: int k = (i + num) % 3;
                 g[k] = max(g[k], f[i] + num);
             }
             f = g;
