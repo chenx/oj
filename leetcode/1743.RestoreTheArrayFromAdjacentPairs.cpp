@@ -1,5 +1,5 @@
 // BFS.
-class Solution3 {
+class Solution4 {
 public:
     vector<int> restoreArray(vector<vector<int>>& adjacentPairs) {
         map<int, set<int>> adjList;
@@ -36,6 +36,46 @@ public:
         return nums;
     }
 };
+
+
+class Solution3 {
+public:
+    vector<int> restoreArray(vector<vector<int>>& adjacentPairs) {
+        map<int, set<int>> adjList;
+        for (auto p : adjacentPairs) {
+            adjList[p[0]].insert(p[1]);
+            adjList[p[1]].insert(p[0]);
+        }
+
+        vector<int> nums;
+        set<int> used;
+        int nextNum = 0;
+        for (auto [num, neighbors] : adjList) {
+            if (neighbors.size() == 1) {
+                nextNum = num;
+                break;
+            }
+        }
+
+        while (true) {
+            nums.push_back(nextNum);
+            used.insert(nextNum);
+
+            bool found = false;
+            for (int neighbor : adjList[nextNum]) {
+                if (! used.contains(neighbor)) {
+                    nextNum = neighbor;
+                    found = true;
+                    break;
+                }
+            }
+            if (! found) break;
+        }
+
+        return nums;
+    }
+};
+
 
 // Time: O(n), Space: O(n)
 class Solution2 {
