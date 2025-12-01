@@ -1,3 +1,46 @@
+// Another DFS.
+class Solution9 {
+public:
+    Node* cloneGraph(Node* node) {
+        map<Node*, Node*> map;
+        return clone(node, map);
+    }
+
+    Node* clone(Node* node, map<Node*, Node*>& map) {
+        if (! node) return NULL;
+
+        if (map.contains(node)) return map[node];
+
+        map[node] = new Node(node->val);
+        for (auto neighbor : node->neighbors) {
+            map[node]->neighbors.push_back(clone(neighbor, map));
+        }
+        return map[node];
+    }
+};
+
+// DFS.
+class Solution8 {
+public:
+    Node* cloneGraph(Node* node) {
+        map<Node*, Node*> map;
+        return clone(node, map);
+    }
+
+    Node* clone(Node* node, map<Node*, Node*>& map) {
+        if (! node) return NULL;
+
+        map[node] = new Node(node->val);
+        for (auto neighbor : node->neighbors) {
+            if (! map.contains(neighbor)) {
+                map[neighbor] = clone(neighbor, map);
+            }
+            map[node]->neighbors.push_back(map[neighbor]);
+        }
+        return map[node];
+    }
+};
+
 /**
  * Definition for undirected graph.
  * struct UndirectedGraphNode {
@@ -216,7 +259,7 @@ public:
 
 
 /**
-Clone Graph
+133. Clone Graph
 Difficulty: Medium
 
 Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
@@ -244,4 +287,5 @@ Visually, the graph looks like the following:
          \_/
 
  */
+
 
