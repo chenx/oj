@@ -1,3 +1,36 @@
+class Solution2 {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        int m = mat.size(), n = mat[0].size();
+
+        vector<int> result(m*n);
+        int direction = 1, ct = 0;
+
+        for (int i = 0, j = 0; i < m && j < n; ) {
+            result[ct ++] = mat[i][j];
+
+            int x = i - direction; // These 2 lines are the only difference from Solution.
+            int y = j + direction;
+
+            if (x >= 0 && x < m && y >= 0 && y < n) {
+                i = x;
+                j = y;
+            } else {
+                if (direction == 1) {
+                    if (j == n-1) i += 1;
+                    else j += 1;
+                } else {
+                    if (i == m-1) j += 1;
+                    else i += 1;
+                }
+                direction = - direction;
+            }
+        }
+        return result;
+    }
+};
+
+
 class Solution {
 public:
     vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
