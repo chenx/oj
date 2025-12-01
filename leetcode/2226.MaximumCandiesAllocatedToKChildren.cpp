@@ -1,6 +1,10 @@
 // From: https://leetcode.com/problems/maximum-candies-allocated-to-k-children/editorial/
 // Similar to 875. Koko Eating Bananas
 //
+// Let n be the size of the candies array and m be the greatest value in it.
+// Time complexity: O(nlogm)
+// Space: O(1)
+//
 class Solution {
 public:
     int maximumCandies(vector<int>& candies, long long k) {
