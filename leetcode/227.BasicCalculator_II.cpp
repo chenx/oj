@@ -2,7 +2,7 @@
 // E = F +/ F
 // F = T */ T
 // T = num | (E) | - E
-class Solution {
+class Solution10 {
 public:
     int calculate(string s) {
         int pos = 0;
