@@ -1,3 +1,31 @@
+class Solution5 {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> result;
+        int n = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < n-2 && nums[i] <= 0; ++ i) {
+            if (i > 0 && nums[i-1] == nums[i]) continue;
+
+            for (int j = i+1, k = n-1; j < k; ) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0) {
+                    result.push_back({nums[i], nums[j], nums[k]});
+                    while (j < k && nums[j] == nums[++ j]) {}
+                } else if (sum < 0) {
+                    ++ j;
+                } else {
+                    -- k;
+                }
+            }
+        }
+        return result;
+    }
+};
+
+
 //
 // http://www.leetcode.com/onlinejudge#
 // 3sum.
@@ -460,3 +488,4 @@ Note:
     (-1, -1, 2)
 
  */
+
