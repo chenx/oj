@@ -1,4 +1,8 @@
 // From: https://leetcode.com/problems/maximum-number-of-operations-to-move-ones-to-the-end/editorial/
+// Greedy and counting
+// Time complexity: O(n). We traverse the string once.
+// Space complexity: O(1).
+//
 class Solution {
 public:
     int maxOperations(string s) {
