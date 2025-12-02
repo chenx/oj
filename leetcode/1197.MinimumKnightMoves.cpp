@@ -1,3 +1,26 @@
+// Same as Solution3.
+class Solution4 {
+public:
+    map<set<int>, int> memo;
+
+    int dfs(int x, int y) {
+        if (memo.contains({x, y})) return memo[{x, y}];
+
+        if (x + y == 0) return 0;
+        if (x + y == 2) return 2;
+        
+        int ret = min(dfs(abs(x - 1), abs(y - 2)),
+                      dfs(abs(x - 2), abs(y - 1))) + 1;
+        memo[{x, y}] = ret;
+        return ret;
+    }
+
+    int minKnightMoves(int x, int y) {
+        return dfs(abs(x), abs(y));
+    }
+};
+
+
 // DFS (Top-Down Dynamic Programming)
 // dfs(x,y) = min( dfs(∣x−2∣,∣y−1∣), dfs(∣x−1∣,∣y−2∣) ) + 1
 // From: https://leetcode.com/problems/minimum-knight-moves/editorial/
