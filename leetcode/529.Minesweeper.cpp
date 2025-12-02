@@ -1,5 +1,53 @@
+// Simplified from Solution.
+class Solution2 {
+public:
+    vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) {
+        int m = board.size(), n = board[0].size();
+        int i = click[0], j = click[1];
+     
+        if (board[i][j] == 'M') { // If clicked on a mine, game over
+            board[i][j] = 'X';
+        } else {
+            revealBoard(board, m, n, i, j);
+        }
+     
+        return board;
+    }
+
+    void revealBoard(vector<vector<char>>& board, int m, int n, int row, int col) {
+        static vector<vector<int>> directions = {
+            {-1, -1}, {-1, 0}, {-1, 1}, 
+            {0, -1}, {0, 1}, 
+            {1, -1}, {1, 0}, {1, 1}
+        };
+
+        int mineCount = 0; // Count adjacent mines.
+        for (auto dir : directions) {
+            int x = row + dir[0], y = col + dir[1];
+            if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == 'M') {
+                ++ mineCount;
+            }
+        }
+
+        if (mineCount > 0) {
+            board[row][col] = mineCount + '0';  // Convert number to character
+        } else {
+            board[row][col] = 'B';  // Mark current cell as blank revealed
+            
+            for (auto dir : directions) {
+                int x = row + dir[0], y = col + dir[1];
+                if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == 'E') {
+                    revealBoard(board, m, n, x, y);
+                }
+            }
+        }
+    };
+};
+
+
 // From: https://algo.monster/liteproblems/529
-//
+// Time: O(mn)
+// Space: O(1)
 class Solution {
 public:
     vector<vector<char>> updateBoard(vector<vector<char>>& board, vector<int>& click) {
