@@ -1,3 +1,44 @@
+// Same as Solution.
+class Solution2 {
+public:
+    int maxLength(vector<string>& arr) {
+        set<int> optSet;
+        for (string& str : arr) getBitSet(optSet, str);
+
+        vector<int> optArr(optSet.begin(), optSet.end());
+        return getMaxLen(optArr, 0, 0);
+    }
+
+    void getBitSet(set<int>& optSet, string& s) {
+        int v = 0;
+        for (char ch : s) {
+            int mask = 1 << (ch - 'a');
+            if (v & mask) return;
+            v += mask;
+        }
+
+        optSet.insert(v + (s.length() << 26));
+    }
+
+    int getMaxLen(vector<int>& optArr, int pos, int result) {
+        int v1 = result & ((1 << 26) - 1);
+        int len1 = result >> 26;
+        int maxLen = len1;
+
+        for (int i = pos; i < optArr.size(); ++ i) {
+            int v2 = optArr[i] & ((1 << 26) - 1);
+            int len2 = optArr[i] >> 26;
+
+            if (v1 & v2) continue;
+
+            int newResult = (v1 + v2) + ((len1 + len2) << 26);
+            maxLen = max(maxLen, getMaxLen(optArr, i + 1, newResult));
+        }
+        return maxLen;
+    }
+};
+
+
 // From: https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/editorial/
 // Recursion.
 // Time complexity: O(2^N) where N is the length of arr.
