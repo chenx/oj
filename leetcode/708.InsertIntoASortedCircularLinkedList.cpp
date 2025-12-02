@@ -1,3 +1,40 @@
+// Same as Solution
+class Solution2 {
+public:
+    Node* insert(Node* head, int insertVal) {
+        // insert to empty list.
+        if (!head) {
+            head = new Node(insertVal);
+            head->next = head;
+            return head;
+        }
+
+        bool insert = false;
+        Node* prev = head, * cur = head->next;
+        do {
+            // insert between prev and cur.
+            if (prev->val <= insertVal && insertVal <= cur->val) {
+                insert = true;
+            } else if (prev->val > cur->val) {
+                if (insertVal >= prev->val || insertVal <= cur->val) {
+                    insert = true;
+                }
+            }
+
+            if (insert) {
+                prev->next = new Node(insertVal, cur);
+                return head;
+            }
+
+            prev = cur; cur = cur->next;
+        } while (prev != head); // <- prev != head
+
+        // insert after head.
+        head->next = new Node(insertVal, head->next);
+        return head;
+    }
+};
+
 
 // From: https://leetcode.com/problems/insert-into-a-sorted-circular-linked-list/editorial/
 // 3 cases.
