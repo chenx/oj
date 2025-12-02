@@ -4,7 +4,7 @@ class Solution3 {
 public:
     void merge(vector<int>& A, int start, int mid, int end) {
         int i = start, j = mid + 1, k = start;
-        for (; i <= mid && j <= end; ) {
+        while (i <= mid && j <= end) {
             B[k ++] = A[i] < A[j] ? A[i ++] : A[j ++];
         }
         while (i <= mid) B[k ++] = A[i ++];
