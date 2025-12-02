@@ -1,3 +1,25 @@
+// Simplified from Solution, based on solution of queston 875.
+class Solution2 {
+public:
+    int maximumCandies(vector<int>& candies, long long k) {
+        int left = 0, right = 0;
+        for (int candy : candies) right = max(right, candy);
+
+        while (left < right) {
+            int mid = (right + left + 1) / 2;
+
+            long long children = 0;
+            for (int candy : candies) children += candy / mid;
+
+            if (children >= k) left = mid;
+            else right = mid - 1;
+        }
+
+        return left;
+    }
+};
+
+
 // From: https://leetcode.com/problems/maximum-candies-allocated-to-k-children/editorial/
 // Similar to 875. Koko Eating Bananas
 //
