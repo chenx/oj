@@ -13,6 +13,7 @@ public:
 
             int hours = 0;
             for (int p : piles) hours += ceil( (double) p / mid);
+
             if (hours <= h) right = mid;
             else left = mid + 1;
         }
