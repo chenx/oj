@@ -1,3 +1,36 @@
+// See: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/editorial/
+class Solution3 {
+public:
+    string minRemoveToMakeValid(string s) {
+        int diffCount = 0;
+
+        string t = minRemove(s, '(', ')');
+
+        reverse(t.begin(), t.end());
+        string result = minRemove(t, ')', '(');
+
+        reverse(result.begin(), result.end());
+        return result;
+    }
+
+    string minRemove(string& s, char open, char close) {
+        int diffCount = 0;
+
+        // remove RHS close char.
+        string t;
+        for (char ch : s) {
+            if (ch == open) {
+                ++ diffCount;
+            } else if (ch == close) {
+                if (diffCount == 0) continue;
+                -- diffCount;
+            }
+            t += ch;
+        }
+        return t;
+    }
+};
+
 // Same as Solution. Better naming from 'total' to 'balance'.
 // Time complexity : O(n), where n is the length of the input string.
 // Space complexity : O(n), where n is the length of the input string.
