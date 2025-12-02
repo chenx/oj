@@ -1,3 +1,30 @@
+// Simplified from Solution2.
+class Solution3 {
+public:
+    int minAbsoluteDifference(vector<int>& nums, int x) {
+        int minDiff = INT_MAX;      
+        multiset<int> elements;
+      
+        for (int i = x; i < nums.size(); ++ i) {
+            elements.insert(nums[i - x]);
+          
+            // Find the smallest element >= nums[i] in the set
+            auto iter = elements.lower_bound(nums[i]);
+          
+            if (iter != elements.end()) {
+                minDiff = min(minDiff, *iter - nums[i]);
+            }          
+            if (iter != elements.begin()) {
+                --iter;
+                minDiff = min(minDiff, nums[i] - *iter);
+            }
+        }
+      
+        return minDiff;
+    }
+};
+
+
 // From: https://algo.monster/liteproblems/2817
 // Time: O(n log n)
 class Solution2 {
