@@ -19,7 +19,7 @@ public:
             for (int power : batteries)
                 extra += min(power, target);
 
-            if (extra >= (long)(n * target)) left = target;
+            if (extra >= n * target) left = target;
             else right = target - 1;
         }
         return left;
