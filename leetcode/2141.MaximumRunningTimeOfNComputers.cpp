@@ -14,8 +14,8 @@ public:
         long left = 1, right = sumPower / n;
         while (left < right){
             long target = right - (right - left) / 2;
+
             long extra = 0;
-            
             for (int power : batteries)
                 extra += min(power, target);
 
