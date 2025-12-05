@@ -16,6 +16,43 @@ public:
 };
 
 
+// Use the iterative version of nextPermutation.
+// Works.
+class Solution2 {
+public:
+    int totalNumbers(vector<int>& digits) {
+        set<int> nums;
+        sort(digits.begin(), digits.end());
+        do {
+            if (digits[0] != 0 && digits[2] % 2 == 0) {
+                int val = digits[0] * 100 + digits[1] * 10 + digits[2];
+                nums.insert(val);
+            }
+        } while (nextPermutation(digits));
+
+        return nums.size();
+    }
+
+    bool nextPermutation(vector<int>& nums) {
+       int n = nums.size();
+
+       int i, j;
+       // Find first i, nums[i] < nums[i+1]
+       for (i = n-2; i >= 0 && nums[i] >= nums[i+1]; -- i) ;
+       if (i == -1) {
+           reverse(nums.begin(), nums.end());
+           return false;
+       }
+
+       // Find first item from right, nums[i] < nums[j]
+       for (j = n-1; nums[i] >= nums[j]; --j) ;
+       swap(nums[i], nums[j]);
+       reverse(nums.begin() + i + 1, nums.end());
+       return true;
+   }
+};
+
+// Use the recursive version of getPermutations.
 // Times out for large input.
 class Solution {
 public:
