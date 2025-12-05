@@ -1,3 +1,24 @@
+// Use len = std::gcd(a, b).
+// Time / Space: O(gcd(a, b))
+class Solution2 {
+public:
+    int commonFactors(int a, int b) {
+        set<int> factors;
+        for (int i = 1, len = std::gcd(a, b); i <= len; ++ i) {
+            if (a % i == 0) {
+                factors.insert(i);
+            }
+        }
+
+        int numFactors = 0;
+        for (int f : factors) {
+            if (b % f == 0) ++ numFactors;
+        }
+        return numFactors;
+    }
+};
+
+
 class Solution {
 public:
     int commonFactors(int a, int b) {
