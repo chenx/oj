@@ -1,6 +1,6 @@
 // Try all permutations.
 // Time: O(n!)
-class Solution {
+class Solution3 {
 public:
     int totalNumbers(vector<int>& digits) {
         set<int> nums;
@@ -12,6 +12,38 @@ public:
             }
         } while (std::next_permutation(digits.begin(), digits.end()));
         return nums.size();
+    }
+};
+
+
+// Times out for large input.
+class Solution {
+public:
+    int totalNumbers(vector<int>& digits) {
+        set<int> nums;
+        vector<vector<int>> permutations;
+        getPermutations(digits, 0, permutations);
+        for (auto& permutation : permutations) {
+            if (permutation[0] != 0 && permutation[2] % 2 == 0) {
+                int val = permutation[0] * 100 + permutation[1] * 10 + permutation[2];
+                nums.insert(val);
+            }
+        }
+
+        return nums.size();
+    }
+
+    void getPermutations(vector<int>& digits, int pos, vector<vector<int>>& result) {
+        if (pos == digits.size()) {
+            result.push_back(digits);
+            return;
+        }
+
+        for (int i = pos; i < digits.size(); ++ i) {
+            swap(digits[i], digits[pos]);
+            getPermutations(digits, pos + 1, result);
+            swap(digits[i], digits[pos]);
+        }
     }
 };
 
