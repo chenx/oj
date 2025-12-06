@@ -1,3 +1,4 @@
+// From: https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/editorial/
 // Time: O(n * log(n) * log(n)), n = deck.size(). GCD operation is (log(n))^2
 // Space: O(n)
 class Solution {
