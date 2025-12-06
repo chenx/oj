@@ -25,6 +25,11 @@ public:
         return dist;
     }
 
+    // This also works, since we only travel on points on the grid:
+    // int getMedian(vector<int> &v) {
+    //     return v[v.size() / 2];
+    // }
+
     int getMedian(vector<int> &v) {
         int n = v.size();
         if (n == 0) return 0;
