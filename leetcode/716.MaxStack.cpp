@@ -1,3 +1,45 @@
+// Use vector<int> instead of pair<int, int>.
+class MaxStack2 {
+    set<vector<int>> stack;
+    set<vector<int>> values;
+    int count;
+public:
+    MaxStack() {
+        count = 0;
+    }
+    
+    void push(int x) {
+        ++ count;
+        stack.insert({count, x});
+        values.insert({x, count});
+    }
+    
+    int pop() {
+        vector<int> p = *stack.rbegin();
+        stack.erase(p);
+        values.erase({p[1], p[0]});
+        return p[1];
+    }
+    
+    int top() {
+        vector<int> p = *stack.rbegin();
+        return p[1];
+    }
+    
+    int peekMax() {
+        vector<int> p = *values.rbegin();
+        return p[0];
+    }
+    
+    int popMax() {
+        vector<int> p = *values.rbegin();
+        values.erase(p);
+        stack.erase({p[1], p[0]});
+        return p[0];
+    }
+};
+
+
 // A set is a balanced tree. *set.rbegin() is always the one with the largest value.
 //
 // From https://leetcode.com/problems/max-stack/editorial/
