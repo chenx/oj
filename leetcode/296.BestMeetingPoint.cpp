@@ -1,5 +1,7 @@
 // Should work. Tested locally.
 // Basically same as Solution, but less brackets.
+// Time complexity : O(mn+nlogn).
+// Space: O(mn)
 class Solution2 {
 public:
     int minTotalDistance(vector<vector<int> >& grid) {
@@ -87,7 +89,7 @@ public:
 };
 
 /**
-Best Meeting Point My Submissions Question
+296.Best Meeting Point My Submissions Question
 Difficulty: Hard
 
 A group of two or more people wants to meet and minimize the total travel distance. 
