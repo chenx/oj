@@ -6,6 +6,7 @@
 //
 
 // Works too. Simplified from Solution3.
+// Time: O( (9!)^9 ), Space: O(1)
 class Solution4 {
     static const int n = 9;
 public:
@@ -279,4 +280,5 @@ You may assume that there will be only one unique solution.
    does¡t lead to a solution, then we try next number for current empty cell. 
    And if none of number (1 to 9) lead to solution, we return false.
  */
+
 
