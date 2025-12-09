@@ -1,3 +1,19 @@
+class Solution2 {
+public:
+    int countTriples(int n) {
+        int result = 0;
+        for (int a = 1; a <= n; ++ a) {
+            for (int b = a + 1; b <= n; ++ b) {
+                int sum = a*a + b*b;
+                int c = sqrt(sum);
+                if (c <= n && c*c == sum) ++ result;
+            }
+        }
+        return result * 2;
+    }
+};
+
+
 // See: https://leetcode.com/problems/count-square-sum-triples/editorial/
 // Time: O(n^2 * log(n)), log(n) for sqrt
 // Space: O(1)
