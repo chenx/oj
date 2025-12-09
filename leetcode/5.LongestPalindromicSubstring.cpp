@@ -18,6 +18,8 @@
 using namespace std;
 
 // Works.
+// Time: O(n^2)
+// Space: O(1)
 class Solution6 {
 public:
     string longestPalindrome(string s) {
@@ -220,4 +222,5 @@ int main() {
     cout << s.longestPalindrome(x) << endl;
     return 0;
 }
+
 
