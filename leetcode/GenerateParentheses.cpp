@@ -6,6 +6,8 @@
 //
 
 // Works too. Tested. Most clean.
+// Time: O(n^​4 / sqrt(n)​)
+// Space: O(n) for call stack
 class Solution3 {
 public:
     vector<string> generateParenthesis(int n) {
@@ -107,3 +109,4 @@ For example, given n = 3, a solution set is:
 
 "((()))", "(()())", "(())()", "()(())", "()()()"
  */
+
