@@ -6,6 +6,11 @@
 //
 
 // Works. Slightly more clean.
+// Time complexity: O(4^N⋅N)
+//   where N is the length of digits. Note that 4 in this expression is referring to the maximum value length 
+//   in the hash map, and not to the length of the input.
+// Space: O(N), where N is the length of digits due to call stack.
+// 
 class Solution6 {
 public:
     vector<string> letterCombinations(string digits) {
@@ -197,4 +202,5 @@ Note:
 Although the above answer is in lexicographical order, 
 your answer could be in any order you want. 
  */
+
 
