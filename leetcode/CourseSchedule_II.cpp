@@ -1,3 +1,38 @@
+// BFS.
+class Solution5 {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> ans;
+        map<int, set<int>> in, out;
+
+        for (auto& pre : prerequisites) {
+            in[pre[0]].insert(pre[1]);  // pre-requisites
+            out[pre[1]].insert(pre[0]);
+        }
+
+        queue<int> q;
+        for (int course = 0; course < numCourses; ++ course) {
+            if (in[course].empty()) q.push(course);
+        }
+
+        while (! q.empty()) {
+            int course = q.front();
+            q.pop();
+
+            ans.push_back(course);
+
+            for (int nextCourse : out[course]) {
+                in[nextCourse].erase(course);
+                if (in[nextCourse].empty()) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+
+        return ans.size() == numCourses ? ans : vector<int>();
+    }
+};
+
 // Works too.
 class Solution4 {
 public:
