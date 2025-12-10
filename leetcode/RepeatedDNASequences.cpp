@@ -17,7 +17,8 @@ public:
     int getKey(string s) {
         int key = 0;
         for (int i = 0; i < s.length(); ++ i) {
-            key = (key << 3) + (s[i] & 7); // must use both "()" here!!
+            key = (key << 3) + s[i];
+            // key = (key << 3) + (s[i] & 7); // must use both "()" here!!
         }
         return key;
     }
