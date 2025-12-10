@@ -1,3 +1,37 @@
+// From: https://leetcode.com/problems/count-univalue-subtrees/editorial/
+// Time: O(n)
+// Space: O(n)
+class Solution4 {
+public:
+    bool dfs(TreeNode* node, int& count) {
+        if (node == nullptr) {
+            return true;
+        }
+
+        bool isLeftUniValue = dfs(node->left, count);
+        bool isRightUniValue = dfs(node->right, count);
+
+        if (isLeftUniValue && isRightUniValue) {
+            if (node->left != nullptr && node->left->val != node->val) {
+                return false;
+            }
+            if (node->right != nullptr && node->right->val != node->val) {
+                return false;
+            }
+            count++;
+            return true;
+        }
+        return false;
+    }
+
+    int countUnivalSubtrees(TreeNode* root) {
+        int count = 0;
+        dfs(root, count);
+        return count;
+    }
+};
+
+
 // Works. Tested. Easily to understand than Solution. Basically just recursion.
 // Modified from: https://leetcode.com/discuss/69376/my-c-solution-easy-to-understand
 class Solution3 {
