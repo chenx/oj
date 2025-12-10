@@ -25,6 +25,18 @@ public:
         }
     }
 
+    int pop() {
+        if (q1.empty()) return -1;
+        
+        int val = q1.front();
+        q1.pop();
+        for (int i = q2.size(); i > 0; -- i) {
+            push(q2.front());
+            q2.pop();
+        }
+        return val;
+    }
+
     // Get the top element.
     int top() {
         return q1.front();
