@@ -1,4 +1,7 @@
+// See: https://leetcode.com/problems/course-schedule-ii/editorial/
 // BFS.
+// Time Complexity: O(V+E)
+// Space Complexity: O(V+E)
 class Solution5 {
 public:
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
