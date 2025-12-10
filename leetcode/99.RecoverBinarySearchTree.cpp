@@ -20,21 +20,18 @@ public:
                n = n->left;
            }
            
-           if (s.empty()) {
-               break;
-           }
-           else {
-               n = s.top();
-               s.pop();
-               
-               if (prev && prev->val > n->val) {
-                   if (L == NULL) L = prev;
-                   R = n;
-               }
-               prev = n;
+           if (s.empty()) break;
 
-               n = n->right;
+           n = s.top();
+           s.pop();
+
+           if (prev && prev->val > n->val) {
+               if (L == NULL) L = prev;
+               R = n;
            }
+           prev = n;
+
+           n = n->right;
        }
        
        if (L && R) swap(L->val, R->val);
@@ -292,3 +289,4 @@ Note:
 A solution using O(n) space is pretty straight forward. Could you 
 devise a constant space solution? 
  */
+
