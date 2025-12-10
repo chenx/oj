@@ -1,3 +1,27 @@
+// Similar to Solution5 and Solution6.
+// Time: O(n * 2^n)
+// Space: O(log(n))
+class Solution7 {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> result = {{}};
+
+        int prevSize = 0;
+        for (int i = 0; i < nums.size(); ++ i) {
+            int start = (i > 0 && nums[i-1] == nums[i]) ? start = prevSize : 0;
+            prevSize = result.size();
+
+            for (int j = start, len = result.size(); j < len; ++ j) {
+                auto row = result[j];
+                row.push_back(nums[i]);
+                result.push_back(row);
+            }
+        }
+        return result;
+    }
+};
+
 // Works. Works for Subset with no duplicates too.
 // Re-written from Solution5 so it's easier to understand about start and lastCount.
 // This is the one you want to show people, so they can understand.
@@ -438,3 +462,4 @@ If S = [1,2,2], a solution is:
 ]
 
  */
+
