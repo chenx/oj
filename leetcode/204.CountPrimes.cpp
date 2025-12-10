@@ -1,3 +1,25 @@
+// See: https://leetcode.com/problems/count-primes/editorial/
+// Time: O(sqrt(n) * loglogn + n)
+// Space: O(n)
+class Solution7 {
+public:
+    int countPrimes(int n) {
+        if (n <= 1) return 0;
+
+        vector<int> P(n, 1);
+        P[0] = P[1] = 0;
+        for (int i = 2; i*i < n; ++ i) {
+            if (P[i] == 0) continue;
+            for (int j = i*i; j < n; j += i) {
+                P[j] = 0;
+            }
+        }
+
+        return accumulate(P.begin(), P.end(), 0);
+    }
+};
+
+
 // Works. Most clean so far.
 class Solution6 {
 public:
