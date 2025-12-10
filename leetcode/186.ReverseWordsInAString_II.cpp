@@ -1,3 +1,20 @@
+class Solution6 {
+public:
+    void reverseWords(vector<char>& s) {
+        int begin = 0, i = 0, n = s.size();
+        for (; i < n; i ++) {
+            if (s[i] == ' ') {
+                reverse(s.begin() + begin, s.begin() + i);
+                begin = i + 1;
+                continue;
+            }
+        }
+        reverse(s.begin() + begin, s.begin() + i);
+        reverse(s.begin(), s.end());
+    }
+};
+
+
 // Works.
 class Solution5 {
 public:
