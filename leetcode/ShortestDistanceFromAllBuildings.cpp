@@ -1,3 +1,51 @@
+// Simplified from Solution8.
+// Time: O(n^2 * m^2)
+// Space: O(mn)
+class Solution82 {
+public:
+    int shortestDistance(vector<vector<int>>& grid) {
+        int m = grid.size(), n = grid[0].size(), minDist = 0, emptyLand = 0, minDistSum = INT_MAX;
+        vector<vector<int>> distSum(m, vector<int>(n, 0));
+
+        int directions[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+        // bfs to from every building to every reachable cell, add distances along the way.
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] != 1) continue;
+                    
+                minDistSum = INT_MAX;
+                queue<vector<int>> q;
+                q.push({i, j, 0});
+
+                while (! q.empty()) {
+                    int curX = q.front()[0];
+                    int curY = q.front()[1];
+                    int dist = q.front()[2];
+                    q.pop();
+
+                    for (auto direction : directions) {
+                        int x = curX + direction[0], y = curY + direction[1];
+                        if (x >= 0 && x < m && y >= 0 && y < n) {
+                            if (grid[x][y] == emptyLand) {
+                                q.push({x, y, dist + 1});
+                                grid[x][y] --; // mark as emptyLand for next round
+                                distSum[x][y] += dist + 1;
+                                minDistSum = min(minDistSum, distSum[x][y]);
+                            }
+                        }
+                    }
+                }
+                if (minDistSum == INT_MAX) return -1; // ok without this line.
+
+                -- emptyLand;
+            }
+        }
+
+        return minDistSum;
+    }
+};
+
 // Works.
 class Solution8 {
 public:
