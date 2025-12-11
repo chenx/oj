@@ -1,9 +1,7 @@
 // See: https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/editorial/
-class Solution3 {
+class Solution32 {
 public:
     string minRemoveToMakeValid(string s) {
-        int diffCount = 0;
-
         string t = minRemove(s, '(', ')');
 
         reverse(t.begin(), t.end());
@@ -28,6 +26,40 @@ public:
             t += ch;
         }
         return t;
+    }
+};
+
+class Solution3 {
+public:
+    string minRemoveToMakeValid(string s) {
+        int diffCount = 0;
+
+        // remove ')'
+        string t;
+        for (char ch : s) {
+            if (ch == '(') {
+                ++ diffCount;
+            } else if (ch == ')') {
+                if (diffCount == 0) continue;
+                -- diffCount;
+            }
+            t += ch;
+        }
+
+        diffCount = 0;
+        string result;
+        for (int i = t.length() - 1; i >= 0; -- i) {
+            char ch = t[i];
+            if (ch == ')') {
+                ++ diffCount;
+            } else if (ch == '(') {
+                if (diffCount == 0) continue;
+                -- diffCount;
+            }
+            result += ch; // will OOM if do result = ch + result
+        }
+        reverse(result.begin(), result.end());
+        return result;
     }
 };
 
