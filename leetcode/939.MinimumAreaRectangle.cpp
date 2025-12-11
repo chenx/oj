@@ -1,3 +1,26 @@
+class Solution3 {
+public:
+    int minAreaRect(vector<vector<int>>& points) {
+        set<vector<int>> pointSet;
+        for (auto& point: points) pointSet.insert(point);
+
+        int n = points.size(), minArea = INT_MAX;
+        for (int i = 0; i < n-1; ++ i) {
+            for (int j = i+1; j < n; ++ j) {
+                auto& a = points[i], &b = points[j];
+                // if (a == b) continue; // This won't work.
+                if (a[0] == b[0] || a[1] == b[1]) continue;
+
+                if (pointSet.contains({a[0], b[1]}) && pointSet.contains({b[0], a[1]})) {
+                    int area = abs((b[0] - a[0]) * (b[1] - a[1]));
+                    minArea = min(minArea, area);
+                }
+            }
+        }
+        return minArea == INT_MAX ? 0 : minArea;
+    }
+};
+
 // Works too.
 // Difference is in the definition of pointSet.
 class Solution2 {
