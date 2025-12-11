@@ -4,11 +4,11 @@ public:
     int findKthPositive(vector<int>& arr, int k) {
         int left = 0, right = arr.size() - 1;
         while (left <= right) {
-            int pivot = left + (right - left)/2;
-            if (arr[pivot] - pivot - 1 < k) {
-                left = pivot + 1;
+            int mid = left + (right - left)/2;
+            if (arr[mid] - (mid + 1) < k) {
+                left = mid + 1;
             } else {
-                right = pivot - 1;
+                right = mid - 1;
             }
         }
         return left + k;
