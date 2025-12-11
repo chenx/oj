@@ -3,7 +3,7 @@ public:
     int minMeetingRooms(vector<vector<int>>& intervals) {
         sort(intervals.begin(), intervals.end(), comp);
 
-        priority_queue<int, vector<int>, greater<int>> pq;
+        priority_queue<int, vector<int>, greater<int>> pq; // minHeap.
         for (int i = 0; i < intervals.size(); ++ i) {
             if (!pq.empty() && intervals[i][0] >= pq.top()) pq.pop();  // "if", not "while"!!
             pq.push(intervals[i][1]);
