@@ -1,7 +1,7 @@
 // Works.
 // Let (x,y) be the coordinate of the target.
 // Time Complexity: O(∣x⋅y∣)
-// Space Complexity: O(∣x⋅y∣)
+// Space Complexity: O(∣x⋅y∣). storage: O(∣x⋅y∣), recursion call stack: O(max(∣x|, |y∣))
 class Solution5 {
     map<vector<int>, int> memo;
 public:
