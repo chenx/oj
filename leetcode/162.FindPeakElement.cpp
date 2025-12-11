@@ -37,7 +37,7 @@ public:
             if (M > 0 && M < n-1 && num[M] > num[M-1] && num[M] > num[M+1]) return M;
             
             if (num[M] < num[M+1]) L = M+1;
-            else R = M;
+            else R = M; // R = M-1 also works.
         }
         return 0; // does not matter.
     }
