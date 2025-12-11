@@ -14,7 +14,8 @@ public:
         for (int i = 0; i < n - 1; ++ i) {
             for (int j = i + 1; j < n; ++ j) {
                 vector<int> &a = points[i], &b = points[j];
-                vector<double> line(2);
+                vector<double> line(2); // (slope, y-intercept)
+                // y = ax + b; a = (y1-y2)/(x1-x2); b = y1 - a * x1
 
                 if (a[0] == b[0]) {
                     line[0] = INT_MAX;
@@ -355,6 +356,7 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
 
 
