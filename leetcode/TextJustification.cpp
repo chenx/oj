@@ -8,6 +8,9 @@
 using namespace std;
 
 // Works.
+// Let n be words.length, k be the average length of a word, and m be maxWidth.
+// Time: O(nk)
+// Space: O(m)
 class Solution6 {
 public:
     vector<string> fullJustify(vector<string>& words, int maxWidth) {
@@ -287,4 +290,5 @@ public:
 int main() {
     return 0;
 }
+
 
