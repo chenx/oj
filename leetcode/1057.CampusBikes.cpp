@@ -14,6 +14,7 @@ public:
             }
         }
         sort(pairs.begin(), pairs.end());
+        // Or: sort(pairs.begin(), pairs.end(), [&](tuple<int, int, int>& a, tuple<int, int, int>& b) { return get<0>(a) < get<0>(b); });
 
         vector<int> workerStatus(workers.size(), -1); // bike number assigned to each worker
         vector<int> bikeIsUsed(bikes.size(), -1); // worker number assigned to each bike.
@@ -31,6 +32,7 @@ public:
         return workerStatus;
     }
 };
+
 
 class Solution {
 public:
