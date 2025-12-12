@@ -1,4 +1,58 @@
+// Similar to Solution6, but use slope instead of atan2.
+class Solution7 {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        int n = points.size();
+        if (n == 1) return 1;
+        
+        sort(points.begin(), points.end());
+        int result = 2;
+        for (int i = 0; i < n-1; i++) {
+            unordered_map<double, int> cnt;
+            for (int j = i+1; j < n; j++) {
+                auto &a = points[i], &b = points[j];
+                double slope = (a[0] == b[0]) ? INT_MAX : ( 1.0 * (a[1]-b[1]) / (a[0]-b[0]) );
+                cnt[slope] ++;
+            }
+            for (auto [_, count] : cnt) {
+                result = max(result, count + 1);
+            }
+        }
+        return result;
+    }
+};
+
+// From: https://leetcode.com/problems/max-points-on-a-line/editorial/
+// Time: O(n^2)
+// Space: O(n)
+//
+class Solution6 {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        int n = points.size();
+        if (n == 1) return 1;
+        
+        sort(points.begin(), points.end());
+        int result = 2;
+        for (int i = 0; i < n-1; i++) {
+            unordered_map<double, int> cnt;
+            for (int j = i+1; j < n; j++) {
+                auto &a = points[i], &b = points[j];
+                cnt[atan2(a[1] - b[1], a[0] - b[0])] ++;
+            }
+            for (auto [_, count] : cnt) {
+                // +1 because the point points[i] also lies on the line, and should be included.
+                result = max(result, count + 1);
+            }
+        }
+        return result;
+    }
+};
+
+
 // Works too.
+// Time: O(n^2)
+// Space: O(n^2)
 class Solution5 {
 public:
     int maxPoints(vector<vector<int>>& points) {
@@ -356,6 +410,7 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
 
 
