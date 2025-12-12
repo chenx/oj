@@ -1,3 +1,46 @@
+class Solution3 {
+    int getDistance(vector<int>& a, vector<int>& b) {
+        return abs(a[0] - b[0]) + abs(a[1] - b[1]);
+    }
+public:
+    vector<int> assignBikes(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+        vector<vector<int>> pairs; // <distance, worker, bike>
+
+        for (int i = 0; i < workers.size(); ++ i) {
+            for (int j = 0; j < bikes.size(); ++ j) {
+                int distance = getDistance(workers[i], bikes[j]);
+                pairs.push_back( {distance, i, j} );
+            }
+        }
+        // sort(pairs.begin(), pairs.end());
+        sort(pairs.begin(), pairs.end(), [&](vector<int>& a, vector<int>& b) {
+            // Must compare all 3.
+            if (a[0] == b[0]) {
+                if (a[1] == b[1]) return a[2] < b[2];
+                return a[1] < b[1];
+            } 
+            return a[0] < b[0]; 
+        });
+
+        vector<int> workerStatus(workers.size(), -1); // bike number assigned to each worker
+        vector<int> bikeIsUsed(bikes.size(), -1); // worker number assigned to each bike.
+
+        int count = 0;
+        for (auto& pair : pairs) {
+            int dist = pair[0], workerIndex = pair[1], bikeIndex = pair[2];
+            if (workerStatus[workerIndex] == -1 && bikeIsUsed[bikeIndex] == -1) {
+                workerStatus[workerIndex] = bikeIndex;
+                bikeIsUsed[bikeIndex] = workerIndex;
+                ++ count;
+            }
+
+            if (count == bikes.size()) break;
+        }
+        return workerStatus;
+    }
+};
+
+
 // Same as Solution.
 class Solution2 {
     int getDistance(vector<int>& a, vector<int>& b) {
@@ -14,7 +57,8 @@ public:
             }
         }
         sort(pairs.begin(), pairs.end());
-        // Or: sort(pairs.begin(), pairs.end(), [&](tuple<int, int, int>& a, tuple<int, int, int>& b) { return get<0>(a) < get<0>(b); });
+        // Or use something like this, but needs to compare all 3 like in Solution3: 
+        // sort(pairs.begin(), pairs.end(), [&](tuple<int, int, int>& a, tuple<int, int, int>& b) { return get<0>(a) < get<0>(b); });
 
         vector<int> workerStatus(workers.size(), -1); // bike number assigned to each worker
         vector<int> bikeIsUsed(bikes.size(), -1); // worker number assigned to each bike.
