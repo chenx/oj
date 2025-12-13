@@ -10,7 +10,7 @@ public:
            int M = L + (R - L)/2;
            if (isBadVersion(M)) {
                R = M - 1;
-           } else if (!isBadVersion(M)) {
+           } else {
                L = M+1;
            }
        }
