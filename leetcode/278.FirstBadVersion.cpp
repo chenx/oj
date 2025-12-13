@@ -11,10 +11,11 @@ public:
            if (isBadVersion(M)) {
                R = M - 1;
            } else {
-               L = M+1;
+               L = M + 1;
            }
        }
-       return R + 1;
+       return L;
+       // return R + 1; // This works too.
    }
 };
 
