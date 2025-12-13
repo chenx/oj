@@ -1,3 +1,42 @@
+struct comp {
+    bool operator()(const pair<double, int>& a, const pair<double, int>& b) {
+        return a.first < b.first;
+    }
+};
+class Solution4 {
+    int k;
+public:
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
+        vector<int> ans;
+        if (!root) return ans;
+
+        this->k = k;
+
+        priority_queue<pair<double, int>, vector<pair<double, int>>, comp> maxHeap;
+        inorderTraversal(root, target, maxHeap);
+
+        int len = min(k, (int) maxHeap.size());
+        for (int i = 0; i < len; ++ i) {
+            ans.push_back(maxHeap.top().second);
+            maxHeap.pop();
+        }
+
+        return ans;
+    }
+
+    void inorderTraversal(TreeNode* root, double target,
+        priority_queue<pair<double, int>, vector<pair<double, int>>, comp>& maxHeap) {
+        if (!root) return;
+        inorderTraversal(root->left, target, maxHeap);
+        if (maxHeap.size() < k || abs(root->val - target) < maxHeap.top().first) {
+            if (maxHeap.size() == k) maxHeap.pop();
+            maxHeap.push(pair<double, int>(abs(root->val - target), root->val));
+        }
+        inorderTraversal(root->right, target, maxHeap);
+    }
+};
+
+
 // Works.
 struct comp {
     bool operator()(const pair<double, int>& a, const pair<double, int>& b) {
