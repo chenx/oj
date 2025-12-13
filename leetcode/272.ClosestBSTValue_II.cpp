@@ -1,9 +1,10 @@
-struct comp {
-    bool operator()(const pair<double, int>& a, const pair<double, int>& b) {
-        return a.first < b.first;
-    }
-};
 class Solution4 {
+    struct comp {
+        bool operator()(const pair<double, int>& a, const pair<double, int>& b) {
+            return a.first < b.first;
+        }
+    };
+
     int k;
 public:
     vector<int> closestKValues(TreeNode* root, double target, int k) {
