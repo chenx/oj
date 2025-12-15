@@ -3,20 +3,19 @@
 class Solution2 {
 public:
     int maxSubArrayLen(vector<int>& nums, int k) {
-        unordered_map<int, int> m;
-        int n = nums.size();
-        m[0] = -1;
-        long long sum = 0, maxLen = 0;
-        for (int i = 0; i < n; ++ i) {
-            sum += nums[i];  // Prefix sum.
-            if (!m.contains(sum)) m[sum] = i;
-            if (m.contains(sum - k)) maxLen = max(maxLen, i - m[sum - k]);
+        unordered_map<int, int> pos; // <int, index in nums>
+        pos[0] = -1;
+        int maxLen = 0;
+        long long prefixSum = 0;
+
+        for (int i = 0; i < nums.size(); ++ i) {
+            prefixSum += nums[i];
+            if (! pos.contains(prefixSum)) pos[prefixSum] = i;
+            if (pos.contains(prefixSum - k)) {
+                maxLen = max(maxLen, i - pos[prefixSum - k]);
+            }
         }
         return maxLen;
-    }
-
-    long long max(long long a, long long b) {
-        return a > b ? a : b;
     }
 };
 
