@@ -1,5 +1,7 @@
 // From: https://leetcode.com/problems/largest-divisible-subset/editorial/
-// DP
+// DP.
+// Instead of keeping the largest divisible subset for each of the input elements, i.e. EDS(Xi​), we could 
+// simply record its size, namely size(EDS(Xi​)). As a result, we reduce the space complexity from O(N2) to O(N).
 // Time: O(n^2)
 // Space: O(n)
 class Solution {
