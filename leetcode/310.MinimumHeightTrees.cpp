@@ -21,11 +21,12 @@ public:
         while (count > 2) {
             vector<int> new_leaves;
             for (int leaf : leaves) {
-                int j = *m[leaf].begin(); // the other node of the edge.
-                m[j].erase(leaf);
-                //m[leaf].erase(j); // no need to erase, as new_leaves is used.
-                if (m[j].size() == 1) {
-                    new_leaves.push_back(j);
+                // This also works: int parent = *(-- m[leaf].end());
+                int parent = *m[leaf].begin(); // the other node of the edge.
+                m[parent].erase(leaf);
+                //m[leaf].erase(parent); // no need to erase, as new_leaves is used.
+                if (m[parent].size() == 1) {
+                    new_leaves.push_back(parent);
                 }
                 -- count;
             }
