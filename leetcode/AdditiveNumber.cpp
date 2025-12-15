@@ -1,3 +1,67 @@
+// Previous solutions no longer work because of large number overflow. This works.
+// Time: O(n^3)
+// Space: O(n)
+class Solution6 {
+public:
+    bool isAdditiveNumber(string num) {
+        for (int i = 1; i < num.size(); ++ i) 
+            for (int j = 1; i + j < num.size(); ++ j) 
+                if (ok(num.substr(0, i), num.substr(i, j), num.substr(i+j)))
+                    return true;
+
+        return false;
+    }
+    
+    bool ok(string n1, string n2, string n) {
+        // E.g., "0000" => n1 = "0", n2 = "0", n = "00". This is valid. Don't check n.
+        // if (! valid(n1) || ! valid(n2) || ! valid(n)) return false;
+        if (! valid(n1) || ! valid(n2)) return false;
+
+        string sum = stringAdd(n1, n2);
+        if (sum == n) return true;
+
+        if (n.find(sum) != 0) return false; // sum should be a prefix of n.
+
+        int len = sum.length();
+        return ok(n2, n.substr(0, len), n.substr(len));
+    }
+
+    string stringAdd(string& a, string& b) {
+        int carry = 0, i = a.length() - 1, j = b.length() - 1;
+        string result;
+        for (; i >= 0 && j >= 0; -- i, -- j) {
+            add(result, a[i] - '0' + b[j] - '0' + carry, carry);
+        }
+        for (; i >= 0; -- i) {
+            add(result, a[i] - '0' + carry, carry);
+        }
+        for (; j >= 0; -- j) {
+            add(result, b[j] - '0' + carry, carry);
+        }
+        if (carry > 0) {
+            add(result, carry, carry);
+        }
+        return result;
+    }
+
+    void add(string& result, int sum, int& carry) {
+        if (sum >= 10) {
+            sum -= 10;
+            carry = 1;
+        } else {
+            carry = 0;
+        }
+        result = (char)(sum + '0') + result;
+    }
+    
+    bool valid(string n) {
+        if (n == "") return false;
+        if (n.length() > 1 && n[0] == '0') return false;
+        return true;
+    }
+};
+
+
 // Works too. Short.
 class Solution5 {
 public:
