@@ -1,7 +1,7 @@
 // Factorize n: n = q1^n1 * q2^n2 * ... qk^mk
 // Total number of factors: (1+n1)*(1+n2)* ... *(1+nk).
 // This needs to be odd for the light to be on at the end.
-// All the (1+ni) should be odd, so ni is even for ever i. So n is a perfect square.
+// All the (1+ni) should be odd, so ni is even for every i. So n is a perfect square.
 
 // Works too.
 class Solution2 {
