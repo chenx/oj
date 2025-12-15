@@ -1,3 +1,22 @@
+class Solution7 {
+public:
+    int minPatches(vector<int>& nums, int n) {
+        int ct = 0, i = 0;
+        long long top = 1;
+        while (top <= n) {
+            if (i < nums.size() && nums[i] <= top) {
+                top += nums[i];
+                ++ i;
+            } else {
+                top += top;
+                ++ ct;
+            }
+        }
+        return ct;
+    }
+};
+
+
 // Works. Same as Solution2.
 class Solution6 {
 public:
