@@ -1,3 +1,66 @@
+// From: https://algo.monster/liteproblems/306
+// Time: O(n^3)
+// Space: O(n)
+class Solution7 {
+public:
+    bool isAdditiveNumber(string num) {
+        int n = num.size();
+        // Try all possible combinations of first two numbers
+        // i represents the end position of the first number (exclusive)
+        for (int i = 1; i < min(n - 1, 19); ++i) {
+            // j represents the end position of the second number (exclusive)
+            for (int j = i + 1; j < min(n, i + 19); ++j) {
+                // First number cannot have leading zeros (except single digit 0)
+                if (i > 1 && num[0] == '0') break;
+                // Second number cannot have leading zeros (except single digit 0)
+                if (j - i > 1 && num[i] == '0') continue;
+                long long firstNum = stoll(num.substr(0, i));
+                long long secondNum = stoll(num.substr(i, j - i));
+
+                // Check if the remaining string forms a valid additive sequence
+                string remaining = num.substr(j, n - j);
+                if (checkAdditiveSequence(firstNum, secondNum, remaining)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+private:
+    bool checkAdditiveSequence(long long prev1, long long prev2, string remaining) {
+        // Base case: if no more digits left, the sequence is valid
+        if (remaining.empty()) {
+            return true;
+        }
+      
+        // The next number cannot have leading zeros (except 0 itself)
+        long long expectedSum = prev1 + prev2;
+        if (expectedSum > 0 && remaining[0] == '0') {
+            return false;
+        }
+      
+        // Try to match the sum with prefixes of the remaining string
+        // Limit to 19 digits to avoid overflow (max digits in long long)
+        int maxLength = min(static_cast<int>(remaining.size() + 1), 19);
+      
+        for (int i = 1; i < maxLength; ++i) {
+            long long currentNum = stoll(remaining.substr(0, i));
+          
+            // If current number equals the expected sum
+            if (currentNum == expectedSum) {
+                // Recursively check the rest of the string
+                string nextRemaining = remaining.substr(i, remaining.size() - i);
+                if (checkAdditiveSequence(prev2, expectedSum, nextRemaining)) {
+                    return true;
+                }
+            }
+        }
+      
+        return false;
+    }
+};
+
 // Previous solutions no longer work because of large number overflow. This works.
 // Time: O(n^3)
 // Space: O(n)
