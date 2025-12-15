@@ -22,7 +22,7 @@ public:
            notNine = notNine->next;
        }
 
-       delete notNine;
+       // delete notNine;
        return sentinel->val != 0 ? sentinel : sentinel->next;
    }
 };
