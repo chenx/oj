@@ -21,7 +21,7 @@ public:
                 ans.push_back(airport);
                 s.pop();
             } else {
-                s.push(*toAirports.begin());
+                s.push(toAirports[0]); // This also works: s.push(*toAirports.begin());
                 toAirports.erase(toAirports.begin());
             }
         }
