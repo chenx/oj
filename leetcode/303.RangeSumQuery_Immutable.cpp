@@ -1,3 +1,28 @@
+// Better than previous answers, use only 1 array.
+// Time: O(n) for init, O(1) for sumRange.
+// Space: O(n)
+class NumArray3 {
+public:
+    NumArray(vector<int>& nums) {
+        int n = nums.size();
+        sum.resize(n + 1, 0);
+
+        sum[0] = 0;
+        for (int i = 1; i <= n; i ++) {
+            sum[i] = sum[i-1] + nums[i-1];
+        }
+    }
+    
+    int sumRange(int left, int right) {
+        if (left > right) return 0;
+        return sum[right+1] - sum[left];
+    }
+
+private:
+    vector<int> sum;
+};
+
+
 // Works. Best answer.
 class NumArray2 {
 public:
