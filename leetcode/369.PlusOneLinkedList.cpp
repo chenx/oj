@@ -27,6 +27,44 @@ public:
    }
 };
 
+// Recursion.
+// Time: O(n)
+// Space: O(1)
+class Solution {
+public:
+    ListNode* plusOne(ListNode* head) {
+        if (! head) {
+            return new ListNode(1);
+        }
+
+        int carry = 0;
+        head = plus(head, carry);
+        if (carry == 1) {
+            return new ListNode(1, head);
+        } else {
+            return head;
+        }
+    }
+
+    ListNode* plus(ListNode* head, int& carry) {
+        if (head->next == NULL) {
+            head->val += 1;
+        } else {
+            plus(head->next, carry);
+            head->val += carry;
+        }
+
+        if (head->val >= 10) {
+            head->val -= 10;
+            carry = 1;
+        } else {
+            carry = 0;
+        }
+        return head;
+    }
+};
+
+// Reverse list.
 // O(3n)
 class Solution {
 public:
