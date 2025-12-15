@@ -1,3 +1,28 @@
+// Works.
+// Time: O(n)
+// Space: O(1)
+class Solution5 {
+public:
+    string getHint(string secret, string guess) {
+        int n = secret.size(), A = 0, B = 0;
+        unordered_map<char, int> ct;
+
+        for (int i = 0; i < n; ++ i) {
+            char s = secret[i], g = guess[i];
+            if (s == g) ++ A;
+            else {
+                if (ct[g] > 0) ++ B;
+                if (ct[s] < 0) ++ B;
+                ct[g] --;
+                ct[s] ++;
+            }
+        }
+
+        return to_string(A) + "A" + to_string(B) + "B";
+    }
+};
+
+
 // Works too. Use a map, instead of array.
 class Solution4 {
 public:
