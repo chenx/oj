@@ -1,3 +1,41 @@
+// Time: O(mn)
+// Space: O(mn)
+class Solution5 {
+public:
+    void wallsAndGates(vector<vector<int>>& rooms) {
+        if (rooms.size() == 0 || rooms[0].size() == 0) return;
+        int m = rooms.size(), n = rooms[0].size();
+
+        queue<vector<int>> q; // <i, j, dist>
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (rooms[i][j] == 0) q.push({i, j, 0});
+            }
+        }
+
+        static vector<int> directions = {-1, 0, 1, 0, -1};
+        static int EMPTY = 2147483647;
+
+        while (! q.empty()) {
+            int i = q.front()[0], j = q.front()[1], dist = q.front()[2];
+            q.pop();
+
+            for (int k = 0; k < 4; ++ k) {
+                int x = i + directions[k], y = j + directions[k + 1];
+
+                if (x >= 0 && x < m && y >= 0 && y < n) {
+                    if (rooms[x][y] == EMPTY) { // or rooms[x][y] > 1 + dist) { // works with or w/o the 2nd condition.
+                        rooms[x][y] = 1 + dist;
+                        q.push({x, y, 1 + dist});
+                    }
+                }
+            }
+        }
+    }
+};
+
+
 // Should work. Tested locally.
 class Solution4 {
 public:
