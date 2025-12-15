@@ -1,10 +1,11 @@
 class Solution2 {
 public:
     int kthSmallest(vector<vector<int>>& matrix, int k) {
-        auto comp = [](vector<int>& a, vector<int>& b) {
-            return a[0] > b[0];  // ">" for minHeap.
-        };
-        priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap(comp);
+        // auto comp = [](vector<int>& a, vector<int>& b) {
+        //     return a[0] > b[0];  // ">" for minHeap.
+        // };
+        // priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap(comp);
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> minHeap;
 
         for (int i = 0; i < matrix.size(); ++ i) {
             minHeap.push({matrix[i][0], i, 0});
