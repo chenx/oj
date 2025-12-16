@@ -2,21 +2,20 @@
 class Solution2 {
 public:
    int maxRotateFunction(vector<int>& nums) {
-       int n = nums.size(), maxSum = INT_MIN, sumAll = 0;
-       for (int i = 0; i < n; i ++) sumAll += nums[i];
+        int n = nums.size(), maxSum = INT_MIN, sumAll = 0, sum = 0;
 
-       int sum = 0;
-       for (int j = 0; j < n; j ++) {
-           sum += j * nums[j];
-       }
-       maxSum = max(maxSum, sum);
+        for (int i = 0; i < n; i ++) {
+            sumAll += nums[i];
+            sum += i * nums[i];
+        }
+        maxSum = max(maxSum, sum);
 
-       for (int i = 1; i < n; i ++) {
-           sum = sum - sumAll + n*nums[i-1];
-           maxSum = max(maxSum, sum);
-       }
-       return maxSum;
-   }
+        for (int i = 1; i < n; i ++) {
+            sum = sum - sumAll + n*nums[i-1];
+            maxSum = max(maxSum, sum);
+        }
+        return maxSum;
+    }
 }
 
 // Works but timeout for large input.
@@ -33,14 +32,10 @@ public:
            maxSum = max(maxSum, sum);
 
            // rotate one position clockwise.
-           reverse(nums, 1, n-1);
-           reverse(nums, 0, n-1);
+           reverse(nums.begin() + 1, nums.end());
+           reverse(nums.begin(), nums.end());
        }
        return maxSum;
-   }
-
-   void reverse(vector<int>& nums, int i, int j) {
-       while (i < j) swap(nums[i ++], nums[j --]);
    }
 };
 
