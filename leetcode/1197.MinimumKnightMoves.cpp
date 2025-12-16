@@ -1,3 +1,30 @@
+// Demonstrate using unordered_map of vector<int> via a custom hash function.
+class Solution7 {
+    struct hashFunc {
+        size_t operator()(const vector<int>& v) const {
+            return v[0] * 1337 + v[1];
+        }
+    };
+public:
+    int minKnightMoves(int x, int y) {
+        unordered_map<vector<int>, int, hashFunc> memo;
+        return dfs(x, y, memo);
+    }
+
+    int dfs(int x, int y, unordered_map<vector<int>, int, hashFunc>& memo) {
+        x = abs(x);
+        y = abs(y);
+
+        if (x + y == 0) return 0;
+        if (x + y == 2) return 2;
+
+        if (! memo.contains({x, y})) {
+            memo[{x, y}] = 1 + min( dfs(x - 2, y - 1, memo), dfs(x - 1, y - 2, memo) );
+        }
+        return memo[{x, y}];
+    }
+};
+
 class Solution6 {
 public:
     int minKnightMoves(int x, int y) {
