@@ -4,8 +4,9 @@ public:
         string v[] = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"};
 
         unsigned int n = num;
-        bool neg = (n < 0);
-        if (neg) n = ~(-n) + 1; // 1's complement of number x: ~x
+
+        // Ok without this line.
+        // if (num < 0) n = ~(-n) + 1; // 1's complement of number x: ~x
 
         string hex;
         while (n > 0) {
