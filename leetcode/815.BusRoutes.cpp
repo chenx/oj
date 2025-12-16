@@ -10,31 +10,31 @@ public:
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         if (source == target) return 0;
 
-        map<int, vector<int>> stopRoutes;  // <stop, routes>
-        for (int i = 0; i < routes.size(); ++ i) {
-            for (int stop : routes[i]) {
-                stopRoutes[stop].push_back(i);
+        map<int, vector<int>> stops;  // <stop, routes>
+        for (int i = 0; i < routes.size(); ++ i) {  // O(M)
+            for (int stop : routes[i]) {  // O(K)
+                stops[stop].push_back(i);
             }
         }
 
         set<int> used;
 
         queue<pair<int, int>> q;
-        for (auto route : stopRoutes[source]) {
+        for (auto route : stops[source]) {  // O(M)
             q.push({route, 1});
             used.insert(route);
         }
 
-        while (!q.empty()) {
+        while (!q.empty()) {  // O(M)
             int route = q.front().first;
             int dist = q.front().second;
             q.pop();
 
-            for (int stop : routes[route]) {
+            for (int stop : routes[route]) {  // O(K)
                 if (stop == target) return dist;
 
-                auto nextRoutes = stopRoutes[stop];
-                for (int nextRoute : nextRoutes) {
+                auto nextRoutes = stops[stop];
+                for (int nextRoute : nextRoutes) {  // O(M)
                     if (used.contains(nextRoute)) continue;
                     used.insert(nextRoute);
                     q.push({nextRoute, dist + 1});
