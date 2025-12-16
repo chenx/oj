@@ -143,8 +143,8 @@ public:
 };
 
 // https://leetcode.com/problems/24-game/editorial/
-// Time complexity: O(N3⋅3N−1⋅N!⋅(N−1)!).
-// Space complexity: O(N2).
+// Time complexity: O(N^3⋅3^(N−1)⋅N!⋅(N−1)!).
+// Space complexity: O(N^2).
 class Solution {
 public:
     // All possible operations we can perform on two numbers.
