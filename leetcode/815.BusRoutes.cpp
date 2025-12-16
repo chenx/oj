@@ -10,7 +10,7 @@ public:
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         if (source == target) return 0;
 
-        map<int, vector<int>> stops;  // <stop, routes>
+        map<int, vector<int>> stops;  // <stop, set<route>>
         for (int i = 0; i < routes.size(); ++ i) {  // O(M)
             for (int stop : routes[i]) {  // O(K)
                 stops[stop].push_back(i);
