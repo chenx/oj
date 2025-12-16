@@ -25,6 +25,29 @@ public:
 
 ## Permutations
 
+// Recursive.
+void getPerm(vector<vector<double>>& result, vector<double>& input, int pos) {
+   if (pos == input.size()) {
+      result.push_back(input);
+      return;
+   }
+
+   for (int i = pos; i < input.size(); ++ i) {
+      swap(input[i], input[pos]);
+      getPerm(result, input, pos + 1);
+      swap(input[i], input[pos]);
+   }
+}
+
+vector<vector<double>> getPermutations(vector<double>& input) {
+   vector<vector<double>> result;
+   getPerm(result, input, 0);
+   return result;
+}
+
+
+## Permutations
+
 // Iterative. DP.
 class Solution {
 public:
