@@ -1,4 +1,10 @@
 // Works.
+// Breadth-First Search (BFS) with Bus Stops as Nodes
+// From: https://leetcode.com/problems/bus-routes/editorial/
+//
+// M is the size of routes, and K is the maximum size of routes[i].
+// Time complexity: O(M^2 * K)
+// Space: O(MK)
 class Solution4 {
 public:
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
