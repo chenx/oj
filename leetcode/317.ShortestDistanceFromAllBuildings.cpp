@@ -1,3 +1,72 @@
+// Demonstrate the use of hash function for unordered_set<vector<int>>.
+class Solution83 {
+    int directions[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    struct hashFunc {
+        int operator()(const vector<int>& v) const { // Second "const" is needed to work.
+            return v[0] * 1337 + v[1];
+        }
+    };
+    
+    // A more formal implementation of hash, but times out for large input.
+    struct VectorStringHash {
+        std::size_t operator()(const std::vector<int>& v) const {
+            std::size_t seed = v.size();
+            for (const int s : v) {
+                // Combine the hash of the current string with the running seed
+                // A common way to combine hashes is a bitwise XOR and left shift
+                seed ^= std::hash<std::string>{}(to_string(s)) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+            }
+            return seed;
+        }
+    };
+public:
+    int shortestDistance(vector<vector<int>>& grid) {
+        // visit empty lands from all buildings, add up distances of each visit.
+        int m = grid.size(), n = grid[0].size(), emptyLand = 0, minDist = 0;
+        vector<vector<int>> dist(m, vector<int>(n, 0));
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] != 1) continue;
+                // Otherwise, is a building.
+                minDist = INT_MAX; // Initialize min distance of this cycle.
+
+                queue<vector<int>> q; // <i, j, distance>
+                q.push({i, j, 0});
+
+                // set<vector<int>> visited;
+                // To use unordered_set for vector<int>, a custom hash function is needed.
+                unordered_set<vector<int>, hashFunc> visited;
+                visited.insert({i,j});
+
+                while (! q.empty()) {
+                    int x0 = q.front()[0], y0 = q.front()[1], distance = q.front()[2];
+                    q.pop();
+
+                    for (const auto& direction : directions) {
+                        int x = x0 + direction[0];
+                        int y = y0 + direction[1];
+                        if (x >= 0 && x < m && y >= 0 && y < n) {
+                            if (grid[x][y] == emptyLand && ! visited.contains({x, y})) {
+                                visited.insert({x, y});
+                                q.push({x, y, distance + 1});
+
+                                -- grid[x][y]; // mark cell for next round of traversal
+                                dist[x][y] += distance + 1;
+                                minDist = min(minDist, dist[x][y]);
+                            }
+                        }
+                    }
+                }
+                if (minDist == INT_MAX) return -1;
+
+                -- emptyLand;
+            }
+        }
+        return minDist;
+    }
+};
+
 // Simplified from Solution8.
 // Time: O(n^2 * m^2)
 // Space: O(mn)
