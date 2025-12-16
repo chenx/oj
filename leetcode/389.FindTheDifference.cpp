@@ -1,4 +1,19 @@
-class Solution {
+class Solution3 {
+public:
+    char findTheDifference(string s, string t) {
+        vector<int> count(26, 0);
+        for (char ch : s) count[ch - 'a'] ++;
+
+        for (char ch : t) {
+            if (count[ch - 'a'] == 0) return ch;
+            count[ch - 'a'] --;
+        }
+        return ' ';
+    }
+};
+
+
+class Solution2 {
 public:
     char findTheDifference(string s, string t) {
         map<char, int> count;
