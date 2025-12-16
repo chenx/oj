@@ -2,19 +2,23 @@
 class Solution7 {
 public:
     int maxPoints(vector<vector<int>>& points) {
+        // Remove duplicated points.
+        set<vector<int>> pts(points.begin(), points.end());
+        points = vector<vector<int>>(pts.begin(), pts.end());
+
         int n = points.size();
-        if (n == 1) return 1;
-        
-        sort(points.begin(), points.end());
+        if (n <= 1) return n;
+
         int result = 2;
-        for (int i = 0; i < n-1; i++) {
-            unordered_map<double, int> cnt;
-            for (int j = i+1; j < n; j++) {
-                auto &a = points[i], &b = points[j];
-                double slope = (a[0] == b[0]) ? INT_MAX : ( 1.0 * (a[1]-b[1]) / (a[0]-b[0]) );
-                cnt[slope] ++;
+        for (int i = 0; i < n; ++ i) {
+            unordered_map<double, int> slopeCount;
+            for (int j = i + 1; j < n; ++ j) {
+                vector<int> &a = points[i], &b = points[j];
+                double slope = (a[0] == b[0]) ? INT_MAX : ( 1.0 * (b[1] - a[1]) / (b[0] - a[0]));
+                ++ slopeCount[slope];
             }
-            for (auto [_, count] : cnt) {
+
+            for (const auto [slope, count] : slopeCount) {
                 result = max(result, count + 1);
             }
         }
@@ -410,6 +414,7 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
 
 
