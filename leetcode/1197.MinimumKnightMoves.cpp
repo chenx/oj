@@ -1,3 +1,24 @@
+class Solution6 {
+public:
+    int minKnightMoves(int x, int y) {
+        map<vector<int>, int> memo;
+        return dfs(x, y, memo);
+    }
+
+    int dfs(int x, int y, map<vector<int>, int>& memo) {
+        x = abs(x);
+        y = abs(y);
+
+        if (x + y == 0) return 0;
+        if (x + y == 2) return 2;
+
+        if (! memo.contains({x, y})) {
+            memo[{x, y}] = 1 + min( dfs(x - 2, y - 1, memo), dfs(x - 1, y - 2, memo) );
+        }
+        return memo[{x, y}];
+    }
+};
+
 // Works.
 // Let (x,y) be the coordinate of the target.
 // Time Complexity: O(∣x⋅y∣)
