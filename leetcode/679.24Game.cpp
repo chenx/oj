@@ -143,6 +143,7 @@ public:
 };
 
 // https://leetcode.com/problems/24-game/editorial/
+// Backtracking
 // Time complexity: O(N^3⋅3^(N−1)⋅N!⋅(N−1)!).
 // Space complexity: O(N^2).
 class Solution {
