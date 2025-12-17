@@ -1,3 +1,24 @@
+// Time: O(m+n)
+// Space: O(max(m, n))
+class Solution3 {
+public:
+    bool backspaceCompare(string s, string t) {
+        return reduce(s) == reduce(t);
+    }
+
+    string reduce(string& s) {
+        string t;
+        for (char ch : s) {
+            if (ch == '#') {
+                if (! t.empty()) t.pop_back();
+            } else {
+                t += ch;
+            }
+        }
+        return t;
+    }
+};
+
 // See: https://leetcode.com/problems/backspace-string-compare/editorial/
 // Time: O(m + n)
 // Space: O(1)
