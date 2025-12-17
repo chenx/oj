@@ -12,10 +12,11 @@ public:
         bool insert = false;
         Node* prev = head, * cur = head->next;
         do {
-            // insert between prev and cur.
+            // case 1) insert between prev and cur, in non-descreasing order
             if (prev->val <= insertVal && insertVal <= cur->val) {
                 insert = true;
             } else if (prev->val > cur->val) {
+                // case 2) insert between the largest and smallest numbers.
                 if (insertVal >= prev->val || insertVal <= cur->val) {
                     insert = true;
                 }
@@ -29,7 +30,7 @@ public:
             prev = cur; cur = cur->next;
         } while (prev != head); // <- prev != head
 
-        // insert after head.
+        // case 3), all nodes have equal values, insert after head.
         head->next = new Node(insertVal, head->next);
         return head;
     }
