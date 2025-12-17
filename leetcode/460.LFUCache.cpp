@@ -7,6 +7,7 @@ class LFUCache3 {
     // key: frequency, value: list of original key-value pairs that have the same frequency.
     map<int, list<Node>> frequencies;
     // key: original key, value: iterator of key/value pair iterator in the frequencies map's list.
+    // <key, <frequency, iterator>>
     map<int, pair<int, list<Node>::iterator>> cache;
     int capacity;
     int minf; // minimum frequency.
