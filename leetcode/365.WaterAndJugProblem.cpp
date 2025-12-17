@@ -5,9 +5,9 @@
 class Solution2 {
 public:
     bool canMeasureWater(int x, int y, int target) {
+        if (target == 0) return true;
         if (x == 0 || y == 0) return target == x || target == y;
         if (x + y < target) return false;
-        if (target == 0) return true;
 
         return target % gcd(x, y) == 0;
     }
