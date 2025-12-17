@@ -1,4 +1,27 @@
 // Time: O(m+n)
+// Space: O(1)
+class Solution4 {
+public:
+    bool backspaceCompare(string s, string t) {
+        reduce(s);
+        reduce(t);
+        return s == t;
+    }
+
+    void reduce(string& s) {
+        int p = 0;
+        for (int i = 0; i < s.length(); ++ i) {
+            if (s[i] == '#') {
+                if (p > 0) -- p;
+            } else {
+                s[p ++] = s[i];
+            }
+        }
+        s.resize(p);
+    }
+};
+
+// Time: O(m+n)
 // Space: O(max(m, n))
 class Solution3 {
 public:
