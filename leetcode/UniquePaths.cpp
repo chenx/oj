@@ -1,3 +1,33 @@
+// DFS. Times out for large input.
+class Solution4 {
+    vector<int> end;
+public:
+    int uniquePaths(int m, int n) {
+        end = {m-1, n-1};
+
+        int pathCount = 0;
+        vector<vector<int>> board(m, vector<int>(n, 0));
+        dfs(m, n, 0, 0, pathCount, board);
+        return pathCount;
+    }
+
+    void dfs(int m, int n, int i, int j, int& pathCount, vector<vector<int>>& board) {
+        if (i < 0 || i >= m || j < 0 || j >= n) return;
+
+        if (i == end[0] && j == end[1]) {
+            ++ pathCount;
+            return;
+        }
+
+        board[i][j] = 1;
+
+        dfs(m, n, i+1, j, pathCount, board);
+        dfs(m, n, i, j+1, pathCount, board);
+
+        board[i][j] = 0;
+    }
+};
+
 //
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
@@ -99,3 +129,4 @@ public:
         return a[n - 1][n - 1];
     }
 };
+
