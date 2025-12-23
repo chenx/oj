@@ -1,3 +1,72 @@
+// Reference: https://algo.monster/liteproblems/2408
+class SQL {
+    unordered_map<string, int> tableRowId;
+    unordered_map<string, unordered_map<int, vector<string>>> tables;
+    unordered_map<string, int> tableColumns;
+
+public:
+    SQL(vector<string>& names, vector<int>& columns) {
+        for (int i = 0; i < names.size(); i++) {
+            tables[names[i]] = unordered_map<int, vector<string>>();
+            tableRowId[names[i]] = 0;
+            tableColumns[names[i]] = columns[i];
+        }
+    }
+    
+    bool ins(string name, vector<string> row) {
+        // cout << "ins(" << name << "), row.size: " << row.size() << endl;
+        if (! tables.contains(name) || ! tableRowId.contains(name)) return false;
+        if (tableColumns[name] != row.size()) return false;
+        
+        int rowId = ++ tableRowId[name];
+        tables[name][rowId] = row;
+        return true;
+    }
+    
+    void rmv(string name, int rowId) {
+        // cout << "rmv(" << name << "): rowId: " << rowId << endl;
+        if (! tables.contains(name)) return;
+        tables[name].erase(rowId);
+    }
+    
+    string sel(string name, int rowId, int columnId) {
+        // cout << "sel(" << name << "): rowId: " << rowId << "， columnId: " << columnId << endl;
+        if (!tables.contains(name)) return "<null>";
+        if (!tables[name].contains(rowId)) return "<null>";
+        if (columnId < 1 || columnId > tableColumns[name]) return "<null>";
+        
+        // cout << "sel return: " << tables[name][rowId][columnId - 1] << endl;
+        return tables[name][rowId][columnId - 1];
+    }
+    
+    vector<string> exp(string name) {
+        if (! tables.contains(name)) return vector<string>();
+
+        vector<string> result;
+        for (auto [id, row] : tables[name]) {
+            result.push_back(to_string(id) + "," + join(row));
+        }
+        return result;
+    }
+
+    string join(vector<string>& vec, string delimiter = ",") {
+        string result;
+        for (auto val : vec) {
+            if (result != "") result += ",";
+            result += val;
+        }
+        return result;
+    }
+};
+
+/**
+ * Your SQL object will be instantiated and called as such:
+ * SQL* obj = new SQL(names, columns);
+ * bool param_1 = obj->ins(name,row);
+ * obj->rmv(name,rowId);
+ * string param_3 = obj->sel(name,rowId,columnId);
+ * vector<string> param_4 = obj->exp(name);
+ */
 
 
 /**
