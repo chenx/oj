@@ -6,6 +6,7 @@
  *     vector<string> getUrls(string url);
  * };
  */
+// From: https://algo.monster/liteproblems/1242
 class Solution {
 private:
     string getHostname(const string& url) {
