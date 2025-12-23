@@ -1,5 +1,5 @@
 // Time: O(n) - n = s.length()
-// Space: O(k) - k is number of distinct chars.
+// Space: O(k) =~ O(26) =~ O(1) - k is number of distinct chars.
 class Solution {
 public:
     string reorganizeString(string s) {
