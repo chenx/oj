@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
+import Menu from './Menu.jsx'
 import React from 'react'
-import './GuessWords.css'
+import './GuessWords2.css'
 
 function ControlPanel({ onStartPlay }) {
     return (
@@ -84,7 +85,7 @@ function App() {
     const [message, setMessage] = useState(DEFAULT_MSG);
     const [count, setCount] = useState(0);
     const [words, setWords] = useState(new Set(WORD_LIST));
-    let score = 0;
+    const [score, setScore] = useState(0);
 
     const onStartPlay = useCallback(() => {
         for (let i = 0; i < cells.length; ++i) {
@@ -94,7 +95,8 @@ function App() {
 
         setMessage(DEFAULT_MSG);
         setWords(new Set(WORD_LIST));
-        setCount(0);        
+        setCount(0);
+        setScore(0);
         setGameOn(true);
     }, [count, gameOn]);
 
@@ -109,11 +111,13 @@ function App() {
         if (words.has(word)) {
             words.delete(word);
             setWords(words);
-            score += 10;
             for (let i = count - 5; i < count; ++i) {
                 cells[i].style.backgroundColor = 'green';
             }
-            setMessage('Your score is ' + score);
+
+            const newScore = score + 10;
+            setScore(score => newScore);
+            setMessage('Your score is ' + newScore);
         } else {
             for (let i = count - 5; i < count; ++i) {
                 cells[i].style.backgroundColor = 'red';
@@ -121,11 +125,13 @@ function App() {
         }
     }, [count, gameOn]);
 
-    function endGame() {
+    const endGame = useCallback(() => {
         if (VERBOSE) console.log('end game');
         setGameOn(false);
         setMessage('Game Over. Your score is ' + score);
-    }
+    }, [score, gameOn]); 
+    // render when score or gameOn changes. With "[]" it will not render.
+    // Without ", []" or ", [...]" it always renders.
 
     const handleKeyPress = useCallback((event) => {
         if (!gameOn) return;
@@ -162,6 +168,7 @@ function App() {
 
     return (
         <>
+            <Menu />
             <div className="content">
                 <Board />
             </div>
