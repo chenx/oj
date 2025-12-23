@@ -9,7 +9,7 @@ public:
     }
     
     string get(string key, int timestamp) {
-        if (! map.contains(key)) return "";
+        // if (! map.contains(key)) return "";
         auto floorKey = map[key].upper_bound(timestamp);
         if (floorKey == map[key].begin()) {
             return "";
