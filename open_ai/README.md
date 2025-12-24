@@ -1,7 +1,17 @@
 # Questions:
 
-1. CD Directory: https://www.hellointerview.com/community/questions/unix-cd-resolution/cmbskxz3y004n07adimbogre1
-6. Node counting
+1. CD Directory (Unix CD Command with Symbolic Link Resolution):
+   https://www.hellointerview.com/community/questions/unix-cd-resolution/cmbskxz3y004n07adimbogre1
+3. Excel Sheet (Spreadsheet Formula Evaluation with Dependencies)
+4. In-Memory Database with SQL Operations
+5. KV store with timeout
+6. Resumable iterator
+7. Node counting
+8. GPU credit
+9. Dependency Version Check
+10. KV Store Serialize/Deserialize
+11. Meeting Rooms
+12. Multithreaded Web Crawler
 
 # Links
 
