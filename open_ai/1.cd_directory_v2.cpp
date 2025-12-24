@@ -1,6 +1,8 @@
 // Difference from cd_directory.cpp:
 // 1) prepend result of simplifyPath() by "/".
 // 2) detection of self-reference cycle.
+// 3) use function overload for cd()
+// 4) use SolutionTest class
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -142,82 +144,87 @@ private:
     }
 };
 
-void test(string cur_dir, string new_dir, string expect) {
-    Solution so;
-    string result = so.cd(cur_dir, new_dir);
-    if (result == expect) {
-        cout << "Pass: " << "cd(" << cur_dir << ", " << new_dir << ") = " << result << endl;
-    } else {
-        cout << "Fail: " << "cd(" << cur_dir << ", " << new_dir << ") = " << result << ", expect: " << expect << endl;
+class SolutionTest {
+private:
+    void test(string cur_dir, string new_dir, string expect) {
+        Solution so;
+        string result = so.cd(cur_dir, new_dir);
+        if (result == expect) {
+            cout << "Pass: " << "cd(" << cur_dir << ", " << new_dir << ") = " << result << endl;
+        } else {
+            cout << "Fail: " << "cd(" << cur_dir << ", " << new_dir << ") = " << result << ", expect: " << expect << endl;
+        }
+        cout << endl;
     }
-    cout << endl;
-}
 
-string print_soft_links(unordered_map<string, string>& soft_links) {
-    string result = "{";
-    int i = 0;
-    for (const auto& item : soft_links) {
-        if (i ++ > 0) result += ", ";
-        result += item.first + ": " + item.second;
+    string print_soft_links(unordered_map<string, string>& soft_links) {
+        string result = "{";
+        int i = 0;
+        for (const auto& item : soft_links) {
+            if (i ++ > 0) result += ", ";
+            result += item.first + ": " + item.second;
+        }
+        result += "}";
+        return result;
     }
-    result += "}";
-    return result;
-}
 
-void test_soft_links(string cur_dir, string new_dir, unordered_map<string, string>& soft_links, string expect) {
-    Solution so;
-    string result = so.cd(cur_dir, new_dir, soft_links);
-    string soft_links_str = print_soft_links(soft_links);
-    if (result == expect) {
-        cout << "Pass: " << "cd(" << cur_dir << ", " << new_dir << ", " << soft_links_str << ") = " << result << endl;
-    } else {
-        cout << "Fail: " << "cd(" << cur_dir << ", " << new_dir << ", " << soft_links_str << ") = " << result << ", expect: " << expect << endl;
+    void test_soft_links(string cur_dir, string new_dir, unordered_map<string, string>& soft_links, string expect) {
+        Solution so;
+        string result = so.cd(cur_dir, new_dir, soft_links);
+        string soft_links_str = print_soft_links(soft_links);
+        if (result == expect) {
+            cout << "Pass: " << "cd(" << cur_dir << ", " << new_dir << ", " << soft_links_str << ") = " << result << endl;
+        } else {
+            cout << "Fail: " << "cd(" << cur_dir << ", " << new_dir << ", " << soft_links_str << ") = " << result << ", expect: " << expect << endl;
+        }
+        cout << endl;
     }
-    cout << endl;
-}
 
-void run_tests() {
-    // cd(/foo/bar, baz) = /foo/bar/baz
-    test("/foo/bar", "baz", "/foo/bar/baz");
+public:
+    void run_tests() {
+        // cd(/foo/bar, baz) = /foo/bar/baz
+        test("/foo/bar", "baz", "/foo/bar/baz");
 
-    // cd(/foo/../, ./baz) = /baz
-    test("/foo/../", "./baz", "/baz");
+        // cd(/foo/../, ./baz) = /baz
+        test("/foo/../", "./baz", "/baz");
 
-    // cd(/, foo/bar/../baz) = /baz
-    test("/", "foo/bar/../../baz", "/baz");
+        // cd(/, foo/bar/../baz) = /baz
+        test("/", "foo/bar/../../baz", "/baz");
 
-    // cd(/, ..) = Null
-    test("/", "..", "Null");
+        // cd(/, ..) = Null
+        test("/", "..", "Null");
 
 
-    unordered_map<string, string> soft_links;
+        unordered_map<string, string> soft_links;
 
-    // cd(/foo/bar, baz, {/foo/bar: /abc}) = /abc/baz
-    soft_links = {{"/foo/bar", "/abc"}};
-    test_soft_links("/foo/bar", "baz", soft_links, "/abc/baz");
+        // cd(/foo/bar, baz, {/foo/bar: /abc}) = /abc/baz
+        soft_links = {{"/foo/bar", "/abc"}};
+        test_soft_links("/foo/bar", "baz", soft_links, "/abc/baz");
 
-    // cd(/foo/bar, baz, {/foo/bar: /abc, /abc: /bcd, /bcd/baz: /xyz}) = /xyz
-    soft_links = {{"/foo/bar", "/abc"}, {"/abc", "/bcd"}, {"/bcd/baz", "/xyz"}};
-    test_soft_links("/foo/bar", "baz", soft_links, "/xyz");
+        // cd(/foo/bar, baz, {/foo/bar: /abc, /abc: /bcd, /bcd/baz: /xyz}) = /xyz
+        soft_links = {{"/foo/bar", "/abc"}, {"/abc", "/bcd"}, {"/bcd/baz", "/xyz"}};
+        test_soft_links("/foo/bar", "baz", soft_links, "/xyz");
 
-    // cd(/foo/bar, baz, {/foo/bar: /abc, /foo/bar/baz: xyz}) = xyz
-    soft_links = {{"/foo/bar", "/abc"}, {"/foo/bar/baz", "xyz"}};
-    test_soft_links("/foo/bar", "baz", soft_links, "xyz");
+        // cd(/foo/bar, baz, {/foo/bar: /abc, /foo/bar/baz: xyz}) = xyz
+        soft_links = {{"/foo/bar", "/abc"}, {"/foo/bar/baz", "xyz"}};
+        test_soft_links("/foo/bar", "baz", soft_links, "xyz");
 
-    soft_links = {{"/foo/bar", "/abc"}, {"A", "B"}, {"/abc", "/foo/bar"}, {"B", "A"}};
-    test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
+        soft_links = {{"/foo/bar", "/abc"}, {"A", "B"}, {"/abc", "/foo/bar"}, {"B", "A"}};
+        test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
 
-    soft_links = {{"/foo/bar", "/abc"}, {"/abc", "/d"}, {"/d", "/foo/bar"}, {"B", "A"}};
-    test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
+        soft_links = {{"/foo/bar", "/abc"}, {"/abc", "/d"}, {"/d", "/foo/bar"}, {"B", "A"}};
+        test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
 
-    soft_links = {{"A", "B"}, {"B", "A"}};
-    test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
+        soft_links = {{"A", "B"}, {"B", "A"}};
+        test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
 
-    soft_links = {{"A", "A"}, {"B", "C"}};
-    test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
-}
+        soft_links = {{"A", "A"}, {"B", "C"}};
+        test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
+    }
+};
 
 int main() {
-    run_tests();
+    SolutionTest test;
+    test.run_tests();
     return 0;
 }
