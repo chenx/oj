@@ -1,3 +1,4 @@
+// Difference from cd_directory.cpp is to prepend result of simplifyPath() by "/".
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
