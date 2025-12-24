@@ -2,7 +2,7 @@
 - https://www.linkjob.ai/interview-questions/openai-coding-interview/
 - https://igotanoffer.com/en/advice/openai-interview-questions
 
--  https://leetcode.com/problem-list/design/](https://leetcode.com/problem-list/design/
+-  https://leetcode.com/problem-list/design/
 
 OpenAI’s coding questions come from a question bank. Recently, there have been 8 recurring problems: CD directory, Excel sheet, In-memory DB, KV store, Resumable iterator, Node counting, GPU credit, and Dependency version check. 
 
@@ -17,48 +17,68 @@ One candidate who recently interviewed put it this way: "I was typing the whole 
 
 That's the reality. These interviews test whether you can actually build things, not just solve algorithmic puzzles.
 
-What Makes OpenAI Coding Interviews Different
+## What Makes OpenAI Coding Interviews Different
 
 OpenAI's coding rounds stand out in three ways:
-Volume matters. You'll write significantly more code than in typical FAANG interviews. The problems aren't about finding one clever algorithmic insight, but rather they're about implementing the complete functionality with proper structure. Candidates consistently report spending the entire hour typing.
-Practical over theoretical. Instead of "find the kth largest element," you get "implement a key-value store with serialization." Instead of "reverse a binary tree," you get "build a resumable iterator with state management."
-Production quality counts. As one senior interviewee noted, "they really want people who can be productive building / writing code, not just arch / design / org alignment." Your solution needs to be maintainable, handle edge cases, and look like code someone else could actually work with. A hacky solution that passes tests won't cut it.
-The Questions
+
+- Volume matters. You'll write significantly more code than in typical FAANG interviews. The problems aren't about finding one clever algorithmic insight, but rather they're about implementing the complete functionality with proper structure. Candidates consistently report spending the entire hour typing.
+- Practical over theoretical. Instead of "find the kth largest element," you get "implement a key-value store with serialization." Instead of "reverse a binary tree," you get "build a resumable iterator with state management."
+- Production quality counts. As one senior interviewee noted, "they really want people who can be productive building / writing code, not just arch / design / org alignment." Your solution needs to be maintainable, handle edge cases, and look like code someone else could actually work with. A hacky solution that passes tests won't cut it.
+
+## The Questions
+
 We've collected real interview questions from candidates who've gone through OpenAI's process. Here's what people are actually getting asked, organized by what skill each question tests.
-Building Data Structures from Scratch
+
+### Building Data Structures from Scratch
+
 OpenAI needs engineers who can build custom data structures for AI systems, not just reach for off-the-shelf solutions.
-KV Store Serialize/Deserialize
+
+#### KV Store Serialize/Deserialize
 Implement serialization and deserialization for a key-value store where both keys and values can contain any characters including delimiters. You can't use simple delimiters because they might appear in the data. Most candidates land on length-prefix encoding (like 3:key5:value), which is the same pattern used in Redis protocol.
-Time-Based Key-Value Store
+
+#### Time-Based Key-Value Store
 Build a key-value store that can retrieve values at specific timestamps. Every set operation includes a timestamp, and get operations need to return the value that was active at a given time. This tests your ability to handle temporal data efficiently, which matters when you're building systems that need to track model versions or configuration changes over time.
-Resumable Iterator
+
+#### Resumable Iterator
 Create an iterator that can pause and resume iteration across multiple calls. You need to maintain state between invocations, handle nested structures, and support operations like skip and reset. It's straightforward in concept but involves a lot of careful bookkeeping to get right.
-Implementing Real Systems
+
+#### Implementing Real Systems
 These questions test your ability to implement pieces of larger systems with real-world constraints. They're not isolated algorithmic puzzles.
-In-Memory Database with SQL Operations
+
+#### In-Memory Database with SQL Operations
 Implement a subset of SQL functionality in memory: tables, inserts, selects with WHERE clauses, maybe joins. This isn't about optimizing query execution, it's about parsing commands, managing data structures, and handling the edge cases that come up when multiple operations interact.
-Unix CD Command with Symbolic Link Resolution
+
+#### Unix CD Command with Symbolic Link Resolution
 Implement the logic for cd command navigation including handling ., .., absolute paths, and symbolic links. The tricky part is resolving symlinks correctly and detecting cycles. It's a great example of something that seems simple until you start implementing it.
-Design SQL / Meeting Rooms
+
+#### Design SQL / Meeting Rooms
 Build a SQL query executor or solve the meeting rooms scheduling problem. Both test practical algorithmic thinking: how do you efficiently check for overlapping intervals? How do you manage resource allocation? These show up constantly in real systems.
-Handling Complexity
+
+### Handling Complexity
 Production systems at OpenAI deal with complex interactions between components. Can you manage that complexity cleanly?
-Multithreaded Web Crawler
+
+#### Multithreaded Web Crawler
 Build a web crawler that uses multiple threads to fetch pages concurrently. You need to coordinate between threads, avoid crawling the same URL twice, handle failures, and probably implement some kind of rate limiting. Concurrency bugs are easy to introduce and hard to debug, which is exactly why they ask this.
-Spreadsheet Formula Evaluation with Dependencies
+
+#### Spreadsheet Formula Evaluation with Dependencies
 Implement a spreadsheet that can evaluate formulas with cell references. If A1 references B2 and B2 references C3, you need to figure out the evaluation order. If A1 references B2 and B2 references A1, you need to detect the cycle. It's a graph problem dressed up as a spreadsheet, testing your ability to handle dependencies and circular references.
-What Success Looks Like
+
+### What Success Looks Like
 After talking to candidates who've been through the process, here's what actually works:
-Start with a working solution, then optimize. Don't spend the first 20 minutes architecting the perfect solution in your head. Get something working that handles the basic cases, then iterate. The interviewer will often introduce new requirements or ask for optimizations, and you can't optimize code that doesn't exist yet.
-Talk through your approach before coding. Take two minutes to clarify requirements and outline your plan. The interviewer wants to see your problem-solving process. If you immediately start typing, they have no idea if you understand the problem or are just hoping to figure it out as you go.
-Handle edge cases explicitly. Empty inputs, null values, boundary conditions - don't just assume they won't come up. Production code needs to handle these gracefully, and interviewers notice when you skip them.
-Write code that looks production-ready. Use meaningful variable names, break complex logic into helper functions, add comments where your intent isn't obvious. This isn't just about making the interviewer's job easier, it's about showing you write code that other people can maintain.
+
+- Start with a working solution, then optimize. Don't spend the first 20 minutes architecting the perfect solution in your head. Get something working that handles the basic cases, then iterate. The interviewer will often introduce new requirements or ask for optimizations, and you can't optimize code that doesn't exist yet.
+- Talk through your approach before coding. Take two minutes to clarify requirements and outline your plan. The interviewer wants to see your problem-solving process. If you immediately start typing, they have no idea if you understand the problem or are just hoping to figure it out as you go.
+- Handle edge cases explicitly. Empty inputs, null values, boundary conditions - don't just assume they won't come up. Production code needs to handle these gracefully, and interviewers notice when you skip them.
+- Write code that looks production-ready. Use meaningful variable names, break complex logic into helper functions, add comments where your intent isn't obvious. This isn't just about making the interviewer's job easier, it's about showing you write code that other people can maintain.
+
 Multiple candidates have reported hearing that OpenAI "won't pass you if you have a 2/4 or low 3/4 on coding even if you ace everything else." You can't coast through coding rounds hoping to make up for it in system design or behavioral interviews. The coding bar is high, and it stays high across all levels.
-How to Prepare
+
+### How to Prepare
+
 The questions above aren't easy, but they're learnable. Here's how to approach preparation:
-Work through the actual questions. We've linked to detailed breakdowns of each problem above. Don't just read the solutions, implement them yourself. Time how long it takes. Then do it again faster. These design problems on LeetCode are also good practice.
-Focus on code structure, not just correctness. After you get a solution working, spend 10 minutes cleaning it up. Would another engineer understand this code? Could you explain your choices?
-Time yourself. Sixty minutes sounds like a lot until you're implementing something non-trivial. Build a habit of checking the clock and asking yourself "am I going to finish?"
+- Work through the actual questions. We've linked to detailed breakdowns of each problem above. Don't just read the solutions, implement them yourself. Time how long it takes. Then do it again faster. These design problems on LeetCode are also good practice.
+- Focus on code structure, not just correctness. After you get a solution working, spend 10 minutes cleaning it up. Would another engineer understand this code? Could you explain your choices?
+- Time yourself. Sixty minutes sounds like a lot until you're implementing something non-trivial. Build a habit of checking the clock and asking yourself "am I going to finish?"
 
 
 
@@ -68,7 +88,7 @@ Time yourself. Sixty minutes sounds like a lot until you're implementing somethi
 # My Real Questions List to Pass 2025 OpenAI Coding Interview
 Seraphina
 ·September 13, 2025
-·8 min read
+
 I just finished my interview at OpenAI. The coding questions were mostly from the question bank, and the bank isn’t very big.
 I am really grateful for the tool Linkjob.ai, and that's also why I'm sharing my entire coding interview experience here. Having an invisible AI assistant during the interview is indeed very convenient.
 OpenAI Coding Interview Overview
