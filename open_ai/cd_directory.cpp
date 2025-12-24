@@ -17,9 +17,9 @@ public:
 
         // Find long match.
         string result = cd(current_dir, new_dir);
-        if (soft_links.find(result) != soft_links.end()) {
+        if (soft_links.count(result) > 0) {
             if (VERBOSE) cout << "found long match" << endl;
-            while (soft_links.find(result) != soft_links.end()) {
+            while (soft_links.count(result) > 0) {
                 result = soft_links[result];
             }
             return result;
@@ -181,7 +181,7 @@ void run_tests() {
     // cd(/, ..) = Null
     test("/", "..", "Null");
 
-    // Test soft links.
+
     unordered_map<string, string> soft_links;
 
     // cd(/foo/bar, baz, {/foo/bar: /abc}) = /abc/baz
