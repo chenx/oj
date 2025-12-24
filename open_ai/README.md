@@ -1,21 +1,24 @@
-https://www.hellointerview.com/blog/openai-coding-questions
-https://www.linkjob.ai/interview-questions/openai-coding-interview/
-https://igotanoffer.com/en/advice/openai-interview-questions
+- https://www.hellointerview.com/blog/openai-coding-questions
+- https://www.linkjob.ai/interview-questions/openai-coding-interview/
+- https://igotanoffer.com/en/advice/openai-interview-questions
 
-[https://leetcode.com/problem-list/design/](https://leetcode.com/problem-list/design/
+-  https://leetcode.com/problem-list/design/](https://leetcode.com/problem-list/design/
+
+OpenAI’s coding questions come from a question bank. Recently, there have been 8 recurring problems: CD directory, Excel sheet, In-memory DB, KV store, Resumable iterator, Node counting, GPU credit, and Dependency version check. 
 
 OpenAI’s coding questions come from a question bank. Recently, there have been 8 recurring problems: CD directory, Excel sheet, In-memory DB, KV store, Resumable iterator, Node counting, GPU credit, and Dependency version check. 
 
 # OpenAI Coding Interviews 2025: Real Questions from Real Candidates
 11/2025
 
-OpenAI’s coding questions come from a question bank. Recently, there have been 8 recurring problems: CD directory, Excel sheet, In-memory DB, KV store, Resumable iterator, Node counting, GPU credit, and Dependency version check. 
-OpenAI Coding Interviews 2025: Real Questions from Real Candidates
-11/2025
-
 OpenAI is one of the companies that has made a deliberate shift away from standard LeetCode-style questions. Their interviews center on production-oriented problem solving i.e. writing real code, handling edge cases, and building small but meaningful components. The focus isn't on some trick algorithms but rather on how you structure, reason about, and debug your code in a way that reflects actual engineering work.
-One candidate who recently interviewed put it this way: "I was typing the whole time and finished passing all the test cases just in time." That's the reality. These interviews test whether you can actually build things, not just solve algorithmic puzzles.
+
+One candidate who recently interviewed put it this way: "I was typing the whole time and finished passing all the test cases just in time." 
+
+That's the reality. These interviews test whether you can actually build things, not just solve algorithmic puzzles.
+
 What Makes OpenAI Coding Interviews Different
+
 OpenAI's coding rounds stand out in three ways:
 Volume matters. You'll write significantly more code than in typical FAANG interviews. The problems aren't about finding one clever algorithmic insight, but rather they're about implementing the complete functionality with proper structure. Candidates consistently report spending the entire hour typing.
 Practical over theoretical. Instead of "find the kth largest element," you get "implement a key-value store with serialization." Instead of "reverse a binary tree," you get "build a resumable iterator with state management."
