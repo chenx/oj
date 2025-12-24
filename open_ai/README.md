@@ -1,7 +1,8 @@
-1. CD Directory
-- https://www.hellointerview.com/community/questions/unix-cd-resolution/cmbskxz3y004n07adimbogre1
+Questions:
 
+1. CD Directory: https://www.hellointerview.com/community/questions/unix-cd-resolution/cmbskxz3y004n07adimbogre1
 
+# Links
 
 - https://www.hellointerview.com/blog/openai-coding-questions
 - https://www.linkjob.ai/interview-questions/openai-coding-interview/
