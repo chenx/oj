@@ -90,41 +90,62 @@ Seraphina
 ·September 13, 2025
 
 I just finished my interview at OpenAI. The coding questions were mostly from the question bank, and the bank isn’t very big.
-I am really grateful for the tool Linkjob.ai, and that's also why I'm sharing my entire coding interview experience here. Having an invisible AI assistant during the interview is indeed very convenient.
-OpenAI Coding Interview Overview
-Timeline
+
+## OpenAI Coding Interview Overview
+
+### Timeline
 Here’s a quick look at the typical timeline:
-Application Submission
-Recruiter Screen
-Technical Screen
-Virtual On-Site Loop
-Offer Stage
+- Application Submission
+- Recruiter Screen
+- Technical Screen
+- Virtual On-Site Loop
+- Offer Stage
+
 This process usually takes about 6-8 weeks. Generally, there is usually a waiting period between each stage, so I used that time to review my notes and practice more.
-What Makes It Unique
+
+### What Makes It Unique
 The OpenAI coding interview stands out from other tech interviews I’ve experienced. Rather than focusing solely on algorithms, it emphasizes solving real-world coding problems. Therefore, correctness is the top priority.
-OpenAI Coding Interview Recent Real Questions
-Coding Problem 1: CD Directory
+
+### OpenAI Coding Interview Recent Real Questions
+
+#### Coding Problem 1: CD Directory
+
 Prompt: Organize the following loosely described interview problem into a clearly structured question:
+
 Implement a function cd(current_dir, new_dir) that returns the resulting path.
 Examples:
 cd(/foo/bar, baz) = /foo/bar/baz
 cd(/foo/../, ./baz) = /baz
 cd(/, foo/bar/../baz) = /baz
 cd(/, ..) = Null
+
 Part 2: Add support for the ~ symbol (home directory).
+
 Difficulty upgrade (Part 3): Add a third parameter soft_link (a dictionary of symbolic links). Examples:
 cd(/foo/bar, baz, {/foo/bar: /abc}) = /abc/baz
 cd(/foo/bar, baz, {/foo/bar: /abc, /abc: /bcd, /bcd/baz: /xyz}) = /xyz
+
 The soft link dictionary may contain both short and long matches; the longer/more specific path should take precedence. Example:
 cd(/foo/bar, baz, {/foo/bar: /abc, /foo/bar/baz: xyz}) = xyz
 Detect cycles in the soft link dictionary (e.g., A→B, B→A).
+
 Key points:
+
 In Part 3, the logic for condensing soft links must be carefully handled to avoid incorrect path resolution.
+
 When matching soft links, always prioritize the longest path to ensure more specific soft links take effect.
-Coding Problem 2: Excel Sheet
-Prompt: Organize the following loosely described interview problem into a proper interview question: Given a Spreadsheet API, implement getCell and setCell. setCell can depend on other cells or accept an independent value (e.g., setCell("A", "B+C"), setCell("A", 100)). Circular dependencies must be handled, and test cases should be written. Part 1 can implement a non-optimal getCell (calculates values in real time). Part 2 requires optimizing setCell so that it updates dependent cells, enabling getCell to achieve O(1) time complexity. Ultimately, implement both getCell() and setCell().
+
+#### Coding Problem 2: Excel Sheet
+Prompt: Organize the following loosely described interview problem into a proper interview question: Given a Spreadsheet API, implement getCell and setCell. setCell can depend on other cells or accept an independent value (e.g., setCell("A", "B+C"), setCell("A", 100)). 
+
+Circular dependencies must be handled, and test cases should be written. Part 1 can implement a non-optimal getCell (calculates values in real time). 
+
+Part 2 requires optimizing setCell so that it updates dependent cells, enabling getCell to achieve O(1) time complexity. Ultimately, implement both getCell() and setCell().
+
 Test cases:
+```
 Example 1:
+
 spreadsheet = Spreadsheet()
 spreadsheet.setCell('A1', '1')
 spreadsheet.setCell('A2', 2)
@@ -132,39 +153,62 @@ spreadsheet.setCell('A3', '=A1+A2')
 spreadsheet.setCell('A4', '=A3+A2')
 spreadsheet.setCell('A5', '=A3+A4')
 spreadsheet.setCell('B1', '=A1+A2+A3+A4+A5')
+
 Example 2:
+
 Cell A = Cell(6, NULL, NULL)
 Cell B = Cell(7, NULL, NULL)
 Cell C = Cell(13, A, B)
 print(getCell(C))  # should return 13 (A+B=6+7)
-# after updating Cell A = Cell(2, NULL, NULL)
+
+// after updating Cell A = Cell(2, NULL, NULL)
 print(getCell(C))  # should return 9 (A+B=2+7)
+```
+
 Additional notes: A cell can be an int or a formula (e.g., A1+B1). Simple DFS can be used. Interviewers may ask how to optimize for more efficient search, especially across multiple requests.
+
 Hints: Implement basic DFS first, then attempt cache-based optimization, particularly focusing on how to find downstream cells that are outdated when a node changes.
+
 Key points:
+
 Part 1: straightforward DFS.
+
 To optimize getCell to O(1), setCell must update both dependents and dependencies; the logic is complex.
 Use a set to detect circular dependencies (cycle detection).
 Although OpenAI has a coding problem bank, answering them and follow-up questions well can still be challenging.
 
-Coding Problem 3: In memory DB
+#### Coding Problem 3: In memory DB
+
 Prompt: Organize the following into a proper interview question: Implement an in-memory database supporting insert and query. Queries must support where filtering and order by sorting. Provide a select(table_name, where=None, order_by=None) interface. Multiple where conditions only support AND logic. Implement queries with where, multi-column where, where with single-column sort, where with multi-column sort. The same API must be used, and input parameters should ensure backward compatibility.
+
 Original requirements: Simulate SQL using a map. Create tables based on column name lists. Implement add row, query by single or multiple columns (supporting AND/OR), support comparison operators (>, <), and order by. No need to parse SQL; just provide APIs with the required functionality.
+
 Key points: When where is empty, return all matching entries (or empty list if none).
-Coding Problem 4: KV store
+
+#### Coding Problem 4: KV store
 Prompt: Organize the following into a proper interview question: Implement a time-based KV store using real timestamps. Specify how to write tests, mock timestamps, ensure strictly increasing timestamps, handle locks under multithreading, and compare lock implementations for performance. Also implement versioned KV store. Implement KVStore class supporting set and get, persisting to and restoring from the file system. Keys and values are strings (may contain any characters, including newlines). Custom serialization/deserialization must be implemented (no Python built-in libraries like json).
+
 Follow-up questions:
-How to ensure update consistency under multithreading.
-How to handle get with a future timestamp (e.g., current timestamp = 10, get("key", 20), at timestamp 15 add "value_15", then get("key", 20) should return "value_15").
+
+- How to ensure update consistency under multithreading.
+- How to handle get with a future timestamp (e.g., current timestamp = 10, get("key", 20), at timestamp 15 add "value_15", then get("key", 20) should return "value_15").
+
 Key points:
 Choose a convenient method for serialization/deserialization.
 Compare global lock vs per-key lock vs optimistic lock.
-Coding Problem 5: Resumable iterator
+
+#### Coding Problem 5: Resumable iterator
+
 Prompt: Organize the following into a proper interview question: Implement a resumable iterator supporting getState() / setState(). First two parts: implement for lists using indices. Third part: implement MultipleResumableFileIterator based on existing ResumableFileIterator to iterate multiple JSON files, handling empty files. For resumable JSON file iterators, implement file-chain iterators with tests.
+
 Additional notes:
+
 getState returns a state object, which is passed to setState. Example: list [1,2,3,4], next() → 1, then next() → 2, getState() saves state (2), next() → 3, setState(2) returns to state 2.
+
 Writing test cases first is important. Full unit tests required, covering all get_state/set_state scenarios and iteration end (StopIteration).
+
 Subtasks:
+```
 Part 1: iterator interface, implement abstract class IteratorInterface with __init__, iter, next, get_state, set_state. No hasNext(). Do not assume state is an index; caller handles iteration end.
 Part 2: implement ResumableIterator for lists.
 Part 3: implement ResumableMultiFileIterator using file iterator, handle empty files. Combine ideas from Leetcode 251 and resumable iterator.
@@ -180,7 +224,10 @@ def test_iterator(my_iter):
         test_iter = my_iter.set_state(state)
         elements = all elements from test_iter to end
         assert elements == expected_elements
+```
+
 Additional notes:
+```
 Focus on test-driven development (TDD).
 Write tests first, then implement functionality; not conventional, time-intensive, need preparation.
 Multi-file iterator (Part 3) is prone to bugs; requires careful handling.
@@ -188,73 +235,104 @@ Coding Problem 6: Node counting
 Prompt: Rewrite the following unclear problem description into a structured interview question:
 You are given a tree, where each node represents a machine.
 Communication is only possible between parent and child nodes.
+
 The communication relies on the provided interfaces:
+
 sendAsyncMessage(target, message): Sends an asynchronous message (already implemented, no need to implement).
 receiveMessage(message): A method you need to implement for handling incoming messages.
+
 Question 1: Count the total number of machines
+
 Goal: Design a method to count how many machines exist in the entire tree.
+
 Basic logic:
+
 When receiveMessage(message) receives a count message, it forwards the same message to all of its children.
 When it receives a response message from a child, it records the child’s count.
 Once all child responses are collected, it computes the sum and sends the result back to its parent.
+
 Special cases:
+
 If the node is a leaf (no children), it directly returns 1 to its parent.
 If the node is the root, the final sum is the total number of machines in the tree.
+
 Example:
 A 3-level tree: root → 2 children → each child has 2 leaves.
 The result should be 7 machines in total.
+
 Key Points:
+
 Distributed communication model: Only parent-child message passing is allowed.
 Recursive counting logic: count request propagates down → responses bubble up → aggregate results.
 Boundary conditions: Special handling for root and leaf nodes.
 Robustness: Must handle potential failures (e.g., lost messages, missing child responses).
-Coding Problem 7: GPU credit
+```
+
+#### Coding Problem 7: GPU credit
+
 Operations:
+```
 Add credit: At time t, add x credits, which will expire at time t_expire.
 Expire credit: Credits added earlier should automatically expire when their expiration time is reached.
 Cost: At time t, deduct x credits if available. If insufficient credits exist at that time, return False.
+```
+
 Requirements:
+```
 Maintain all events (add, expire, cost) in chronological order.
 When processing a cost event:
 First check if the current balance is sufficient.
 If not, return False.
 If yes, deduct credits by adjusting the future expire entries accordingly (consume the oldest credits first).
 The system should support multiple adds, expires, and costs interleaved at different timestamps.
+
 Example:
 Add(10, 5, expire=20)   # at timestamp=10, add 5 credits, which expire at 20
 Cost(15, 3)             # at timestamp=15, consume 3 credits → valid
 After this operation, the future expire at (20, 5) should be updated to (20, 2).
-Coding Problem 8: Dependency Version Check
+```
+
+#### Coding Problem 8: Dependency Version Check
+
 Prompt: Organize the following problem into a clearly structured interview question:
+```
 Part 1:
 You are given a list of dependency versions, e.g., [103.003.02, 103.003.03, 203.003.02].
 Each version may support or not support a specific feature.
 Task: Find the earliest version that supports the current feature.
+
 Part 2:
 Multiple corner test cases are provided.
 Some test cases may reveal additional requirements that invalidate initial assumptions.
 Example: The first case may show that version 103.003.02 supports the feature, but the next version 103.003.03 does not.
 You need to analyze the test data, identify new requirements, and confirm them with the interviewer.
 Each test case can introduce new constraints, so careful observation of the data is required.
+
 Key Points:
 Initial implementation: Find earliest supporting version based on given list.
 Iterative refinement: Each test case may reveal exceptions or new rules, requiring hypothesis adjustment.
 Observation-driven logic: Must carefully examine the data and dynamically adjust assumptions.
 Version comparison: Properly parse and compare version numbers (consider major/minor/patch).
-FAQ
-How should I manage my time during the coding interview?
-Time management is crucial because most problems are hard-level implementation tasks and the coding interview usually lasts only 60–75 minutes. Often, a single problem contains multiple sub-questions, so you need to pace yourself carefully. Start by reading the problem thoroughly, clarifying requirements, and planning your approach. Prioritize correctness over micro-optimizations.
-Which programming language would you recommend the most for completing OpenAI coding problems?
-OpenAI’s coding problems can be considered mostly hard. Completing them requires excellent time management. I highly recommend using Python for these problems, as using other languages may make it difficult to finish on time.
 
+FAQ
+
+How should I manage my time during the coding interview?
+
+Time management is crucial because most problems are hard-level implementation tasks and the coding interview usually lasts only 60–75 minutes. Often, a single problem contains multiple sub-questions, so you need to pace yourself carefully. Start by reading the problem thoroughly, clarifying requirements, and planning your approach. Prioritize correctness over micro-optimizations.
+
+Which programming language would you recommend the most for completing OpenAI coding problems?
+
+OpenAI’s coding problems can be considered mostly hard. Completing them requires excellent time management. I highly recommend using Python for these problems, as using other languages may make it difficult to finish on time.
+```
 
 =====
 
 # 30+ Common OpenAI Interview Questions + Answers (by role)
+```
 Solve the LRU cache problem.
 How would you design an LLM-powered enterprise search system?
 Implement a GPU scheduling system using credits
 Design an in-memory database.
 Design Slack
-
+```
 
