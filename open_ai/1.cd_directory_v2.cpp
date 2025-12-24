@@ -1,4 +1,6 @@
-// Difference from cd_directory.cpp is to prepend result of simplifyPath() by "/".
+// Difference from cd_directory.cpp:
+// 1) prepend result of simplifyPath() by "/".
+// 2) detection of self-reference cycle.
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -69,10 +71,15 @@ private:
         unordered_set<string> links;
         for (const auto& item : soft_links) {
             string in = item.first, out = item.second;
-            inDegree[out] = in;
-            outDegree[in] = out;
             links.insert(in);
             links.insert(out);
+
+            if (in == out) {
+                cout << "Cycle found: self-reference: " << in << endl;
+                return true;
+            }
+            inDegree[out] = in;
+            outDegree[in] = out;
         }
 
         queue<string> q;
@@ -85,11 +92,13 @@ private:
         while (! q.empty()) {
             string link = q.front();
             q.pop();
+            cout << "link: " <<  link << endl;
 
             links.erase(link);
 
             if (outDegree.count(link) > 0) {
                 string nextLink = outDegree[link];
+                outDegree.erase(link);
                 q.push(nextLink);
             }
         }
@@ -205,9 +214,13 @@ void run_tests() {
 
     soft_links = {{"A", "B"}, {"B", "A"}};
     test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
+
+    soft_links = {{"A", "A"}, {"B", "C"}};
+    test_soft_links("/foo/bar", "baz", soft_links, "Cycle Detected");
 }
 
 int main() {
     run_tests();
     return 0;
 }
+
