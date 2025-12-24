@@ -12,7 +12,7 @@ bool VERBOSE = false;
 
 class Solution {
 public:
-    string cd_with_softlinks(string current_dir, string new_dir, unordered_map<string, string>& soft_links) {
+    string cd(string current_dir, string new_dir, unordered_map<string, string>& soft_links) {
         if (detectCycle(soft_links)) {
             // cout << "Cycle detected in soft_links dictionary" << endl;
             return "Cycle Detected";
@@ -92,13 +92,11 @@ private:
         while (! q.empty()) {
             string link = q.front();
             q.pop();
-            cout << "link: " <<  link << endl;
 
             links.erase(link);
 
             if (outDegree.count(link) > 0) {
                 string nextLink = outDegree[link];
-                outDegree.erase(link);
                 q.push(nextLink);
             }
         }
@@ -168,7 +166,7 @@ string print_soft_links(unordered_map<string, string>& soft_links) {
 
 void test_soft_links(string cur_dir, string new_dir, unordered_map<string, string>& soft_links, string expect) {
     Solution so;
-    string result = so.cd_with_softlinks(cur_dir, new_dir, soft_links);
+    string result = so.cd(cur_dir, new_dir, soft_links);
     string soft_links_str = print_soft_links(soft_links);
     if (result == expect) {
         cout << "Pass: " << "cd(" << cur_dir << ", " << new_dir << ", " << soft_links_str << ") = " << result << endl;
@@ -223,4 +221,3 @@ int main() {
     run_tests();
     return 0;
 }
-
