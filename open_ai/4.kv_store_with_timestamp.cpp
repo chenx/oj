@@ -1,3 +1,4 @@
+#include <ctime>
 #include <unordered_map>
 #include <map>
 #include <iostream>
@@ -12,11 +13,12 @@ using namespace std;
  * (when it's not at the beginning of the map, since the map elements are ordered with the
  * smallest element at the beginning).
  */
-class TimeMap {
+class KVStore {
+    // Versioned kv-store, for given key, the last versio before given timestamp is used.
     unordered_map<string, map<int, string>> map; // <key, <timestamp, value>>
 
 public:
-    TimeMap() {}
+    KVStore() {}
     
     void set(string key, string value, int timestamp) {
         map[key][timestamp] = value;
@@ -44,10 +46,10 @@ public:
  * Pass: get(key, 20) = value_15
  */
 void test() {
-    TimeMap tm;
+    KVStore kvStore;
 
-    tm.set("key", "value_10", 10);
-    string v = tm.get("key", 20);
+    kvStore.set("key", "value_10", 10);
+    string v = kvStore.get("key", 20);
     string expect = "value_10";
     if (v == expect) {
         cout << "Pass: get(key, 20) = " << v << endl;
@@ -55,8 +57,8 @@ void test() {
         cout << "Fail: get(key, 20) = " << v << ", expect: value_10" << endl;
     }
 
-    tm.set("key", "value_15", 15);
-    v = tm.get("key", 20);
+    kvStore.set("key", "value_15", 15);
+    v = kvStore.get("key", 20);
     expect = "value_15";
     if (v == expect) {
         cout << "Pass: get(key, 20) = " << v << endl;
@@ -65,10 +67,17 @@ void test() {
     }
 }
 
+void testTimestamp() {
+    time_t timestamp = time(nullptr); // time(NULL) also works
+    cout << "Current Unix timestamp: " << timestamp << " seconds since the Epoch\n";
+}
+
 int main() {
     test();
+    testTimestamp();
     return 0;
 }
+
 
 /**
 Prompt: Organize the following into a proper interview question: Implement a time-based KV store using real timestamps. 
