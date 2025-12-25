@@ -4,7 +4,7 @@
    https://www.hellointerview.com/community/questions/unix-cd-resolution/cmbskxz3y004n07adimbogre1
 3. Excel Sheet (Spreadsheet Formula Evaluation with Dependencies)
 4. In-Memory Database with SQL Operations
-5. KV store with timeout
+5. KV store with timestamp
 6. Resumable iterator
 7. Node counting
 8. GPU credit
