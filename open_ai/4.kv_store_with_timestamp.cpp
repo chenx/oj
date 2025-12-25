@@ -63,7 +63,7 @@ void test() {
     if (v == expect) {
         cout << "Pass: get(key, 20) = " << v << endl;
     } else {
-        cout << "Fail: get(key, 20) = " << v << ", expect: value_10" << endl;
+        cout << "Fail: get(key, 20) = " << v << ", expect: value_15" << endl;
     }
 }
 
