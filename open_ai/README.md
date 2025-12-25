@@ -1,12 +1,12 @@
 # Questions:
 
-1. [ok] CD Directory (Unix CD Command with Symbolic Link Resolution):
+1. CD Directory (Unix CD Command with Symbolic Link Resolution) [ok]:
    https://www.hellointerview.com/community/questions/unix-cd-resolution/cmbskxz3y004n07adimbogre1
 3. Excel Sheet (Spreadsheet Formula Evaluation with Dependencies)
-4. [ok] In-Memory Database with SQL Operations
-5. [ok] KV store with timestamp
+4. In-Memory Database with SQL Operations[ok] 
+5. KV store with timestamp[ok] 
 6. Resumable iterator
-7. [ok] Node counting
+7. Node counting [ok] 
 8. GPU credit
 9. Dependency Version Check
 10. KV Store Serialize/Deserialize
