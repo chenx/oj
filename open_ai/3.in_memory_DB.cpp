@@ -45,7 +45,7 @@ public:
         if (!tables.count(name)) return result;
 
         if (VERBOSE) {
-            cout << "SELECT * FROM " << name << " WHERE " << where << (orderBy == "" ? "" : (" ORDER BY " + orderBy)) << endl;
+            cout << "SELECT * FROM " << name << (where == "" ? "" : (" WHERE " + where)) << (orderBy == "" ? "" : (" ORDER BY " + orderBy)) << endl;
         }
         handleWhere(result, name, where);
         handleOrderBy(result, name, orderBy);
@@ -210,6 +210,67 @@ int main() {
     return 0;
 }
 
+/**
+Test output:
+
+SELECT * FROM Users
+Table: Users
+1. Alice,Z,30
+2. Carol,E,40
+3. Bob,D2,40
+4. Bob,D1,40
+5. Bob,D1,10
+
+SELECT * FROM Orders
+Table: Orders
+
+SELECT * FROM Users ORDER BY firstName,lastName,age
+Table: Users
+1. Alice,Z,30
+5. Bob,D1,10
+4. Bob,D1,40
+3. Bob,D2,40
+2. Carol,E,40
+
+SELECT * FROM Users ORDER BY firstName ASC,lastName DESC,age
+Table: Users
+1. Alice,Z,30
+3. Bob,D2,40
+5. Bob,D1,10
+4. Bob,D1,40
+2. Carol,E,40
+
+SELECT * FROM Users ORDER BY firstName ASC,lastName DESC,age DESC
+Table: Users
+1. Alice,Z,30
+3. Bob,D2,40
+4. Bob,D1,40
+5. Bob,D1,10
+2. Carol,E,40
+
+SELECT * FROM Users WHERE firstName = Alice
+Table: Users
+1. Alice,Z,30
+
+SELECT * FROM Users WHERE firstName > Alice
+Table: Users
+2. Carol,E,40
+3. Bob,D2,40
+4. Bob,D1,40
+5. Bob,D1,10
+
+SELECT * FROM Users WHERE firstName > Alice AND age = 10
+Table: Users
+5. Bob,D1,10
+
+SELECT * FROM Users WHERE firstName < Alice
+Table: Users
+
+SELECT * FROM Users WHERE firstName = Alice OR age = 10
+Table: Users
+1. Alice,Z,30
+5. Bob,D1,10
+ */
 
 /**
  * Reference: https://github.com/chenx/oj/blob/master/leetcode/2408.DesignSQL.cpp
