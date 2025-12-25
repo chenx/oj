@@ -201,6 +201,9 @@ public:
         db.show("Users", db.select("Users", "firstName > Alice AND age = 10"));
         db.show("Users", db.select("Users", "firstName < Alice"));
         db.show("Users", db.select("Users", "firstName = Alice OR age = 10"));
+
+        // Test both where and orderBy.
+        db.show("Users", db.select("Users", "firstName = Alice OR age = 10", "age"));
     }
 };
 
@@ -270,6 +273,11 @@ SELECT * FROM Users WHERE firstName = Alice OR age = 10
 Table: Users
 1. Alice,Z,30
 5. Bob,D1,10
+
+SELECT * FROM Users WHERE firstName = Alice OR age = 10 ORDER BY age
+Table: Users
+5. Bob,D1,10
+1. Alice,Z,30
  */
 
 /**
