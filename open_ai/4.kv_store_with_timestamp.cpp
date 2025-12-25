@@ -80,7 +80,9 @@ including newlines). Custom serialization/deserialization must be implemented (n
 Follow-up questions:
 
 - How to ensure update consistency under multithreading.
-- How to handle get with a future timestamp (e.g., current timestamp = 10, get("key", 20), at timestamp 15 add "value_15", then get("key", 20) should return "value_15").
+- How to handle get with a future timestamp 
+  (e.g., at timestamp = 10 add "value_10", get("key", 20) should return "value_10", 
+   at timestamp 15 add "value_15", then get("key", 20) should return "value_15").
 
 Key points:
 - Choose a convenient method for serialization/deserialization.
