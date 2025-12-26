@@ -1,9 +1,129 @@
+class Excel2 {
+    struct Cell {  // Assume column is A-Z only, row starts with 1.
+        int val = 0;
+        vector<vector<int>> parents; // A1:A2 => {{A, 1}, {A, 2}} => {{0, 0}, {0, 1}}
+        set<vector<int>> parentSet;
+
+        void setValue(int value) {
+            val = value;
+            parents.clear();
+            parentSet.clear();
+        }
+
+        void setFormula(vector<vector<int>>& parents) {
+            this->parents = parents;
+            parentSet.clear();
+            for (auto parent : parents) {
+                parentSet.insert(parent);
+            }
+        }
+    };
+
+    vector<vector<Cell>> cells;
+    int rows, cols;    
+    stack<vector<int>> stack; // For cyclic update when setting formula.
+
+public:
+    Excel(int height, char width) : rows(height), cols(width) {
+        cells.resize(height, vector<Cell>(width, Cell()));
+    }
+    
+    void set(int row, char column, int val) {
+        int col = column - 'A'; row -= 1;
+        cells[row][col].setValue(val);
+        updateChildren(row, col);
+    }
+    
+    int get(int row, char column) {
+        return cells[row - 1][column - 'A'].val;
+    }
+    
+    int sum(int row, char column, vector<string> numbers) {
+        vector<vector<int>> parents = convert(numbers);
+        int col = column - 'A'; row -= 1;
+        cells[row][col].setFormula(parents);
+
+        updateChildren(row, col);
+        return cells[row][col].val;
+    }
+
+private:
+    void updateChildren(int row, int col) { // update cells depending on this cell.
+        addChildrenToStack(row, col);
+        calcStack();
+    }
+
+    vector<vector<int>> convert(vector<string>& strs) {
+        vector<vector<int>> result;
+        for (string st : strs) {
+            if (st.find(":") == string::npos) {
+                result.push_back({st[1] - '1', st[0] - 'A'});
+            } else {
+                vector<string> cells = split(st, ':');
+                int si = stoi(cells[0].substr(1)), ei = stoi(cells[1].substr(1));
+                char sj = cells[0][0], ej = cells[1][0];
+                for (int i = si; i <= ei; i++) {
+                    for (char j = sj; j <= ej; j++) {
+                        result.push_back({i - 1, j - 'A'});
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    // Could memorize the children list for the given cell.
+    // Then if update a formular of a cell, update its children.
+    void addChildrenToStack(int row, int col) {
+        for (int i = 0; i < rows; ++ i) {
+            for (int j = 0; j < cols; ++ j) {
+                if (cells[i][j].parentSet.count({row, col}) > 0) {
+                    addChildrenToStack(i, j);
+                }
+            }
+        }
+        stack.push({row, col});
+    }
+
+    void calcStack() {
+        while (! stack.empty()) {
+            int row = stack.top()[0], col = stack.top()[1];
+            stack.pop();
+
+            Cell& cell = cells[row][col];
+            if (! cell.parents.empty()) {
+                cell.val = getParentSum(cell.parents);
+            }
+        }
+    }
+
+    int getParentSum(vector<vector<int>>& parents) {
+        int sum = 0;
+        for (auto parent : parents) {
+            sum += cells[parent[0]][parent[1]].val;
+        }
+        return sum;
+    }
+
+    vector<string> split(const string& s, char delimiter) {
+        stringstream ss(s);
+        string out;
+        vector<string> result;
+
+        while (getline(ss, out, delimiter)) {
+            result.push_back(out);
+        }
+        return result;
+    }
+};
+
+
 // From: https://leetcode.com/problems/design-excel-sum-formula/editorial/
-// set - takes O((r∗c)2) time. Here, r and c refer to the number of rows and columns in the current Excel Form.
-// sum - takes O((r∗c)2+2∗r∗c∗l) time.
+// set - takes O((r*c)^2) time. Here, r and c refer to the number of rows and columns in the current Excel Form.
+// sum - takes O((r∗c)^2 + 2*r*c*l) time. l is the number of cells in the numbers 2D array.
 // get - takes O(1) time.
-// The space required will be O((r∗c)2) in the worst case. O(r∗c) space will be required for the Excel Form itself. 
-// For each cell in this form, the cells list can contain O(r∗c) cells.
+// The space required will be O((r*c)^2) in the worst case. O(r*c) space will be required for the Excel Form itself. 
+// For each cell in this form, the cells list can contain O(r*c) cells.
 
 class Excel {
 private:
