@@ -8,7 +8,7 @@
 6. Resumable iterator
 7. Node counting [ok] 
 8. GPU credit [ok]
-9. Dependency Version Check
+9. Dependency Version Check [ok, lacks details]
 
 Extra:
 
