@@ -1,3 +1,33 @@
+// From: https://algo.monster/liteproblems/2768
+// Time: O(k), k = coordinates.size().
+// Space: O(k)
+class Solution {
+public:
+    vector<long long> countBlackBlocks(int m, int n, vector<vector<int>>& coordinates) {
+        map<long long, int> blockBlackCount; // <pos, black_count>
+
+        // Position of upper/left cell of each 2x2 block containing a black cell.
+        vector<vector<int>> directions = {{-1,-1}, {-1,0}, {0,-1}, {0,0}};
+        for (auto coord : coordinates) {
+             for (auto direction: directions) {
+                int x = coord[0] + direction[0];
+                int y = coord[1] + direction[1];
+                if (x >= 0 && x < m-1 && y >= 0 && y < n-1) {
+                    long long pos = 1ll * x * n + y;
+                    ++ blockBlackCount[pos];
+                }
+             }
+        }
+
+        vector<long long> result(5, 0);
+        for (auto [pos, count] : blockBlackCount) {
+            result[count] ++;
+        }
+        result[0] = 1ll * (m-1) * (n-1) - (result[1] + result[2] + result[3] + result[4]);
+        return result;
+    }
+};
+
 
 // Time: O(mn)
 // Space: O(k), k = coordinates.size().
