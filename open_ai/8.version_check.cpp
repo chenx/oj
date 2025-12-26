@@ -1,3 +1,70 @@
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+class DependencyVersionCheck {
+    vector<vector<int>> versions;
+public:
+    DependencyVersionCheck() {}
+
+    void setVersions(vector<string> inputVersions) {
+        versions.clear();
+        for (const string& version : inputVersions) {
+            auto segments = split(version);
+            versions.push_back({stoi(segments[0]), stoi(segments[1]), stoi(segments[2])});
+        }
+
+        auto comp = [&](const vector<int>& a, const vector<int>& b) {
+            int len = a.size();
+            for (int i = 0; i < len; ++ i) {
+                if (a[i] != b[i]) {
+                    return a[i] < b[i];
+                }
+            }
+            return false;
+        };
+        sort(versions.begin(), versions.end(), comp);
+        dump();
+    }
+
+private:
+    void dump() {
+        cout << "=> dump: " << endl;
+        for (auto version: versions) {
+            cout << version[0] << "." << version[1] << "." << version[2] << endl;
+        }
+        cout << endl;
+    }
+
+    vector<string> split(const string& s, char delimiter = '.') {
+        stringstream ss(s);
+        string out;
+        vector<string> result;
+
+        while (getline(ss, out, delimiter)) {
+            result.push_back(out);
+        }
+        return result;
+    }
+};
+
+class DependencyVersionCheckTest {
+public:
+    void test() {
+        cout << "hi" << endl;
+        DependencyVersionCheck dvc;
+        
+        vector<string> versions = {"103.003.02", "103.003.03", "203.003.02"};
+        dvc.setVersions(versions);
+    }
+};
+
+int main() {
+    DependencyVersionCheckTest dvcTest;
+    dvcTest.test();
+    return 0;
+}
 
 
 /**
