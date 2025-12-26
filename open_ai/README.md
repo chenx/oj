@@ -12,7 +12,7 @@
 
 Extra:
 
-9. KV Store Serialize/Deserialize
+9. KV Store Serialize/Deserialize [ok]
 10. Meeting Rooms
 11. Multithreaded Web Crawler
 
