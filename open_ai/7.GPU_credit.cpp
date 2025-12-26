@@ -1,3 +1,128 @@
+//
+// Stores credits using a priority_queue so items that will expire first stay at the top.
+//
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+typedef function<bool(vector<int>&, vector<int>&)> Comp;
+
+class GpuCredit {
+    priority_queue<vector<int>, vector<vector<int>>, Comp> minHeap;
+public:
+    GpuCredit() {
+        Comp comp = [&](vector<int>& a, vector<int>& b) {
+            return a[0] > b[0];
+        };
+        minHeap = priority_queue<vector<int>, vector<vector<int>>, Comp>(comp);
+    }
+
+    void add(int timestamp_sec, int expire_duration_sec, int credit) {
+        cout << "=> add (" << timestamp_sec << ", " << expire_duration_sec << ", " << credit << ")" << endl;
+        minHeap.push({timestamp_sec + expire_duration_sec, timestamp_sec, credit});
+    }
+
+    bool cost(int timestamp_sec, int credit) {
+        cout << "=> cost (" << timestamp_sec << ", " << credit << ")" << endl;
+        removeExpiredCredit(timestamp_sec);
+
+        if (! checkIsSufficient(timestamp_sec, credit)) {
+            cout << "Not sufficient balance" << endl;
+            return false;
+        }
+
+        while (! minHeap.empty()) {
+            vector<int> cur = minHeap.top();
+            minHeap.pop();
+
+            if (cur[0] <= timestamp_sec) {
+                continue; // expired.
+            }
+
+            if (credit >= cur[2]) {
+                credit -= cur[2];
+            } else {
+                cur[2] -= credit;
+                minHeap.push(cur);
+                break;
+            }
+        } 
+
+        return true;
+    }
+
+    bool checkIsSufficient(int timestamp_sec, int credit) {
+        int balance = 0;
+        auto copy = minHeap;
+        while (! copy.empty()) {
+            vector<int> cur = copy.top();
+            copy.pop();
+
+            if (cur[0] <= timestamp_sec) continue; // expired.
+            balance += cur[2];
+        } 
+        return balance >= credit;
+    }
+
+    void dump(int timestamp_sec) {
+        cout << "=> dump (" << timestamp_sec << ")" << endl;
+        auto copy = minHeap;
+        while (! copy.empty()) {
+            vector<int> cur = copy.top();
+            copy.pop();
+
+            if (cur[0] <= timestamp_sec) {
+                cout << "exp: " << cur[0] << ", timestamp: " << cur[1] << ", credit: " << cur[2] << " [expired] " << endl;
+            } else {
+                cout << "exp: " << cur[0] << ", timestamp: " << cur[1] << ", credit: " << cur[2] << endl;
+            }
+        }
+        cout << endl;
+    }
+
+    void removeExpiredCredit(int timestamp_sec) {
+        while (! minHeap.empty()) {
+            vector<int> cur = minHeap.top();
+
+            if (cur[0] <= timestamp_sec) {
+                minHeap.pop();
+                cout << "exp: " << cur[0] << ", timestamp: " << cur[1] << ", credit: " << cur[2] << " [expired => removed] " << endl;
+                continue; // expired.
+            } else {
+                break;
+            }
+        }
+    }
+};
+
+class GpuCreditTest {
+public:
+    void test_real_time() {
+        int t = time(NULL);
+        cout << "epock: " << t << endl;       // 1766727893
+        cout << "maxint:" << INT_MAX << endl; // 2147483647
+    }
+
+    void test() {
+        GpuCredit gpuCredit;
+        gpuCredit.add(100, 10, 50);
+        gpuCredit.dump(105);
+        gpuCredit.add(200, 20, 50);
+        gpuCredit.dump(200);
+
+        gpuCredit.cost(200, 30);
+        gpuCredit.dump(200);
+        
+        gpuCredit.dump(220);
+    }
+};
+
+int main() {
+    GpuCreditTest gpuTest;
+    gpuTest.test();
+    return 0;
+}
 
 
 /**
