@@ -7,7 +7,7 @@
 5. KV store with timestamp [ok] 
 6. Resumable iterator
 7. Node counting [ok] 
-8. GPU credit
+8. GPU credit [ok]
 9. Dependency Version Check
 
 Extra:
