@@ -1,5 +1,5 @@
 var TimeLimitedCache = function() {
-    this.cache = new Map(); // <key, <value, duration>>
+    this.cache = new Map(); // <key, [value, duration]>
 };
 
 TimeLimitedCache.prototype.getEpochTimeInMS = function() {
@@ -44,8 +44,9 @@ TimeLimitedCache.prototype.get = function(key) {
 TimeLimitedCache.prototype.count = function() {
     let count = 0;
     const curTime = Date.now();
-    for (const item of this.cache.values()) {
-        if (curTime < item[1]) ++ count;
+    for (const key of this.cache.keys()) {
+        if (curTime < this.cache.get(key)[1]) ++ count;
+        else this.cache.delete(key);
     }
     return count;
 };
