@@ -76,7 +76,7 @@ public:
 };
 
 /**
-Sliding Window Maximum
+239. Sliding Window Maximum
 Difficulty: Hard
 
 Given an array nums, there is a sliding window of size k 
