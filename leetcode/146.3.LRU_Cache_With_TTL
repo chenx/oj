@@ -1,0 +1,180 @@
+/**
+ * Get(key, timestamp)
+ * - if key not exist, return -1
+ * - else, if expired, return -1; else return value
+ * Set(key, value, expireTime)
+ * - if key not exist, set; if size > capacity, remove expired entry (or LR entry)
+ * - else set (no matter expired or not), move to front of dll
+ */
+#include <iostream>
+#include <list>
+#include <map>
+
+using namespace std;
+
+bool VERBOSE = false;
+
+class LRUTtlCache {
+private:
+    struct Node {
+        int key;
+        int val;
+        int expire; // in second.
+        Node(int key, int value, int expireTime) : key(key), val(value), expire(expireTime) {}
+    };
+    list<Node> dll; // items in LRU order. Most recently used at front, least recently used at end.
+    map<int, list<Node>::iterator> cache;
+
+    list<Node> expireDll; // items in expire order. Newest at front, oldest at end.
+    map<int, list<Node>::iterator> expireMap; // <key, iterator of node in expireDll>
+
+    int capacity;
+    int ttl; // in sec.
+
+    void remove(int key) {
+        if (! cache.count(key)) return;
+        dll.erase(cache[key]);
+        cache.erase(key);
+
+        expireDll.erase(expireMap[key]);
+        expireMap.erase(key);
+    }
+
+public:
+    LRUTtlCache(int capacity, int ttl) : capacity(capacity), ttl(ttl) {}
+    
+    int get(int key, int timestamp) {
+        if (! cache.count(key)) {
+            if (VERBOSE) cout << "=> get(" << key << "): NOT Exist" << endl;
+            return -1;
+        }
+        if (timestamp >= cache[key]->expire) { // expired
+            if (VERBOSE) cout << "=> get(" << key << "): Expired" << endl;
+            remove(key);
+            return -1;
+        }
+
+        if (VERBOSE) cout << "=> get(" << key << "): Exist" << endl;
+
+        dll.splice(dll.begin(), dll, cache[key]);
+        // Move node to the front of dll. Same as:
+        // Node node = *cache[key];
+        // dll.erase(cache[key]);
+        // dll.push_front(node);
+     
+        cache[key] = dll.begin();
+        return dll.front().val;
+    }
+    
+    void put(int key, int value, int timestamp) {
+        if (! cache.count(key)) {
+            if (VERBOSE) cout << "=> put(" << key << ", " << value << ", expire:" << (timestamp + ttl) << "): New" << endl;
+            if (dll.size() == this->capacity) {
+                // First check if there are expired items, and remove them.
+                // It's possible to remove all expired entries; but remove just one to keep O(1).
+                if (timestamp >= expireDll.back().expire) {
+                    if (VERBOSE) cout << "===> remove expired item: " << expireDll.back().key << endl;
+                    remove(expireDll.back().key);
+                } else {
+                    if (VERBOSE) cout << "===> remove LRU item: " << dll.back().key << endl;
+                    // No entry has expired, remove LRU entry.
+                    remove(dll.back().key);
+                }
+            }
+
+            Node node(key, value, timestamp + ttl);
+
+            dll.push_front(node);
+            cache[key] = dll.begin();
+
+            expireDll.push_front(node);
+            expireMap[key] = expireDll.begin();
+        } else {
+            if (VERBOSE) cout << "=> put(" << key << ", " << value << ", expire:" << (timestamp + ttl) << "): Update" << endl;
+
+            if (timestamp >= cache[key]->expire) {
+                // expired, update the node in expireMap and expireDll.
+                expireDll.erase(expireMap[key]);
+                expireDll.push_front(Node(key, value, timestamp + ttl));
+                expireMap[key] = expireDll.begin();
+            }
+
+            dll.splice(dll.begin(), dll, cache[key]);
+            cache[key] = dll.begin();
+            dll.front().val = value;
+            dll.front().expire = timestamp + ttl;
+        }
+    }
+};
+
+class LRUTtlCacheTest {
+    void expect(int result, int expected) {
+        if (result == expected) {
+            cout << "Pass: result = " << result << endl; 
+        } else {
+            cout << "Fail: result = " << result << ", expected = " << expected << endl; 
+        }
+    }
+public:
+    void testExpired() {
+        cout << "\ntestExpired:" << endl;
+        LRUTtlCache cache(3, 10);
+        cache.put(100, 100, 10); // expired at time 20.
+        expect(cache.get(100, 10), 100);
+        expect(cache.get(100, 20), -1);
+    }
+
+    void testLRU() {
+        cout << "\ntestLRU:" << endl;
+        LRUTtlCache cache(3, 10);
+        cache.put(100, 100, 10); // expired at time 20.
+        cache.put(200, 200, 10); // expired at time 20.
+        cache.put(300, 300, 10); // expired at time 20.
+        cache.put(400, 400, 10); // expired at time 20.
+        expect(cache.get(100, 15), -1);
+        expect(cache.get(200, 15), 200);
+        expect(cache.get(300, 15), 300);
+        expect(cache.get(400, 15), 400);
+    }
+
+    void testLRUAndTTL() {
+        cout << "\ntestLRUAndTTL:" << endl;
+        LRUTtlCache cache(3, 10);
+        cache.put(100, 100, 10); // expired at time 20.
+        cache.put(200, 200, 11); // expired at time 21.
+        cache.put(300, 300, 12); // expired at time 22.
+        cache.put(400, 400, 13); // expired at time 23.
+        cache.put(500, 500, 14); // expired at time 24.
+        expect(cache.get(100, 20), -1); // expired
+        expect(cache.get(200, 20), -1); // removed by LRU
+        expect(cache.get(300, 20), 300);
+        expect(cache.get(400, 20), 400);
+        expect(cache.get(500, 20), 500);
+
+        expect(cache.get(300, 22), -1); // expired
+        expect(cache.get(400, 23), -1); // expired
+        expect(cache.get(500, 23), 500);
+    }
+
+    void testRemoveExpiredItemWhenPut() {
+        cout << "\ntestRemoveExpiredItemWhenPut:" << endl;
+        LRUTtlCache cache(3, 10);
+        cache.put(100, 100, 10); // expired at time 20.
+        cache.put(200, 200, 11); // expired at time 21.
+        cache.put(300, 300, 12); // expired at time 22.
+        cache.put(400, 400, 25); // expired at time 25. should remove 100.
+        expect(cache.get(100, 15), -1); // removed
+        expect(cache.get(200, 15), 200);
+        expect(cache.get(300, 15), 300);
+        expect(cache.get(400, 15), 400);
+    }
+};
+
+int main() {
+    LRUTtlCacheTest cacheTest;
+    cacheTest.testExpired();
+    cacheTest.testLRU();
+    cacheTest.testLRUAndTTL();
+    cacheTest.testRemoveExpiredItemWhenPut();
+    return 0;
+}
