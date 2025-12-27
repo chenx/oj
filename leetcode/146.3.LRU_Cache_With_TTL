@@ -56,13 +56,14 @@ public:
 
         if (VERBOSE) cout << "=> get(" << key << "): Exist" << endl;
 
-        dll.splice(dll.begin(), dll, cache[key]);
+        // dll.splice(dll.begin(), dll, cache[key]);
         // Move node to the front of dll. Same as:
-        // Node node = *cache[key];
-        // dll.erase(cache[key]);
-        // dll.push_front(node);
-     
+        Node node = *cache[key];
+        dll.erase(cache[key]);
+        dll.push_front(node);
         cache[key] = dll.begin();
+        // No need to update expireDll and expireMap.
+
         return dll.front().val;
     }
     
@@ -92,17 +93,18 @@ public:
         } else {
             if (VERBOSE) cout << "=> put(" << key << ", " << value << ", expire:" << (timestamp + ttl) << "): Update" << endl;
 
+            Node node(key, value, timestamp + ttl);
+
             if (timestamp >= cache[key]->expire) {
                 // expired, update the node in expireMap and expireDll.
                 expireDll.erase(expireMap[key]);
-                expireDll.push_front(Node(key, value, timestamp + ttl));
+                expireDll.push_front(node);
                 expireMap[key] = expireDll.begin();
             }
 
-            dll.splice(dll.begin(), dll, cache[key]);
+            dll.erase(cache[key]);
+            dll.push_front(node);
             cache[key] = dll.begin();
-            dll.front().val = value;
-            dll.front().expire = timestamp + ttl;
         }
     }
 };
