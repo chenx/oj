@@ -13,13 +13,19 @@ public:
             }
         }
         // sort(pairs.begin(), pairs.end());
-        sort(pairs.begin(), pairs.end(), [&](vector<int>& a, vector<int>& b) {
-            // Must compare all 3.
-            if (a[0] == b[0]) {
-                if (a[1] == b[1]) return a[2] < b[2];
-                return a[1] < b[1];
-            } 
-            return a[0] < b[0]; 
+        // sort(pairs.begin(), pairs.end(), [&](vector<int>& a, vector<int>& b) {
+        //     // Must compare all 3.
+        //     if (a[0] == b[0]) {
+        //         if (a[1] == b[1]) return a[2] < b[2];
+        //         return a[1] < b[1];
+        //     } 
+        //     return a[0] < b[0]; 
+        // });
+        sort(tuples.begin(), tuples.end(), [&](vector<int>& a, vector<int>& b) {
+            if (a[0] != b[0]) return a[0] < b[0];
+            if (a[1] != b[1]) return a[1] < b[1];
+            if (a[2] != b[2]) return a[2] < b[2];
+            return false;
         });
 
         vector<int> workerStatus(workers.size(), -1); // bike number assigned to each worker
