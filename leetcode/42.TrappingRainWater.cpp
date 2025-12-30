@@ -8,6 +8,34 @@
 #include <stack>
 using namespace std;
 
+class Solution7 {
+public:
+    int trap(vector<int>& height) {
+        stack<int> stack; // height stack
+        int water = 0;
+        for (int i = 0; i < height.size(); ++ i) {
+            if (!stack.empty() && height[i] > height[stack.top()]) { // >= also works.
+                int bottom = height[stack.top()];
+                stack.pop();
+                while (! stack.empty() && height[i] > height[stack.top()]) {
+                    int width = i - stack.top() - 1;
+                    int ht = height[stack.top()] - bottom;
+                    water += width * ht;
+                    bottom = height[stack.top()];
+                    stack.pop();
+                }
+                if (! stack.empty()) {
+                    int width = i - stack.top() - 1;
+                    int ht = height[i] - bottom;
+                    water += width * ht;
+                }
+            }
+            stack.push(i);
+        }
+        return water;
+    }
+};
+
 // Works.
 class Solution6 {
 public:
@@ -241,6 +269,7 @@ is able to trap after raining.
 For example,
 Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6. 
  */
+
 
 
 
