@@ -1,3 +1,23 @@
+class Solution6 {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int k = 0, ct = 0, cur = 0;
+        for (int i = 0; i < nums.size(); ++ i) {
+            if (i == 0 || nums[i] != cur) {
+                nums[k ++] = nums[i];
+                cur = nums[i];
+                ct = 1;
+            } else {
+                ++ ct;
+                if (ct == 2) {
+                    nums[k ++] = cur;
+                }
+            }
+        }
+        return k;
+    }
+};
+
 //
 // http://www.leetcode.com/onlinejudge#
 // @Author: Xin Chen
@@ -145,4 +165,5 @@ Given sorted array A = [1,1,1,2,2,3],
 Your function should return length = 5, and A is now [1,1,2,2,3].
 
  */
+
 
