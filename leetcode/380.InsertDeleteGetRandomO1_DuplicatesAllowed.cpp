@@ -32,7 +32,7 @@ public:
 };
 
 
-// Cannot pass the last test case.
+// Works.
 class RandomizedSet {
     unordered_map<int, int> m;  // map<val, pos>
     vector<int> v;  // (200000, 0);
