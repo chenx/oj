@@ -1,3 +1,37 @@
+// Works.
+class RandomizedSet {
+    vector<int> vals;
+    map<int, int> positionMap;
+public:
+    RandomizedSet() {}
+    
+    bool insert(int val) {
+        if (positionMap.contains(val)) return false;
+
+        vals.push_back(val);
+        positionMap[val] = vals.size() - 1;
+        return true;
+    }
+    
+    bool remove(int val) {
+        if (! positionMap.contains(val)) return false;
+
+        int index = positionMap[val];
+
+        positionMap[vals[vals.size() - 1]] = index;
+        vals[index] = vals[vals.size() - 1];
+        positionMap.erase(val);
+        vals.pop_back();
+
+        return true;
+    }
+    
+    int getRandom() {
+        return vals[rand() % vals.size()];
+    }
+};
+
+
 // Cannot pass the last test case.
 class RandomizedSet {
     unordered_map<int, int> m;  // map<val, pos>
