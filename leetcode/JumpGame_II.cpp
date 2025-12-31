@@ -21,6 +21,7 @@ public:
         for (int i = n - 2; i >= 0; -- i) {
             if (i + nums[i] >= n - 1) DP[i] = 1;
             else {
+                // This also works: for (int j = 0; j <= nums[i]; ++ j)
                 for (int j = nums[i]; j > 0; -- j) {
                     if (i + j < n && DP[i + j] > 0) {
                         if (DP[i] == 0 || (DP[i] > 1 + DP[i + j])) {
@@ -349,4 +350,5 @@ int main() {
     cout << s.jump(A, n) << endl;
     return 0;
 }
+
 
