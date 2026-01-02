@@ -1,3 +1,59 @@
+/** Output of commented out section:
+5,0 5,1 5,2 5,3 5,4 5,5 
+4,5 4,4 4,3 4,2 4,1 4,0 
+3,0 3,1 3,2 3,3 3,4 3,5 
+2,5 2,4 2,3 2,2 2,1 2,0 
+1,0 1,1 1,2 1,3 1,4 1,5 
+0,5 0,4 0,3 0,2 0,1 0,0 
+*/
+class Solution2 {
+public:
+    int snakesAndLadders(vector<vector<int>>& board) {
+        if (board.size() == 0 || board[0].size() == 0) return 0;
+        int n = board.size(), size = n*n;
+
+        vector<vector<int>> cells(n*n + 1);
+        int ct = 1;
+        bool left2right = true;
+        for (int i = n-1; i >= 0; -- i) {
+            if (left2right) {
+                for (int j = 0; j < n; ++ j) cells[ct ++] = {i, j};
+            } else {
+                for (int j = n-1; j >= 0; -- j) cells[ct ++] = {i, j};
+            }
+            left2right = ! left2right;
+        }
+        // for (int i = 0; i < n; ++ i) {
+        //     for (int j = 0; j < n; ++ j) {
+        //         cout << to_string(cells[i*n + j + 1][0]) + "," + to_string(cells[i*n + j + 1][1]) + " ";
+        //     }
+        //     cout << endl;
+        // }
+
+        vector<int> dist(n*n + 1, -1);
+        queue<int> q;
+        dist[1] = 0;
+        q.push(1);
+        while (! q.empty()) {
+            int curr = q.front();
+            q.pop();
+
+            for (int i = curr + 1; i <= min(curr + 6, n * n); ++ i) {
+                int x = cells[i][0], y = cells[i][1];
+                int destination = board[x][y] == -1 ? i : board[x][y];
+                if (dist[destination] == -1) {
+                    dist[destination] = 1 + dist[curr];
+                    q.push(destination);
+                }
+            }
+        }
+
+        return dist[n*n];
+
+    }
+};
+
+
 class Solution {
 public:
     int snakesAndLadders(vector<vector<int>> &board) {
