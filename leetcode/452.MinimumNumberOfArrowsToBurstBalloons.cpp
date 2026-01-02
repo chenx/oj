@@ -1,7 +1,7 @@
 // From: https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/editorial/
 // Time: O(nlogn)
 // Space: O(1)
-class Solution2 {
+class Solution3 {
 public:
     int findMinArrowShots(vector<vector<int>>& points) {
         int n = points.size();
@@ -19,6 +19,30 @@ public:
             }
         }
         return arrows;
+    }
+};
+
+// Similar to Solution, but use O(1) space.
+class Solution2 {
+public:
+    int findMinArrowShots(vector<vector<int>>& points) {
+        int n = points.size();
+        if (n <= 1) return n;
+
+        sort(points.begin(), points.end());
+
+        int ans = 1;
+        for (int i = 1; i < n; ++ i) {
+            vector<int> &a = points[i - 1], &b = points[i];
+            if (a[1] < b[0]) {  // if no overlap, a needs 1 arrow.
+                ++ ans;
+            } else if (a[1] <= b[1]) {  // has overlap, a and b share 1 arrow in range {b[0], a[1]}
+                b[1] = a[1];
+            } else {
+                // do nothing
+            }
+        }
+        return ans;  // add 1 for the last range
     }
 };
 
