@@ -1,3 +1,33 @@
+class Solution5 {
+    vector<string> split(string& s) {
+        stringstream ss(s);
+        string out;
+        vector<string> result;
+        while (getline(ss, out, ' ')) {
+            result.push_back(out);
+        }
+        return result;
+    }
+public:
+    bool wordPattern(string pattern, string s) {
+        vector<string> words = split(s);
+
+        if (words.size() != pattern.length()) return false;
+
+        map<char, string> map1;
+        map<string, char> map2;
+        for (int i = 0; i < pattern.length(); ++ i) {
+            char ch = pattern[i];
+            if (! map1.contains(ch) && ! map2.contains(words[i])) {
+                map1[ch] = words[i];
+                map2[words[i]] = ch;
+            }
+            else if (map1[ch] != words[i] || map2[words[i]] != ch) return false;
+        }        
+        return true;
+    }
+};
+
 // Works.
 class Solution4 {
 public:
