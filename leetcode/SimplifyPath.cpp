@@ -5,6 +5,32 @@
 // @Last modified: 12/25/2012
 //
 
+class Solution6 {
+public:
+    string simplifyPath(string path) {
+        stringstream ss(path);
+        string out;
+        vector<string> tokens;
+        while (getline(ss, out, '/')) {
+            if (out == "" || out == ".") {
+                // do nothing
+            } else if (out == "..") {
+                if (! tokens.empty()) tokens.pop_back();
+            } else {
+                tokens.push_back(out);
+            }
+        }
+
+        string result = "/";
+        for (string token : tokens) {
+            if (result != "/") result += "/";
+            result += token;
+        }
+        return result;
+    }
+};
+
+
 // Works. Use vector instead of stack for storing directory strings.
 class Solution5 {
 public:
@@ -220,4 +246,5 @@ For example,
 path = "/home/", => "/home"
 path = "/a/./b/../../c/", => "/c"
  */
+
 
