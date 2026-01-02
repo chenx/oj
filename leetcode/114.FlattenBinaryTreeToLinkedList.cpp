@@ -25,6 +25,43 @@ struct TreeNode {
       TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+
+class Solution5 {
+public:
+    void flatten(TreeNode* root) {
+        TreeNode* tail;
+        convert(root, tail);
+    }
+
+    void convert(TreeNode* root, TreeNode*& tail) {
+        if (! root) {
+            tail = NULL;
+            return;
+        }
+        if (! root->left && ! root->right) {
+            tail = root;
+            return;
+        }
+
+        TreeNode* leftTail, *rightTail;
+        convert(root->left, leftTail);
+        convert(root->right, rightTail);
+
+        if (leftTail && rightTail) {
+            tail = rightTail;
+            leftTail->right = root->right;
+            root->right = root->left;
+            root->left = NULL;
+        } else if (leftTail) {
+            tail = leftTail;
+            root->right = root->left;
+            root->left = NULL;
+        } else if (rightTail) {
+            tail = rightTail;
+        }
+    }
+};
+
 // Works. Recursive. 2025-08-21
 class Solution4 {
 public:
@@ -212,3 +249,4 @@ int main() {
     
     return 0;
 }
+
