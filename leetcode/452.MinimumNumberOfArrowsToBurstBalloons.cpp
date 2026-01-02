@@ -1,3 +1,27 @@
+// From: https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/editorial/
+// Time: O(nlogn)
+// Space: O(1)
+class Solution2 {
+public:
+    int findMinArrowShots(vector<vector<int>>& points) {
+        int n = points.size();
+        if (n <= 1) return n;
+
+        sort(points.begin(), points.end(), [&](const vector<int>& a, vector<int>& b) {
+            return a[1] < b[1];
+        });
+
+        int arrows = 1, end = points[0][1];
+        for (int i = 1; i < n; ++ i) {
+            if (points[i][0] > end) {
+                ++ arrows;
+                end = points[i][1];
+            }
+        }
+        return arrows;
+    }
+};
+
 // Works. O(n*log(n)) time b/c sorting, O(1) space.
 // Idea: if 
 //   |----|
@@ -6,6 +30,8 @@
 //      |-|
 // Actually here just keep this because it's sorted, and the segment in the front does not matter.
 //   |----|
+// Time: O(nlogn)
+// Space: O(n)
 class Solution {
 public:
     int findMinArrowShots(vector<vector<int>>& points) {
