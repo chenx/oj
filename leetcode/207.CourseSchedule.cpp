@@ -1,3 +1,35 @@
+class Solution7 {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        map<int, set<int>> inDegree, outDegree;
+        for (auto p : prerequisites) {
+            inDegree[p[0]].insert(p[1]);
+            outDegree[p[1]].insert(p[0]);
+        }
+
+        queue<int> q;
+        for (int course = 0; course < numCourses; ++ course) {
+            if (inDegree[course].empty()) q.push(course);
+        }
+
+        int courseCount = 0;
+        while (! q.empty()) {
+            int curCourse = q.front();
+            q.pop();
+
+            ++ courseCount;
+
+            for (auto nextCourse : outDegree[curCourse]) {
+                inDegree[nextCourse].erase(curCourse);
+                if (inDegree[nextCourse].empty()) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+        return courseCount == numCourses;
+    }
+};
+
 // BFS (Topological Sort Using Kahn's Algorithm).
 // Here, n be the number of courses and m be the size of prerequisites.
 // Time complexity: O(m+n)
