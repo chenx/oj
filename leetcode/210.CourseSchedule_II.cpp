@@ -1,3 +1,40 @@
+class Solution6 {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> result;
+
+        map<int, set<int>> inDegree, outDegree;
+        for (auto p : prerequisites) {
+            inDegree[p[0]].insert(p[1]);
+            outDegree[p[1]].insert(p[0]);
+        }
+
+        queue<int> q;
+        for (int course = 0; course < numCourses; ++ course) {
+            if (inDegree[course].empty()) q.push(course);
+        }
+
+        vector<int> courseSchedule;
+
+        while (! q.empty()) {
+            int curCourse = q.front();
+            q.pop();
+
+            courseSchedule.push_back(curCourse);
+
+            for (int nextCourse : outDegree[curCourse]) {
+                inDegree[nextCourse].erase(curCourse);
+                if (inDegree[nextCourse].empty()) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+
+        return courseSchedule.size() == numCourses ? courseSchedule : vector<int>();
+    }
+};
+
+
 // See: https://leetcode.com/problems/course-schedule-ii/editorial/
 // BFS.
 // Time Complexity: O(V+E)
