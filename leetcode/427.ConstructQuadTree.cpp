@@ -38,6 +38,32 @@ public:
 };
 */
 
+class Solution2 {
+public:
+    Node* construct(vector<vector<int>>& grid) {
+        return solve(grid, 0, 0, grid.size());
+    }
+
+    Node* solve(vector<vector<int>>& grid, int x, int y, int size) {
+        if (size == 1) {
+            return new Node(grid[x][y], true);
+        }
+
+        size /= 2;
+        Node* a = solve(grid, x, y, size); // upper left
+        Node* b = solve(grid, x, y + size, size); // upper right
+        Node* c = solve(grid, x + size, y, size); // bottom left
+        Node* d = solve(grid, x + size, y + size, size); // bottom right
+
+        if (a->isLeaf && b->isLeaf && c->isLeaf && d->isLeaf &&
+            a->val == b->val && b->val == c->val && c->val == d->val) {
+            return new Node(a->val, true);
+        }
+
+        return new Node(0 /* any value works */, false, a, b, c, d);
+    }
+};
+
 class Solution {
 public:
     Node* solve(vector<vector<int>>& grid, int x1, int y1, int length) {
