@@ -50,7 +50,7 @@ public:
 
 // Works too. Tested.
 // Improved from Solution2. Save for 2 variables m, n, now they are local in getKth().
-// Time: O(log(mn))
+// Time: O(log(m + n))
 // Space: O(log(m) + log(n))
 class Solution3 {
 public:
@@ -388,5 +388,6 @@ There are two sorted arrays A and B of size m and n respectively.
 Find the median of the two sorted arrays. The overall run time 
 complexity should be O(log (m+n)).
  */
+
 
 
