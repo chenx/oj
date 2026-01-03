@@ -9,7 +9,7 @@ public:
         int n = points.size();
         if (n <= 1) return n;
 
-        int result = 2;
+        int result = 0; // or start with 2.
         for (int i = 0; i < n; ++ i) {
             unordered_map<double, int> slopeCount;
             for (int j = i + 1; j < n; ++ j) {
@@ -414,6 +414,7 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
 
 
