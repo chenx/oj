@@ -20,6 +20,30 @@
 #include <string>
 using namespace std;
 
+
+class Solution5 {
+public:
+    int minDistance(string word1, string word2) {
+        int n1 = word1.size(), n2 = word2.size();
+        vector<vector<int>> DP(n1+1, vector<int>(n2+1, 0));
+
+        for (int i = 1; i <= n1; ++ i) DP[i][0] = i; // NOTE: "<="
+        for (int j = 1; j <= n2; ++ j) DP[0][j] = j; // NOTE: "<="
+
+        for (int i = 0; i < n1; ++ i) {
+            for (int j = 0; j < n2; ++ j) {
+                if (word1[i] == word2[j]) {
+                    DP[i+1][j+1] = DP[i][j];
+                } else {
+                    DP[i+1][j+1] = 1 + min(DP[i][j], min(DP[i+1][j], DP[i][j+1]));
+                }
+            }
+        }
+        return DP[n1][n2];
+    }
+};
+
+
 // This works too.
 class Solution4 {
 public:
@@ -162,3 +186,4 @@ a) Insert a character
 b) Delete a character
 c) Replace a character
  */
+
