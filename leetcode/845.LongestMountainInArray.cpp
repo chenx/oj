@@ -1,3 +1,31 @@
+// Same as Solution.
+class Solution2 {
+public:
+    int longestMountain(vector<int>& arr) {
+        int n = arr.size(), ans = 0, i = 0;
+        while (i < n) {
+            int j = i;
+            // if i is a left-boundary
+            if (j + 1 < n && arr[j] < arr[j + 1]) {
+                // set j to the peak of this potential mountain
+                while (j + 1 < n && arr[j] < arr[j + 1]) j++;
+
+                // if j is really a peak..
+                if (j + 1 < n && arr[j] > arr[j + 1]) {
+                    // set j to the right-boundary of mountain
+                    while (j + 1 < n && arr[j] > arr[j + 1]) j++;
+                    // record candidate answer
+                    ans = max(ans, j - i + 1);
+                }
+            }
+
+            i = max(j, i + 1);
+        }
+
+        return ans;
+    }
+};
+
 // From: https://leetcode.com/problems/longest-mountain-in-array/editorial/
 // Time: O(n)
 // Space: O(1)
