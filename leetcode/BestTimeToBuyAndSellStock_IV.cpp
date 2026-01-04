@@ -6,7 +6,7 @@ public:
         if (n <= 1 || k == 0) return 0;
 
         vector<int> cur(n), prev(n);
-        for (int x = 0; x < k; ++ x) {
+        for (; k > 0; -- k) {
             int low = prices[0];
             for (int i = 1; i < n; ++ i) {
                 cur[i] = max(cur[i-1], prices[i] - low);
@@ -16,9 +16,10 @@ public:
             }
             prev = cur;
         }
-        return cur[n - 1];
+        return cur[n-1];
     }
 };
+
 
 // Works. Tested. 
 class Solution4 {
