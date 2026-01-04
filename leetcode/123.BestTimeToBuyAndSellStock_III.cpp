@@ -15,6 +15,36 @@
 #include <vector>
 using namespace std;
 
+class Solution2 {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        if (n <= 1) return 0;
+
+        vector<int> A(n, 0), B(n, 0);
+
+        A[0] = 0;
+        int low = prices[0];
+        for (int i = 1; i < n; ++ i) {
+            A[i] = max(A[i-1], prices[i] - low);
+            low = min(low, prices[i]);
+        }
+
+        B[n-1] = 0;
+        int high = prices[n-1];
+        for (int i = n-2; i >= 0; -- i) {
+            B[i] = max(B[i+1], high - prices[i]);
+            high = max(high, prices[i]);
+        }
+
+        int maxProfit = 0;
+        for (int i = 0; i < n; ++ i) {
+            maxProfit = max(maxProfit, A[i] + B[i]);
+        }
+        return maxProfit;
+    }
+};
+
 class Solution {
       vector<int> prices;
 public:
@@ -177,3 +207,4 @@ peking2:
         return ans;
     }
 */
+
