@@ -8,6 +8,29 @@
 #include <vector>
 using namespace std;
 
+class Solution7 {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> result;
+        vector<int> v;
+        getComb(result, v, n, k, 1);
+        return result;
+    }
+
+    void getComb(vector<vector<int>>& result, vector<int>& v, int n, int k, int pos) {
+        if (v.size() == k) {
+            result.push_back(v);
+            return;
+        }
+
+        for (int i = pos; i <= n; ++ i) {
+            v.push_back(i);
+            getComb(result, v, n, k, i + 1);
+            v.pop_back();
+        }
+    }
+};
+
 // Works. Recursive.
 // Time: O(k * C(n,k)) = O(n! / ((n-k)!(k-1)!)). Space: O(k)
 class Solution6 {
@@ -282,6 +305,7 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
  */
+
 
 
 
