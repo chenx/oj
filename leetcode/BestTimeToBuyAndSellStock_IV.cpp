@@ -5,7 +5,7 @@ public:
         int n = prices.size();
         if (n <= 1 || k == 0) return 0;
 
-        vector<int> cur(n + 1, 0), prev(n + 1, 0);
+        vector<int> cur(n), prev(n);
         for (int x = 0; x < k; ++ x) {
             int low = prices[0];
             for (int i = 1; i < n; ++ i) {
