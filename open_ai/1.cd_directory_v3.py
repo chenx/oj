@@ -6,8 +6,6 @@ class Solution:
         tokens = filter(lambda x : x != '.' and x != '', path.split('/'))
         result = []
         for token in tokens:
-            # if token == "" or token == ".":
-            #     pass
             if token == "..":
                 if len(result) > 0: result.pop()
                 else: return 'Null'
@@ -16,12 +14,13 @@ class Solution:
 
         return '/' + '/'.join(result)
 
+    
     def cd(self, current_dir, new_dir):
         if self.simplifyPath(current_dir) == 'Null' or self.simplifyPath(new_dir) == 'Null': 
             return 'Null'
         return self.simplifyPath(current_dir + '/' + new_dir)
-    
 
+    
     def hasCycle(self, soft_links):
         """ O(n) Kahn algorithm: Topological sorting. """
         inDegree = {}
@@ -42,6 +41,7 @@ class Solution:
                 if inDegree[neighbor] == 0:
                     stack.append(neighbor)
         return len(visited) != len(soft_links)
+
     
     def cdWithSoftLinks(self, current_dir, new_dir, soft_links):
         # print(soft_links)
