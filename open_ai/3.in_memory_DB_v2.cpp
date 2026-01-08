@@ -1,10 +1,11 @@
 // 12:15 - 12:27: 0:12
 //  1:01 - 1:44: 00:43
-//  1:44 - 2:07: 00:23
+//  1:44 - 2:07: 00:23 add AND/OR, ASC/DESC
 #include <iostream>
 #include <vector>
 #include <sstream>
 #include <cstring>
+#include <map>
 #include <unordered_map>
 
 using namespace std;
@@ -50,6 +51,15 @@ public:
             }
             cout << endl;
         }
+        cout << endl;
+    }  
+
+    void test() {
+        string test = " a, b c  ";
+        auto strs = split(test, ',');
+        for (auto a : strs) cout << "[" << a << "] ";
+        cout << endl;
+        for (auto a : strs) cout << "[" << trim(a) << "] ";
         cout << endl;
     }
 
@@ -145,7 +155,10 @@ private:
         vector<vector<string>> orderFields;
         for (string& field : fields) {
             vector<string> item = split(field, ' ');
-            if (item.size() == 1) item.push_back("ASC");
+            if (item.size() == 1) {
+                cout << "=== item.size == 1" << endl;
+                item.push_back("ASC");
+            }
             orderFields.push_back(item);
         }
         auto comp = [&](pair<int, vector<string>>& a, pair<int, vector<string>>& b){
@@ -176,6 +189,14 @@ private:
             result.push_back(out);
         }
         return result;
+    }
+
+    string trim(string& s) {
+        int n = s.length(), i = 0, j = n - 1;
+        while (i < n && isspace(s[i])) ++ i;
+        while (j >= 0 && isspace(s[j])) -- j;
+        if (i <= j) return s.substr(i, j - i + 1);
+        return "";
     }
 };
 
@@ -212,10 +233,12 @@ private:
         db.dump( "select from User orderBy age", result );
 
         result = db.select("User", "", "age DESC");
-        db.dump( "select from User orderBy age", result );
+        db.dump( "select from User orderBy age DESC", result );
 
         result = db.select("User", "", "age DESC,name DESC");
-        db.dump( "select from User orderBy age", result );
+        db.dump( "select from User orderBy age DESC,name DESC", result );
+
+        db.test();
     }
 public:
     void run_tests() {
