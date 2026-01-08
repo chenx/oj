@@ -60,14 +60,6 @@ public:
     }
 
     string cd(string current_dir, string new_dir) {
-        // string result;
-        // string a = simplifyPath(current_dir);
-        // string b = simplifyPath(new_dir);
-
-        // if (a == "/" && b == "/") return "/";
-        // else if (a == "/") return b;
-        // else if (b == "/") return a;
-        // else return a + b;
         if (simplifyPath(current_dir) == "Null" || simplifyPath(new_dir) == "Null") {
             return "Null";
         }
