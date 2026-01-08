@@ -71,6 +71,16 @@ int main() {
             vals.push_back(val);
         }
     }
+
+    vector<string> split(string& s, char delimiter = ' ') {
+        vector<string> result;
+        stringstream ss(s);
+        string out;
+        while (getline(ss, out, delimiter)) {
+            result.push_back(out);
+        }
+        return result;
+    }
 ```
 
   2) split with blank space.
