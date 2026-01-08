@@ -5,7 +5,18 @@
 ```
 string words[] = {"ab", "c"};
 string result = accumulate(words.begin(), words.end(), string{}); // "abc"
+```
 
+### tolower, toupper
+
+```
+#include<cctype>
+
+string x = "AliCe";
+transform(x.begin(), x.end(), x.begin(), ::toupper); // toupper: 
+cout << "AliCe.upper() = " << x << endl;
+transform(x.begin(), x.end(), x.begin(), ::tolower); // tolower: in cctype.
+cout << "AliCe.lower() = " << x << endl;
 ```
 
 ### replace char
@@ -35,6 +46,18 @@ int main() {
     std::cout << str << std::endl; // Output: hello there
     return 0;
 }
+```
+
+### trim string
+
+```
+    string trim(string& s) {
+        int n = s.length(), i = 0, j = n - 1;
+        while (i < n && isspace(s[i])) ++ i;
+        while (j >= 0 && isspace(s[j])) -- j;
+        if (i <= j) return s.substr(i, j - i + 1);
+        return "";
+    }
 ```
 
 ### split function
