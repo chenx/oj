@@ -4,6 +4,25 @@
 // @Created on: 12/29/2012
 // @Last modified: 12/29/2012
 //
+
+class Solution3 {
+public:
+    void sortColors(vector<int>& nums) {
+        int i = 0, j = nums.size() - 1, p = 0;
+
+        while (p <= j) {
+            if (nums[p] == 0) {
+                swap(nums[i ++], nums[p ++]);
+            } else if (nums[p] == 2) {
+                swap(nums[p], nums[j --]);
+            } else {
+                ++ p;
+            }
+        }
+    }
+};
+
+
 class Solution {
 public:
     // O(n). Algorithm by Edsger Dijkstra. 
@@ -84,3 +103,4 @@ public:
         //qs(A, j + 1, right);
     }
 };
+
