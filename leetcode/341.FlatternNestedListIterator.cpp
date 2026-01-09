@@ -33,7 +33,7 @@ public:
     
     int next() {
         if (! hasNext()) return -1;
-        int index = indexStack.top() ++;
+        int index = indexStack.top() ++;  // <-- Increment current index
         return listStack.top()[index].getInteger();
     }
     
