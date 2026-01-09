@@ -1,3 +1,49 @@
+// Use 2 stacks.
+// See: Solution 3 at https://leetcode.com/problems/flatten-nested-list-iterator/editorial/
+// N = total number of integers within the nested list, L = total number of lists within the nested list
+// Time: O(L/N) or O(1). O(1) if stack top is integer. Average is O((N+L)/N) = O(L/N).
+// Space: O(D). D - max depth of nested list
+class NestedIterator6 {
+    stack<vector<NestedInteger>> listStack;
+    stack<int> indexStack;
+
+    void makeStackTopInt() {
+        while (! indexStack.empty()) {
+            int index = indexStack.top();
+            if (index == listStack.top().size()) {
+                listStack.pop();
+                indexStack.pop();
+            } else {
+                if (listStack.top()[index].isInteger()) {
+                    break;
+                }
+
+                listStack.push(listStack.top()[index].getList());
+                indexStack.top() ++; // <--!!! Avoids infinite loop
+                indexStack.push(0);
+            }
+        }
+    }
+
+public:
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        listStack.push(nestedList);
+        indexStack.push(0);
+    }
+    
+    int next() {
+        if (! hasNext()) return -1;
+        int index = indexStack.top() ++;
+        return listStack.top()[index].getInteger();
+    }
+    
+    bool hasNext() {
+        makeStackTopInt();
+        return ! indexStack.empty();
+    }
+};
+
+
 class NestedIterator5 {
     vector<int> list;
     int len, index;
