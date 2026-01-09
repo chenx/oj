@@ -1,3 +1,28 @@
+// From Leetcode 101 - a grinding guide
+class Solution2 {
+public:
+    int findMaxForm(vector<string> strs, int m, int n) {
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+        for (const string & s: strs) {
+            int zeros = 0, ones = 0;
+            for (char c: s) {
+                if (c == '0') {
+                    ++zeros;
+                } else {
+                    ++ones;
+                }
+            }
+            for (int i = m; i >= zeros; --i) {
+                for (int j = n; j >= ones; --j) {
+                    dp[i][j] = max(dp[i][j], dp[i-zeros][j-ones] + 1);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+};
+
+
 // Dynamic Programming
 // From: https://leetcode.com/problems/ones-and-zeroes/editorial/
 // Time complexity : O(l∗m∗n). Three nested loops are their, where l is the length of strs, m and n are the number of zeroes and ones respectively.
