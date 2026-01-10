@@ -1,3 +1,7 @@
+// See https://leetcode.com/problems/all-paths-from-source-lead-to-destination/editorial/
+// DFS
+// Time: O(V+E)
+// Space: O(V+E)
 class Solution {
 public:
     bool leadsToDestination(int n, vector<vector<int>>& edges, int source, int destination) {
@@ -15,7 +19,7 @@ public:
         //     return states[node] == 1; // if -1, this is a backward edge and creates a loop.
         // }
         if (states[node] == 1) return true;
-        if (states[node] == -1) return false;
+        if (states[node] == -1) return false; // backward edge and creates a cycle.
         if (graph[node].empty()) { // leaf node should be equal to destination node.
             return node == dest;
         }
