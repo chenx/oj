@@ -6,7 +6,7 @@ public:
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int m = mat.size(), n = mat[0].size();
         vector<vector<int>> ans(m, vector<int>(n, 0));
-        static int directions[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        int directions[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
         queue<vector<int>> q;
         set<vector<int>> visited;
