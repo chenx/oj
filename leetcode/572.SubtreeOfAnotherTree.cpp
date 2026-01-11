@@ -1,5 +1,5 @@
-// Time: O(n)
-// Space: O(1)
+// Time: O(mn). m and n are number of nodes in the 2 trees.
+// Space: O(m + n)
 class Solution {
 public:
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
