@@ -1,3 +1,4 @@
+// DLL and hashmap.
 // From: https://leetcode.com/problems/all-oone-data-structure/editorial/
 // Time: O(1)
 // Space: O(n)
