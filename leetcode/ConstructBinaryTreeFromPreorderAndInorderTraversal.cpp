@@ -28,6 +28,8 @@ struct TreeNode {
 };
 
 // Works. Use a map to get index in inorder traversal.
+// Time: O(n)
+// Space: O(n)
 class Solution3 {
     unordered_map<int, int> inorderIndexMap;
 public:
@@ -156,4 +158,5 @@ int main() {
     
     return 0;
 }
+
 
