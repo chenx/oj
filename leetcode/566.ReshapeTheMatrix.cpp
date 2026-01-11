@@ -1,3 +1,21 @@
+class Solution2 {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
+        int rows = mat.size(), cols = mat[0].size();
+        if (rows * cols != r * c) return mat;
+
+        vector<vector<int>> result(r, vector<int>(c, 0));
+        for (int i = 0, count = 0; i < rows; ++ i) {
+            for (int j = 0; j < cols; ++ j) {
+                int row = count / c, col = count % c;
+                result[row][col] = mat[i][j];
+                ++ count;
+            }
+        }
+        return result;
+    }
+};
+
 class Solution {
 public:
     vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {
