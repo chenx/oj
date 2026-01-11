@@ -26,6 +26,26 @@ struct TreeNode {
      TreeNode *right;
      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
+
+// Works. Use a map to get index in inorder traversal.
+class Solution3 {
+    unordered_map<int, int> inorderIndexMap;
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        for (int i = 0; i < inorder.size(); ++ i) inorderIndexMap[inorder[i]] = i;
+        return build(preorder, inorder, 0, 0, inorder.size() - 1);
+    }
+
+    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int ip, int il, int ir) {
+        if (il > ir) return NULL;
+
+        TreeNode* root = new TreeNode(preorder[ip]);
+        int mid = inorderIndexMap[preorder[ip]];
+        root->left = build(preorder, inorder, ip + 1, il, mid - 1);
+        root->right = build(preorder, inorder, ip + (mid - il) + 1, mid + 1, ir);
+        return root;
+    }
+};
   
 // This works too.
 // Note that this is BT, not BST, so no binary search.
@@ -136,3 +156,4 @@ int main() {
     
     return 0;
 }
+
