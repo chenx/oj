@@ -1,3 +1,30 @@
+// DFS
+// See: https://leetcode.com/problems/find-bottom-left-tree-value/editorial/
+// Time: O(n)
+// Space: O(n)
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        int val = 0, maxHeight = 0, height = 0;
+        dfs(root, val, maxHeight, height);
+        return val;
+    }
+
+    void dfs(TreeNode* root, int& val, int& maxHeight, int height) {
+        if (! root) return;
+
+        ++ height;
+        if (height > maxHeight) {
+            maxHeight = height;
+            val = root->val;
+        }
+
+        dfs(root->left, val, maxHeight, height);
+        dfs(root->right, val, maxHeight, height);
+    }
+};
+
+
 // BFS. Level order traversal.
 // Time: O(n)
 // Space: O(n)
