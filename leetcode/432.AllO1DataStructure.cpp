@@ -1,4 +1,5 @@
 // DLL and map.
+// Note the use of: prev(), next(), dll.insert(it, node), dll.erase(it).
 class AllOne2 {
 private:
     struct Node {
@@ -29,7 +30,7 @@ public:
 
             if (it != dll.begin() && prev(it)->freq == freq + 1) {
                 prev(it)->keys.insert(key);
-            } else {
+            } else { // insert node before it.
                 dll.insert(it, Node(freq + 1, key));
             }
             map[key] = prev(it);
