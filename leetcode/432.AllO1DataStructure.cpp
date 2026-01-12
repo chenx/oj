@@ -1,3 +1,96 @@
+// DLL and map.
+class AllOne2 {
+private:
+    struct Node {
+        int freq;
+        unordered_set<string> keys;
+        Node(int freq, string& key) : freq(freq) {
+            keys.insert(key);
+        }
+    };
+
+    list<Node> dll; // front: top count; back: bottom count
+    unordered_map<string, list<Node>::iterator> map; // <key, node>
+
+public:
+    AllOne() {}
+    
+    void inc(string key) {
+        if (! map.contains(key)) {
+            if (dll.back().freq == 1) {
+                dll.back().keys.insert(key);
+            } else {
+                dll.push_back(Node(1, key));
+            }
+            map[key] = prev(dll.end());
+        } else {
+            auto it = map[key];
+            int freq = it->freq;
+
+            if (it != dll.begin() && prev(it)->freq == freq + 1) {
+                prev(it)->keys.insert(key);
+            } else {
+                dll.insert(it, Node(freq + 1, key));
+            }
+            map[key] = prev(it);
+
+            it->keys.erase(key);
+            if (it->keys.empty()) {
+                dll.erase(it);
+            }
+        }
+    }
+    
+    void dec(string key) {
+        if (!map.contains(key)) {
+            return;
+        }
+
+        auto it = map[key];
+        int freq = it->freq;
+
+        if (freq == 1) {
+            it->keys.erase(key);
+            if (it->keys.empty()) {
+                dll.erase(it);
+            }
+            map.erase(key);
+        } else {
+            if (next(it) != dll.end() && freq - 1 == next(it)->freq) {
+                next(it)->keys.insert(key);
+            } else { // insert new node after it.
+                dll.insert(next(it), Node(freq - 1, key));
+            }
+            map[key] = next(it);
+
+            it->keys.erase(key);
+            if (it->keys.empty()) {
+                dll.erase(it);
+            }
+        }
+    }
+    
+    string getMaxKey() {
+        if (dll.empty()) return "";
+        return *dll.front().keys.begin();
+    }
+    
+    string getMinKey() {
+        if (dll.empty()) return "";
+        return *dll.back().keys.begin();
+    }
+};
+
+/**
+ * Your AllOne object will be instantiated and called as such:
+ * AllOne* obj = new AllOne();
+ * obj->inc(key);
+ * obj->dec(key);
+ * string param_3 = obj->getMaxKey();
+ * string param_4 = obj->getMinKey();
+ */
+
+
 // DLL and hashmap.
 // From: https://leetcode.com/problems/all-oone-data-structure/editorial/
 // Time: O(1)
