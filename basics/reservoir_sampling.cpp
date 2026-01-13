@@ -1,3 +1,4 @@
+// https://handwiki.org/wiki/Reservoir_sampling
 // See: https://www.geeksforgeeks.org/dsa/reservoir-sampling/
 
 // An efficient program to randomly select
