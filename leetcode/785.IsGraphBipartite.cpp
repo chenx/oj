@@ -1,3 +1,36 @@
+// Works. 
+// See: https://leetcode.com/problems/is-graph-bipartite/editorial/
+// Time: O(n+v)
+// Space: O(n)
+class Solution2 {
+public:
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n = graph.size();
+        vector<int> color(n, -1);
+        queue<int> q;
+        for (int i = 0; i < n; ++ i) {
+            if (color[i] == -1) {
+                q.push(i);
+                color[i] = 0;
+            }
+            while (!q.empty()) {
+                int node = q.front();
+                q.pop();
+                for (int j : graph[node]) {
+                    if (color[j] == -1) {
+                        q.push(j);
+                        color[j] = 1 - color[node];
+                    } else if (color[j] == color[node]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
+
+
 // BFS / DFS with coloring.
 // Time: O(n+v)
 // Space: O(n)
