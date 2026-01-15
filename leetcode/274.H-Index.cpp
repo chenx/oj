@@ -6,18 +6,17 @@ class Solution2 {
 public:
     int hIndex(vector<int>& citations) {
         int n = citations.size();
-        if (n == 0) return 0;
-
         vector<int> papers(n+1, 0);
         // counting papers for each citation number
         for (int c: citations) papers[min(n, c)] ++;
 
-        // finding the h-index
+        // finding the h-index. i - total number of papers; k - number of citations.
         int k = n;
-        for (int s = papers[n]; k > s; s += papers[k]) k--;
+        for (int s = papers[n]; k > s; s += papers[k]) -- k;
         return k;
     }
 };
+
 
 // sort first.
 // Time: O(nlogn)
