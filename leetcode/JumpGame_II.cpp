@@ -8,6 +8,33 @@
 #include <iostream>
 using namespace std;
 
+// Different from Solution11 only by: init value of DP(n, 0 vs -1)
+class Solution12 {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if (n <= 1) return 0;
+
+        vector<int> DP(n, -1);
+        DP[n-1] = 0;
+
+        for (int i = n-2; i >= 0; -- i) {
+            if (i + nums[i] >= n-1) {
+                DP[i] = 1;
+            } else {
+                for (int j = 0; j <= nums[i]; ++ j) {
+                    if (i + j < n && DP[i + j] > 0) {
+                        if (DP[i] == -1 || DP[i] > 1 + DP[i + j]) {
+                            DP[i] = 1 + DP[i + j];
+                        }
+                    }
+                }
+            }
+        }
+        return DP[0];
+    }
+};
+
 // Works.
 class Solution11 {
 public:
@@ -350,5 +377,6 @@ int main() {
     cout << s.jump(A, n) << endl;
     return 0;
 }
+
 
 
