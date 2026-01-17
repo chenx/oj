@@ -12,7 +12,7 @@ public:
 
         // finding the h-index. i - total number of papers; k - number of citations.
         int k = n;
-        for (int s = papers[n]; k > s; s += papers[k]) -- k;
+        for (int paperCount = papers[n]; paperCount < k; paperCount += papers[k]) -- k;
         return k;
     }
 };
