@@ -1,3 +1,103 @@
+// BFS by routes. Works.
+// M is the size of routes, and K is the maximum size of routes[i].
+// Time complexity: O(M^2⋅K+M⋅k⋅logK)
+// Space complexity: O(M^2+logK)
+class Solution6 {
+public:
+    // Go from a stop, try each route, 
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        if (source == target) return 0;
+
+        unordered_map<int, unordered_set<int>> routesOfStop;
+        for (int i = 0; i < routes.size(); ++ i) {
+            for (int busStop: routes[i]) {
+                routesOfStop[busStop].insert(i);
+            }
+        }
+
+        set<int> visited; // visited routes.
+        queue<int> q; // queue of routes.
+
+        for (int route : routesOfStop[source]) {
+            q.push(route);
+            visited.insert(route);
+        }
+
+        int distance = 0;
+        while (! q.empty()) {
+            ++ distance;
+            int len = q.size();
+            for (int i = 0; i < len; ++ i) {
+                int route = q.front();
+                q.pop();
+
+                for (int stop : routes[route]) {
+                    if (stop == target) {
+                        return distance;
+                    }
+                    
+                    for (int nextRoute : routesOfStop[stop]) {
+                        if (! visited.contains(nextRoute)) {
+                            visited.insert(nextRoute);
+                            q.push(nextRoute);
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+
+// BFS by bus stops.
+// Times out for large input.
+// M is the size of routes, and K is the maximum size of routes[i].
+// Time complexity: O(M^2⋅K)
+// Space complexity: O(M⋅K)
+class Solution5 {
+public:
+    // Go from a stop, try each route, 
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        if (source == target) return 0;
+
+        unordered_map<int, unordered_set<int>> routesOfStop;
+        for (int i = 0; i < routes.size(); ++ i) {
+            for (int busStop: routes[i]) {
+                routesOfStop[busStop].insert(i);
+            }
+        }
+
+        set<int> visited; // visited stops.
+        queue<int> q; // q of stops.
+        q.push(source);
+        visited.insert(source);
+
+        int distance = 0;
+        while (! q.empty()) {
+            ++ distance;
+            int len = q.size();
+            for (int i = 0; i < len; ++ i) {
+                int busStop = q.front();
+                q.pop();
+
+                for (int route: routesOfStop[busStop]) {
+                    for (int nextBusStop: routes[route]) {
+                        if (! visited.contains(nextBusStop)) {
+                            if (nextBusStop == target) {
+                                return distance;
+                            }
+                            q.push(nextBusStop);
+                            visited.insert(nextBusStop);
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
+
+
 // Works.
 // Breadth-First Search (BFS) with Bus Stops as Nodes
 // From: https://leetcode.com/problems/bus-routes/editorial/
