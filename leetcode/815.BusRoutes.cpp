@@ -1,16 +1,17 @@
 // BFS by routes. Works.
 // M is the size of routes, and K is the maximum size of routes[i].
-// Time complexity: O(M^2⋅K+M⋅k⋅logK)
-// Space complexity: O(M^2+logK)
+// Time complexity: O(M+M⋅k) ?
+// Space complexity: O(M+N)
 class Solution6 {
 public:
-    // Go from a stop, try each route, 
+    // Go from a stop, try each route.
+    // M is the size of routes, and K is the maximum size of routes[i]. N = number of stops.
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         if (source == target) return 0;
 
         unordered_map<int, unordered_set<int>> routesOfStop;
-        for (int i = 0; i < routes.size(); ++ i) {
-            for (int busStop: routes[i]) {
+        for (int i = 0; i < routes.size(); ++ i) { // M
+            for (int busStop: routes[i]) { // K
                 routesOfStop[busStop].insert(i);
             }
         }
@@ -24,19 +25,19 @@ public:
         }
 
         int distance = 0;
-        while (! q.empty()) {
+        while (! q.empty()) { // M
             ++ distance;
             int len = q.size();
             for (int i = 0; i < len; ++ i) {
                 int route = q.front();
                 q.pop();
 
-                for (int stop : routes[route]) {
+                for (int stop : routes[route]) { // K = N/M
                     if (stop == target) {
                         return distance;
                     }
                     
-                    for (int nextRoute : routesOfStop[stop]) {
+                    for (int nextRoute : routesOfStop[stop]) { // M/N
                         if (! visited.contains(nextRoute)) {
                             visited.insert(nextRoute);
                             q.push(nextRoute);
