@@ -1,6 +1,6 @@
 // BFS by routes. Works.
-// M is the size of routes, and K is the maximum size of routes[i].
-// Time complexity: O(M+M⋅k) ?
+// M is the size of routes, and K is the maximum size of routes[i]. N = number of stops.
+// Time complexity: O(M^2⋅N+M⋅N)
 // Space complexity: O(M+N)
 class Solution6 {
 public:
@@ -52,8 +52,8 @@ public:
 
 // BFS by bus stops.
 // Times out for large input.
-// M is the size of routes, and K is the maximum size of routes[i].
-// Time complexity: O(M^2⋅K)
+// M is the size of routes, and K is the maximum size of routes[i]. N = number of stops.
+// Time complexity: O(N^2⋅M+M⋅N)    = ~O(M^2⋅K)
 // Space complexity: O(M⋅K)
 class Solution5 {
 public:
