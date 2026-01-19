@@ -1,3 +1,22 @@
+class Solution3 {
+public:
+    bool isSubsequence(string s, string t) {
+        int m = s.length(), n = t.length();
+        if (m > n) return false;
+
+        int i = 0, j = 0;
+        for (; i < m && j < n; ) {
+            if (s[i] == t[j]) {
+                ++ i;
+                ++ j;
+            } else {
+                ++ j;
+            }
+        }
+        return i == m;
+    }
+};
+
 class Solution2 {
 public:
     bool isSubsequence(string s, string t) {
