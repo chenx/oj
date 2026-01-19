@@ -5,7 +5,7 @@
 // @Last modified: 1/9/2013
 //
 
-// Also works.
+// Also works. But Solution4 is more clear.
 class Solution5 {
 public:
     string minWindow(string s, string t) {
@@ -236,6 +236,7 @@ return the empty string "".
 If there are multiple such windows, you are guaranteed that 
 there will always be only one unique minimum window in S. 
  */
+
 
 
 
