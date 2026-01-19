@@ -81,6 +81,15 @@ int main() {
         }
         return result;
     }
+
+    void split(const string& s, vector<string>& result) {
+        int start = 0, index = 0;
+        while ((index = s.find('.', start)) != string::npos) {
+            result.push_back(s.substr(start, index - start));
+            start = index + 1;
+        }
+        result.push_back(s.substr(start, index - start));
+    }
 ```
 
   2) split with blank space.
