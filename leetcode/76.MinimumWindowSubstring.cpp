@@ -23,7 +23,7 @@ public:
                     startIndex = left;
                 }
 
-                if (toFind[s[left]] == found[s[left]]) break;
+                if (toFind[s[left]] >= found[s[left]]) break;
                 found[s[left]] --;
                 ++ left;
             }
@@ -235,5 +235,6 @@ return the empty string "".
 If there are multiple such windows, you are guaranteed that 
 there will always be only one unique minimum window in S. 
  */
+
 
 
