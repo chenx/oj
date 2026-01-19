@@ -82,9 +82,9 @@ int main() {
         return result;
     }
 
-    void split(const string& s, vector<string>& result) {
+    void split(const string& s, vector<string>& result, char delim = '.') {
         int start = 0, index = 0;
-        while ((index = s.find('.', start)) != string::npos) {
+        while ((index = s.find(delim, start)) != string::npos) {
             result.push_back(s.substr(start, index - start));
             start = index + 1;
         }
