@@ -44,7 +44,8 @@ public:
             if (++ found[s[i]] <= toFind[s[i]]) ++ total;
 
             if (total == t.length()) {
-                while (toFind[s[begin]] == 0 || found[s[begin]] > toFind[s[begin]]) {
+                // while (toFind[s[begin]] == 0 || found[s[begin]] > toFind[s[begin]]) {
+                while (found[s[begin]] > toFind[s[begin]]) {
                     -- found[s[begin]];
                     ++ begin;
                 }
@@ -235,6 +236,7 @@ return the empty string "".
 If there are multiple such windows, you are guaranteed that 
 there will always be only one unique minimum window in S. 
  */
+
 
 
 
