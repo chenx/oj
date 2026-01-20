@@ -18,7 +18,7 @@ public:
         int result = 0;
         for (auto p : xMap[x]) {
             int j = p.first[1]; // points {x, y}, {x, j}, side = abs(j - y)
-            int ct = p.second;
+            int ct = p.second;  // number of points at {x, j}
             // should have points at:
             // {x + side, y}, {x + side, j} or {x - side, y}, {x - side, j}
             int side = abs(y - j);
