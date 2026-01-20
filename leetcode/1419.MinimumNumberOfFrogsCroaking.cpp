@@ -67,6 +67,24 @@ Examples
     "croakcrook": Invalid ('k' before 'o' for the second one). Result: -1. 
  */
 
+/**
+Follow-up: What if "croak" contains duplicate characters?
+If the required sequence itself contains duplicates (e.g., if a frog must say "crooak" instead of "croak"), 
+the problem changes from tracking a simple 5-letter sequence to a more complex state machine.
+
+    Impact on Validation: The rule count('o') <= count('r') would need to be updated to count('o') <= 2 * count('r') 
+        if 'o' appears twice.
+    State Machine Approach: Instead of simple counters, you must use a state machine to track how many frogs are at 
+        each specific stage of the extended sequence (e.g., state 0: just said 'c', state 1: just said 'r', 
+        state 2: first 'o', state 3: second 'o', etc.).
+    Maximum Frogs: The answer remains the maximum number of concurrent active frogs at any point, but the "active" 
+        count must account for all internal stages, not just 'c' through 'k'.
+    Invalid Scenarios: Any character outside the modified sequence (e.g., a 'z' in "croozak") or an invalid transition 
+        between characters would still result in -1. 
+
+Key Takeaway: The "minimum number of frogs" is always determined by the maximum number of concurrently active frogs 
+at any point in the input string. 
+ */
 
 /**
 1419. Minimum Number of Frogs Croaking
