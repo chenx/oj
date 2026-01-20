@@ -1,3 +1,52 @@
+class Solution2 {
+public:
+    vector<string> ipToCIDR(string ip, int n) {
+        vector<string> result;
+
+        unsigned int intIp = getIpIntValue(ip), count;
+
+        while (n > 0) {
+            if (intIp == 0) {
+                count = 1;
+                while (2*count <= n) count *= 2;
+            } else {
+                count = intIp & - intIp; // get least significant 1 and after.
+                while (count > n) count /= 2;
+            }
+
+            result.push_back(getCidr(intIp, count));
+            n -= count;
+            intIp += count;
+        }
+        return result;
+    }
+
+    unsigned int getIpIntValue(string& ip) {
+        stringstream ss(ip);
+        string out;
+        unsigned int intIp = 0;
+        while (getline(ss, out, '.')) {
+            intIp = (intIp << 8) + stoi(out);
+        }
+        return intIp;
+    }
+
+    string getCidr(unsigned int intIp, int count) {
+        string ip = to_string(intIp >> 24) + "." +
+                    to_string((intIp >> 16) & 255) + "." +
+                    to_string((intIp >> 8) & 255) + "." +
+                    to_string(intIp & 255);
+        
+        int maskLen = 33;
+        while (count > 0) {
+            maskLen --;
+            count /= 2;
+        }
+        return ip + "/" + to_string(maskLen);
+    }
+};
+
+
 class Solution {
 public:
     vector<string> ipToCIDR(string ip, int range) {
