@@ -8,6 +8,29 @@
 #include <vector>
 using namespace std;
 
+class Solution8 {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> result;
+        vector<int> row;
+        comb(result, row, n, k, 0);
+        return result;
+    }
+
+    void comb(vector<vector<int>>& result, vector<int>& row, int n, int k, int pos) {
+        if (row.size() == k) {
+            result.push_back(row);
+            return;
+        }
+
+        for (int i = pos; i < n; ++ i) {
+            row.push_back(i + 1);
+            comb(result, row, n, k, i + 1);
+            row.pop_back();
+        }
+    }
+};
+
 class Solution7 {
 public:
     vector<vector<int>> combine(int n, int k) {
@@ -305,6 +328,7 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
  */
+
 
 
 
