@@ -1,4 +1,5 @@
-
+// Time: O(n)
+// Space: O(5)
 class Solution {
 public:
     int minNumberOfFrogs(string croakOfFrogs) {
