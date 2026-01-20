@@ -5,6 +5,20 @@
 // @Last modified: 12/18/2012
 //
 
+// Binary search.
+class Solution3 {
+public:
+    int mySqrt(int x) {
+        double left = 0, right = x;
+        while (right - left > 0.000001) {
+            double mid = (left + right) / 2;
+            if (mid * mid <= x) left = mid;
+            else right = mid;
+        }
+        return right;
+    }
+};
+
 // Works too. Best.
 class Solution2 {
 public:
@@ -72,4 +86,5 @@ public:
     }
 
 };
+
 
