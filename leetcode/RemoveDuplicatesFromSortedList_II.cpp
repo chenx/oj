@@ -5,6 +5,29 @@
 // @Last modified: 12/24/2012
 //
 
+class Solution7 {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode dummy;
+        dummy.next = head;
+        ListNode* prev = & dummy;
+
+        while (head && head->next) {
+            if (head->val == head->next->val) {
+                while (head->next && head->val == head->next->val) {
+                    head->next = head->next->next;
+                }
+                prev->next = head->next;
+                head = prev->next;
+            } else {
+                prev = head;
+                head = head->next;
+            }
+        }
+        return dummy.next;
+    }
+};
+
 // Works.
 class Solution6 {
 public:
@@ -260,3 +283,4 @@ For example,
 Given 1->2->3->3->4->4->5, return 1->2->5.
 Given 1->1->1->2->3, return 2->3.
  */
+
