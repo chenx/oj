@@ -1,3 +1,32 @@
+// Use a set to store prefixes.
+// Let a = arr1.length(), b = arr2.length()
+// Time: O(a * 32 + b * 32)
+// Space: O(a * 32)
+class Solution2 {
+public:
+    int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
+        unordered_set<int> prefixSet;
+        for (int a : arr1) {
+            while (a > 0) {
+                prefixSet.insert(a);
+                a /= 10;
+            }
+        }
+
+        int maxLen = 0;
+        for (int b : arr2) {
+            while (b > 0) {
+                if (prefixSet.contains(b)) {
+                    maxLen = max(maxLen, (int) to_string(b).length());
+                    break;
+                }
+                b /= 10;
+            }
+        }
+        return maxLen;
+    }
+};
+
 // Time: O(a * b * m). a = arr1.length(), b = arr2.length(), m = max length of a string
 // Space: O(1)
 class Solution {
