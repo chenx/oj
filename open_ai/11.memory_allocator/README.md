@@ -69,3 +69,7 @@ these resources: 
   of heap memory allocators.
 - Design Guidance: The blog post series "Memory Allocation Strategies" is a good guide for identifying use cases and design patterns. 
   
+## References
+
+- https://medium.com/howsofcoding/custom-memory-allocator-malloc-62d28e10bfb8
+- Memory allocation schema: Best Fit, First Fit, Second Fit
