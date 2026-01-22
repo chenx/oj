@@ -1,4 +1,5 @@
-type system for a custom Toy Language. This system must handle primitive types, generics, nested tuples, and function signatures. You will implement the core data structures and a Type Inference engine that substitutes generics with concrete types.
+type system for a custom Toy Language. This system must handle primitive types, generics, nested tuples, and function signatures. 
+You will implement the core data structures and a Type Inference engine that substitutes generics with concrete types.
 
 Type Definitions
     Primitives: Lowercase strings like int, float, str, bool
