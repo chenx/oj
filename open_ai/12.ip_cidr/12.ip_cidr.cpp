@@ -29,7 +29,9 @@ public:
         // long long x = ((long long) 1 << 32) - 1;
         // cout << "INT_MAX = " << INT_MAX << ", ?= " << x  << endl;
 
-        // MAX_IP = 4294967295. If type of MAX_IP is long long, it'll be -1.
+        // MAX_IP = 4294967295.
+        // If type of MAX_IP is long long, it'll be -1.
+        // Or need to use this: long long MAX_IP = ~0 & 0xFFFFFFFF;
         unsigned int MAX_IP = ~0;
         cout << "MAX_IP = " << MAX_IP << ", " << getIpStringValue(MAX_IP) << endl;
 
