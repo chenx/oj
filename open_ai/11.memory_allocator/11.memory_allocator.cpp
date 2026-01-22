@@ -53,6 +53,11 @@ public:
         int size = memory[pointer];
         for (auto it = dll.begin(); it != dll.end(); ++ it) {
             if (pointer <= it->start) { // insert before it->start.
+                if (pointer + size > it->start) {
+                    // something is wrong
+                    return false;
+                }
+                
                 // cout << "to free memory [start=" << pointer << ", size=" << size << "] before " << it->start << endl;
 
                 if (it != dll.begin() && prev(it)->start + prev(it)->size + size == it->start) {
@@ -71,11 +76,13 @@ public:
                     dll.insert(it, Node(pointer, size));
                 }
 
+                memory[pointer] = 0;
                 return true;
             }
         }
         // insert at the end.
         dll.push_back(Node(pointer, size));
+        memory[pointer] = 0;
         return true;
     }
 
