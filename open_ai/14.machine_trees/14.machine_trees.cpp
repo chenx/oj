@@ -15,10 +15,10 @@ public:
 
     Node(int idVal, Node* parentVal = NULL) : id(idVal), parent(parentVal) {}
 
-    void sendMessage(Node* targetNode, Node* fromNode, string msg) {
+    void sendMessage(Node* targetNode, Node* fromNode, string msg, bool needResponse = false) {
         cout << "Node(" << id << "): send msg to (" << targetNode->id << "): " << msg << endl;
         string response = targetNode->recvMessage(fromNode, msg);
-        if (fromNode) fromNode->recvMessage(targetNode, response);
+        if (needResponse) fromNode->recvMessage(targetNode, response);
     }
 
     string recvMessage(Node* fromNode, string message) {
@@ -41,7 +41,7 @@ public:
                 recvMessageCount = 0;
                 totalCount = 1; // count self as 1
                 for (auto node : children) {
-                    sendMessage(node, this, "COUNT_REQUEST");
+                    sendMessage(node, this, "COUNT_REQUEST", /* needResponse= */true);
                 }
             }
         } else if (msgType == "COUNT_RESPONSE") {
@@ -67,7 +67,7 @@ public:
                 recvMessageCount = 0;
                 totalStructure = to_string(id);
                 for (auto node : children) {
-                    sendMessage(node, this, "STRUCTURE_REQUEST");
+                    sendMessage(node, this, "STRUCTURE_REQUEST", /* needResponse= */true);
                 }
             }
         } else if (msgType == "STRUCTURE_RESPONSE") {
