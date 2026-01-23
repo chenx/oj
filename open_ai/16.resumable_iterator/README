@@ -1,0 +1,43 @@
+Resumable iterators. Focus on test driven development.
+
+A abstract class:
+```
+class IteratorInterface:
+   def __init__(self):
+   def __iter__(self):
+   def __next__(self):
+   def get_state(self):
+   def set_state(self, state):
+  ```
+There is no hasNext() and you cannot assume state is an index or something. So you need to handle when the iterator 
+stops in caller code. Then write a test function to test get_state and set_state works in all positions with the only 
+assumption that the iterator is iterating over finite elements. Here is sudo code:
+
+def test_iterator(my_iter):
+    states = []
+    while my_iter.hasNext():  # Needs to handle when my_iter exhuasted
+         states.append(my_iter.get_state())
+    for state in states:
+          test_iter = my_iter.set_state(state)
+         elements = all elements from test_iter to the end
+         assert elements == expected_elements
+
+Then implement a such iterator for a list.
+Followup: given a file iterator on JSON file, implement an iterator for multiple file reading
+
+==
+重点想说下iterator，地里的面经好像说的都不太清楚。这题要说难度有多大倒也真没有，但是要50mins写四问时间还是很紧张。楼主正好这道题没太准备，
+所以第三问没写完挂了。前两问要求implement a resumable iterator with getState()/setState() for list，你可以用index来实现。
+但是第三问要求实现一个MultipleResumableFileIterator with existing ResumableFileIterator to iterator multiple json files，
+同时还要handle empty file case。建议大家都自己写一下，idea应该是combine力扣 二巫妖 with resumable iterator。
+
+==
+想复杂了，其实就是用index来reserve state就可以了。构造函数的传入参数是一个可以顺序遍历的collection ...
+
+谢谢！那面试的时候，是需要把当前的index (假如index是N)写入磁盘文件，然后resume的时候, 先读取磁盘文件拿到N，然后用collection的iterator
+把前面已经访问过N个元素的跳过?
+
+我猜你是问第三问吧？第三问的文件iterator已经实现好了，是一个resumable file iterator，你要用这个单个文件的iterator来实现可以iterate
+多个文件的iterator，应该可以借鉴leetcode 251的idea
+
+251: https://leetcode.com/problems/flatten-2d-vector/description/ 
