@@ -1,4 +1,10 @@
 // 12:05 - 12:54
+/**
+Design and implement a basic Least Recently Used (LRU) cache with the following methods: 
+void addKey(string key) int getCountForKey(string key) 
+Additionally, maintain a max heap to record all entries with a specific priority. 
+Discuss how you would handle changes in priority.
+ */
 
 #include <iostream>
 #include <vector>
