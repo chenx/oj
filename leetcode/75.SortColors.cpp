@@ -5,6 +5,24 @@
 // @Last modified: 12/29/2012
 //
 
+// Same as Solution3, just switch position of i and p.
+class Solution4 {
+public:
+    void sortColors(vector<int>& nums) {
+        int i = 0, j = nums.size() - 1, p = 0;
+    
+        while (i <= j) {
+            if (nums[i] == 0) {
+                swap(nums[i ++], nums[p ++]);
+            } else if (nums[i] == 2) {
+                swap(nums[i], nums[j --]);
+            } else {
+                ++ i;
+            }
+        }
+    }
+};
+
 class Solution3 {
 public:
     void sortColors(vector<int>& nums) {
@@ -103,4 +121,5 @@ public:
         //qs(A, j + 1, right);
     }
 };
+
 
