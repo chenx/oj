@@ -33,6 +33,8 @@ public:
 
         int sum2 = total + maxSubArray(nums);  // Total minus the negative max sum.
         // sum2 = 0 : in this case all elements are negative, ignore sum2 in this case.
+        // This is because: if total == -maxSumArray(nums), then every num is used to get sum2;
+        // so every num after negation is positive, thus every num is negative initially.
         return sum2 == 0 ? sum1 : max(sum1, sum2);
     }
 
