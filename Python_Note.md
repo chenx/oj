@@ -228,3 +228,47 @@ q[0]  # similar to q.front()
 q[-1] # similar to q.back()
 ```
 
+### priority queue
+
+```
+import heapq
+
+# Example of using heapq as a priority queue
+# Elements are stored as tuples (priority, value)
+priority_queue = []
+heapq.heappush(priority_queue, (2, 'medium_priority'))
+heapq.heappush(priority_queue, (1, 'high_priority'))
+heapq.heappush(priority_queue, (3, 'low_priority'))
+
+# Elements are popped in order of priority (lowest number first)
+print(heapq.heappop(priority_queue)) # Outputs (1, 'high_priority')
+print(heapq.heappop(priority_queue)) # Outputs (2, 'medium_priority')
+```
+
+Max heap (Python 3.14) native max heap:
+
+```
+import heapq
+
+# Initialize an empty list to act as the max heap
+max_heap = []
+
+# Push items onto the max heap
+heapq.heappush_max(max_heap, 10)
+heapq.heappush_max(max_heap, 30)
+heapq.heappush_max(max_heap, 20)
+heapq.heappush_max(max_heap, 5)
+
+# The largest element is at index 0 (the root)
+print(f"Largest element (peek): {max_heap[0]}")
+
+# Pop the largest element
+largest = heapq.heappop_max(max_heap)
+print(f"Popped largest element: {largest}")
+print(f"Heap after pop: {max_heap}")
+
+# Convert an existing list into a max heap in-place
+data = [4, 7, 2, 8, 1, 3]
+heapq.heapify_max(data)
+print(f"Heapified max heap: {data}")
+```
