@@ -94,98 +94,137 @@ Loop through a list:
 
 #### sort array with custom comparator
 
-intervals.sort((a, b) => { return a[0] - b[0]; });
+- https://www.w3schools.com/python/ref_list_sort.asp
+- https://docs.python.org/3/howto/sorting.html
 
-#### Remove/replace array elements in place
+list.sort(reverse=True|False, key=myFunc) 
 
-The splice() method of Array instances changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.
+##### sort list with lambda
 
-The splice() method returns an array containing the deleted elements. If no elements are removed, it returns an empty array.
+Sort the list in place based on the second element (marks):
+
+subject_marks.sort(key=lambda x: x[1])
 
 ```
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
-splice(start)
-splice(start, deleteCount)
-splice(start, deleteCount, item1)
-splice(start, deleteCount, item1, item2)
-splice(start, deleteCount, item1, item2, /* …, */ itemN)
+# E.g., for intervals.sort((a, b) => { return a[0] - b[0]; });
+# In Python this is:
+>>> c
+[[1, 2], [2, 3], [0, 4]]
+>>> c.sort(key=lambda x : x[0])
+>>> c
+[[0, 4], [1, 2], [2, 3]]
+>>> c.sort(key=lambda x : x[1])
+>>> c
+[[1, 2], [2, 3], [0, 4]]
 ```
+
+##### list.sort() vs sorted()
+
+The primary difference is that list.sort() sorts a list in-place and returns None, while sorted() creates and returns a new sorted list from any iterable, leaving the original data unchanged. 
+
+list.sort()
+
+- Modifies in-place: It directly changes the original list object.
+- Return value: It returns None. A common mistake is to try and assign the result to a new variable (e.g., new_list = old_list.sort()), which will result in new_list being None.
+- Applicability: It is a method of the list class, so it can only be used with lists.
+- Memory/Performance: It is slightly more efficient in terms of memory and performance for lists because it doesn't have to create a new list object. 
+
+sorted()
+
+- Does not modify original: It creates and returns a new sorted list, leaving the original iterable unchanged.
+- Return value: It returns a new list object, which you typically assign to a variable.
+- Applicability: It is a built-in function that accepts any iterable (lists, tuples, strings, dictionaries, sets, etc.), not just lists.
+- Memory/Performance: It has a slight performance and memory overhead due to the creation of a new list. 
 
 ### Map
 
+https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+
+Use {}, dict(), or OrderedDict().
+
+Unordered:
 ```
-const map = new Map();
-set(k,v)
-has(k)
-get(k)
-delete(k)
-clear()
-size
+>>> a = {} # an empty dictionary
+>>> dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
+{'sape': 4139, 'guido': 4127, 'jack': 4098}
+>>> dict({'sa': 3, 'dg': 4})
+{'sa': 3, 'dg': 4}
+```
 
-// iterate through map entries
-for (const [key, value] of map.entries()) {}
+Ordered:
+```
+>>> from collections import OrderedDict;
+>>> m = {"A1" : [1,2], "B3" : [3], 'C': [0]}
+>>> m = OrderedDict(sorted(m.items(), key = lambda t : t[0]))
+>>> m
+OrderedDict({'A1': [1, 2], 'B3': [3], 'C': [0]})
+>>> m = OrderedDict(sorted(m.items(), key = lambda t : t[1]))
+>>> m
+OrderedDict({'C': [0], 'A1': [1, 2], 'B3': [3]})
+>>> m = OrderedDict(sorted(m.items(), key = lambda t : t[0], reverse=True))
+>>> m
+OrderedDict({'C': [0], 'B3': [3], 'A1': [1, 2]})
 
-// Initialize with values
-const entries = [['{', '}'], ['[', ']'], ['(', ')']];
-const map = new Map(entries);
+for k, v in m.items():
+    print(k, v)
+
+for k in m.keys(): 
+    print(k)
+
+for v in m.keys(): 
+    print(v)
 ```
 
 ### Set
 
+https://docs.python.org/3/tutorial/datastructures.html#sets
+
+Curly braces {} or the set() function can be used to create sets. 
+Note: to create an empty set you have to use set(), not {}; the latter creates an empty dictionary.
+
 ```
-const set = new Set()
-add(v)
-has(v)
-delete(v)
-clear()
-size
+basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
+print(basket)  # {'orange', 'banana', 'pear', 'apple'}
+
+a = set('abracadabra')
+a                                  # unique letters in a
+{'a', 'r', 'b', 'c', 'd'}
+
+for i in a:
+    print(i)
 ```
 
 get first value: set.values().next().value
 
-### Sort
+### Stack
+
+Example of using a list as a stack
 
 ```
-function(intervals) {
-    intervals.sort((a, b) => a[0] - b[0]);
-
-    const minHeap = new MyMinHeap((a, b) => a - b);
-    for (let i = 0; i < intervals.length; ++ i) {
-        if (!minHeap.empty() && intervals[i][0] >= minHeap.top()) minHeap.pop();
-        minHeap.push(intervals[i][1]);
-    }
-
-    return minHeap.size();
-};
-
-class MyMinHeap {
-    constructor(compareFunc) {
-        this.compareFunc = compareFunc;
-        this.heap = [];
-    }
-        
-    push(val) {
-        // this.heap.unshift(val);
-        this.heap.push(val); // this works too.
-        this.heap.sort(this.compareFunc);
-    }
-        
-    pop() {
-        if (this.size === 0) return null;
-        return this.heap.shift();
-    }
-        
-    top() {
-        if(this.size === 0) return null;
-        return this.heap[0];
-    }
-        
-    size() {
-        return this.heap.length;
-    }
-
-    empty() {
-        return this.heap.length === 0;
-    }
-};
+stack = []
+stack.append('a') # Push
+stack.append('b') # Push
+print(stack.pop()) # Pop, outputs 'b'
+print(stack.pop()) # Pop, outputs 'a'
 ```
+
+### Queue
+
+Example of using deque as a queue
+
+```
+from collections import deque
+
+queue = deque(["apple", "banana", "cherry"])
+
+queue.append("date") # Enqueue
+queue.pop() # pops 'date'
+
+print(queue.popleft()) # Dequeue, outputs 'apple'
+print(queue.popleft()) # Dequeue, outputs 'banana'
+queue.appendleft('a') # adds 'a' to the beginning
+
+q[0]  # similar to q.front()
+q[-1] # similar to q.back()
+```
+
