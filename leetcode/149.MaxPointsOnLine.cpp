@@ -1,3 +1,34 @@
+// Similar to Solution6, but use verticalCount to track the vertical slope, since it's possible
+// INT_MAX is an existing slope from the points.
+class Solution7 {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        int n = points.size();
+        if (n <= 1) return n;
+
+        int maxNum = 0;
+        for (int i = 0; i < n-1; ++ i) {
+            unordered_map<double, int> slopeCount;
+            int verticalCount = 0;
+            for (int j = i + 1; j < n; ++ j) {
+                auto &a = points[i], &b = points[j];
+                if (a[0] == b[0]) {
+                    ++ verticalCount;
+                } else {
+                    double slope = (1.0 * a[1] - b[1]) / (a[0] - b[0]);
+                    slopeCount[slope] ++;
+                }
+            }
+
+            for (auto [slope, count] : slopeCount) {
+                maxNum = max(maxNum, 1 + count);
+            }
+            maxNum = max(maxNum, 1 + verticalCount); // Check this special slope.
+        }
+        return maxNum;
+    }
+};
+
 // Similar to Solution6, but use slope instead of atan2.
 class Solution7 {
 public:
@@ -414,6 +445,7 @@ p.push_back(Point(150,774));
     cout << so.maxPoints(p) << endl;
     return 0;
 }
+
 
 
 
