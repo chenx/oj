@@ -1,3 +1,36 @@
+// From: https://leetcode.com/problems/add-binary/editorial/
+// zfill: string.zfill(width)
+// '42'.zfill(5)	'00042'	The string is padded with three leading zeros to reach a total width of 5 characters.
+// '12345'.zfill(3)	'12345'	The string is already longer than the specified width (3), so it remains unchanged.
+// '-42'.zfill(5)	'-0042'	The zeros are added after the negative sign.
+// 'abc'.zfill(6)	'000abc'	The method works on non-numeric strings as well.
+class Solution2:
+    def addBinary(self, a: str, b: str) -> str:
+        n = max(len(a), len(b))
+        a, b = a.zfill(n), b.zfill(n)
+
+        carry = 0
+        answer = []
+        for i in range(n - 1, -1, -1):
+            if a[i] == "1":
+                carry += 1
+            if b[i] == "1":
+                carry += 1
+
+            if carry % 2 == 1:
+                answer.append("1")
+            else:
+                answer.append("0")
+
+            carry //= 2
+
+        if carry == 1:
+            answer.append("1")
+        answer.reverse()
+
+        return "".join(answer)
+        
+
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
         def add(sum):
@@ -7,9 +40,6 @@ class Solution:
             else:
                 self.carry = 0
             self.result = str(sum) + self.result
-    
-        if a == "" or a == "0": return b
-        if b == "" or b == "0": return a
 
         self.result = ""
         self.carry = 0
