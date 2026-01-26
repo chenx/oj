@@ -9,6 +9,11 @@ public:
         vector<vector<int>> ans;
         int n1 = nums1.size(), n2 = nums2.size();
 
+        // This also works:
+        // auto comp = [&](vector<int> &a, vector<int> &b) {
+        //     return a[0] > b[0];
+        // };
+        // priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap(comp);
         priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> minHeap;
 
         minHeap.push({nums1[0] + nums2[0], 0, 0});
