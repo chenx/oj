@@ -25,6 +25,7 @@ class Solution2:
         return quick_select(nums, k)
         
 
+// Times out for large input. The C++ version passes but only beats 5% of all submissions.
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         def quickSelect(nums, left, right, k):
