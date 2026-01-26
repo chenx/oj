@@ -17,6 +17,8 @@ using namespace std;
 
 // Generalized from solution of "188. Best Time to Buy and Sell Stock IV"
 // See: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+// Time: O(kn) = O(2n) = O(n)
+// Space: O(n)
 class Solution3 {
 public:
     int maxProfit(vector<int>& prices) {
@@ -229,5 +231,6 @@ peking2:
         return ans;
     }
 */
+
 
 
