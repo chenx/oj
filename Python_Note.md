@@ -271,6 +271,7 @@ heapq.heappush(priority_queue, (3, 'low_priority'))
 # Elements are popped in order of priority (lowest number first)
 print(heapq.heappop(priority_queue)) # Outputs (1, 'high_priority')
 print(heapq.heappop(priority_queue)) # Outputs (2, 'medium_priority')
+print(heapq.heappop(priority_queue)) # Outputs (3, 'low_priority')
 ```
 
 Max heap (Python 3.14) native max heap:
@@ -299,4 +300,17 @@ print(f"Heap after pop: {max_heap}")
 data = [4, 7, 2, 8, 1, 3]
 heapq.heapify_max(data)
 print(f"Heapified max heap: {data}")
+```
+
+Also can use heappush and heappop for or max heap, use negative value for each element of the heap
+
+```
+maxHeap = []
+heapq.heappush(priority_queue, (-2, 'medium_priority'))
+heapq.heappush(priority_queue, (-1, 'high_priority'))
+heapq.heappush(priority_queue, (-3, 'low_priority'))
+
+print(heapq.heappop(priority_queue))  # (-3, 'low_priority')
+print(heapq.heappop(priority_queue))  # (-2, 'medium_priority')
+print(heapq.heappop(priority_queue))  # (-1, 'high_priority')
 ```
