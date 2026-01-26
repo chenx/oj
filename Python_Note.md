@@ -1,5 +1,17 @@
 # Python Note
 
+## number
+
+Instead of INT_MIN and INT_MAX in C++, there is no limit of number size.
+
+If need a meaning value similar to INT_MIN and INT_MAX, do this:
+
+```
+import sys
+
+rint(f'minsize = {-sys.maxsize - 1}, maxsize={sys.maxsize}')
+```
+
 ## String
 
 len(str) : get string length
