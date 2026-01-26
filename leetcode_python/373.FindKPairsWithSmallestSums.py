@@ -5,7 +5,9 @@ class Solution:
         pairs = []
         minHeap = []
         heapq.heappush(minHeap, (nums1[0] + nums2[0], [0, 0]))
-        used = set((0, 0))
+        # used = set((0, 0))  # This will be {0} instead of {{0,0}}
+        used = set()
+        used.add((0, 0))
 
         while len(minHeap) > 0 and k > 0:
             k -= 1
