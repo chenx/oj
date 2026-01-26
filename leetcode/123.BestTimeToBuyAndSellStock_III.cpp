@@ -15,6 +15,28 @@
 #include <vector>
 using namespace std;
 
+// Generalized from solution of "188. Best Time to Buy and Sell Stock IV"
+// See: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+class Solution3 {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        if (n <= 1) return 0;
+
+        vector<int> cur(n), prev(n);
+        for (int k = 2; k > 0; -- k) {
+            int low = prices[0];
+            for (int i = 1; i < n; ++ i) {
+                cur[i] = max(cur[i-1], prices[i] - low);
+                low = min(low, prices[i] - prev[i-1]);
+            }
+            prev = cur;
+        }
+        return cur[n-1];
+    }
+};
+
+
 class Solution2 {
 public:
     int maxProfit(vector<int>& prices) {
@@ -207,4 +229,5 @@ peking2:
         return ans;
     }
 */
+
 
