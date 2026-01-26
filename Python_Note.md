@@ -10,6 +10,7 @@ If need a meaning value similar to INT_MIN and INT_MAX, do this:
 import sys
 
 rint(f'minsize = {-sys.maxsize - 1}, maxsize={sys.maxsize}')
+# minsize = -9223372036854775808, maxsize=9223372036854775807
 ```
 
 ## String
