@@ -30,6 +30,7 @@ str.lower() : get lower case of a string
 
 str.isalnum() : built-in string method that checks if all characters in the string are alphanumeric (letters or numbers)
 
+str[start: start+len] : Substring, same as str.substr(start, len) in C++
 
 ### Convert number to string
 
