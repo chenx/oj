@@ -1,5 +1,12 @@
 # Python Note
 
+## Define 2D array
+
+```
+m, n = len(board), len(board[0])
+DP = [[0] * n for i in range(m)]  # m*n 2D array
+```
+
 ## number
 
 Instead of INT_MIN and INT_MAX in C++, there is no limit of number size.
