@@ -188,6 +188,13 @@ for v in m.keys():
     print(v)
 ```
 
+Increase the value of a map item:
+```
+m = {}
+m[x] = m.get(x, 0) + 1
+# m.get(x, 0) return 0 if x does not exist in m
+```
+
 ### Set
 
 https://docs.python.org/3/tutorial/datastructures.html#sets
