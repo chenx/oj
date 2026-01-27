@@ -28,11 +28,7 @@ class Database:
         print(f"\nSELECT FROM {table} WHERE {where} OrderBy {order_by}")
         result = []  # List[rowId, List[row]]
         self.handle_where(table, result, where)
-
-        print(f"before sort: result: {result}")
         self.handle_orderby(table, result, order_by)
-
-        print(f"after sort:  result: {result}")
         return result
 
     def handle_orderby(self, table, result, order_by):
@@ -64,8 +60,7 @@ class Database:
         :param where: E.g., name = Alice AND age = 28
         """
         conditions = [] if where == '' else where.split(' ')
-
-        print(f"conditions: {conditions}")
+        # print(f"conditions: {conditions}")
 
         rows = len(self.tables[table])
         for rowId, fields in self.tables[table].items():
@@ -81,7 +76,9 @@ class Database:
         for i in range(0, n, 3):
             if i > 0:
                 i += 1  # ignore AND/OR
-            
+            if i >= n: 
+                break
+                        
             fieldName = conditions[i]
             fieldIndex = self.table_column_index[table][fieldName]
             fieldValue = fields[fieldIndex]
@@ -93,9 +90,11 @@ class Database:
                       (op == "=" and fieldValue == val)
 
             cond = cond and curCond
+
         return cond
     
-
+    def dump(self, table):
+        print(f"Table {table}\n{self.tables[table]}")
 
 class DatabaseTest:
     def run_tests(self):
@@ -104,12 +103,20 @@ class DatabaseTest:
         self.test_select_where()
         self.test_select_orderby()
 
+    # To assert equality of list or Dict, compare directly.
+    def assertEq(self, result, expect):
+        if result == expect:
+            print(f"Pass: result = {result}")
+        else:
+            print(f"Fail: result = {result}, expect = {expect}")
+
     def test_insert(self):
         print("test_insert")
         db = Database(["User", "Product"], [["name", "age"], ["name", "price"]])
         db.insert("User", ["Alice", "28"])
         db.insert("User", ["Bob", "29"])
         db.insert("User", ["Cat", "30"])
+        db.insert("User", ["Alice", "30"])
 
     def test_select(self):
         print("test_insert")
@@ -117,6 +124,7 @@ class DatabaseTest:
         db.insert("User", ["Alice", "28"])
         db.insert("User", ["Bob", "29"])
         db.insert("User", ["Cat", "30"])
+        db.insert("User", ["Alice", "30"])
 
         db.select("User", "", "")
 
@@ -126,8 +134,12 @@ class DatabaseTest:
         db.insert("User", ["Alice", "28"])
         db.insert("User", ["Bob", "29"])
         db.insert("User", ["Cat", "30"])
+        db.insert("User", ["Alice", "30"])
 
-        db.select("User", "name = Alice", "")
+        result = db.select("User", "name = Alice", "")
+        self.assertEq(result, [[1, 'Alice', '28'], [4, 'Alice', '30']])
+        result = db.select("User", "name = Alice AND age = 30", "")
+        self.assertEq(result, [[4, 'Alice', '30']])
 
     def test_select_orderby(self):
         print("test_insert")
@@ -137,8 +149,11 @@ class DatabaseTest:
         db.insert("User", ["Cat", "30"])
         db.insert("User", ["Alice", "30"])
 
-        db.select("User", "", "name ASC, age ASC")
-        db.select("User", "", "name ASC, age DESC")
+        result = db.select("User", "", "name ASC, age ASC")
+        print(result)
+        result = db.select("User", "", "name ASC, age DESC")
+        print(result)
+
 
 if __name__ == "__main__":
     test = DatabaseTest()
