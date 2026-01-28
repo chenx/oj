@@ -3,7 +3,6 @@
 ## Define 2D array
 
 ```
-
 board = [[11,12,13], [21,22,23]]
 m, n = len(board), len(board[0])
 
