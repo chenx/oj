@@ -3,8 +3,22 @@
 ## Define 2D array
 
 ```
+
+board = [[11,12,13], [21,22,23]]
 m, n = len(board), len(board[0])
-DP = [[0] * n for i in range(m)]  # m*n 2D array
+
+TwoDArray1 = [[0] * n] * m  # m*n 2D array
+TwoDArray2 = [[0] * n for i in range(m)]  # m*n 2D array
+
+print(f"TwoDArray1: {TwoDArray1}")
+print(f"TwoDArray2: {TwoDArray2}")
+
+grid = [[0 for _ in range(n)] for _ in range(m)]
+print(f"TwoDGrid: {grid}")
+
+# TwoDArray1: [[0, 0, 0], [0, 0, 0]]
+# TwoDArray2: [[0, 0, 0], [0, 0, 0]]
+# TwoDGrid: [[0, 0, 0], [0, 0, 0]]
 ```
 
 ## number
