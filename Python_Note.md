@@ -499,7 +499,7 @@ All apply to lists, not just 2 numbers
 char to int: ord('A')
 int to char: chr(65) # 'A'
 
-## Replace a char at index i in array
+### Replace a char at index i in array
 
 two ways:
 
@@ -514,4 +514,13 @@ b[i] = "d"
 a = "".join(b)
 ```
 
+### list.sort vs sorted
 
+```
+Feature 	     list.sort()	                      sorted()
+Behavior	     Sorts in-place (mutates original)	Returns a new sorted list
+Return Value	 None	                            A new list
+Applicability  Lists only	                      Any iterable (list, tuple, dict, etc.)
+Original Data	 Modified	                        Unchanged
+Memory Usage	 More memory-efficient	            Less memory-efficient (creates a copy)
+```
