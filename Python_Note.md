@@ -489,3 +489,29 @@ already exist in a non-global enclosing scope.
 ```
 
 Method 3: pass as a list of one element: param = [var], can access the var sa param[0]
+
+### min, max, sum
+
+All apply to lists, not just 2 numbers
+
+### conversion between int and char
+
+char to int: ord('A')
+int to char: chr(65) # 'A'
+
+## Replace a char at index i in array
+
+two ways:
+
+```
+# method 1
+i = 1
+a = a[:i] + 'd' + a[i+1:]
+
+# method 2
+b = list(a)
+b[i] = "d"
+a = "".join(b)
+```
+
+
