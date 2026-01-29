@@ -420,8 +420,18 @@ self.table_column_index : dict[str, dict[str, int]] = {}  # <tableName, map<colu
 
 ### Ways to share variable between function call
 
-Method 1: self.var
+Method 1: as class instance variable:  self.var
 
-Method 2: nonlocal
+Method 2: nonlocal var
+
+```
+Purpose
+
+By default, when a function assigns a value to a variable, Python treats that variable as local to the current function's scope, even if a variable with the same name exists in an outer scope. The nonlocal keyword overrides this default behavior, telling Python to use the variable from the enclosing scope instead.
+
+How to Use nonlocal
+
+The nonlocal keyword must be used inside a nested function and the variable it references must already exist in a non-global enclosing scope.
+```
 
 Method 3: pass as a list of one element: param = [var], can access the var sa param[0]
