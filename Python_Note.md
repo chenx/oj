@@ -185,6 +185,33 @@ https://docs.python.org/3/tutorial/datastructures.html#dictionaries
 
 Use {}, dict(), or OrderedDict().
 
+```
+map = {}
+
+set/add/insert:
+map[key] = value
+
+get:
+map.get(key, None)
+
+has/contains:
+key in map 
+
+delete:
+del map[key] 
+map.pop(key) 
+
+clear:
+map.clear()
+
+size:
+len(map)
+
+loop:
+for key, val in map:
+  print(key)
+```
+
 Unordered:
 ```
 >>> a = {} # an empty dictionary
@@ -231,6 +258,29 @@ https://docs.python.org/3/tutorial/datastructures.html#sets
 
 Curly braces {} or the set() function can be used to create sets. 
 Note: to create an empty set you have to use set(), not {}; the latter creates an empty dictionary.
+
+```
+set1 = set()
+
+set/add/insert:
+set1.add(key)
+
+has/contains:
+key in set1 
+
+delete:
+set1.remove(key)
+
+clear:
+set1.clear()
+
+size:
+len(set1)
+
+loop:
+for x in set1:
+  print(x)
+```
 
 ```
 basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
