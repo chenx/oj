@@ -418,7 +418,7 @@ self.table_columns : dict[str, list[str]] = {}  # <tableName, columns[]>
 self.table_column_index : dict[str, dict[str, int]] = {}  # <tableName, map<columnName, index>>
 ```
 
-### Ways to share variable between function call
+### Ways to share variable between function call (alternative to pass by reference in C++)
 
 Method 1: as class instance variable:  self.var
 
