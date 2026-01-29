@@ -1,3 +1,25 @@
+# Note use of:
+#   -float("inf") for INT_MIN
+#   nonlocal
+class Solution2:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        maxSum = - float("inf")
+        def getMaxSum(node : TreeNode) -> int:
+            nonlocal maxSum
+
+            if node is None:
+                return 0
+            
+            L = getMaxSum(node.left)
+            R = getMaxSum(node.right)
+            maxSum = max(maxSum, node.val + L + R)
+
+            return max(0, node.val + max(L, R))
+
+        if root is None: return 0
+        getMaxSum(root)
+        return maxSum
+
 
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
@@ -12,7 +34,7 @@ class Solution:
             return max(0, node.val + max(L, R))
 
         if root is None: return 0
-        maxSum = [- sys.maxsize - 1]
+        maxSum = [-float("inf")]  # [- sys.maxsize - 1]
         getMaxSum(root, maxSum)
         return maxSum[0]
 
