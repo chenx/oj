@@ -417,3 +417,11 @@ self.table_max_id : dict[str, int] = {table : 0 for table in table_names} # <tab
 self.table_columns : dict[str, list[str]] = {}  # <tableName, columns[]>
 self.table_column_index : dict[str, dict[str, int]] = {}  # <tableName, map<columnName, index>>
 ```
+
+### Ways to share variable between function call
+
+Method 1: self.var
+
+Method 2: nonlocal
+
+Method 3: pass as a list of one element: param = [var], can access the var sa param[0]
