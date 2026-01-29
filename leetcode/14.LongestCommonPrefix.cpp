@@ -4,6 +4,26 @@
 // @Created on: 12/20/2012
 // @Last modified: 1/21/2013
 //
+class Solution8 {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int n = strs.size();
+        if (n == 0) return "";
+
+        int maxLen = strs[0].length();
+        for (int i = 1; i < n; ++ i) {
+            maxLen = min(maxLen, (int) strs[i].size());
+
+            for (int j = 0; j < maxLen; ++ j) {
+                if (strs[0][j] != strs[i][j]) {
+                    maxLen = j;
+                    break;
+                }
+            }
+        }
+        return strs[0].substr(0, maxLen);
+    }
+};
 
 class Solution7 {
 public:
@@ -191,4 +211,5 @@ public:
         return p;
     }
 };
+
 
