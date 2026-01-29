@@ -398,3 +398,14 @@ except StopIteration as e:
     print(f"Exception: {e}")
  iter: return self
 ```
+
+### isinstance
+
+```
+# All return true
+print(f"isinstance(1, int): {isinstance(1, int)}")
+print(f"isinstance(a, str): {isinstance("a", str)}")
+print(f"isinstance([1,2,3], list): {isinstance([1,2,3], list)}")
+print(f"isinstance((4,5,6), tuple): {isinstance((1,2,3), tuple)}")
+```
+
