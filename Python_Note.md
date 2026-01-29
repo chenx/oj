@@ -170,6 +170,15 @@ sorted()
 - Applicability: It is a built-in function that accepts any iterable (lists, tuples, strings, dictionaries, sets, etc.), not just lists.
 - Memory/Performance: It has a slight performance and memory overhead due to the creation of a new list. 
 
+```
+result.sort(key=lambda x : x[index], reverse=rev);
+
+# OR USE:
+from operator import itemgetter;
+
+result.sort(key=itemgetter(index), reverse=rev);
+```
+
 ### Map
 
 https://docs.python.org/3/tutorial/datastructures.html#dictionaries
@@ -326,4 +335,66 @@ heapq.heappush(priority_queue, (-3, 'low_priority'))
 print(heapq.heappop(priority_queue))  # (-3, 'low_priority')
 print(heapq.heappop(priority_queue))  # (-2, 'medium_priority')
 print(heapq.heappop(priority_queue))  # (-1, 'high_priority')
+```
+
+### copy (shallow and deep)
+
+```
+import copy
+
+a = [[1], 2]
+shallow_copy = copy.copy(a)
+deep_copy = copy.deepcopy(a)
+```
+
+### deque
+
+```
+from collections import deque;
+
+q = deque()
+link = q.popleft();
+```
+
+### print 2D grid
+
+```
+# Need to define __str__ of Cell
+
+for row in self.cells:
+    print(*row) ;
+```
+
+### Initialize <string, map<>>
+
+```
+self.tables = {table: {} for table in table_names}  # <tableName, map<rowId, row[]>>
+```
+
+### heap
+
+```
+import heapq;
+
+heapq.heappush(self.minHeap, (expire, [timestamp, amount, expire]))
+```
+
+### Array insert/pop
+
+```
+a = []
+a.pop(i)
+a.nsert(i, Node)
+```
+
+### Iterator
+
+```
+raise StopIteration("end of iterator")
+
+try:
+    pass
+except StopIteration as e:
+    print(f"Exception: {e}")
+ iter: return self
 ```
