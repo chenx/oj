@@ -409,3 +409,11 @@ print(f"isinstance([1,2,3], list): {isinstance([1,2,3], list)}")
 print(f"isinstance((4,5,6), tuple): {isinstance((1,2,3), tuple)}")
 ```
 
+### Type declaration in Python3
+
+```
+self.tables : dict[str, dict[int, list[str]]] = {table: {} for table in table_names}  # <tableName, map<rowId, row[]>>
+self.table_max_id : dict[str, int] = {table : 0 for table in table_names} # <tableName, row_max_id>
+self.table_columns : dict[str, list[str]] = {}  # <tableName, columns[]>
+self.table_column_index : dict[str, dict[str, int]] = {}  # <tableName, map<columnName, index>>
+```
