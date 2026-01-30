@@ -561,3 +561,17 @@ The OrderedDict implementation is a hybrid data structure designed to provide th
 # Unlike a standard dictionary's popitem(), it accepts a last parameter (a boolean) to 
 # control the order of removal. True - remove last (LIFO), False - remove first (FIFO).
 ```
+
+### sortedcontainers: SortedList, SortedSet, SortedDict
+
+The **sortedcontainers** Python library's **SortedList** uses a segmented-list data structure that is similar to a B-tree, 
+but limited to two levels of nodes. This approach leverages the high performance of Python's built-in list operations 
+while providing efficient O(log n) time complexity for most operations.
+
+The **sortedcontainers.SortedSet** in Python is a wrapper around the SortedList data structure. 
+The SortedList itself is implemented using a segmented list (similar to a B-tree limited to two levels of nodes), 
+not a traditional balanced binary search tree or a simple Python set with a sorted list.
+
+The **sortedcontainers.SortedDict** in Python is a hybrid data structure that internally uses a combination of a 
+standard Python dictionary and a balanced tree-like structure (specifically, a segmented list with two levels 
+of nodes, similar to a B-tree) to maintain efficient operations while keeping keys sorted. 
