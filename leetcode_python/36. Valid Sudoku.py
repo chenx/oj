@@ -1,3 +1,47 @@
+class Solution2:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        def isValidRow(board, row):
+            count = [0] * 9
+            for col in range(9):
+                if board[row][col] == '.':
+                    continue
+                index = int(board[row][col]) - 1
+                count[index] += 1
+                if (count[index] > 1): return False
+            return True
+
+        def isValidCol(board, col):
+            count = [0] * 9
+            for row in range(9):
+                if board[row][col] == '.':
+                    continue
+                index = int(board[row][col]) - 1
+                count[index] += 1
+                if (count[index] > 1): return False
+            return True
+
+        def isValidGrid(board, row, col):
+            count = [0] * 9
+            for i in range(3):
+                for j in range(3):
+                    if board[row + i][col + j] == '.':
+                        continue
+                    index = int(board[row + i][col + j]) - 1
+                    count[index] += 1
+                    if (count[index] > 1): return False
+            return True
+
+        for i in range(9):
+            if not isValidRow(board, i): return False
+            if not isValidCol(board, i): return False
+
+        for row in range(0, 9, 3):
+            for col in range(0, 9, 3):
+                if not isValidGrid(board, row, col): return False
+
+        return True
+
+
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         def isValidRow(board, row):
