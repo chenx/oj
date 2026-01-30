@@ -270,6 +270,7 @@ key in set1
 
 delete:
 set1.remove(key)
+set1.pop() # removes random member
 
 clear:
 set1.clear()
