@@ -28,6 +28,13 @@ class MaxStack:
         self.stack.remove((idx, val))
         return val
 
+/**
+The sortedcontainers Python library's SortedList uses a segmented-list data structure that is similar to a B-tree, 
+but limited to two levels of nodes. 
+
+This approach leverages the high performance of Python's built-in list operations while providing efficient 
+O(log n) time complexity for most operations.
+ */
 
 /**
 716. Max Stack
