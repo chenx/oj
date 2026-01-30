@@ -1,3 +1,27 @@
+class Solution2:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        n = len(points)
+        if n <= 2:
+            return n
+        
+        result = 2
+        for i in range(n-1):
+            slopeCount = {}
+            verticalCount = 0
+            for j in range(i+1, n):
+                if points[i][0] == points[j][0]:
+                    verticalCount += 1
+                else:
+                    slope = (points[i][1] - points[j][1]) / (points[i][0] - points[j][0])
+                    slopeCount[slope] = slopeCount.get(slope, 0) + 1
+            
+            for slope, count in slopeCount.items():
+                result = max(result, count + 1)
+            result = max(result, verticalCount + 1)
+
+        return result 
+        
+
 class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
         n = len(points)
