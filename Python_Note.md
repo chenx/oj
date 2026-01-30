@@ -388,6 +388,24 @@ print(heapq.heappop(priority_queue))  # (-2, 'medium_priority')
 print(heapq.heappop(priority_queue))  # (-1, 'high_priority')
 ```
 
+#### order property of priority queue element
+
+A "<" relationship is needed between priority queue elements.
+
+This should be enough using a tuple where the first element is used for comparison.
+
+Sometimes, like in leetcode editor, or if comparison is complex, define a node, e.g.,
+
+```
+class HeapNode:
+    def __init__(self, node: ListNode):
+        self.node = node
+    
+    def __lt__(self, other):
+        return self.node.val < other.node.val
+```
+
+
 ### copy (shallow and deep)
 
 ```
