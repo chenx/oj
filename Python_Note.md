@@ -534,3 +534,12 @@ The OrderedDict implementation is a hybrid data structure designed to provide th
 - A Doubly Linked List: This structure stores the keys in the sequence they were inserted. Each node (link) in the list represents a key's position.
 - A Key-to-Node Map: A secondary internal dictionary (often named self.__map in the source code) maps each key to its corresponding node in the doubly linked list. This allows for constant-time (O(1)) access to a specific node when an item needs to be deleted or moved, without having to traverse the linked list linearly. A sentinel node is used to simplify the linked list algorithm.
 
+```
+# In a Python OrderedDict, the items are stored and iterated over in the order in which their keys were first inserted.
+#
+# The popitem() method for Dict: remove the last (inserted) time. LIFO.
+#
+# The popitem() method for a Python OrderedDict removes and returns a (key, value) pair. 
+# Unlike a standard dictionary's popitem(), it accepts a last parameter (a boolean) to 
+# control the order of removal. True - remove last (LIFO), False - remove first (FIFO).
+```
