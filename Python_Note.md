@@ -525,3 +525,12 @@ Applicability  Lists only	                      Any iterable (list, tuple, dict,
 Original Data	 Modified	                        Unchanged
 Memory Usage	 More memory-efficient	            Less memory-efficient (creates a copy)
 ```
+
+### OrderedDict
+
+The OrderedDict implementation is a hybrid data structure designed to provide the benefits of both a hash table (for fast lookups) and a sequence (for ordered iteration). It achieves this by combining three internal components: 
+
+- The Dictionary Itself: OrderedDict is a dict subclass, so the object itself stores the key-value pairs, providing O(1) average time complexity for standard dictionary operations like __getitem__, __setitem__, __contains__, and __delitem__.
+- A Doubly Linked List: This structure stores the keys in the sequence they were inserted. Each node (link) in the list represents a key's position.
+- A Key-to-Node Map: A secondary internal dictionary (often named self.__map in the source code) maps each key to its corresponding node in the doubly linked list. This allows for constant-time (O(1)) access to a specific node when an item needs to be deleted or moved, without having to traverse the linked list linearly. A sentinel node is used to simplify the linked list algorithm.
+
