@@ -1,0 +1,41 @@
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        n1, n2, n3 = len(s1), len(s2), len(s3)
+        if n1 + n2 != n3: return False
+        if n1 == 0: return s2 == s3
+        if n2 == 0: return s1 == s3
+
+        DP = [[False for _ in range(n2 + 1)] for _ in range(n1 + 1)]
+
+        for i in range(1, n1 + 1):
+            if s1[i-1] == s3[i-1]: DP[i][0] = True
+            else: break
+        for j in range(1, n2 + 1):
+            if s2[j-1] == s3[j-1]: DP[0][j] = True
+            else: break
+        
+        for i in range(1, n1 + 1):
+            for j in range(1, n2 + 1):
+                DP[i][j] = (s1[i-1] == s3[i-1+j] and DP[i-1][j]) or (s2[j-1] == s3[i+j-1] and DP[i][j-1])
+        # for row in DP: print(*row)
+        return DP[n1][n2]
+
+
+/**
+97. Interleaving String
+Solved
+Medium
+Topics
+conpanies iconCompanies
+
+Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.
+
+An interleaving of two strings s and t is a configuration where s and t are divided into n and m respectively, such that:
+
+    s = s1 + s2 + ... + sn
+    t = t1 + t2 + ... + tm
+    |n - m| <= 1
+    The interleaving is s1 + t1 + s2 + t2 + s3 + t3 + ... or t1 + s1 + t2 + s2 + t3 + s3 + ...
+
+Note: a + b is the concatenation of strings a and b.
+ */
