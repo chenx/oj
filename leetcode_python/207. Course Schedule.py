@@ -1,3 +1,32 @@
+# Kahn's topological algorithm of cycle detections
+class Solution2:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        inDegree = [0] * numCourses
+        outDegree = [[] for _ in range(numCourses)]
+
+        for p in prerequisites:
+            inDegree[p[1]] += 1
+            outDegree[p[0]].append(p[1])
+        
+        q = collections.deque()
+        for course in range(numCourses):
+            if inDegree[course] == 0:
+                q.append(course)
+        visited = []
+
+        while q:
+            course = q.popleft()
+            visited.append(course)
+
+            for nextCourse in outDegree[course]:
+                inDegree[nextCourse] -= 1
+
+                if inDegree[nextCourse] == 0:
+                    q.append(nextCourse)
+
+        return len(visited) == numCourses
+
+
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         inDegree : dict[int, set(int)] = {}
