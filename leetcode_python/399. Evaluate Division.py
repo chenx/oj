@@ -1,3 +1,53 @@
+class Solution2:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        result = []
+
+        map : dict[nominator, set(tuple(denominator, value))] = {}
+        for i in range(len(equations)):
+            if equations[i][0] not in map:
+                map[equations[i][0]] = set()
+            if equations[i][1] not in map:
+                map[equations[i][1]] = set()
+            map[equations[i][0]].add((equations[i][1], values[i]))
+            map[equations[i][1]].add((equations[i][0], 1.0 / values[i]))
+
+        for query in queries:
+            start = query[0]
+            end = query[1]
+
+            if start not in map:
+                result.append(-1.0)
+                continue
+            if start == end:
+                result.append(1.0)
+                continue
+
+            q = collections.deque( [(start, 1.0)] )
+            used = set([start]) # must use [], otherwise set("aa") = {"a"} !!!
+
+            found = False
+            while q:
+                var, val = q.popleft()
+                print(f"var = {var}")
+                
+                for nextVar, nextVal in map[var]:
+                    if nextVar not in used:
+                        if nextVar == end:
+                            result.append(val * nextVal)
+                            found = True
+                            break
+                        q.append( (nextVar, val * nextVal) )
+                        used.add(nextVar)
+                
+                if found:
+                    break
+
+            if not found:
+                result.append(-1.0)
+
+        return result
+
+
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         result = []
