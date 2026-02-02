@@ -1,12 +1,12 @@
 # Kahn's topological algorithm of cycle detections
-class Solution2:
+class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         inDegree = [0] * numCourses
         outDegree = [[] for _ in range(numCourses)]
 
         for p in prerequisites:
-            inDegree[p[1]] += 1
-            outDegree[p[0]].append(p[1])
+            inDegree[p[0]] += 1
+            outDegree[p[1]].append(p[0])
         
         q = collections.deque()
         for course in range(numCourses):
