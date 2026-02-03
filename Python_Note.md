@@ -575,3 +575,55 @@ not a traditional balanced binary search tree or a simple Python set with a sort
 The **sortedcontainers.SortedDict** in Python is a hybrid data structure that internally uses a combination of a 
 standard Python dictionary and a balanced tree-like structure (specifically, a segmented list with two levels 
 of nodes, similar to a B-tree) to maintain efficient operations while keeping keys sorted. 
+
+### Inner function
+
+Inner function can access variables of the outer function.
+```
+>>> def outer_func(outer_arg):
+...     local_var = "Outer local variable"
+...     def closure():
+...         print(outer_arg)
+...         print(local_var)
+...         print(another_local_var)
+...     another_local_var = "Another outer local variable"
+...     return closure
+...
+
+>>> closure = outer_func("Outer argument")
+
+>>> closure()
+Outer argument
+Outer local variable
+Another outer local variable
+```
+
+### Python closure
+
+https://realpython.com/python-closure/
+
+To create a Python closure, you need the following components:
+
+- An outer or enclosing function: This is a function that contains another function, often referred to as the inner function. The outer function can take arguments and define variables that the inner function can access and update.
+
+- Variables that are local to the outer function: These are variables from its enclosing scope. Python retains these variables, allowing you to use them in the closure, even after the outer function has returned.
+
+- An inner or nested function: This is a function defined inside the outer function. It can access and update the variables from the outer function even after the outer function has returned.
+
+```
+>>> def make_counter():
+...     count = 0
+...     def counter():
+...         nonlocal count
+...         count += 1
+...         return count
+...     return counter
+...
+
+>>> counter = make_counter()
+
+>>> counter()
+1
+>>> counter()
+2
+```
