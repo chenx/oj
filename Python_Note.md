@@ -688,7 +688,7 @@ A read/write lock is made of of two parts: a read lock and a write lock. The rea
 ### Iterator
 
 Interface:
-···
+```
 class Iterator:
     def __init__(self):
         pass
@@ -709,4 +709,4 @@ try:
   next(it)
 except StopIteration as ex:
   print(f"{ex}")
-···
+```
