@@ -627,3 +627,23 @@ To create a Python closure, you need the following components:
 >>> counter()
 2
 ```
+
+### defaultdict
+
+A **defaultdict** is a subclass of the Python dictionary (dict) in the {Link: collections https://docs.python.org/3/library/collections.html} module that automatically initializes a default value for non-existent keys, preventing KeyError exceptions. It uses a default_factory callable (e.g., list, int, set) to generate these values, simplifying code for counting, grouping, and initializing nested dictionaries.
+
+```
+from collections import defaultdict
+
+map = defaultdict(int) # need "int" to know the default value is 0.
+map['a'] += 1
+print(map['a']) # 1
+```
+
+An example using the dict class for comparison:
+```
+map = {}
+if 'a' not in map: map['a'] = 0 # need this to avoid key error
+map['a'] += 1
+print(map['a']) # 1
+```
