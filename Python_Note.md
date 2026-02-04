@@ -673,8 +673,14 @@ A read/write lock is made of of two parts: a read lock and a write lock. The rea
 
 #### Compare global lock vs per-key lock vs optimistic lock.
 
-**Global Lock**: The most restrictive approach, essentially treating the entire system as a single shared resource. It guarantees data integrity but severely limits performance and scalability.
+**Global Lock**: 
+- Locks an entire system/dataset for any operation.
+- The most restrictive approach, essentially treating the entire system as a single shared resource. It guarantees data integrity but severely limits performance and scalability.
 
-**Per-Key Lock**: A more refined pessimistic approach that improves concurrency by locking only specific, individual data items. It is highly effective when high contention on specific items is expected and immediate consistency is required.
+**Per-Key Lock**:
+- Locks only the specific data item (row, key) being accessed.
+- A more refined pessimistic approach that improves concurrency by locking only specific, individual data items. It is highly effective when high contention on specific items is expected and immediate consistency is required.
 
-**Optimistic Lock**: Assumes conflicts are rare. It maximizes concurrency by allowing operations to proceed without locking and uses version checks to resolve any conflicts at the end of the transaction. This strategy improves throughput in read-heavy, low-contention systems, but requires the application to handle potential retries. 
+**Optimistic Lock**: 
+- Checks for conflicts (e.g., version number/timestamp) at commit time rather than locking upfront.
+- Assumes conflicts are rare. It maximizes concurrency by allowing operations to proceed without locking and uses version checks to resolve any conflicts at the end of the transaction. This strategy improves throughput in read-heavy, low-contention systems, but requires the application to handle potential retries. 
