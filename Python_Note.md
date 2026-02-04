@@ -671,3 +671,10 @@ https://charemza.name/blog/posts/python/asyncio/read-write-lock/
 
 A read/write lock is made of of two parts: a read lock and a write lock. The read lock can be acquired by multiple tasks concurrently, but only as long as no task holds the write lock; and a write lock can only be acquired if no tasks hold the read lock and no task holds the write lock.
 
+#### Compare global lock vs per-key lock vs optimistic lock.
+
+**Global Lock**: The most restrictive approach, essentially treating the entire system as a single shared resource. It guarantees data integrity but severely limits performance and scalability.
+
+**Per-Key Lock**: A more refined pessimistic approach that improves concurrency by locking only specific, individual data items. It is highly effective when high contention on specific items is expected and immediate consistency is required.
+
+**Optimistic Lock**: Assumes conflicts are rare. It maximizes concurrency by allowing operations to proceed without locking and uses version checks to resolve any conflicts at the end of the transaction. This strategy improves throughput in read-heavy, low-contention systems, but requires the application to handle potential retries. 
