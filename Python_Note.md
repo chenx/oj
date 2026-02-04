@@ -684,3 +684,29 @@ A read/write lock is made of of two parts: a read lock and a write lock. The rea
 **Optimistic Lock**: 
 - Checks for conflicts (e.g., version number/timestamp) at commit time rather than locking upfront.
 - Assumes conflicts are rare. It maximizes concurrency by allowing operations to proceed without locking and uses version checks to resolve any conflicts at the end of the transaction. This strategy improves throughput in read-heavy, low-contention systems, but requires the application to handle potential retries. 
+
+### Iterator
+
+Interface:
+···
+class Iterator:
+    def __init__(self):
+        pass
+    def __it__(self):
+        return self
+    def __next__(self):
+        # if end:
+        #    raise StopIteration(msg)
+        pass
+    def get_state(self):
+        pass
+    def set_state(self):
+        pass
+
+ it = Iterator()
+
+try:
+  next(it)
+except StopIteration as ex:
+  print(f"{ex}")
+···
