@@ -703,7 +703,7 @@ class Iterator:
     def set_state(self):
         pass
 
- it = Iterator()
+it = Iterator()
 
 try:
   next(it)
