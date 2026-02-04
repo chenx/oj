@@ -647,3 +647,27 @@ if 'a' not in map: map['a'] = 0 # need this to avoid key error
 map['a'] += 1
 print(map['a']) # 1
 ```
+
+### Lock
+
+```
+from threading import Lock
+
+class Test:
+  def __init__(self):
+    self.lock = Lock()
+
+  def read(self):
+    with self.lock:
+      pass
+  
+  def write(self):
+    with self.lock:
+      pass
+```
+
+Read-Write lock:
+https://charemza.name/blog/posts/python/asyncio/read-write-lock/
+
+A read/write lock is made of of two parts: a read lock and a write lock. The read lock can be acquired by multiple tasks concurrently, but only as long as no task holds the write lock; and a write lock can only be acquired if no tasks hold the read lock and no task holds the write lock.
+
