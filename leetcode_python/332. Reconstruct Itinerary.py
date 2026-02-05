@@ -1,4 +1,6 @@
 # DFS
+# Time Complexity: O(E log E) where E is the number of tickets (for sorting) 
+# Space Complexity: O(E) for storing the graph and recursion stack
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         def dfs(airport):
@@ -23,6 +25,8 @@ class Solution:
 
 
 # BFS
+# Time Complexity: O(E log E) where E is the number of tickets (for sorting) 
+# Space Complexity: O(E) for storing the graph.
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         outBound : dict[str, list[str]] = {} 
