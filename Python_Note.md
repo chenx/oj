@@ -722,10 +722,8 @@ class HtmlParser:
 
 class Crawler:
     def crawl(self, startUrl, htmlParser):
-        visited = set()
-
         with ThreadPoolExecutor(max_workers=5) as executor:
-            visited.add(startUrl)
+            visited = set([startUrl])
             queue = [startUrl]
             while queue:
                 futures = [executor.submit(htmlParser.getUrls, url) for url in queue]
