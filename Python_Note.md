@@ -710,3 +710,34 @@ try:
 except StopIteration as ex:
   print(f"{ex}")
 ```
+
+### Web Crawler
+
+```
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+class HtmlParser:
+    def getUrls(self, url) -> list[str]:
+        return []
+
+class Crawler:
+    def crawl(self, startUrl, htmlParser):
+        visited = set()
+
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            visited.add(startUrl)
+            queue = [startUrl]
+            while queue:
+                futures = [executor.submit(htmlParser.getUrls, url) for url in queue]
+                queue = []
+                for future in as_completed(futures):
+                    nextUrls = list(filter(lambda url : url not in visited, future.result()))
+                    visited |= set(nextUrls) # or: visited.update(nextUrls) 
+                    queue.extend(nextUrls)
+            
+            return list(visited)
+
+crawler = Crawler()
+result = crawler.crawl("http://test.com", HtmlParser())
+print("result = ", result)
+```
