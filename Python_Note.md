@@ -711,7 +711,7 @@ except StopIteration as ex:
   print(f"{ex}")
 ```
 
-### Web Crawler
+### Web Crawler (Multi-threaded)
 
 ```
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -738,4 +738,82 @@ class Crawler:
 crawler = Crawler()
 result = crawler.crawl("http://test.com", HtmlParser())
 print("result = ", result)
+```
+
+### Coroutine
+
+In Python, an async function (a coroutine function) returns a coroutine object immediately when called, not the final value itself. The actual return value is retrieved by using the await keyword within another asynchronous function, or by running the coroutine within an event loop.
+
+#### How to Retrieve the Return Value
+To get the value an async function is designed to return, you have two primary methods:
+
+1. Using await within another async function 
+
+This is the most common and standard way to handle the result. Awaiting the coroutine suspends the calling coroutine until the awaited one completes, and then returns the value.
+
+The asyncio.run() function manages the event loop for the top-level main() coroutine.
+
+```
+import asyncio
+
+async def async_task():
+    """An async function that returns a value."""
+    await asyncio.sleep(1) # Simulate some asynchronous work
+    return 42 # The value to be returned
+
+async def main():
+    """The main entry point coroutine."""
+    # Await the function to get the actual result
+    result = await async_task() 
+    print(f"The result is: {result}") # Output: The result is: 42
+
+if __name__ == "__main__":
+    # Run the top-level async function
+    asyncio.run(main())
+```
+
+2. Using asyncio.gather() for multiple tasks 
+
+If you need the results from multiple coroutines running concurrently, you can use asyncio.gather(). It returns a list of the return values in the order the coroutines were passed.
+
+```
+import asyncio
+
+async def task_one():
+    await asyncio.sleep(1)
+    return "Result One"
+
+async def task_two():
+    await asyncio.sleep(0.5)
+    return "Result Two"
+
+async def main():
+    # Run tasks concurrently and get all results
+    results = await asyncio.gather(task_one(), task_two())
+    print(f"All results: {results}") # Output: All results: ['Result One', 'Result Two']
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+3. Accessing the result of a Task object
+
+When you use asyncio.create_task() to schedule a coroutine to run in the background, you can get its result by either awaiting the Task object or calling its .result() method once it's done.
+
+```
+import asyncio
+
+async def background_task():
+    await asyncio.sleep(1)
+    return "Task Complete"
+
+async def main():
+    task = asyncio.create_task(background_task())
+    print("Task scheduled, main continues running...")
+    # Get the result by awaiting the task
+    result = await task
+    print(f"Result from task: {result}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
