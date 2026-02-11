@@ -6,6 +6,50 @@
 import heapq
 from collections import defaultdict
 
+class Solution2:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        taskCount = defaultdict(int)
+        for task in tasks:
+            taskCount[task] += 1
+
+        cooldowns = {task: 0 for task in taskCount.keys()}
+        
+        maxHeap = []
+        for task, count in taskCount.items():
+            heapq.heappush(maxHeap, (-count, (count, task)))
+        
+        totalIntervals = 0
+        while maxHeap:
+            if not 0 in cooldowns.values():
+                cooldowns = {key: value - 1 for key, value in cooldowns.items()}
+                totalIntervals += 1 
+                continue
+
+            newMaxHeap = []
+            foundNextTask = False
+            while maxHeap:
+                _, (count, task) = heapq.heappop(maxHeap)
+                if cooldowns[task] == 0 and not foundNextTask:
+                    #print(f"next task: {task}")
+                    totalIntervals += 1
+                    cooldowns[task] = n
+                    foundNextTask = True
+                    count -= 1
+                    if count > 0:
+                        heapq.heappush(newMaxHeap, (-count, (count, task)))
+                else:
+                    if cooldowns[task] > 0:
+                        cooldowns[task] -= 1
+                    heapq.heappush(newMaxHeap, (-count, (count, task)))
+
+            if not foundNextTask:
+                totalIntervals += 1
+
+            maxHeap = newMaxHeap
+
+        return totalIntervals
+
+
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         taskCount = defaultdict(int)
