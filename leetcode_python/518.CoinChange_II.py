@@ -1,10 +1,9 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        n = len(coins)
         DP = [0] * (1 + amount)
         DP[0] = 1
 
-        for i in range(n):
+        for i in range(len(coins)):
             for j in range(coins[i], 1 + amount):
                 DP[j] += DP[j - coins[i]]
         
