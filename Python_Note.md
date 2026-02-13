@@ -73,6 +73,12 @@ c.split('a') # ['', ' b']
 
 c.split("b") # ['a ', '']
 
+
+### Common string functions
+
+isalnum、isalpha、isdecimal、isdigit、isidentifier、islower、isnumeric、isprintable、isspace、istitle、isupper。
+
+
 ## Initialize an array of size n with default value -1
 
 const DP = [-1] * n
