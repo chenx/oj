@@ -26,6 +26,8 @@ class UnionFind:
         #     self.rank[b] = self.rank[a]
 
 
+# Time: O(n^2 * log(n))
+# Space: O(n^2)
 class Solution:
     def minCostConnectPoints(self, points: List[List[int]]) -> int:
         # kruskal's algorithm.
