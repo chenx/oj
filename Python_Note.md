@@ -849,3 +849,18 @@ class A(object):
 ### decorator
 
 ### yield
+
+### __str__ vs __repr__
+
+In Python, the __str__ and __repr__ methods provide string representations of an object for different audiences and purposes.
+
+<img width="651" height="390" alt="image" src="https://github.com/user-attachments/assets/3a330388-0a9f-4935-b895-364556284aa0" />
+
+Key Differences in Detail
+
+- Readability vs. Unambiguity: __str__ prioritizes a clean, user-friendly output, potentially omitting details for brevity (e.g., "Feb 12, 2026"). __repr__ provides a complete and unambiguous representation of the object's state, even if it's less visually appealing (e.g., datetime.datetime(2026, 2, 12, ...)).
+- Usage Context: When you use print(my_object), the __str__ method is automatically called. In an interactive Python shell (REPL), simply typing the object's name and pressing Enter displays the result of __repr__.
+- Reconstructability: Ideally, the output of __repr__ could be passed to the eval() function to recreate the original object, though this is not a strict requirement and should be used with caution for security reasons. The output of __str__ is not expected to be valid Python code.
+- Best Practice: It is highly recommended to always implement a useful __repr__ for any custom class for debugging purposes. Implement __str__ only if you need a separate, more human-readable output for users that is different from the developer-focused representation. 
+
+
