@@ -17,7 +17,7 @@ class UnionFind:
             return i
         return self.find2(self.parent[i])
 
-    def union(self, i, j) -> bool:
+    def union(self, i, j):
         a = self.find(i)
         b = self.find(j)
         self.parent[a] = b # Or: self.parent[b] = a
