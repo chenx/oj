@@ -11,9 +11,11 @@ class UnionFind:
         while self.parent[i] != self.parent[self.parent[i]]:
             i = self.parent[i]
         return self.parent[i]
-        # if i == self.parent[i]:
-        #     return i
-        # return self.find(self.parent[i])
+
+    def find2(self, i): # This also works.
+        if i == self.parent[i]:
+            return i
+        return self.find2(self.parent[i])
 
     def union(self, i, j) -> bool:
         a = self.find(i)
@@ -33,9 +35,6 @@ class UnionFind:
         while self.parent[i] != self.parent[self.parent[i]]:
             i = self.parent[i]
         return self.parent[i]
-        # if i == self.parent[i]:
-        #     return i
-        # return self.find(self.parent[i])
 
     def union(self, i, j) -> bool:
         a = self.find(i)
@@ -64,9 +63,6 @@ class UnionFind:
         while self.parent[i] != self.parent[self.parent[i]]:
             i = self.parent[i]
         return self.parent[i]
-        # if i == self.parent[i]:
-        #     return i
-        # return self.find(self.parent[i])
 
     def union(self, i, j) -> bool:
         a = self.find(i)
