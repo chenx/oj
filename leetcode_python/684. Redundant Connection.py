@@ -22,8 +22,21 @@ class Solution:
             if unionFind.find(i-1) != unionFind.find(j-1):
                 unionFind.union(i-1, j-1)
             else:
-                result = [i, j]
+                result = [i, j] # can return directly here. See Solution2.
         return result
+
+
+class Solution2:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        n = len(edges)
+        unionFind = UnionFind(n)
+
+        result = []
+        for [i, j] in edges:
+            if unionFind.find(i-1) != unionFind.find(j-1):
+                unionFind.union(i-1, j-1)
+            else:
+                return [i, j]
 
 
 /**
