@@ -845,3 +845,7 @@ class A(object):
       else:
         return cls.__instance
 ```
+
+### decorator
+
+### yield
