@@ -12,6 +12,14 @@ class UnionFind:
         b = self.find(j)
         self.parent[a] = b
 
+# 
+# Time complexity: O(N⋅α(N))
+# We iterate over all edges, and for each edge, we invoke the doUnion function, which has a time complexity of O(α(N)), 
+# given that both union by size and path compression are employed. Consequently, the overall time complexity of the algorithm 
+# is O(N⋅α(N)). It is important to note that α(N) represents the inverse Ackermann function, which grows so slowly that it is 
+# often considered asymptotically constant, or O(1).
+# Space complexity: O(N)
+#
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
         n = len(edges)
