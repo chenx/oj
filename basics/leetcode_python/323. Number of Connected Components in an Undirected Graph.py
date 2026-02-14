@@ -1,6 +1,38 @@
+class UnionFind:
+    def __init__(self, n):
+        self.parent = [i for i in range(n)]
+    
+    def find(self, i):
+        if i == self.parent[i]:
+            return self.parent[i]
+        return self.find(self.parent[i])
+    
+    def union(self, i, j):
+        a = self.find(i)
+        b = self.find(j)
+        if a == b:
+            return False
+        self.parent[a] = b
+        return True
+
+# Union Find.
+# Time: O(n + E*alpha(n)), alpha is inverse Ackermann function.
+# Space: O(n)
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        unionFind = UnionFind(n)
+
+        components = n
+        for edge in edges:
+            if unionFind.union(edge[0], edge[1]):
+                # If union is false, already in one group; otherwise in different groups.
+                components -= 1
+        return components
+
+
 # BFS
-# Time: O(E+V)
-# Space: O(E+V)
+# Time: O(E+n)
+# Space: O(E+n)
 from collections import deque
 
 class Solution:
