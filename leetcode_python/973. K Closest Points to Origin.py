@@ -1,3 +1,50 @@
+# Quick sort
+# Time: O(n), Space: O(n)
+class Solution2:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        def dist(point):
+            return (point[0]**2 + point[1]**2) # no need to use sqrt.
+        arr = [[dist(p), p] for p in points]
+        
+        self.quickSelect(arr, 0, len(arr)-1, k)
+
+        result = []
+        for i in range(k):
+            result.append(arr[i][1])
+        return result
+
+    def quickSelect(self, arr, left, right, k):
+        if left >= right:
+            return
+        
+        mid = left + (right - left) // 2
+        arr[left], arr[mid] = arr[mid], arr[left]
+        pivot = arr[left]
+        L, R = left + 1, right
+
+        while L <= R:
+            # while L <= R and arr[L] <= pivot: 
+            while L <= R and arr[L][0] <= pivot[0]:
+                L += 1
+            # while L <= R and arr[R] >= pivot: 
+            while L <= R and arr[R][0] >= pivot[0]:
+                R -= 1
+            if L < R:
+                arr[L], arr[R] = arr[R], arr[L]
+                L += 1
+                R -= 1
+            else:
+                L += 1
+        
+        arr[left], arr[R] = arr[R], arr[left]
+        if k < R:
+            self.quickSelect(arr, left, R-1, k)
+        elif k > R:
+            self.quickSelect(arr, R+1, right, k)
+        # self.quickSelect(arr, left, R-1, k)
+        # self.quickSelect(arr, R+1, right, k)
+
+
 # Maxheap.
 # Time: O(n log(k))
 # Space: O(k)
