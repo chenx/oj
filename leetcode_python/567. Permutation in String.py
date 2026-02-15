@@ -1,3 +1,30 @@
+# Use array. Also works. 
+# Time: O(n1 + n2), Space: O(26+26) = O(1)
+class Solution3:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        n1, n2 = len(s1), len(s2)
+
+        if s1 > s2:
+            return False
+
+        charCount1 = [0] * 26
+        for i in range(n1):
+            charCount1[ord(s1[i]) - ord('a')] += 1
+
+        charCount2 = [0] * 26
+        for i in range(n1):
+            charCount2[ord(s2[i]) - ord('a')] += 1
+        if charCount1 == charCount2:
+            return True
+
+        for i in range(n1, n2):
+            charCount2[ord(s2[i]) - ord('a')] += 1
+            charCount2[ord(s2[i]) - ord('a') - n1] -= 1
+            if charCount1 == charCount2:
+                return True
+        return False
+
+
 # Time: O(n1 + n2), Space: O(26 + 26) = O(1)
 class Solution2:
     def checkInclusion(self, s1: str, s2: str) -> bool:
