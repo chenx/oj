@@ -1,0 +1,44 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        charCount = [0] * 256
+        start = 0
+        maxLen = 0
+        for i in range(len(s)):
+            index = ord(s[i]) - ord('a')
+            charCount[index] += 1
+
+            while charCount[index] > 1:
+                charCount[ord(s[start]) - ord('a')] -= 1
+                start += 1
+            
+            size = i - start + 1
+            if maxLen < size:
+                maxLen = size
+        
+        return maxLen
+
+
+/**
+3. Longest Substring Without Repeating Characters
+Solved
+Medium
+Topics
+conpanies iconCompanies
+Hint
+
+Given a string s, find the length of the longest without duplicate characters.
+
+ 
+
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3. Note that "bca" and "cab" are also correct answers.
+
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+ */
