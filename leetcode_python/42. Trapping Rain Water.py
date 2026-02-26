@@ -1,3 +1,26 @@
+class Solution2:
+    def trap(self, height: List[int]) -> int:
+        n = len(height)
+        stack = []
+        water = 0
+        for i in range(n):
+            if i > 0 and height[i] >= height[i-1]:
+                bottom = height[stack[-1]]
+                stack.pop()
+                while stack and height[i] >= height[stack[-1]]:
+                    ht = height[stack[-1]] - bottom
+                    water += (i - stack[-1] - 1) * ht
+
+                    bottom = height[stack[-1]]
+                    stack.pop()
+                if stack:
+                    ht = height[i] - bottom
+                    water += (i - stack[-1] - 1) * ht
+            stack.append(i)
+        
+        return water
+
+
 # if cur height < height at stack.top(): push to stack
 # else: pop from stack, add waters
 class Solution:
