@@ -1,3 +1,19 @@
+class Solution2:
+    def simplifyPath(self, path: str) -> str:
+        tokens = path.split('/')
+        result = []
+        for token in tokens:
+            if token == '' or token == '.':
+                pass
+            elif token == '..':
+                if result:
+                    result.pop()
+            else:
+                result.append(token)
+        
+        return "/" + "/".join(result)
+
+
 class Solution:
     def simplifyPath(self, path: str) -> str:
         tokens = path.split("/")
