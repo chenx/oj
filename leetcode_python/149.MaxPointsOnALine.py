@@ -8,7 +8,7 @@ class Solution2:
         for i in range(n-1):
             slopeCount = {}
             verticalCount = 0
-            for j in range(i+1, n):
+            for j in range(i+1, n): # not start from i to avoid node i itself !!
                 if points[i][0] == points[j][0]:
                     verticalCount += 1
                 else:
