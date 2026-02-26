@@ -14,8 +14,8 @@ class Solution:
         # Do not mistaken sign bit for MSB (most significant bit).
         # See solution 4 at https://leetcode.com/problems/single-number-ii/
         # C++ does not need this.
-        if result >= 1 << 31:
-            result = result - (1 << 32)
+        if result >= (1 << 31):
+            result -= (1 << 32)
             
         return result
 
