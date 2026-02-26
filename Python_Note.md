@@ -870,3 +870,20 @@ Key Differences in Detail
 - Best Practice: It is highly recommended to always implement a useful __repr__ for any custom class for debugging purposes. Implement __str__ only if you need a separate, more human-readable output for users that is different from the developer-focused representation. 
 
 
+### Inner function access variable in outer function
+
+An inner (nested) function in Python can typically access variables in the outer function's scope without issues. 
+The problem arises only when the inner function tries to assign a new value to that variable, 
+in which case Python's scoping rules treat it as a new local variable. 
+
+To modify an outer function's variable from within an inner function, you must use the nonlocal keyword: 
+
+```
+def outer_function():
+    x = 10 # Variable in the enclosing scope
+    def inner_function():
+        nonlocal x # Explicitly declare 'x' as not local
+        x = 20 # This now modifies the 'x' in the outer function
+    inner_function()
+    print(x) # Output will be 20
+```
