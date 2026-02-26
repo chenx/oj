@@ -1,3 +1,35 @@
+class Solution2:
+    def minWindow(self, s: str, t: str) -> str:
+        m, n = len(s), len(t)
+        if m < n:
+            return ""
+
+        toFind, found = {}, {} # <char, count>
+
+        for ch in list(t):
+            toFind[ch] = toFind.get(ch, 0) + 1
+        
+        minLen, minStart = 0, 0
+        start = 0
+        total = 0
+        for i in range(m):
+            ch = s[i]
+            found[ch] = found.get(ch, 0) + 1
+            if ch in toFind and found[ch] <= toFind[ch]:
+                total += 1
+
+            if total == n:
+                while s[start] not in toFind or found[s[start]] > toFind[s[start]]:
+                    found[s[start]] -= 1
+                    start += 1
+                size = i - start + 1
+                if minLen == 0 or minLen > size:
+                    minLen = size
+                    minStart = start
+
+        return "" if minLen == 0 else s[minStart : (minStart + minLen)]
+
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         m, n = len(s), len(t)
