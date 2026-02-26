@@ -1,3 +1,22 @@
+class Solution2:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        def getKey(s):
+            return "".join(sorted(list(s)))
+        
+        map : dict[str, list[str]] = {}
+        for s in strs:
+            key = getKey(s)
+            if not key in map:
+                map[key] = []
+            map[key].append(s)
+        
+        result = []
+        for [_, sList] in map.items():
+            sList.sort()
+            result.append(sList)
+        return result
+
+
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         def getKey(s):
