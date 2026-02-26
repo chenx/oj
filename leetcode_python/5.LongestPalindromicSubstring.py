@@ -1,3 +1,28 @@
+class Solution2:
+    def longestPalindrome(self, s: str) -> str:
+        def getMaxLen(s, i, j):
+            # inner function can access outer function variable; but if you assign value,
+            # the varaibles are treated as local, unless you declare them as nonlocal.
+            nonlocal maxLen, maxStart
+            while i > 0 and j < n-1 and s[i-1] == s[j+1]:
+                i -= 1
+                j += 1
+            size = j - i + 1
+            if maxLen < size:
+                maxLen = size
+                maxStart = i
+
+        maxStart, maxLen = 0, 0
+
+        n = len(s)
+        for i in range(n):
+            getMaxLen(s, i, i)
+            if i < n - 1 and s[i] == s[i + 1]:
+                getMaxLen(s, i, i + 1)
+        
+        return s[maxStart : (maxStart + maxLen)]
+
+
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         def getMaxLen(s, i, j):
