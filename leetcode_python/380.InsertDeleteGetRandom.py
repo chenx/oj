@@ -1,3 +1,42 @@
+import random
+
+class RandomizedSet:
+
+    def __init__(self):
+        self.nums : List[int] = []
+        self.posMap : dict[int, int] = {}
+        
+
+    def insert(self, val: int) -> bool:
+        if val in self.posMap:
+            return False
+
+        self.nums.append(val)
+        self.posMap[val] = len(self.nums) - 1
+        return True
+        
+
+    def remove(self, val: int) -> bool:
+        if not val in self.posMap:
+            return False
+        
+        # swap val with the last element
+        valIndex = self.posMap[val]
+        endVal = self.nums[-1]
+        endIndex = len(self.nums) - 1
+        self.nums[valIndex] = endVal
+        self.posMap[endVal] = valIndex
+        self.posMap.pop(val)
+        self.nums.pop()
+        return True
+        
+
+    def getRandom(self) -> int:
+        # randint(a, b), return random number in [a, b], inclusive.
+        randIndex = random.randint(0, len(self.nums) - 1)
+        return self.nums[randIndex]
+
+
 class RandomizedSet:
 
     def __init__(self):
