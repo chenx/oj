@@ -1,3 +1,4 @@
+# C(m+n-2, n-1) paths if no obstacle.
 class Solution2:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         m, n = len(obstacleGrid), len(obstacleGrid[0])
