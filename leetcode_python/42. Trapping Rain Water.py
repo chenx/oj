@@ -1,9 +1,8 @@
 class Solution2:
     def trap(self, height: List[int]) -> int:
-        n = len(height)
         stack = []
         water = 0
-        for i in range(n):
+        for i in range(len(height)):
             if i > 0 and height[i] >= height[i-1]:
                 bottom = height[stack[-1]]
                 stack.pop()
