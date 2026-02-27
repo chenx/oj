@@ -53,6 +53,7 @@ test.run_tests()
 
 /**
 misc.combine_dependency_list
+
 Given dependency:
 a -> b, c, d
 b -> e, f
@@ -61,4 +62,8 @@ h -> i
 
 combine them into:
 [['a', 'b', 'c', 'd', 'e', 'f', 'g'], ['h', 'i']]
+
+Similar to:
+- 721. Accounts Merge
+  - https://leetcode.com/problems/accounts-merge/
  */
