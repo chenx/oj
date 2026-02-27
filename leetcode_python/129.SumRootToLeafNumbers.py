@@ -1,3 +1,22 @@
+class Solution3:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, sum):
+            nonlocal total ###
+            if not node:
+                return
+            
+            sum = sum * 10 + node.val
+            if not node.left and not node.right:
+                total += sum
+
+            if node.left: dfs(node.left, sum)
+            if node.right: dfs(node.right, sum)
+
+        total = 0
+        dfs(root, 0)
+        return total
+
+
 class Solution2:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         # total is a list, so it's passed by reference of object
