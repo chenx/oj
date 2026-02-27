@@ -1,3 +1,25 @@
+class Solution2:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        n = len(intervals)
+        if n == 0:
+            return []
+        
+        intervals.sort(key=lambda x: x[0])
+
+        result = []
+        for i in range(1, n):
+            a, b = intervals[i-1], intervals[i]
+            if a[1] < b[0]:
+                result.append(a)
+            elif a[1] <= b[1]:
+                b[0] = a[0]
+            else:
+                b[0] = a[0]
+                b[1] = a[1]
+        result.append(intervals[-1])
+        return result
+
+
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         n = len(intervals)
