@@ -4,7 +4,7 @@
 // '12345'.zfill(3)	'12345'	The string is already longer than the specified width (3), so it remains unchanged.
 // '-42'.zfill(5)	'-0042'	The zeros are added after the negative sign.
 // 'abc'.zfill(6)	'000abc'	The method works on non-numeric strings as well.
-class Solution2:
+class Solution4:
     def addBinary(self, a: str, b: str) -> str:
         n = max(len(a), len(b))
         a, b = a.zfill(n), b.zfill(n)
@@ -29,8 +29,69 @@ class Solution2:
         answer.reverse()
 
         return "".join(answer)
-        
 
+
+class Solution3:
+    def addBinary(self, a: str, b: str) -> str:
+        def add(sum):
+            nonlocal carry
+            if sum >= 2:
+                sum -= 2
+                carry = 1
+            else:
+                carry = 0
+            result.append(str(sum))
+    
+        result = []
+        carry = 0
+        lena, lenb = len(a) - 1, len(b) - 1
+        while lena >= 0 and lenb >= 0:
+            add(int(a[lena]) + int(b[lenb]) + carry)
+            lena -= 1
+            lenb -= 1
+        while lena >= 0:
+            add(int(a[lena]) + carry)
+            lena -= 1
+        while lenb >= 0:
+            add(int(b[lenb]) + carry)
+            lenb -= 1
+        if carry > 0:
+            add(carry)
+
+        result.reverse()
+        return "".join(result)
+
+        
+class Solution2:
+    def addBinary(self, a: str, b: str) -> str:
+        def add(sum):
+            nonlocal carry, result
+            if sum >= 2:
+                sum -= 2
+                carry = 1
+            else:
+                carry = 0
+            result = str(sum) + result
+    
+        result = ""
+        carry = 0
+        lena, lenb = len(a) - 1, len(b) - 1
+        while lena >= 0 and lenb >= 0:
+            add(int(a[lena]) + int(b[lenb]) + carry)
+            lena -= 1
+            lenb -= 1
+        while lena >= 0:
+            add(int(a[lena]) + carry)
+            lena -= 1
+        while lenb >= 0:
+            add(int(b[lenb]) + carry)
+            lenb -= 1
+        if carry > 0:
+            add(carry)
+
+        return result
+
+        
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
         def add(sum):
