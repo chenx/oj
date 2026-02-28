@@ -1,9 +1,22 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class Solution2:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        def build(inorder, postorder, pi, li, ri):
+            if li > ri:
+                return None
+            
+            root = TreeNode(postorder[pi])
+            mi = indexValueMap[postorder[pi]]
+            root.left = build(inorder, postorder, pi - 1 - (ri - mi), li, mi - 1)
+            root.right = build(inorder, postorder, pi - 1, mi + 1, ri)
+            return root
+
+        indexValueMap = {}
+        for index, val in enumerate(inorder):
+            indexValueMap[val] = index
+        n = len(inorder)
+        return build(inorder, postorder, n-1, 0, n-1)
+
+
 class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         def build(postorder, inorder, pi, li, ri):
