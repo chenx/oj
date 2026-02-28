@@ -6,7 +6,7 @@ class Solution2:
             root = TreeNode(preorder[pi])
             mi = valueIndexMap[preorder[pi]]
             root.left = build(preorder, inorder, pi + 1, li, mi - 1)
-            root.right = build(preorder, inorder, pi + (mi - li) + 1, mi + 1, ri)
+            root.right = build(preorder, inorder, pi + 1 + (mi - li), mi + 1, ri)
             return root
 
         valueIndexMap = {}
