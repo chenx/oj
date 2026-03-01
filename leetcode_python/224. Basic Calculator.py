@@ -1,3 +1,68 @@
+# E -> F + F | F - F
+# F -> T * T | T / T
+# T -> num | -T | ( E )
+class Solution2:
+    def calculate(self, s: str) -> int:
+        def E():
+            nonlocal pos
+            val = F()
+            while pos < n and s[pos] in ['+', '-']:
+                if s[pos] == '+':
+                    pos += 1
+                    val += F()
+                else:
+                    pos += 1
+                    val -= F()
+            return val
+        
+        def F():
+            nonlocal pos
+            val = T()
+            while pos < n and s[pos] in ['*', '/']:
+                if s[pos] == '*':
+                    pos += 1
+                    val *= T()
+                else:
+                    pos += 1
+                    val /= T()
+            return val
+
+        def T():
+            nonlocal pos
+            ignoreSpace()
+
+            val = 0
+            if s[pos].isdigit():
+                val = getNum()
+            elif s[pos] == '-':
+                pos += 1
+                val = - T()
+            elif s[pos] == '(':
+                pos += 1 # ignore '('
+                val = E()
+                pos += 1 # ignore ')'
+            
+            ignoreSpace()
+            return val
+        
+        def ignoreSpace():
+            nonlocal pos
+            while pos < n and s[pos].isspace():
+                pos += 1
+        
+        def getNum():
+            nonlocal pos
+            val = 0
+            while pos < n and s[pos].isdigit():
+                val = val * 10 + int(s[pos]) 
+                pos += 1
+            return val
+
+        n = len(s)
+        pos = 0
+        return E()
+
+
 # E = F + F | F - F
 # F = T * T | T / T
 # T = num | ( E ) | - T
