@@ -1,4 +1,4 @@
-class Solution:
+class Solution2:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         inDegree = [0] * numCourses
         outDegree = [[] for _ in range(numCourses)]
@@ -24,6 +24,38 @@ class Solution:
                     q.append(nextCourse)
 
         return courses if len(courses) == numCourses else []
+
+
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        inDegree: dict[int, set[int]] = {}
+        outDegree: dict[int, set[int]] = {}
+
+        for p in prerequisites:
+            if p[0] not in inDegree:
+                inDegree[p[0]] = set()
+            if p[1] not in outDegree:
+                outDegree[p[1]] = set()
+            inDegree[p[0]].add(p[1])
+            outDegree[p[1]].add(p[0])
+        
+        q = deque()
+        for course in range(numCourses):
+            if not course in inDegree:
+                q.append(course)
+        
+        visited = []
+        while q:
+            course = q.popleft()
+            visited.append(course)
+
+            if course in outDegree:
+                for nextCourse in outDegree[course]:
+                    inDegree[nextCourse].remove(course)
+                    if len(inDegree[nextCourse]) == 0:
+                        q.append(nextCourse)
+
+        return visited if len(visited) == numCourses else []
 
 
 /**
