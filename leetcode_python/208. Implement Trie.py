@@ -4,6 +4,12 @@ class TrieNode:
         self.children = []
         self.wordMarker = wordMarker
 
+    # def __init__(self, val = '', children = []):
+    #     self.val = val
+    #     self.children = children if children else []
+    #     # self.children = children # this will use the same list for all nodes. Don't do this!!!
+    #     self.wordMarker = False
+    
     def findChild(self, c):
         for child in self.children:
             if child.content == c:
