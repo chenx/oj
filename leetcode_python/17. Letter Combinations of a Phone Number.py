@@ -1,3 +1,22 @@
+class Solution2:
+    def letterCombinations(self, digits: str) -> List[str]:
+        def dfs(result, s, digits, pos):
+            if pos == len(digits):
+                result.append(s)
+                return
+
+            digit = int(digits[pos])
+            for i in range(len(pad[digit])):
+                dfs(result, s + pad[digit][i], digits, pos + 1)
+
+
+        pad = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+        result = []
+        s = ""
+        dfs(result, s, digits, 0)
+        return result
+
+
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         def dfs(result, digits, s, pos):
