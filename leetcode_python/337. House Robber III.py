@@ -1,9 +1,31 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+# This works too.
+class Solution2:
+    def __init__(self):
+        self.cache : dict[node, int] = {}
+
+    def rob(self, root: Optional[TreeNode]) -> int:
+        def getCachedVal(node):
+            if not node:
+                return 0
+            if not node in self.cache:
+                self.cache[node] = self.rob(node)
+            return self.cache[node]
+            
+        def robRoot(root):
+            if not root:
+                return 0
+            return root.val + robNotRoot(root.left) + robNotRoot(root.right)
+
+        def robNotRoot(root):
+            if not root:
+                return 0
+            return getCachedVal(root.left) + getCachedVal(root.right)
+
+        if not root:
+            return 0
+        return max(robRoot(root), robNotRoot(root))
+
+
 class Solution:
     def __init__(self):
         self.cache : dict[node, int] = {}
