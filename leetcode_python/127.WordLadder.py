@@ -1,5 +1,34 @@
-from collections import deque
+class Solution2:
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if beginWord == endWord:
+            return 1
+        
+        wordSet = set(wordList)
+        
+        q = collections.deque([beginWord])
+        used = set([beginWord])
 
+        dist = 0
+        while q:
+            dist += 1
+            count = len(q)
+            for k in range(count):
+                curWord = q.popleft()
+
+                for i in range(len(curWord)):
+                    for j in range(26):
+                        if j == ord(curWord[i]) - ord('a'):
+                            continue
+                        nextWord = curWord[:i] + chr(ord('a') + j) + curWord[i+1:]
+                        if nextWord in wordSet and not nextWord in used:
+                            if nextWord == endWord:
+                                return dist + 1
+                            q.append(nextWord)
+                            used.add(nextWord)
+        return 0
+
+
+from collections import deque
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if beginWord == endWord:
