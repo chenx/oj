@@ -1,3 +1,34 @@
+class Solution2:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        def dfs(i, j, wordPos):
+            if wordPos == len(word):
+                return True
+            if i < 0 or i >= rows or j < 0 or j >= cols or board[i][j] != word[wordPos]:
+                return False
+            
+            ch = board[i][j]
+            board[i][j] = '.'
+
+            if dfs(i + 1, j, wordPos + 1): return True
+            if dfs(i - 1, j, wordPos + 1): return True
+            if dfs(i, j + 1, wordPos + 1): return True
+            if dfs(i, j - 1, wordPos + 1): return True
+
+            board[i][j] = ch
+            return False
+
+        if len(board) == 0 or len(board[0]) == 0 or len(word) == 0:
+            return False
+        rows, cols = len(board), len(board[0])
+
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] == word[0]:
+                    if dfs(i, j, 0):
+                        return True
+        return False
+
+
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         def dfs(board, i, j, word, pos):
