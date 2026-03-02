@@ -1,3 +1,50 @@
+class Solution3:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = {} # nominator: set([denominator, value])
+        for (a, b), value in zip(equations, values):
+        # for i in range(len(equations)):
+            # [a, b], value = equations[i], values[i]
+            if not a in graph:
+                graph[a] = set()
+            if not b in graph:
+                graph[b] = set()
+            graph[a].add((b, value))
+            graph[b].add((a, 1 / value))
+        
+        result = []
+        for query in queries:
+            startVal, endVar = query
+
+            if startVal not in graph or endVar not in graph:
+                result.append(-1.0)
+                continue
+            if startVal == endVar:
+                result.append(1.0)
+                continue
+            
+            q = collections.deque([(startVal, 1)])
+            used = set([startVal])
+            found = False
+            while q:
+                var, val = q.popleft()
+
+                for nextVar, nextVal in graph[var]:
+                    if nextVar not in used:
+                        if nextVar == endVar:
+                            result.append(val * nextVal)
+                            found = True
+                            break
+                        else:
+                            q.append((nextVar, val * nextVal))
+                            used.add(nextVar)
+                if found: # need this to be correct!
+                    break
+            if not found:
+                result.append(-1.0)
+
+        return result
+
+
 class Solution2:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         result = []
