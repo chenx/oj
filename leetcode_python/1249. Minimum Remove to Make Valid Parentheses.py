@@ -1,3 +1,31 @@
+class Solution3:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        balance = 0
+        t = []
+        for ch in s:
+            if ch == '(':
+                balance += 1
+            elif ch == ')':
+                if balance == 0:
+                    continue
+                balance -= 1
+            t.append(ch)
+        
+        balance = 0
+        result = []
+        for i in range(len(t)-1, -1, -1):
+            ch = t[i]
+            if ch == ')':
+                balance += 1
+            elif ch == '(':
+                if balance == 0:
+                    continue
+                balance -= 1
+            result.append(ch)
+                
+        return ''.join(reversed(result))
+
+
 class Solution2:
     def minRemoveToMakeValid(self, s: str) -> str:
         def removeExtraRightParenthesis(s: list[str], open, close):
