@@ -1,3 +1,6 @@
+# Alternative method: DSW (Day-Stout-Warren) Algorithm / In-Place Balancing
+# Also use O(n) time and O(n) space.
+
 # Time: O(n), n = number of nodes, for inorder traversal, and toBalancedTree
 # Space: O(n + logn) = O(n)
 class Solution:
