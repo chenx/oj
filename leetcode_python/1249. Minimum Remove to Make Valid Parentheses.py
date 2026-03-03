@@ -1,3 +1,26 @@
+class Solution2:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        def removeExtraRightParenthesis(s: list[str], open, close):
+            balance = 0
+            t = []
+            for ch in s:
+                if ch == open:
+                    balance += 1
+                elif ch == close:
+                    if balance == 0:
+                        continue
+                    balance -= 1
+                t.append(ch)
+            return t
+
+        t = removeExtraRightParenthesis(list(s), '(', ')')
+        t.reverse()
+        t = removeExtraRightParenthesis(t, ')', '(')
+        t.reverse()
+        
+        return ''.join(t)
+        
+
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         openCount, balance = 0, 0
@@ -15,7 +38,6 @@ class Solution:
         
         openToKeep = openCount - balance
         result = ''
-        # t = ''.join(list(t))
         for ch in t:
             if ch == '(':
                 if openToKeep == 0:
