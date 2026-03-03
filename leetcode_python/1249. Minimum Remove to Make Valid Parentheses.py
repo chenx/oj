@@ -1,3 +1,24 @@
+# Most pythonic way to reverse a string: s[::-1]
+class Solution4:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        def removeExtraRightPar(s, open, close):
+            balance = 0
+            t = ''
+            for ch in s:
+                if ch == open:
+                    balance += 1
+                elif ch == close:
+                    if balance == 0:
+                        continue
+                    balance -= 1
+                t += ch
+            return t
+        
+        t = removeExtraRightPar(s, '(', ')')
+        t = removeExtraRightPar(t[::-1], ')', '(')
+        return t[::-1]
+
+
 class Solution3:
     def minRemoveToMakeValid(self, s: str) -> str:
         balance = 0
