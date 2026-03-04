@@ -1,6 +1,42 @@
+# Similar to Solution3.
+# Time: O(n * 2^n)
+# Space: O(1)
+class Solution32:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        n = len(nums)
+        size = 1 << n
+
+        for i in range(size): # 2^n
+            result.append([])
+            for j in range(n):
+                if i & (1 << j):
+                    result[-1].append(nums[j])
+        return result
+
+
+# Time: O(n * 2^n)
+# Space: O(1). 
+# Appending a list to a list of lists using the append() method is an O(1) amortized time complexity operation. 
+# The size or content of the inner list does not affect the time complexity of the append() operation itself.
+class Solution3:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        n = len(nums)
+        size = 1 << n
+
+        for i in range(size):
+            item = []
+            for j in range(n):
+                if i & (1 << j):
+                    item.append(nums[j])
+            result.append(item)
+        return result
+
+
 # Time: O(n * 2^n). There are 2^n subsets, each has n/2 elements on average.
 # Space: O(1)
-class Solution:
+class Solution2:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         result = [[]]
 
