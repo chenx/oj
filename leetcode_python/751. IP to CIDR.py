@@ -1,36 +1,36 @@
 class Solution:
     def ipToCIDR(self, ip: str, n: int) -> List[str]:
-        def getCidr(count, intIp):
+        def getCidr(intIp, step):
             ip = str((intIp >> 24) & 0xFF) + '.' + \
-                 str((intIp >> 16) & 0xFF) + '.' + \
-                 str((intIp >> 8) & 0xFF) + '.' + \
-                 str((intIp) & 0xFF)
-
+                str((intIp >> 16) & 0xFF) + '.' + \
+                str((intIp >> 8) & 0xFF) + '.' + \
+                str((intIp) & 0xFF)
+            
             maskLen = 33
-            while count > 0:
-                count //= 2
+            while step > 0:
                 maskLen -= 1
-            return ip + "/" + str(maskLen)
+                step //= 2
+            return ip + '/' + str(maskLen)
 
-        result = []
-        ips = ip.split('.')
+
         intIp = 0
-        for i in range(len(ips)):
-            intIp = (intIp << 8) + int(ips[i])
+        for item in ip.split('.'):
+            intIp = (intIp << 8) + int(item)
         
+        result = []
         while n > 0:
             if intIp == 0:
-                count = 1
-                while count*2 <= n:
-                    count *= 2
+                step = 1
+                while step * 2 <= n:
+                    step *= 2
             else:
-                count = intIp & -intIp # last '1' bit and after
-                while count > n:
-                    count //= 2
-            
-            result.append(getCidr(count, intIp))
-            intIp += count
-            n -= count
+                step = intIp & -intIp # get last '1' and after.
+                while step > n:
+                    step //= 2
+            result.append(getCidr(intIp, step))
+            intIp += step
+            n -= step
+
         return result
 
 
