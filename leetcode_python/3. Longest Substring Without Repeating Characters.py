@@ -1,3 +1,25 @@
+from collections import defaultdict
+class Solution2:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        charCount : dict[str, int] = defaultdict(int)
+        start = 0
+        maxLen = 0
+
+        for i in range(len(s)):
+            charCount[s[i]] += 1
+
+            while charCount[s[i]] > 1:
+                charCount[s[start]] -= 1
+                start += 1
+            
+            size = i - start + 1
+            if maxLen < size:
+                maxLen = size
+        
+        return maxLen
+
+
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         charCount = [0] * 256
