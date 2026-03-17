@@ -1,3 +1,24 @@
+class Solution2:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        n = len(gas)
+        if n == 0:
+            return -1
+        
+        total = 0
+        sum = 0
+        start = 0
+
+        for i in range(n):
+            if sum < 0:
+                sum = 0
+                start = i
+            diff = gas[i] - cost[i]
+            sum += diff
+            total += diff
+        
+        return -1 if total < 0 else start
+
+
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         n = len(gas)
