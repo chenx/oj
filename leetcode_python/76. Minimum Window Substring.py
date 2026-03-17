@@ -1,3 +1,38 @@
+from collections import defaultdict
+class Solution3:
+    def minWindow(self, s: str, t: str) -> str:
+        if len(s) < len(t):
+            return ""
+        
+        toFind, found = defaultdict(int), defaultdict(int)
+
+        for ch in t:
+            toFind[ch] += 1
+        
+        start = 0
+        minLen = 0
+        minStart = 0
+        total = 0
+
+        for i in range(len(s)):
+            found[s[i]] += 1
+            if s[i] in toFind and found[s[i]] <= toFind[s[i]]:
+                total += 1
+
+            if total == len(t):
+                while s[start] not in t or found[s[start]] > toFind[s[start]]:
+                    if found[s[start]] > toFind[s[start]]:
+                        found[s[start]] -= 1
+                    start += 1
+                
+                size = i - start + 1
+                if minLen == 0 or minLen > size:
+                    minLen = size
+                    minStart = start
+        
+        return s[minStart:minStart+minLen] if minLen > 0 else ""
+
+
 class Solution2:
     def minWindow(self, s: str, t: str) -> str:
         m, n = len(s), len(t)
