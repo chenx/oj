@@ -1,7 +1,7 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
         n = len(nums)
-        if n <= 1:
+        if n <= 1: # This also works: if n == 0:
             return 0
         
         DP = [-1 for _ in range(n)]
