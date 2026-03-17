@@ -1,6 +1,36 @@
 import random
 
-class RandomizedSet:
+class RandomizedSet3:
+
+    def __init__(self):
+        self.arr = []
+        self.posMap = {}
+
+    def insert(self, val: int) -> bool:
+        if val in self.posMap:
+            return False
+        self.posMap[val] = len(self.arr)
+        self.arr.append(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if not val in self.posMap:
+            return False
+        
+        index = self.posMap[val]
+        lastIndex = len(self.arr) - 1
+        lastVal = self.arr[-1]
+        self.arr[index] = lastVal
+        self.posMap[lastVal] = index
+        self.posMap.pop(val)
+        self.arr.pop()
+        return True
+
+    def getRandom(self) -> int:
+        return random.choice(self.arr)
+
+
+class RandomizedSet2:
 
     def __init__(self):
         self.nums : List[int] = []
