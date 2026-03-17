@@ -7,9 +7,7 @@ class Solution:
         cur = nums[0]
         k = 1
         for i in range(1, n):
-            if nums[i] == cur:
-                pass
-            else:
+            if nums[i] != cur:
                 cur = nums[i]
                 nums[k] = nums[i]
                 k += 1
