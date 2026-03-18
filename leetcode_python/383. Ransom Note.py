@@ -1,5 +1,5 @@
 from collections import defaultdict
-class Solution:
+class Solution2:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
         charCount = defaultdict(int)
         for ch in magazine:
@@ -12,6 +12,22 @@ class Solution:
             if charCount[ch] < 0:
                 return False
         return True
+
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        charCount = {}
+        for ch in magazine:
+            charCount[ch] = charCount.get(ch, 0) + 1
+        
+        for ch in ransomNote:
+            if not ch in charCount:
+                return False
+            charCount[ch] -= 1
+            if charCount[ch] < 0:
+                return False
+        return True
+
 
 /**
 383. Ransom Note
