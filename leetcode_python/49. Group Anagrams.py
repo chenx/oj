@@ -12,7 +12,7 @@ class Solution2:
         
         result = []
         for [_, sList] in map.items():
-            sList.sort()
+            # sList.sort() # not needed.
             result.append(sList)
         return result
 
