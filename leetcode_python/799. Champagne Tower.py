@@ -3,7 +3,8 @@
 # Space: O(R^2)
 class Solution:
     def champagneTower(self, poured: int, query_row: int, query_glass: int) -> float:
-        A = [[0] * k for k in range(1, 102)]
+        # A = [[0] * k for k in range(1, 102)]
+        A = [[0] * k for k in range(1, query_row + 3)]
         A[0][0] = poured
         for r in range(query_row + 1):
             for c in range(r+1):
