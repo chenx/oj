@@ -1,3 +1,5 @@
+# Time: O(N^3 + Q). N = numCourses, Q = len(queries)
+# Space: O(N^2)
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
         isPre = [[False] * numCourses for _ in range(numCourses)]
