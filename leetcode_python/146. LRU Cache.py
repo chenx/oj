@@ -1,3 +1,29 @@
+# Time: O(1)
+# Space: O(capacity)
+from collections import OrderedDict
+class LRUCache2:
+
+    def __init__(self, capacity: int):
+        self.cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        
+        self.cache.move_to_end(key)
+        return self.cache[key]
+        
+
+    def put(self, key: int, value: int) -> None:
+        if len(self.cache) == self.capacity:
+            if not key in self.cache:
+                # Default: True: pop tail (LIFO); False: pop head (FIFO)
+                self.cache.popitem(False)
+        
+        self.cache[key] = value
+        self.cache.move_to_end(key)
+        
 #
 # In a Python OrderedDict, the items are stored and iterated over in the order in which their keys were first inserted.
 #
