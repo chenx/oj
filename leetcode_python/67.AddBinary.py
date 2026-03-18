@@ -1,3 +1,32 @@
+class Solution5:
+    def addBinary(self, a: str, b: str) -> str:
+        # if len(a) > len(b):
+        #     return self.addBinary(b, a)
+        
+        # a, b = list(a), list(b)
+        # n = len(b)
+        # for i in range(n - len(a)):
+        #     a.insert(0, '0')
+        
+        n = max(len(a), len(b))
+        a, b = a.zfill(n), b.zfill(n)
+
+        carry = 0
+        result = [0] * n
+        for i in range(n-1, -1, -1):
+            result[i] = int(a[i]) + int(b[i]) + carry
+            if result[i] >= 2:
+                result[i] -= 2
+                carry = 1
+            else:
+                carry = 0
+            
+        if carry == 1:
+            result.insert(0, 1)
+        
+        return ''.join([str(i) for i in result])
+
+
 // From: https://leetcode.com/problems/add-binary/editorial/
 // zfill: string.zfill(width)
 // '42'.zfill(5)	'00042'	The string is padded with three leading zeros to reach a total width of 5 characters.
