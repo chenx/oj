@@ -1,3 +1,22 @@
+# Use (- sys.maxsize - 1) for INT_MIN
+class Solution:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        def getMaxSum(root):
+            nonlocal maxSum
+            if not root:
+                return 0
+            
+            L = getMaxSum(root.left)
+            R = getMaxSum(root.right)
+            maxSum = max(maxSum, root.val + L + R)
+
+            return max(0, root.val + max(L, R))
+
+        maxSum = - sys.maxsize - 1
+        getMaxSum(root)
+        return maxSum
+
+
 # Note use of:
 #   -float("inf") for INT_MIN
 #   nonlocal
