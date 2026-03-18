@@ -1,6 +1,6 @@
 class Solution:
     def summaryRanges(self, nums: List[int]) -> List[str]:
-        def getRange(nums, start, end):
+        def getRange(start, end):
             if start == end:
                 return str(nums[start])
             else:
@@ -14,10 +14,10 @@ class Solution:
         start = 0
         for i in range(1, len(nums)):
             if nums[i] - nums[i-1] > 1:
-                result.append(getRange(nums, start, i-1))
+                result.append(getRange(start, i-1))
                 start = i
             if i == len(nums) - 1:
-                result.append(getRange(nums, start, i))
+                result.append(getRange(start, i))
         
         return result
         
