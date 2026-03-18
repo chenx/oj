@@ -1,3 +1,23 @@
+# Time: O(nlogn)
+# Space: O(n)
+class Solution2:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        A = []
+
+        for num in nums:
+            if len(A) == 0 or num > A[-1]:
+                A.append(num)
+            else:
+                left, right = 0, len(A) - 1
+                while left <= right:
+                    mid = left + (right - left) // 2
+                    if A[mid] >= num:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+                A[left] = num
+        return len(A)
+
 
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
