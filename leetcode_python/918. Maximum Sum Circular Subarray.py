@@ -1,3 +1,5 @@
+# Time: O(n)
+# Space: O(1)
 class Solution:
     def maxSubarraySumCircular(self, nums: List[int]) -> int:
         def maxSubArray(nums: List[int]) -> int:
