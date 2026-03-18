@@ -41,6 +41,18 @@ class Solution:
 
         return result
 
+
+"""
+a:  --
+b:     ---
+
+a:  ----
+b:     ---
+
+a:  ----------
+b:     ---
+"""
+
 /**
 56. Merge Intervals
 Solved
