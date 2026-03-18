@@ -1,3 +1,40 @@
+# Solution 1 is better
+class Solution2:
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        def getNeighborCount(i, j):
+            count = 0
+            options = [
+                [-1,1],  [0,1],  [1,1],
+                [-1,0],          [1,0],
+                [-1,-1], [0,-1], [1,-1],
+            ]
+            for k in range(len(options)):
+                x, y = i + options[k][0], j + options[k][1]
+                if x >= 0 and x < rows and y >= 0 and y < cols and board[x][y] & 0x1 == 1:
+                    count += 1
+            board[i][j] |= count << 2
+        
+        rows, cols = len(board), len(board[0])
+
+        for i in range(rows):
+            for j in range(cols):
+                getNeighborCount(i, j)
+        # print(board)
+        for i in range(rows):
+            for j in range(cols):
+                ct = board[i][j] >> 2
+                cur = board[i][j] & 0x1
+                if cur == 1 and (ct == 2 or ct == 3):
+                    board[i][j] = 1
+                elif cur == 0 and ct == 3:
+                    board[i][j] = 1
+                else:
+                    board[i][j] = 0
+
+
 class Solution:
     def gameOfLife(self, board: List[List[int]]) -> None:
         """
