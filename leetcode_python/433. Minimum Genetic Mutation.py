@@ -1,3 +1,4 @@
+# Same as 127. Word Ladder.
 class Solution:
     def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:
         if startGene == endGene:
