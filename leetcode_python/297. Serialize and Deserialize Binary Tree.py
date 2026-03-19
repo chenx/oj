@@ -1,4 +1,5 @@
 # Level order traversal
+# Time, Space: O(n)
 # [1,2,3,null,null,4,5] =>
 # serialize result: 1 2 3 null null 4 5
 from collections import deque
@@ -115,6 +116,7 @@ class Codec3:
 
 
 # DFS. Use tokens[] list instead of string.
+# Time, Space: O(n)
 # Time: O(n)
 # Space: O(n)
 class Codec2:
