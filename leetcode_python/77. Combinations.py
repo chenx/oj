@@ -1,3 +1,5 @@
+# Time: O(k*C(n, k)): k * n! / ((k!) * (n-k)!)
+# Space: O(k)
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         def comb(result, row, n, k, pos):
