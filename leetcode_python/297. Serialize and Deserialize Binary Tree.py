@@ -2,6 +2,7 @@
 # Time, Space: O(n)
 # [1,2,3,null,null,4,5] =>
 # serialize result: 1 2 3 null null 4 5
+
 from collections import deque
 class Codec4:
 
@@ -62,6 +63,7 @@ class Codec4:
 # [1,2,3,null,null,4,5] =>
 # serialize result: 1 2 3 null null 4 5 null null null null
 # However there are extra "null" at the end. To avoid this, see Codec4 above.
+
 from collections import deque
 class Codec3:
 
@@ -117,8 +119,9 @@ class Codec3:
 
 # DFS. Use tokens[] list instead of string.
 # Time, Space: O(n)
-# Time: O(n)
-# Space: O(n)
+# [1,2,3,null,null,4,5]
+# serialize result: 1 2 null null 3 4 null null 5 null null
+
 class Codec2:
     def serialize(self, root):
         """Encodes a tree to a single string.
