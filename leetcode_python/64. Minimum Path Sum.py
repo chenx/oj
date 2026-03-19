@@ -1,3 +1,6 @@
+# Time: O(mn)
+# Space: O(1)
+# Number of paths: C(m+n-2, m-1), or C(m+n-2, n-1)
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
         rows, cols = len(grid), len(grid[0])
