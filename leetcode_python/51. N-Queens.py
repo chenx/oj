@@ -1,3 +1,34 @@
+# Time: O(n!)
+# Space: O(n^2)
+class Solution2:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        def has_config(i, row):
+            for i in range(row):
+                if board[i] == board[row] or abs(board[i] - board[row]) == row  - i:
+                    return True
+            return False
+
+        def dfs(row):
+            if row == n:
+                config = [['.'] * n for _ in range(n)]  # O(n^2)
+                for i in range(n):
+                    config[i][board[i]] = 'Q'
+                    config[i] = ''.join(config[i])
+                result.append(config)
+                return 
+            
+            for i in range(n):
+                board[row] = i
+                if not has_config(i, row):
+                    dfs(row + 1)
+
+
+        board = [0] * n
+        result = []
+        dfs(0)
+        return result
+
+
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         def hasConflict(board, pos):
