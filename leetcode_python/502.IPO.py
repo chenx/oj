@@ -1,3 +1,31 @@
+# Time: O(nlogn) for sorting
+# Space: O(n) for maxHeap
+import heapq
+class Solution2:
+    def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
+        projects = []
+        for cap, prof in zip(capital, profits):
+            projects.append([cap, prof])
+        
+        projects.sort() # by capital
+        n = len(projects)
+
+        maxHeap = [] # of profit
+        p = 0
+        while k > 0:
+            k -= 1
+            while p < n and projects[p][0] <= w:
+                heapq.heappush_max(maxHeap, projects[p][1])
+                p += 1
+            
+            if len(maxHeap) == 0:
+                break
+            
+            w += maxHeap[0]
+            heapq.heappop_max(maxHeap)
+        return w
+
+
 class Solution:
     def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
         n = len(profits)
