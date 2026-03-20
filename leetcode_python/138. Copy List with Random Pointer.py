@@ -7,6 +7,40 @@ class Node:
         self.random = random
 """
 
+class Solution2:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if head is None:
+            return None
+        
+        h, t = None, None
+
+        # copy backbone
+        h = head
+        while h:
+            t = Node(h.val)
+            t.next = h.next
+            h.next = t
+            h = h.next.next
+
+        # copy random pointer
+        h = head
+        while h:
+            h.next.random = h.random.next if h.random else None
+            h = h.next.next
+        
+        # split 2 chains
+        copy = head.next
+        h = head
+        while h:
+            t = h.next
+            h.next = t.next
+            h = h.next
+            t.next = h.next if h else None
+
+        return copy
+
+
+
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if head is None:
