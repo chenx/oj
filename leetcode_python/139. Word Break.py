@@ -13,6 +13,7 @@ class Solution3:
                     # print(f":: j={j}, s[j:i] = {s[j:i]}")
                     if DP[j] and s[j:i] in wordSet:
                         DP[i] = True
+                        break
         return DP[n]
 
 
