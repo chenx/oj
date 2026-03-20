@@ -1,6 +1,8 @@
 # Similar to Solution3.
 # Time: O(n * 2^n)
 # Space: O(1)
+# e.g., n = 3, then 2^3 = 8 positions: [000,001,010,011,100,101,110,111], 
+# For each position, pick a number to fill in if corresponding digit is 1.
 class Solution32:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         result = []
