@@ -6,10 +6,30 @@ class Node:
         self.neighbors = neighbors if neighbors is not None else []
 """
 
+# BFS
 from collections import deque
-from typing import Optional
+class Solution3:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+
+        map = {}
+        q = deque([node])
+        map[node] = Node(node.val)
+
+        while q:
+            next = q.popleft()
+            for child in next.neighbors:
+                if child not in map:
+                    map[child] = Node(child.val)
+                    q.append(child)
+                map[next].neighbors.append(map[child])
+
+        return map[node]
+
 
 # BFS
+from collections import deque
 class Solution2:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if node is None:
