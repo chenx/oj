@@ -158,6 +158,23 @@ subject_marks.sort(key=lambda x: x[1])
 [[1, 2], [2, 3], [0, 4]]
 ```
 
+#### Sort by multiple keys
+
+E.g., list = [['a', 3], ['b', 3], ['c', 1]]. Sort by occurences in reverse order; if same occurences, by alphabetical order.
+Result: [['d', 4], ['a', 3], ['b', 3], ['c', 1]].
+
+Sort in Python is stable, so you can sort by keys in reverse order:
+```
+list.sort(key=lambda x: x[1], reverse=True)
+list.sort(key=lambda x: x[0])
+```
+
+But the easier way is to sort in one round:
+```
+list.sort(key=lambda x: (-x[1], x[0]))
+```
+
+
 ##### list.sort() vs sorted()
 
 The primary difference is that list.sort() sorts a list in-place and returns None, while sorted() creates and returns a new sorted list from any iterable, leaving the original data unchanged. 
