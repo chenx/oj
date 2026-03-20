@@ -1,3 +1,5 @@
+# Time: O(n)
+# Space: O(n)
 class Solution:
     def rob(self, nums: List[int]) -> int:
         # A[n] = max(A[n-1], A[n-2] + nums[n])
