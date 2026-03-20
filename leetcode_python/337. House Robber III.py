@@ -1,3 +1,21 @@
+# Best solution. 
+# From: https://leetcode.com/problems/house-robber-iii/editorial/
+# Time, Space: O(n)
+class Solution3:
+    def rob(self, root: Optional[TreeNode]) -> int:
+        def helper(node):
+            if not node:
+                return [0, 0]
+            left = helper(node.left)
+            right = helper(node.right)
+
+            rob = node.val + left[1] + right[1]
+            not_rob = max(left) + max(right)
+            return [rob, not_rob]
+
+        return max(helper(root))
+
+
 # This works too.
 class Solution2:
     def __init__(self):
