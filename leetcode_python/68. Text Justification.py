@@ -16,15 +16,20 @@ class Solution:
                 result += row[i] + ' ' * a
             result += row[-1] # last item
             return result
-        
+
         def writeLastRow(row, rowLen, maxWidth):
-            result = ''
-            for word in row:
-                if result != '':
-                    result += ' '
-                result += word
-            result += ' ' * (maxWidth - len(result))
+            result = ' '.join(row)
+            result += ' ' * (maxWidth - len(result)
             return result
+            
+        # def writeLastRow(row, rowLen, maxWidth):
+        #     result = ''
+        #     for word in row:
+        #         if result != '':
+        #             result += ' '
+        #         result += word
+        #     result += ' ' * (maxWidth - len(result))
+        #     return result
 
         rowLen = 0
         row = []
