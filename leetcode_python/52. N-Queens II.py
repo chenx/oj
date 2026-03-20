@@ -1,3 +1,29 @@
+class Solution2:
+    def totalNQueens(self, n: int) -> int:
+        def has_config(i, row):
+            for i in range(row):
+                if board[i] == board[row] or abs(board[i] - board[row]) == row  - i:
+                    return True
+            return False
+
+        def dfs(row):
+            nonlocal count
+            if row == n:
+                count += 1
+                return 
+            
+            for i in range(n):
+                board[row] = i
+                if not has_config(i, row):
+                    dfs(row + 1)
+
+
+        board = [0] * n
+        count = 0
+        dfs(0)
+        return count
+
+
 # Time: O(N!)
 # Space: O(N) for board and recusion.
 class Solution:
