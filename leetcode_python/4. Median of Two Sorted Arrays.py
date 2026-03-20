@@ -9,7 +9,7 @@ class Solution:
             if m == 0:
                 return nums2[offset2 + k - 1]
             if k == 1:
-                return min(nums1[offset1 + k - 1], nums2[offset2 + k - 1])
+                return min(nums1[offset1], nums2[offset2])
             
             pa = min(k//2, m)
             pb = k - pa
