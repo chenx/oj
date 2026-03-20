@@ -1,7 +1,33 @@
 # DFS
+class Solution3:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        def dfs(start, outBound, result):
+            if start in outBound:
+                toAirports = outBound[start]
+                while toAirports:
+                    dfs(toAirports.pop(), outBound, result)
+            result.append(start)
+
+
+        outBound : dict[str, list[str]] = {}
+        for (start, end) in tickets:
+            if start not in outBound:
+                outBound[start] = []
+            outBound[start].append(end)
+        
+        for _, toAirports in outBound.items():
+            toAirports.sort(reverse=True)
+        
+        result = []
+        dfs("JFK", outBound, result)
+        result.reverse()
+        return result
+
+
+# DFS
 # Time Complexity: O(E log E) where E is the number of tickets (for sorting) 
 # Space Complexity: O(E) for storing the graph and recursion stack
-class Solution:
+class Solution2:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         def dfs(airport):
             targetAirports = outBound[airport] if airport in outBound else []
