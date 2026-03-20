@@ -1,3 +1,21 @@
+class Solution3:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordSet = set(wordDict)
+        n = len(s)
+        DP = [False] * (n+1)
+
+        for i in range(n+1):
+            # print(f"i={i}, s[:i] = {s[:i]}")
+            if s[:i] in wordSet:
+                DP[i] = True
+            else:
+                for j in range(i):
+                    # print(f":: j={j}, s[j:i] = {s[j:i]}")
+                    if DP[j] and s[j:i] in wordSet:
+                        DP[i] = True
+        return DP[n]
+
+
 # Check [:i], then [:j] and [j:i]
 # apple+pen+apple
 # Time: O(n^2*k + n*k), n = len(s), k = average length of a word
