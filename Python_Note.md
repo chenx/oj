@@ -174,6 +174,17 @@ But the easier way is to sort in one round:
 list.sort(key=lambda x: (-x[1], x[0]))
 ```
 
+Or
+```
+list = sorted(list, key=lambda x: (-x[1], x[0]))
+```
+
+Or
+```
+list = sorted(list, key=itemgetter(0))
+list = sorted(list, key=itemgetter(1, reverse=True))
+```
+
 
 ##### list.sort() vs sorted()
 
