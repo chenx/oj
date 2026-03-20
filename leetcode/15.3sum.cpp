@@ -1,3 +1,13 @@
+/**
+Note: 
+  while (j < k && nums[j] == nums[++ j]) {} 
+  
+is equivalent to:
+  while (j < k) {
+    j += 1;
+    if (nums[j-1] != nums[j) break;
+  }
+ */
 class Solution5 {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
