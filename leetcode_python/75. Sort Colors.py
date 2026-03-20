@@ -2,10 +2,11 @@ class Solution:
     def sortColors(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
+        e.g., [1,2,0]. Think about the steps.
         """
         i, j, p = 0, len(nums) - 1, 0
 
-        while i <= j:
+        while i <= j: # NOTE: "<="
             if nums[i] == 0:
                 nums[i], nums[p] = nums[p], nums[i]
                 i += 1
