@@ -1,8 +1,10 @@
+# Time: O(n), n = len(instructions)
+# Space: O(1)
 class Solution:
     def isRobotBounded(self, instructions: str) -> bool:
-        directions = [[-1, 0], [0, -1], [1, 0], [0, 1]] # W, S, E, N
-        x, y = 0, 0
-        direction_index = 0
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]] # N, E, S, W
+        x, y = 0, 0 # init position
+        direction_index = 0 # init direction: North
 
         for i in instructions:
             if i == 'L':
@@ -14,7 +16,6 @@ class Solution:
                 y += directions[direction_index][1]
         
         return (x == 0 and y == 0) or direction_index != 0
-
 
 
 
