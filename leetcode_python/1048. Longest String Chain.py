@@ -1,3 +1,31 @@
+# Time: O(N * L^2), N = len(words), L = max length of a word
+# Space: O(N) for the memo map.
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        def getMaxChainLen(word):
+            if word in memo:
+                return memo[word]
+            if len(word) == 1:
+                return 1
+
+            maxChainLen = 1
+            for i in range(len(word)):
+                nextWord = word[:i] + word[i+1:]
+                if nextWord in wordSet:
+                    maxChainLen = max(maxChainLen, 1 + getMaxChainLen(nextWord))
+            
+            memo[word] = maxChainLen
+            return maxChainLen
+
+
+        maxLen = 0
+        wordSet = set(words)
+        memo : dict[str, int] = {}
+        for word in words:
+            maxLen = max(maxLen, getMaxChainLen(word))
+        return maxLen
+
+
 class Solution:
     def longestStrChain(self, words: List[str]) -> int:
         def getMaxLen(word, wordSet, maxLenMemo):
