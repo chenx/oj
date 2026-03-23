@@ -1,3 +1,4 @@
+# Time, Space: O(n)
 # Most pythonic way to reverse a string: s[::-1]
 class Solution4:
     def minRemoveToMakeValid(self, s: str) -> str:
