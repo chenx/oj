@@ -18,6 +18,13 @@ class Solution4:
         t = removeExtraRightPar(t[::-1], ')', '(')
         return t[::-1]
 
+        # reversed(string) function returns a reversed iterator of the characters. 
+        # To get a reversed string, you must use it in conjunction with the join() method.
+        # t = removeExtraCloseBracket(reversed(t), ')', '(')
+        # return ''.join(reversed(t))
+
+        # Python's built-in str type is immutable and does not have a .reverse() method. 
+
 
 class Solution3:
     def minRemoveToMakeValid(self, s: str) -> str:
