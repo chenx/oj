@@ -1,3 +1,6 @@
+# Let n be the maximum number of calls and k = length.
+# Time: O(nlogn + k)
+# Space: O(k)
 # Works. Most space efficient in get().
 import bisect
 class SnapshotArray3:
