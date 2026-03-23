@@ -1,3 +1,40 @@
+# Let N be the number of cards in the input array.
+# Time: O(N^3⋅3^(N−1)⋅N!⋅(N−1)!)
+# Space: O(N^2), for N recursive calls, each needs an array of size O(N)
+class Solution:
+    def judgePoint24(self, cards: List[int]) -> bool:
+        def calcTwoCards(a, b):
+            result = [a + b, a - b, b - a, a * b]
+            if a != 0:
+                result.append(b/a)
+            if b != 0:
+                result.append(a/b)
+            return result
+
+        def judge(cards):
+            n = len(cards)
+            if n == 2:
+                for item in calcTwoCards(cards[0], cards[1]):
+                    if abs(item - 24) < 0.00001:
+                        return True
+                return False
+
+            for i in range(n-1):
+                for j in range(i+1, n):
+                    otherCards = []
+                    for k in range(n):
+                        if k != i and k != j:
+                            otherCards.append(cards[k])
+                    for item in calcTwoCards(cards[i], cards[j]):
+                        curCards = otherCards[:]
+                        curCards.append(item)
+                        if judge(curCards):
+                            return True
+            return False
+
+        return judge(cards)
+
+
 class Solution:
     def judgePoint24(self, cards: List[int]) -> bool:
         def calcTwo(i, j):
