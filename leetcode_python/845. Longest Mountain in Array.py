@@ -1,3 +1,4 @@
+# 2 pointers. Simulation.
 # Time: O(n)
 # Space: O(1)
 class Solution:
