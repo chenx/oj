@@ -1,3 +1,34 @@
+class Solution2:
+    def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
+        def has_conflict(i, colors, graph):
+            if not i in graph:
+                return False
+            for j in graph[i]:
+                if colors[j] == 0:
+                    colors[j] = - colors[i]
+                    if has_conflict(j, colors, graph):
+                        return True
+                elif colors[j] == colors[i]:
+                    return True # has conflict
+            return False
+
+        graph : dict[int, set(int)] = {}
+        for [a, b] in dislikes:
+            if not a in graph: graph[a] = set()
+            if not b in graph: graph[b] = set()
+            graph[a].add(b)
+            graph[b].add(a)
+        
+        colors = [0] * (n + 1)
+
+        for i in range(n):
+            if colors[i] == 0:
+                colors[i] = 1
+                if has_conflict(i, colors, graph):
+                    return False
+        return True
+
+
 class Solution:
     def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
         def dfs(i, group, graph) -> bool:
