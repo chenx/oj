@@ -7,8 +7,8 @@ class Solution2:
                 return n
             
             if DP[k][n] == -1:
-                minVal = sys.maxsize
                 # This also works but time out for large input.
+                # minVal = sys.maxsize
                 # for h in range(1, n+1):
                 #     minVal = min(minVal, 1 + max(dp(k-1, h-1), dp(k, n-h)))
 
@@ -33,6 +33,7 @@ class Solution2:
         # DP[k, n] = min{h = 1..n}( max(DP[k-1, h-1], DP[k, n-h]) )
         DP = [[-1 for _ in range(n+1)] for _ in range(k+1)]
         return dp(k, n)
+
 
 
 # Times out for large input.
