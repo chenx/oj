@@ -8,7 +8,7 @@ class Node:
 
 # BFS
 from collections import deque
-class Solution3:
+class Solution2:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
             return None
@@ -32,9 +32,6 @@ class Solution3:
 # DFS
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        visited : dict[Node, Node] = {}
-        return clone(node, visited)
-      
         def clone(node, visited):
             if node is None:
                 return None
