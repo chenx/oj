@@ -28,31 +28,9 @@ class Solution3:
         return map[node]
 
 
-# BFS
-from collections import deque
-class Solution2:
-    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        if node is None:
-            return None
-        
-        visited = {}
-        q = deque()
-        q.append(node)
-        visited[node] = Node(node.val)
-
-        while len(q) > 0:
-            curNode = q.popleft()
-
-            for neighbor in curNode.neighbors:
-                if neighbor not in visited:
-                    visited[neighbor] = Node(neighbor.val)
-                    q.append(neighbor)
-                visited[curNode].neighbors.append(visited[neighbor])
-        
-        return visited[node]
 
 # DFS
-class Solution2:
+class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         visited : dict[Node, Node] = {}
         return clone(node, visited)
