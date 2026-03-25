@@ -35,12 +35,11 @@ class Solution:
         def clone(node, visited):
             if node is None:
                 return None
-            if node in visited:
-                return visited[node]
-            
-            visited[node] = Node(node.val)
-            for neighbor in node.neighbors:
-                visited[node].neighbors.append(clone(neighbor, visited))
+
+            if not node in visited:
+                visited[node] = Node(node.val)
+                for neighbor in node.neighbors:
+                    visited[node].neighbors.append(clone(neighbor, visited))
 
             return visited[node]
 
