@@ -5,6 +5,7 @@ class Solution:
         openCount = 0
         for i in range(n):
             openCount += 1 if (s[i] == '(' or s[i] == '*') else -1
+            # Or: openCount += 1 if s[i] in ['(', '*'] else -1
             if openCount < 0:
                 return False
         
