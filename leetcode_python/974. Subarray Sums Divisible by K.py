@@ -2,15 +2,15 @@ from collections import defaultdict
 class Solution2:
     def subarraysDivByK(self, nums: List[int], k: int) -> int:
         prefixSum = 0
-        modGroupMap : dict[int, int] = defaultdict(int) # {}
+        modGroupMap : dict[int, int] = defaultdict(int) 
         modGroupMap[0] = 1
         result = 0
 
         for i in range(len(nums)):
             prefixSum += nums[i]
             mod = ((prefixSum) % k + k) % k
-            result += modGroupMap[mod] # if mod in modGroupMap else 0
-            modGroupMap[mod] = modGroupMap.get(mod, 0) + 1
+            result += modGroupMap[mod]
+            modGroupMap[mod] += 1
 
         return result
 
