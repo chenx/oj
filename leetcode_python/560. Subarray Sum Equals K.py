@@ -54,4 +54,46 @@ Example 2:
 
 Input: nums = [1,2,3], k = 3
 Output: 2
+
+
+========
+
+A variation of this problem:
+
+Given an array, return whether a contiguous subsequence can sum to target. 
+
+1) If all numbers are positive, use a sliding window. 
+2) If some numbers are negative, use prefix sum plus hashmap.
+
+# 1) sliding window   
+def getSubsequence(input, target): 
+   sum = 0
+   left = 0
+   for i in range(len(input)):
+       sum += input[i]
+
+       while left < i and sum > target:
+           sum -= input[left]
+           left += 1
+
+       if sum == target:
+           return True
+      
+   return False
+
+
+# 2) prefix sum + hashmap
+def getSubsequence(input, target):
+   prefixSum = 0
+   map : dict[int, int] = {}
+   map[0] = 1
+
+   for num in input:
+     prefixSum += num
+     if (prefixSum - target) in map:
+       return True
+     map[prefixSum] = 1
+   
+   return False
+
  */
