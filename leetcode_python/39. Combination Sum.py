@@ -1,3 +1,24 @@
+class Solution2:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        DP = [[] for _ in range(1 + target)]
+
+        for i in range(1 + target):
+            for j in range(len(candidates)):
+                if i < candidates[j]:
+                    continue
+                elif i == candidates[j]:
+                    DP[i].append([i])
+                else:
+                    u = DP[i - candidates[j]]
+                    for k in u:
+                        if candidates[j] >= k[-1]:
+                            DP[i].append(k[:])
+                            DP[i][-1].append(candidates[j])
+        
+        return DP[target]
+
+
+
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         DP = [[] for _ in range(target + 1)]
