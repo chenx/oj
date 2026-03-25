@@ -9,7 +9,7 @@ class Solution2:
         for i in range(len(nums)):
             prefixSum += nums[i]
             result += sumCountMap[prefixSum - k]
-            sumCountMap[prefixSum] = sumCountMap.get(prefixSum, 0) + 1
+            sumCountMap[prefixSum] += 1
         
         return result
 
