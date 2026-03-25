@@ -19,7 +19,7 @@ class LRUCache2:
         if len(self.cache) == self.capacity:
             if not key in self.cache:
                 # Default: True: pop tail (LIFO); False: pop head (FIFO)
-                self.cache.popitem(False)
+                self.cache.popitem(last=False)
         
         self.cache[key] = value
         self.cache.move_to_end(key)
@@ -54,7 +54,7 @@ class LRUCache:
         self.cache[key] = value
         
         if len(self.cache) > self.capacity:
-            self.cache.popitem(False)
+            self.cache.popitem(last=False)
         
 
 
