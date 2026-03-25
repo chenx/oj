@@ -1,6 +1,6 @@
 class Solution2:
     def totalNQueens(self, n: int) -> int:
-        def has_config(i, row):
+        def has_conflict(i, row):
             for i in range(row):
                 if board[i] == board[row] or abs(board[i] - board[row]) == row  - i:
                     return True
@@ -14,7 +14,7 @@ class Solution2:
             
             for i in range(n):
                 board[row] = i
-                if not has_config(i, row):
+                if not has_conflict(i, row):
                     dfs(row + 1)
 
 
