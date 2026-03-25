@@ -1,3 +1,19 @@
+from collections import defaultdict
+class Solution2:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        prefixSum = 0
+        sumCountMap : dict[int, int] = defaultdict(int) # {}
+        sumCountMap[0] = 1
+        result = 0
+
+        for i in range(len(nums)):
+            prefixSum += nums[i]
+            result += sumCountMap[prefixSum - k]
+            sumCountMap[prefixSum] = sumCountMap.get(prefixSum, 0) + 1
+        
+        return result
+
+
 # Time: O(n)
 # Space: O(n) for the sumCountMap.
 class Solution:
