@@ -1,3 +1,33 @@
+# bisect.bisect_right() (and its alias bisect.bisect()) in Python finds the insertion point 
+# for a value in a sorted list to maintain order, returning the index after any existing entries 
+# of that value. It is an efficient tool, often implemented in C, designed for locating insertion 
+# points rather than searching for exact matches. 
+import bisect
+class SnapshotArray2:
+
+    def __init__(self, length: int):
+        self.arr = [[] for _ in range(length)]
+        self.snap_id = 0
+        
+
+    def set(self, index: int, val: int) -> None:
+        self.arr[index].append([self.snap_id, val])
+        
+
+    def snap(self) -> int:
+        self.snap_id += 1
+        return self.snap_id - 1
+        
+
+    def get(self, index: int, snap_id: int) -> int:
+        snap_index = bisect.bisect_right(self.arr[index], [snap_id, sys.maxsize])
+        if snap_index > 0:
+            return self.arr[index][snap_index - 1][1]
+        else:
+            return 0
+
+        
+                                                                                          
 # Let n be the maximum number of calls and k = length.
 # Time: O(nlogn + k)
 # Space: O(k)
