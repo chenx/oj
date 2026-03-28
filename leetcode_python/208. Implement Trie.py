@@ -1,3 +1,5 @@
+# Version 2. from: 642. Design Search Autocomplete System
+# https://leetcode.com/problems/design-search-autocomplete-system/
 class TrieNode:
     def __init__(self, val = ''):
         self.children = {}
@@ -12,7 +14,7 @@ class TrieNode:
         self.children[c] = TrieNode()
         return self.children[c]
 
-class Trie2:
+class Trie:
 
     def __init__(self):
         self.root = TrieNode()
