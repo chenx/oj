@@ -1,3 +1,37 @@
+# Time: O((mn)^2)
+# Space: O(1) - in-place BFS
+class Solution2:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        def getRottingCount(i, j, rotten):
+            count = 0
+            for k in range(len(directions)):
+                x, y = i + directions[k][0], j + directions[k][1]
+                if x >= 0 and x < m and y >= 0 and y < n and grid[x][y] == 1:
+                    grid[x][y] = rotten + 1
+                    count += 1 # NO dfs!!!
+            return count
+
+        m, n = len(grid), len(grid[0])
+        directions = [[-1,0], [0,1], [1,0], [0,-1]]
+
+        minute = 0
+        while True:
+            count = 0
+            for i in range(m):
+                for j in range(n):
+                    if grid[i][j] == minute + 2:
+                        count += getRottingCount(i, j, minute + 2)
+            if count == 0:
+                break
+            minute += 1
+        
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    return -1
+        return minute #0 if minute == 0 else minute - 2
+
+
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         def getRottingOrangeCount(grid, curRotten):
