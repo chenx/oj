@@ -1,3 +1,6 @@
+# Let E be the size of dislikes and N be the number of people.
+# Time: O(E + N) 
+# Space: O(E + N)
 class Solution2:
     def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
         def has_conflict(i, colors, graph):
