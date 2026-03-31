@@ -3,10 +3,7 @@
 class Solution2:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         n = len(temperatures)
-        if n <= 1:
-            return 0
-        
-        hottest = temperatures[n-1]
+        hottest = 0  # temperatures[n-1] also works.
         result = [0] * n
 
         for i in range(n-1, -1, -1):
