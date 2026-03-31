@@ -1,3 +1,5 @@
+# Time: O(n^2)
+# Space: O(n^2) - size of islandsSizeMap, and call stack size.
 class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
         def dfs(i, j, islandId):
