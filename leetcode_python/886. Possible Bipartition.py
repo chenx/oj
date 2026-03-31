@@ -1,5 +1,9 @@
 # Let E be the size of dislikes and N be the number of people.
 # Time: O(E + N) 
+# Each node is visited by the dfs function once, which takes O(N) time in total. 
+# We also iterate over the edges of every node once (since we don't visit a node more than once, 
+# we don't iterate its edges more than once), which adds O(E) time.
+# We also need O(E) to initialize the adjacency list and O(N) to initialize the color array.
 # Space: O(E + N)
 class Solution2:
     def possibleBipartition(self, n: int, dislikes: List[List[int]]) -> bool:
