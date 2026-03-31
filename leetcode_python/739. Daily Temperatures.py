@@ -1,27 +1,9 @@
 # Time: O(n)
 # Space: O(1)
-class Solution2:
-    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        n = len(temperatures)
-        hottest = 0  # temperatures[n-1] also works.
-        result = [0] * n
-
-        for i in range(n-1, -1, -1):
-            if temperatures[i] >= hottest:
-                hottest = temperatures[i]
-                result[i] = 0
-            else:
-                days = 1
-                while temperatures[i] >= temperatures[i + days]:
-                    days += result[i + days]
-                result[i] = days
-        return result
-
-
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         n = len(temperatures)
-        hottest = - sys.maxsize - 1 # hottest = 0 also works.
+        hottest = 0  # "- sys.maxsize - 1" also works.
         result = [0] * n
 
         for i in range(n-1, -1, -1):
