@@ -8,7 +8,7 @@ class Solution:
             path.append(node.val)
             if node.left is None and node.right is None:
                 if sum == 0:
-                    result.append(path[:])
+                    result.append(path)
                 return
             
             getPath(node.left, path[:], sum)
