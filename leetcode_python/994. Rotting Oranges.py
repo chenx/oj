@@ -29,8 +29,8 @@ class Solution2:
             for j in range(n):
                 if grid[i][j] == 1:
                     return -1
-        return minute #0 if minute == 0 else minute - 2
-
+        return minute
+        
 
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
