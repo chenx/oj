@@ -1,3 +1,24 @@
+class Solution2:
+    def addBoldTag(self, s: str, words: List[str]) -> str:
+        n = len(s)
+        bold = [False] * n
+        for word in words:
+            index = s.find(word)
+            while index != -1:
+                for i in range(index, index + len(word)):
+                    bold[i] = True
+                index = s.find(word, index + 1)
+        
+        result = []  # use list instead of str.
+        for i in range(n):
+            if bold[i] and (i == 0 or not bold[i-1]):
+                result.append('<b>')
+            result.append(s[i])
+            if bold[i] and (i == n-1 or not bold[i+1]):
+                result.append('</b>')
+        return ''.join(result)
+
+
 # Let n be s.length, m be words.length, and k be the average length of the words.
 # Time complexity: O(m⋅(n^2⋅k−n⋅k^2))
 # Space: O(n)
