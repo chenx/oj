@@ -20,7 +20,7 @@ class Solution:
                 return False
 
             for i in range(n-1):
-                for j in range(i+1, n):
+                for j in range(i+1, n): # NOTE: starts from "i+1" instead of "i"
                     otherCards = []
                     for k in range(n):
                         if k != i and k != j:
