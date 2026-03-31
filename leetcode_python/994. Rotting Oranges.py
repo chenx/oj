@@ -1,4 +1,4 @@
-# Time: O((mn)^2)
+# Time: O((mn)*minutes)
 # Space: O(1) - in-place BFS
 class Solution2:
     def orangesRotting(self, grid: List[List[int]]) -> int:
