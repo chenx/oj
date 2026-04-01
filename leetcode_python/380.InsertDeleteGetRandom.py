@@ -91,7 +91,7 @@ class RandomizedSet:
         self.arr[index], self.arr[n-1] = self.arr[n-1], self.arr[index]
         
         self.positionMap[self.arr[index]] = index
-        del self.positionMap[val]
+        del self.positionMap[val]  # or: self.indexMap.pop(val)
 
         self.arr.pop()
         return True
