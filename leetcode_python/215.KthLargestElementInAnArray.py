@@ -1,5 +1,7 @@
 // More efficient.
 // From: https://leetcode.com/problems/kth-largest-element-in-an-array/editorial/
+# Time: O(n) average, O(n^2) worst case.
+# Space: O(n)
 class Solution2:
     def findKthLargest(self, nums, k):
         def quick_select(nums, k):
