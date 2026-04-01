@@ -1,3 +1,4 @@
+# See https://algo.monster/liteproblems/1247
 class Solution:
     def minimumSwap(self, s1: str, s2: str) -> int:
         # Count mismatches where s1[i] = 'x' and s2[i] = 'y'
