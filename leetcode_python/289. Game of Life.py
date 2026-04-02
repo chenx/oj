@@ -27,7 +27,7 @@ class Solution2:
             for j in range(cols):
                 ct = board[i][j] >> 2
                 cur = board[i][j] & 0x1
-                if cur == 1 and (ct == 2 or ct == 3):
+                if cur == 1 and (ct == 2 or ct == 3):  # or: ct in [2, 3]
                     board[i][j] = 1
                 elif cur == 0 and ct == 3:
                     board[i][j] = 1
