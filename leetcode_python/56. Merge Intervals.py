@@ -1,10 +1,8 @@
 class Solution2:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         n = len(intervals)
-        if n == 0:
-            return []
-        
-        intervals.sort(key=lambda x: x[0])
+        intervals.sort()
+        # intervals.sort(key=lambda x: x[0])
 
         result = []
         for i in range(1, n):
