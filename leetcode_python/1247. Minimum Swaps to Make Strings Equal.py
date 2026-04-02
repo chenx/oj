@@ -25,6 +25,20 @@ class Solution:
                 x_y_mismatch_count % 2 + 
                 y_x_mismatch_count % 2)
 
+/**
+This needs one swap: s11 <-> s22
+s1: xx
+s2: yy
+
+This needs 2 swaps: s11 <-> S21, S11 <-> s22
+s1: xy
+s2: yx
+
+xy // 2: Number of swaps needed to fix pairs of xy mismatches (each pair needs 1 swap)
+yx // 2: Number of swaps needed to fix pairs of yx mismatches (each pair needs 1 swap)
+xy % 2 + yx % 2: If there's one remaining xy and one remaining yx mismatch after pairing same-type mismatches, 
+they form a mixed pair that needs 2 swaps total.
+ */
 
 /**
 1247. Minimum Swaps to Make Strings Equal
