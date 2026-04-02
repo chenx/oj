@@ -9,8 +9,7 @@ class Solution:
             else:
                 points[i][1] = min(points[i-1][1], points[i][1])
         
-        arrowCount += 1
-        return arrowCount
+        return arrowCount + 1 if len(points) > 0 else 0
 
 /**
 452. Minimum Number of Arrows to Burst Balloons
