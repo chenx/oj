@@ -1,3 +1,4 @@
+# Diff of nodes in inorder traversal order.
 # Time: O(n)
 # Space: O(n) for recursion call stack.
 class Solution:
