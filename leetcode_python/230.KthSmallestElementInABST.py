@@ -1,3 +1,28 @@
+# Time: O(n). Tree iterative inorder traversal
+# Space: O(1)
+class Solution3:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        if not root:
+            return 0
+
+        node = root
+        stack = []
+        while True:
+            while node:
+                stack.append(node)
+                node = node.left
+
+            if not stack:
+                return 0
+            
+            node = stack.pop()
+            k -= 1
+            if k == 0:
+                return node.val
+
+            node = node.right
+
+
 class Solution2:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         def inorder(node):
