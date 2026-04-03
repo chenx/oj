@@ -13,7 +13,7 @@ class Solution2:
             else:
                 stack.append(int(token))
         
-        return stack[-1]
+        return stack[-1]  # or: stack[0]
 
 
 class Solution:
