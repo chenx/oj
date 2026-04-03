@@ -12,7 +12,7 @@ class Solution:
                 result[i] = 0
             else:
                 days = 1
-                while temperatures[i] >= temperatures[i + days]:
+                while temperatures[i] >= temperatures[i + days]:  # NOTE: ">=" !!!
                     days += result[i + days]
                 result[i] = days
         return result
