@@ -1,3 +1,38 @@
+class Solution3:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        def add(sum):
+            nonlocal tail, carry
+            if sum >= 10:
+                sum -= 10
+                carry = 1
+            else:
+                carry = 0
+            
+            tail.next = ListNode(sum)
+            tail = tail.next
+
+        dummy = ListNode()
+        tail = dummy
+        carry = 0
+
+        while l1 and l2:
+            add(l1.val + l2.val + carry)
+            l1, l2 = l1.next, l2.next
+        
+        while l1:
+            add(l1.val + carry)
+            l1 = l1.next
+        
+        while l2:
+            add(l2.val + carry)
+            l2 = l2.next
+        
+        if carry == 1:
+            add(carry)
+        
+        return dummy.next
+        
+
 class Solution2:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         def add(sum, tail):
