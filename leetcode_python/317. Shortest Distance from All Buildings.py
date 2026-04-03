@@ -1,3 +1,7 @@
+# Time: O((mn)^2)
+# For each house, we will traverse across all reachable land. This will require 
+# O(number of zeros ⋅ number of ones) time and the number of zeros and ones in the matrix is of order N⋅M.
+# Space: O(mn)
 from collections import deque
 class Solution:
     def shortestDistance(self, grid: List[List[int]]) -> int:
