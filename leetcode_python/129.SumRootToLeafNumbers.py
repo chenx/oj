@@ -9,8 +9,8 @@ class Solution3:
             if not node.left and not node.right:
                 total += sum
 
-            if node.left: dfs(node.left, sum)
-            if node.right: dfs(node.right, sum)
+            dfs(node.left, sum)
+            dfs(node.right, sum)
 
         total = 0
         dfs(root, 0)
