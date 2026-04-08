@@ -1,3 +1,84 @@
+# Version 2.
+class TrieNode:
+    def __init__(self):
+        self.children = {} # dict[char, TrieNode]
+        self.endMarker = False
+    
+    def find(self, ch) -> TrieNode:
+        if ch in self.children:
+            return self.children[ch]
+        return None
+    
+    def insert(self, ch) -> TrieNode:
+        self.children[ch] = TrieNode()
+        return self.children[ch]
+
+class Trie:
+
+    def __init__(self):
+        self.root = TrieNode()
+        
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for ch in word:
+            if ch in node.children:
+                node = node.children[ch]
+            else:
+                node = node.insert(ch)
+        node.endMarker = True
+
+    def search(self, word: str) -> bool:
+        return self._search2(self.root, word)
+
+    def _search2(self, node, word: str) -> bool:
+        for i in range(len(word)):
+            ch = word[i]
+            if ch == ".":
+                word = word[i+1:]
+                for child in node.children.values():
+                    if self._search2(child, word):
+                        return True
+                return False
+
+            if ch in node.children:
+                node = node.children[ch]
+            else:
+                return False
+        return node.endMarker
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.root
+        for ch in prefix:
+            if ch in node.children:
+                node = node.children[ch]
+            else:
+                return False
+        return True
+        
+# Version 2.
+class WordDictionary:
+
+    def __init__(self):
+        self.trie = Trie()
+        
+
+    def addWord(self, word: str) -> None:
+        self.trie.insert(word)
+        
+
+    def search(self, word: str) -> bool:
+        return self.trie.search(word)
+        
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
+
+
+
 class TrieNode:
     def __init__(self, c = '', wordMarker = False):
         self.content = c
