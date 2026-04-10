@@ -1,3 +1,5 @@
+# Time: O(m * n * 3^L), m = rows, n = cols, L = len(word)
+# Space: O(L) for call stack depth.
 class Solution2:
     def exist(self, board: List[List[str]], word: str) -> bool:
         def dfs(i, j, wordPos):
