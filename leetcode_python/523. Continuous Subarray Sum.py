@@ -1,8 +1,7 @@
-from collections import defaultdict
 class Solution:
     def checkSubarraySum(self, nums: List[int], k: int) -> bool:
         prefixSum = 0
-        map = defaultdict(int) # <prefixSum, index>
+        map = {} # <prefixSum, index>
         map[0] = -1
 
         for i in range(len(nums)):
