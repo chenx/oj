@@ -1,4 +1,7 @@
 # Version 2. Different TrieNode implementation.
+# Time: O(M * (4⋅3^(L−1))), where M is the number of cells in the board and L is the maximum length of words.
+# Space: Space Complexity: O(N), where N is the total number of letters in the dictionary, for the Trie.
+# The Trie would have as many nodes as the letters of all words.
 class TrieNode:
     def __init__(self):
         self.children : dict[str, TrieNode] = {}
