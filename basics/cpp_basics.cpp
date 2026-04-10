@@ -265,3 +265,85 @@ int main() {
 
   return 0;
 }
+
+
+/**
+Output:
+
+Hello, World!
+==> test_queue
+queue: 2
+1
+2
+==> test_priority_queue
+maxHeap priority_queue: 2
+2
+1
+==> test_deque
+deque: 2
+front: 1, back: 2
+front: 2, back: 2
+==> test_stack
+stack: 2
+2
+1
+==> test_set
+set: 2
+2
+1
+set: erase 2
+set: erase 1
+==> test_map
+map: 2
+map: erase b:2
+map: erase a:1
+==> test_dll
+dll: 2
+list back: 2
+list back: 1
+==> test_algorithm
+-2,1,2,4,5,
+found 2
+upper_bound of 2 found: 4
+5,4,2,1,-2,
+min element: -2
+copy: 5,copy: 4,copy: 2,copy: 1,copy: -2,copy: 0,
+filled: 128,filled: 128,filled: 128,filled: 128,filled: 128,filled: 128,
+exception: divide by 0
+class A is created
+class B is initialized
+hello from B
+hello from B: It's Firday
+result (count = 24):
+1, 2, 3, 4, 
+1, 2, 4, 3, 
+1, 3, 2, 4, 
+1, 3, 4, 2, 
+1, 4, 3, 2, 
+1, 4, 2, 3, 
+2, 1, 3, 4, 
+2, 1, 4, 3, 
+2, 3, 1, 4, 
+2, 3, 4, 1, 
+2, 4, 3, 1, 
+2, 4, 1, 3, 
+3, 2, 1, 4, 
+3, 2, 4, 1, 
+3, 1, 2, 4, 
+3, 1, 4, 2, 
+3, 4, 1, 2, 
+3, 4, 2, 1, 
+4, 2, 3, 1, 
+4, 2, 1, 3, 
+4, 3, 2, 1, 
+4, 3, 1, 2, 
+4, 1, 3, 2, 
+4, 1, 2, 3, 
+result (count = 6):
+1, 2, 
+1, 3, 
+1, 4, 
+2, 3, 
+2, 4, 
+3, 4, 
+ */
