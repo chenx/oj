@@ -11,7 +11,7 @@ class Solution:
             if i + nums[i] >= n-1:
                 DP[i] = 1
             else:
-                for j in range(0, nums[i] + 1): # j = 0; j <= nums[i]; ++ j
+                for j in range(nums[i] + 1): # j = 0; j <= nums[i]; ++ j
                     if i + j < n and DP[i + j] > 0:
                         if DP[i] == -1 or DP[i] > 1 + DP[i + j]:
                             DP[i] = 1 + DP[i + j]
