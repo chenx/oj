@@ -13,6 +13,7 @@ class Solution2:
         indexValueMap = {}
         for index, val in enumerate(inorder):
             indexValueMap[val] = index
+        # or: indexValueMap = {val: index for (index, val) in enumerate(inorder)}
         n = len(inorder)
         return build(inorder, postorder, n-1, 0, n-1)
 
