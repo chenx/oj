@@ -1,3 +1,70 @@
+# Version 2. Different TrieNode implementation.
+class TrieNode:
+    def __init__(self):
+        self.children : dict[str, TrieNode] = {}
+        self.wordMarker = False
+
+    def findChild(self, ch):
+        return self.children[ch] if ch in self.children else None
+    
+    def insert(self, ch):
+        self.children[ch] = TrieNode()
+        return self.children[ch]
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insert(self, word):
+        node = self.root
+        for ch in word:
+            if not ch in node.children:
+                node.insert(ch)
+            node = node.findChild(ch)
+        node.wordMarker = True
+    
+    def search(self, word):
+        node = self.root
+        for ch in word:
+            if not ch in node.children:
+                return False
+            node = node.find(ch)
+        return node.wordMarker
+
+
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        def dfs(board, i, j, node, word):
+            if node.wordMarker:
+                result.append(word)
+                node.wordMarker = False
+            
+            backup = board[i][j]
+            board[i][j] = '.'
+
+            options = [[-1,0], [0,1], [1,0], [0,-1]]
+            for option in options:
+                x, y = i + option[0], j + option[1]
+                if x >= 0 and x < rows and y >= 0 and y < cols and board[x][y] in node.children:
+                    dfs(board, x, y, node.children[board[x][y]], word + board[x][y])
+
+            board[i][j] = backup
+
+        trie = Trie()
+        for word in words:
+            trie.insert(word)
+        
+        result = []
+        rows, cols = len(board), len(board[0])
+        for i in range(rows):
+            for j in range(cols):
+                if board[i][j] in trie.root.children:
+                    dfs(board, i, j, trie.root.children[board[i][j]], board[i][j])
+        return result
+
+
+###
+
 class TrieNode:
     def __init__(self, c = '', wordMarker = False):
         self.content = c
