@@ -20,6 +20,7 @@ class Solution:
         total = sum(nums)
         for i in range(len(nums)):
             nums[i] = - nums[i]
+        # Or: nums = [-num for num in nums]
         
         maxSum2 = maxSubArray(nums)
         if total + maxSum2 == 0:
