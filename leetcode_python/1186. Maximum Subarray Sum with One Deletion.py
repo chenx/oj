@@ -26,6 +26,8 @@ class Solution3:
 
 
 # See https://algo.monster/liteproblems/1186
+# Time: O(n)
+# Space: O(n)
 class Solution2:
     def maximumSum(self, arr: List[int]) -> int:
         def maxSubArray(nums) -> int:
