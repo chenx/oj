@@ -465,7 +465,7 @@ The distance between two iterators is calculated using the std::distance functio
 ### static keyword
 
 Context | Main Effect | Key Characteristic
-----------------------------------------------------
+--------|-------------|-----------------------------
 Inside Function	| Extends lifetime | Value persists between calls
 Inside Class	| Removes object dependency | Shared across all instances
 Global/File Scope | Limits visibility | Internal linkage (private to file)
