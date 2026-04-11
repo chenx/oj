@@ -479,6 +479,6 @@ auto comp = [](vector<int>& a, vector<int>& b) {
     return a[0] > b[0];
 };
 
-priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap;
+priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap(comp);
 ```
         
