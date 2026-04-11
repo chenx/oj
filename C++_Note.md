@@ -461,3 +461,11 @@ Key characteristics of std::multiset:
 
 The distance between two iterators is calculated using the std::distance function, which is available in the &lt;iterator> header. This function determines the number of elements between the first and last iterators in a given range.
 
+
+### static keyword
+
+Context | Main Effect | Key Characteristic
+----------------------------------------------------
+Inside Function	| Extends lifetime | Value persists between calls
+Inside Class	| Removes object dependency | Shared across all instances
+Global/File Scope | Limits visibility | Internal linkage (private to file)
