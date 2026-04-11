@@ -469,3 +469,16 @@ Context | Main Effect | Key Characteristic
 Inside Function	| Extends lifetime | Value persists between calls
 Inside Class	| Removes object dependency | Shared across all instances
 Global/File Scope | Limits visibility | Internal linkage (private to file)
+
+
+### Anonymous function
+
+```
+// Actual type of comp is: std::function<bool(vector<int>&, vector<int>&)>
+auto comp = [](vector<int>& a, vector<int>& b) {
+    return a[0] > b[0];
+};
+
+priority_queue<vector<int>, vector<vector<int>>, decltype(comp)> minHeap;
+```
+        
