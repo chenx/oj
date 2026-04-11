@@ -29,7 +29,7 @@ public:
                 minHeap.push({nums1[i + 1] + nums2[j], i + 1, j});
                 visited.insert({i + 1, j});
             }
-            if (j + 1 < n2 && !visited.contains({1, j + 1})) {
+            if (j + 1 < n2 && !visited.contains({i, j + 1})) {
                 minHeap.push({nums1[i] + nums2[j + 1], i, j + 1});
                 visited.insert({i, j + 1});
             }
