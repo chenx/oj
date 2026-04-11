@@ -30,6 +30,7 @@ public:
 
 // Works. Hierholzer’s algorithm for finding an Eulerian path.
 // vector + reverse-sorted + pop_back
+// Let V = number of nodes, E = number of edges. Here only E matters.
 // Time: O(E * logE). Build graph: O(E), sort: O(E*logE), DFS: O(E)
 // Space: O(E), for outBound graph and DFS.
 class Solution {
