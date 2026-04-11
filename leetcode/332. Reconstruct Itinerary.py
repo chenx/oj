@@ -13,8 +13,6 @@ public:
             sort(to.begin(), to.end(), std::greater<string>());
         }
 
-        // dfs(result, outBound, "JFK");
-        // reverse(result.begin(), result.end());
         stack<string> st;
         st.push("JFK");
         while (! st.empty()) {
