@@ -1,33 +1,41 @@
-// This does not work, because set<string> does not allow duplicate edges.
-/*
+// Use a stack.
 class Solution {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
         vector<string> result;
 
-        unordered_map<string, set<string>> outBound;
+        unordered_map<string, vector<string>> outBound;
         for (const auto& ticket : tickets) {
             string from = ticket[0], to = ticket[1];
-            outBound[from].insert(to);
+            outBound[from].push_back(to);
+        }
+        for (auto& [from, to] : outBound) {
+            sort(to.begin(), to.end(), std::greater<string>());
         }
 
-        dfs(result, outBound, "JFK");
-        reverse(result.begin(), result.end());
+        // dfs(result, outBound, "JFK");
+        // reverse(result.begin(), result.end());
+        stack<string> st;
+        st.push("JFK");
+        while (! st.empty()) {
+            string airport = st.top();
+            vector<string>& to = outBound[airport];
 
+            if (to.empty()) {
+                st.pop();
+                result.push_back(airport);
+            } else {
+                st.push(to.back());
+                to.pop_back();
+            }
+        }
+
+        reverse(result.begin(), result.end());
         return result;
     }
-
-    void dfs(vector<string>& result, unordered_map<string, set<string>>& outBound, string start) {
-        while (! outBound[start].empty()) {
-            string airport = *outBound[start].begin();
-            outBound[start].erase(airport);
-            dfs(result, outBound, airport);
-        }
-        result.push_back(start);
-    }
 };
-*/
 
+// DFS.
 // Works. Hierholzer’s algorithm for finding an Eulerian path.
 // vector + reverse-sorted + pop_back
 // Let V = number of nodes, E = number of edges. Here only E matters.
@@ -64,6 +72,37 @@ public:
 };
 
 
+// This does not work, because set<string> does not allow duplicate edges.
+/*
+class Solution {
+public:
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+        vector<string> result;
+
+        unordered_map<string, set<string>> outBound;
+        for (const auto& ticket : tickets) {
+            string from = ticket[0], to = ticket[1];
+            outBound[from].insert(to);
+        }
+
+        dfs(result, outBound, "JFK");
+        reverse(result.begin(), result.end());
+
+        return result;
+    }
+
+    void dfs(vector<string>& result, unordered_map<string, set<string>>& outBound, string start) {
+        while (! outBound[start].empty()) {
+            string airport = *outBound[start].begin();
+            outBound[start].erase(airport);
+            dfs(result, outBound, airport);
+        }
+        result.push_back(start);
+    }
+};
+*/
+
+ 
 /**
 332. Reconstruct Itinerary
 Solved
