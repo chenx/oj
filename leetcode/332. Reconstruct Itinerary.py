@@ -29,6 +29,9 @@ public:
 */
 
 // Works. Hierholzer’s algorithm for finding an Eulerian path.
+// vector + reverse-sorted + pop_back
+// Time: O(E * logE). Build graph: O(E), sort: O(E*logE), DFS: O(E)
+// Space: O(E), for outBound graph and DFS.
 class Solution {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
