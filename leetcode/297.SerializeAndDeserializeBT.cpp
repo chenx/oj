@@ -1,3 +1,80 @@
+#include <queue>
+class Codec5 {
+    vector<string> split(string& data) {
+        vector<string> ans;
+        stringstream ss(data);
+        string val;
+        while (getline(ss, val, ',')) {
+            ans.push_back(val);
+        }
+        return ans;
+    }
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+
+        vector<string> result;
+        while (! q.empty()) {
+            auto node = q.front();
+            q.pop();
+
+            if (node != NULL) {
+                result.push_back(to_string(node->val));
+
+                q.push(node->left);
+                q.push(node->right);
+            } else {
+                result.push_back("null");
+            }
+        }
+
+        while (! result.empty() && result.back() == "null") {
+            result.pop_back();
+        }
+
+        string ans;
+        for (string item : result) {
+            if (ans != "") ans += ",";
+            ans += item;
+        }
+        return ans;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        if (data == "") {
+            return NULL;
+        }
+
+        vector<string> tokens = split(data);
+        int i = 1, n = tokens.size();
+        TreeNode* root = new TreeNode(stoi(tokens[0]));
+        queue<TreeNode*> q;
+        q.push(root);
+        while (! q.empty()) {
+            TreeNode* node = q.front();
+            q.pop();
+
+            if (i < n && tokens[i] != "null") {
+                node->left = new TreeNode(stoi(tokens[i]));
+                q.push(node->left);
+            }
+            ++ i;
+            if (i < n && tokens[i] != "null") {
+                node->right = new TreeNode(stoi(tokens[i]));
+                q.push(node->right);
+            }
+            ++ i;
+        }
+
+        return root;
+    }
+};
+
+
 // Works.
 class Codec4 {
 public:
