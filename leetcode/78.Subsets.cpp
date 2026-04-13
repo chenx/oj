@@ -1,3 +1,21 @@
+class Solution8 {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> result;
+
+        result.push_back({});
+
+        for (int i = 0; i < nums.size(); ++ i) {
+            int k = result.size();
+            for (int j = 0; j < k; ++ j) {
+                result.push_back(result[j]);
+                result.back().push_back(nums[i]);
+            }
+        }
+        return result;
+    }
+};
+
 // Time, Space: O(n * 2^n)
 class Solution7 {
 public:
