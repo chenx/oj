@@ -1,3 +1,26 @@
+class Solution8 {
+    map<TreeNode*, int> cache;
+public:
+    int rob(TreeNode* root) {
+        if (! cache.contains(root)) {
+            cache[root] = max(rob2(root, true), rob2(root, false));
+        }
+        return cache[root];
+    }
+
+    int rob2(TreeNode* root, bool includeRoot) {
+        if (! root) {
+            return 0;
+        }
+
+        if (includeRoot) { // include root.
+            return root->val + rob2(root->left, false) + rob2(root->right, false);
+        } else { // Not include root.
+            return rob(root->left) + rob(root->right);
+        }
+    }
+};
+
 // Works. Won't time out.
 class Solution7 {
     unordered_map<TreeNode*, int> m;
