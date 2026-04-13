@@ -6,7 +6,9 @@ public:
 
         for (int i = 0; i < n; ++ i) {
             for (int j = 0; j < nums.size(); ++ j) {
-                if (i & (1 << j)) result[i].push_back(nums[j]);
+                if (i & (1 << j)) {
+                    result[i].push_back(nums[j]);
+                }
             }
         }
 
