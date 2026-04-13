@@ -1,3 +1,19 @@
+class Solution9 {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n = 1 << nums.size();
+        vector<vector<int>> result(n, vector<int>());
+
+        for (int i = 0; i < n; ++ i) {
+            for (int j = 0; j < nums.size(); ++ j) {
+                if (i & (1 << j)) result[i].push_back(nums[j]);
+            }
+        }
+
+        return result;
+    }
+};
+
 class Solution8 {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
