@@ -1,3 +1,23 @@
+// From: https://leetcode.com/problems/subarray-product-less-than-k/editorial/
+class Solution2 {
+public:
+    int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+        int n = nums.size();
+        if (k <= 1) return 0; // <-- k <= 1
+        int start = 0, prefixProd = 1, count = 0;
+
+        for (int i = 0; i < n; ++ i) {
+            prefixProd *= nums[i];
+
+            while (prefixProd >= k) { // <-- no need for "start <= i" here. 
+                prefixProd /= nums[start ++];
+            }
+            count += i - start + 1;
+        }
+        return count;
+    }
+};
+
 // Time: O(n)
 // Space: O(1)
 class Solution {
