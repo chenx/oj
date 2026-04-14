@@ -53,7 +53,8 @@ public:
         string result;
         string vowels = "aeiou";
         for (char ch : data) {
-            ch = (ch >= 'A' && ch <= 'Z') ? (ch - 'A' + 'a') : ch;
+            // ch = (ch >= 'A' && ch <= 'Z') ? (ch - 'A' + 'a') : ch;
+            ch = std::tolower(ch);
             if (vowels.find(ch) == string::npos) result += ch;
             else result += 'a'; // replace all vowels by 'a'.
         }
@@ -63,7 +64,8 @@ public:
     string tolower(string data) {
         string result;
         for (char ch : data) {
-            result += (ch >= 'A' && ch <= 'Z') ? (ch - 'A' + 'a') : ch;
+            // result += (ch >= 'A' && ch <= 'Z') ? (ch - 'A' + 'a') : ch;
+            result += std::tolower(ch);
         }
         return result;
     }
