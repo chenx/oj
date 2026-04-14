@@ -1,5 +1,5 @@
-// Time: O(V+E)
-// Space: O(V+E)
+// Time: O(V)
+// Space: O(V)
 class Solution {
 public:
     int amountOfTime(TreeNode* root, int start) {
