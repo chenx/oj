@@ -1,3 +1,26 @@
+// In-place Bottom-up DP.
+// Time: O(mn)
+// Space: O(1)
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int m = matrix.size(), n = matrix[0].size();
+
+        for (int i = m-2; i >= 0; -- i) {
+            for (int j = 0; j < n; ++ j) {
+                int option1 = matrix[i+1][j],
+                    option2 = (j > 0) ? matrix[i+1][j-1] : INT_MAX,
+                    option3 = (j < n-1) ? matrix[i+1][j+1] : INT_MAX;
+                
+                matrix[i][j] += min(option1, min(option2, option3));
+            }
+        }
+
+        return * std::min_element(matrix[0].begin(), matrix[0].end());
+    }
+};
+
+
 // Brute force.
 // Time: O(n * 3^m)
 class Solution {
