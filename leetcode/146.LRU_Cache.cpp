@@ -9,6 +9,97 @@ When the cache reached its capacity, it should invalidate the least recently
 used item before inserting a new item. 
  */
 
+// Most recent item is at the back of DLL.
+class LRUCache10 {
+    struct Node {
+        Node(int k, int v) : key(k), val(v) {}
+        int key;
+        int val;
+    };
+    int capacity;
+    list<Node> dll;
+    unordered_map<int, list<Node>::iterator> cache;
+
+    void move_to_back(int key) {
+        Node node = *cache[key];
+        dll.erase(cache[key]);
+        dll.push_back(node);
+        cache[key] = -- dll.end();
+    }
+
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+    
+    int get(int key) {
+        if (! cache.contains(key)) {
+            return -1;
+        }
+
+        move_to_back(key);
+        return dll.back().val;
+    }
+    
+    void put(int key, int value) {
+        if (! cache.contains(key)) {
+            if (capacity == dll.size()) {
+                cache.erase(dll.front().key);
+                dll.pop_front();
+            }
+            dll.push_back(Node(key, value));
+            cache[key] = -- dll.end();
+        } else {
+            move_to_back(key);
+            dll.back().val = value;
+        }
+    }
+};
+
+// Most recent item is at the front of DLL.
+class LRUCache9 {
+    struct Node {
+        Node(int k, int v) : key(k), val(v) {}
+        int key;
+        int val;
+    };
+    int capacity;
+    list<Node> dll;
+    unordered_map<int, list<Node>::iterator> cache;
+
+    void move_to_front(int key) {
+        Node node = *cache[key];
+        dll.erase(cache[key]);
+        dll.push_front(node);
+        cache[key] = dll.begin();
+    }
+
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+    
+    int get(int key) {
+        if (! cache.contains(key)) {
+            return -1;
+        }
+
+        move_to_front(key);
+        return dll.front().val;
+    }
+    
+    void put(int key, int value) {
+        if (! cache.contains(key)) {
+            if (capacity == dll.size()) {
+                cache.erase(dll.back().key);
+                dll.pop_back();
+            }
+            dll.push_front(Node(key, value));
+            cache[key] = dll.begin();
+        } else {
+            move_to_front(key);
+            dll.front().val = value;
+        }
+    }
+};
+
+
 // Different from previous versions where new node are added to the front of DLL,
 // this version adds new node to the back of DLL.
 class LRUCache8 {
