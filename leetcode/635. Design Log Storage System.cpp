@@ -1,3 +1,33 @@
+// This works. From ChatGPT.
+class LogSystem {
+    vector<pair<string, int>> logs;
+
+    unordered_map<string, int> gra = {
+        {"Year", 4}, {"Month", 7}, {"Day", 10},
+        {"Hour", 13}, {"Minute", 16}, {"Second", 19}
+    };
+
+public:
+    void put(int id, string timestamp) {
+        logs.push_back({timestamp, id});
+    }
+
+    vector<int> retrieve(string start, string end, string granularity) {
+        int len = gra[granularity];
+        vector<int> res;
+
+        for (auto& [time, id] : logs) {
+            string t = time.substr(0, len);
+            if (t >= start.substr(0, len) &&
+                t <= end.substr(0, len)) {
+                res.push_back(id);
+            }
+        }
+        return res;
+    }
+};
+
+
 // Not working yet. 34 / 65 testcases passed. 
 class LogSystem {
     map<int, int> timeIdMap;
