@@ -31,12 +31,10 @@ public:
 
 
 // Works. Cleaned up from LogSystem.
-class LogSystem2 {
+class LogSystem {
     multimap<int, int> timeIdMap; // allows duplicate keys.
     map<string, int> granularityMap = {
-        {"Year", 5}, {"Month", 4}, {"Day", 3}, {"Hour", 2}, {"Minute", 1}, {"Second", 0}, };
-public:
-    LogSystem() {}
+        {"Year", 0}, {"Month", 1}, {"Day", 2}, {"Hour", 3}, {"Minute", 4}, {"Second", 5}, };
 
     int getEpochTime(vector<int> tokens) {
         struct tm t = {}; // Initialize to zero
@@ -63,6 +61,9 @@ public:
         return tokens;
     }
     
+public:
+    LogSystem() {}
+
     void put(int id, string timestamp) {
         timeIdMap.insert({ getEpochTime(split(timestamp)), id});
     }
@@ -73,12 +74,12 @@ public:
         vector<int> endTime = split(end);
 
         int index = granularityMap[granularity];
-        for (int i = 0; i < index; ++ i) {
-            startTime[5-i] = 0;
-            endTime[5-i] = 0;
+        for (int i = index + 1; i < 6; ++ i) {
+            startTime[i] = 0;
+            endTime[i] = 0;
         }
-        endTime[5 - index] ++;
-        if (granularity != "Year") endTime[5 - index + 1] = 1; // e.g., 2011/1 -> 2011/1/1.
+        endTime[index] ++;
+        if (granularity != "Year") endTime[index + 1] = 1; // e.g., 2011/1/0 -> 2011/1/1.
 
         int startTimeValue = getEpochTime(startTime);
         int endTimeValue = getEpochTime(endTime);
@@ -91,7 +92,6 @@ public:
         for (auto it = startIt; it != endIt; ++ it) {
             result.push_back(it->second);
         }
-
         return result;
     }
 };
