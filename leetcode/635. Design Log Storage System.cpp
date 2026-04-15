@@ -79,7 +79,8 @@ public:
             endTime[i] = 0;
         }
         endTime[index] ++;
-        if (granularity != "Year") endTime[index + 1] = 1; // e.g., 2011/1/0 -> 2011/1/1.
+        // e.g., 2011/1/0 -> 2011/1/1. But month starts from 0, so don't change month.
+        if (granularity != "Year") endTime[index + 1] = 1; 
 
         int startTimeValue = getEpochTime(startTime);
         int endTimeValue = getEpochTime(endTime);
@@ -95,6 +96,7 @@ public:
         return result;
     }
 };
+
 
 // Works.
 // Time: O(logn)
