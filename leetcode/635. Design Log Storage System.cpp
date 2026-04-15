@@ -1,4 +1,6 @@
 // This works. From ChatGPT.
+// Put: Time: O(log n), Space: O(n)
+// retrieve: Time: O(log n + k), Space: O(k) (output only)
 class LogSystem {
     vector<pair<string, int>> logs;
 
