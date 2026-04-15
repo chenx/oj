@@ -330,7 +330,17 @@ std::string s = std::format("{}", 'A'); // Formats 'A' into a string
   - set/map/unordered_set/unordered_map contains a "count()" method to judge if an element exists.
     - so instead of using: x.find(e) != x.end(), one can now use: x.count(e) > 0
   - There is a contains() method since C++20, so one can use: x.contains(e) 
-  
+
+### map / multimap
+
+  - each key is unique in a map
+  - a multimap allows duplicate keys.
+
+```
+    multimap<int, int> m;
+    m.insert({1, 2});
+```
+
 ### string.length() type is: std::basic_string<char>::size_type
   - so max or min(int, string.length()) will report error such as:
      no matching function for call to ‘min(int&, std::basic_string<char>::size_type)’
