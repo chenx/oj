@@ -1,7 +1,7 @@
 // This works. From ChatGPT.
 // Put: Time: O(1), Space: total O(n)
 // retrieve: Time: O(n)
-class LogSystem {
+class LogSystem3 {
     vector<pair<string, int>> logs;
 
     unordered_map<string, int> gra = {
@@ -30,9 +30,76 @@ public:
 };
 
 
-// Not working yet. 34 / 65 testcases passed. 
+// Works. Cleaned up from LogSystem.
+class LogSystem2 {
+    multimap<int, int> timeIdMap; // allows duplicate keys.
+    map<string, int> granularityMap = {
+        {"Year", 5}, {"Month", 4}, {"Day", 3}, {"Hour", 2}, {"Minute", 1}, {"Second", 0}, };
+public:
+    LogSystem() {}
+
+    int getEpochTime(vector<int> tokens) {
+        struct tm t = {}; // Initialize to zero
+        t.tm_year = tokens[0] - 1900; // Years since 1900
+        t.tm_mon = max(0, tokens[1] - 1);       // Months 0-11
+        t.tm_mday = tokens[2];          // Day of month
+        t.tm_hour = tokens[3];
+        t.tm_min = tokens[4];
+        t.tm_sec = tokens[5];
+
+        std::time_t timestamp = std::mktime(&t); // 1735122615
+        // cout << "timestamp: " << timestamp << endl;
+        // std::cout << std::ctime(&timestamp); // Wed Dec 25 10:30:15 2024
+        return timestamp;
+    }
+
+    vector<int> split(string& s) {
+        vector<int> tokens;
+        stringstream ss(s);
+        string out;
+        while (getline(ss, out, ':')) {
+            tokens.push_back(stoi(out));
+        }
+        return tokens;
+    }
+    
+    void put(int id, string timestamp) {
+        timeIdMap.insert({ getEpochTime(split(timestamp)), id});
+    }
+    
+    vector<int> retrieve(string start, string end, string granularity) {
+        vector<int> result;
+        vector<int> startTime = split(start);
+        vector<int> endTime = split(end);
+
+        int index = granularityMap[granularity];
+        for (int i = 0; i < index; ++ i) {
+            startTime[5-i] = 0;
+            endTime[5-i] = 0;
+        }
+        endTime[5 - index] ++;
+        if (granularity != "Year") endTime[5 - index + 1] = 1; // e.g., 2011/1 -> 2011/1/1.
+
+        int startTimeValue = getEpochTime(startTime);
+        int endTimeValue = getEpochTime(endTime);
+
+        // lower_bound: 1st e k >= startTimeValue
+        // upper_bound: 1st e k > endTimeValue
+        auto startIt = timeIdMap.lower_bound(startTimeValue);
+        auto endIt = timeIdMap.lower_bound(endTimeValue);
+
+        for (auto it = startIt; it != endIt; ++ it) {
+            result.push_back(it->second);
+        }
+
+        return result;
+    }
+};
+
+// Works.
+// Time: O(logn)
 class LogSystem {
-    map<int, int> timeIdMap;
+    multimap<int, int> timeIdMap; // allows duplicate keys.
     map<string, int> granularityMap = {
         {"Year", 5}, {"Month", 4}, {"Day", 3}, {"Hour", 2}, {"Minute", 1}, {"Second", 0}, };
 public:
@@ -44,7 +111,7 @@ public:
         // vector<int> tokens = split(time);
         struct tm t = {}; // Initialize to zero
         t.tm_year = tokens[0] - 1900; // Years since 1900
-        t.tm_mon = tokens[1] - 1;       // Months 0-11
+        t.tm_mon = max(0, tokens[1] - 1);       // Months 0-11
         t.tm_mday = tokens[2];          // Day of month
         t.tm_hour = tokens[3];
         t.tm_min = tokens[4];
@@ -68,12 +135,16 @@ public:
     }
     
     void put(int id, string timestamp) {
-        cout << "put: id = " << id << ", timestamp = " << getEpochTime(split(timestamp)) << endl;
-        timeIdMap[getEpochTime(split(timestamp))] = id;
+        // cout << "put: id = " << id << ", timestamp = " << getEpochTime(split(timestamp)) << endl;
+        if (id == 21) {
+            cout << "put: id = " << id << ", timestamp = " << timestamp << endl;
+        }
+        // timeIdMap[getEpochTime(split(timestamp))] = id;
+        timeIdMap.insert({ getEpochTime(split(timestamp)), id});
     }
     
     vector<int> retrieve(string start, string end, string granularity) {
-        cout << "retrieve: start = " << start << ", end = " << end << ", granularity = " << granularity << endl;
+        // cout << "retrieve: start = " << start << ", end = " << end << ", granularity = " << granularity << endl;
         vector<int> result;
         vector<int> startTime = split(start);
         vector<int> endTime = split(end);
@@ -84,9 +155,10 @@ public:
             endTime[5-i] = 0;
         }
         endTime[5 - index] ++;
-        cout << "granularity: " << granularity << endl;
-        printVec(startTime, "startTimeVector");
-        printVec(endTime, "endTimeVector");
+        if (granularity != "Year") endTime[5 - index + 1] = 1; // e.g., 2011/1 -> 2011/1/1.
+        // cout << "granularity: " << granularity << endl;
+        // printVec(startTime, "startTimeVector");
+        // printVec(endTime, "endTimeVector");
 
         int startTimeValue = getEpochTime(startTime);
         int endTimeValue = getEpochTime(endTime);
@@ -105,6 +177,20 @@ public:
 
         for (auto it = startIt; it != endIt; ++ it) {
             result.push_back(it->second);
+        }
+        if (startIt == endIt) {
+            cout << "equal ..." << endl;
+            // result.push_back(endIt->second);
+        }
+
+        vector<int> x = {}; //{2,6,4,1,10};
+        if (result == x) {
+            cout << "retrieve: start = " << start << ", end = " << end << ", granularity = " << granularity << endl;
+
+            cout << "granularity: " << granularity << endl;
+            printVec(startTime, "startTimeVector");
+            printVec(endTime, "endTimeVector");
+            cout << "startTimeValue: " << startTimeValue << ", endTimeValue: " << endTimeValue << endl;
         }
 
         return result;
