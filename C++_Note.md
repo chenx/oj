@@ -88,7 +88,10 @@ int main() {
             result.push_back(s.substr(start, index - start));
             start = index + 1;
         }
-        result.push_back(s.substr(start, index - start));
+        result.push_back(s.substr(start);
+
+        // Note, in case below, index - start is negative, which is treated the same as above.
+        // result.push_back(s.substr(start, index - start));
     }
 ```
 
