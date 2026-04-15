@@ -59,8 +59,10 @@ public:
         int startTimeValue = getEpochTime(startTime);
         int endTimeValue = getEpochTime(endTime);
 
-        auto startIt = timeIdMap.lower_bound(startTimeValue); // 1st e k >= startTimeValue
-        auto endIt = timeIdMap.lower_bound(endTimeValue); // 1st e k > endTimeValue
+        // lower_bound: 1st e k >= startTimeValue
+        // upper_bound: 1st e k > endTimeValue
+        auto startIt = timeIdMap.lower_bound(startTimeValue);
+        auto endIt = timeIdMap.lower_bound(endTimeValue);
         // if (startIt == timeIdMap.rend()) startIt = timeIdMap.begin();
         // if (endIt == timeIdMap.end()) endIt --;
         // if (endIt->first != endTimeValue) -- endIt;
