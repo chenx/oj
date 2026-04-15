@@ -331,10 +331,12 @@ std::string s = std::format("{}", 'A'); // Formats 'A' into a string
     - so instead of using: x.find(e) != x.end(), one can now use: x.count(e) > 0
   - There is a contains() method since C++20, so one can use: x.contains(e) 
 
-### map / multimap
+### map vs multimap / set vs multiset
 
   - each key is unique in a map
   - a multimap allows duplicate keys.
+  - Both map and multimap are self-balanced binary trees, e.g., a Red-black tree.
+  - Similarly, set elements are unique, but a multiset allows duplicates. Both are also self-balanced trees.
 
 ```
     multimap<int, int> m;
