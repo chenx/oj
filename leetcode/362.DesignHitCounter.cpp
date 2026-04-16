@@ -6,6 +6,59 @@
   So it's possible to erase mp.begin() on the smallest (earliest) timestamps.
  */
 
+// Implemented as circular array. The most popular implementation.
+// Time: O(1) for hit, O(300) =~ O(1) for getHits.
+// Space: O(300) =~ O(1).
+class HitCounter {
+    vector<vector<int>> counter; //(300, vector<int>(2, 0)); // <timestamp, count> 
+    int capacity;
+public:
+    HitCounter() : capacity(300) {
+        counter.resize(capacity, {0,0});
+    }
+    
+    void hit(int timestamp) {
+        int index = timestamp % capacity;
+        if (timestamp != counter[index][0]) {
+            counter[index] = {timestamp, 0};
+        }
+        counter[index][1] ++;
+    }
+    
+    int getHits(int timestamp) {
+        int count = 0;
+        for (const auto& item : counter) {
+            if (timestamp - item[0] < capacity) {
+                count += item[1];
+            }
+        }
+        return count;
+    }
+};
+
+
+// Implemented as deque.
+// Time: O(1) for hit, O(n) for getHits, where n = number of valid hits.
+// Space: O(n)
+class HitCounter2 {
+    queue<int> q;
+public:
+    HitCounter() {
+    }
+    
+    void hit(int timestamp) {
+        q.push(timestamp);
+    }
+    
+    int getHits(int timestamp) {
+        while (! q.empty() && timestamp - q.front() >= 300) {
+            q.pop();
+        }
+        return q.size();
+    }
+};
+
+
 class HitCounter {
     map<int, int> mp; // <timestamp, hits>
 public:
