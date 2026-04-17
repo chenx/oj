@@ -512,6 +512,6 @@ While they describe the same practical tool, C++ lambdas are technically more co
 Term                | Meaning in C++
 --------------------|------------------------------------------
 Anonymous Function	| The conceptual name for a function defined inline without an identifier.
-Lambda Expression	| The C++ syntax [capture](params){body} used to create these functions.
+Lambda Expression	| The C++ syntax \[capture\](params){body} used to create these functions.
 Closure	            | The actual runtime object created when a lambda expression is evaluated.
 
