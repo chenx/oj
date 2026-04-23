@@ -517,6 +517,8 @@ Closure	            | The actual runtime object created when a lambda expression
 
 ### lvalue and rvalue
 
+https://medium.com/@pkgmalinda/modern-c-understanding-lvalues-rvalues-and-std-move-6ef6f00c6ea7
+
 lvalue vs rvalue
 - lvalue (locator value): Refers to a memory location with a name (e.g., a variable). It has an address and can persist beyond the current expression.
 - rvalue (right-hand value): A temporary value that does not have a persistent memory location. It often appears on the right-hand side of an assignment.
