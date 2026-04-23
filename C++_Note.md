@@ -515,3 +515,29 @@ Anonymous Function	| The conceptual name for a function defined inline without a
 Lambda Expression	| The C++ syntax \[capture\](params){body} used to create these functions.
 Closure	            | The actual runtime object created when a lambda expression is evaluated.
 
+### lvalue and rvalue
+
+lvalue vs rvalue
+- lvalue (locator value): Refers to a memory location with a name (e.g., a variable). It has an address and can persist beyond the current expression.
+- rvalue (right-hand value): A temporary value that does not have a persistent memory location. It often appears on the right-hand side of an assignment.
+- If it can appear on the left-hand side of an assignment, it’s an lvalue. Otherwise, it’s an rvalue.
+
+lvalue vs rvalue references
+- lvalue reference (T&): Refers to an lvalue.
+- rvalue reference (T&&): Refers to an rvalue.
+- An rvalue reference only accepts rvalues. If you want to pass an lvalue, use std::move
+
+```
+#include <iostream>
+#include <utility> // for std::move
+
+void processValue(int&& rvalue) {
+    std::cout << "Processing rvalue: " << rvalue << "\n";
+}
+int main() {
+    int x = 42;
+    processValue(std::move(x)); // Cast x (lvalue) into an rvalue
+    std::cout << "Value of x after move: " << x << "\n";
+    return 0;
+}
+```
