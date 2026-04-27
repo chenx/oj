@@ -1,3 +1,23 @@
+// No need to do special treatment for the first element.
+class Solution4 {
+public:
+    int majorityElement(vector<int>& nums) {
+        int cur = 0, ct = 1;
+        for (int i = 0; i < nums.size(); ++ i) {
+            if (nums[i] == cur) {
+                ++ ct;
+            } else {
+                -- ct;
+                if (ct == 0) {
+                    cur = nums[i];
+                    ct = 1;
+                }
+            }
+        }
+        return cur;
+    }
+};
+
 // Works too! Simple code. But O(nlog(n)). 
 class Solution3 {
 public:
