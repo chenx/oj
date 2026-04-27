@@ -1,3 +1,24 @@
+class Solution6 {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int n = nums.size(), minLen = 0, sum = 0;
+
+        for (int i = 0, left = 0; i < n; ++ i) {
+            sum += nums[i];
+            while (sum >= target) {
+                if (sum - nums[left] < target) {
+                    int len = i - left + 1;
+                    if (minLen == 0 || minLen > len) {
+                        minLen = len;
+                    }
+                }
+                sum -= nums[left ++];
+            }
+        }
+        return minLen;
+    }
+};
+
 // Works.
 class Solution5 {
 public:
