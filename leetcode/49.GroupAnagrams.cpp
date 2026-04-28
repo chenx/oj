@@ -1,3 +1,23 @@
+class Solution4 {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> result;
+        map<string, vector<string>> map;
+
+        for (const auto& str : strs) {
+            string key = str;
+            sort(key.begin(), key.end());
+            map[key].push_back(str);
+        }
+
+        for (auto& [key, val] : map) {
+            sort(val.begin(), val.end()); // this line is optional.
+            result.push_back(val);
+        }
+        return result;
+    }
+};
+
 // Works too.
 // 
 // Time Complexity: O(NKlogK), where N is the length of strs, and K is the maximum length of a string in strs. 
