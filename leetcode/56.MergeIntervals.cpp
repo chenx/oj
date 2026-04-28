@@ -25,7 +25,7 @@ public:
                b[0] = a[0], b[1] = a[1];
            }
        }
-       ans.push_back(intervals[n-1]);
+       ans.push_back(intervals[n-1]); // or intervals.back()
        return ans;
    }
 
