@@ -1,3 +1,6 @@
+// Solution 5: C(n+m-2, n-1) or C(n+m-2, m-1)
+// C(n, m) = n! / ( m! * (n-m)! )
+
 // DFS. Times out for large input.
 class Solution4 {
     vector<int> end;
