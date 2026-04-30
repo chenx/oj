@@ -1,3 +1,25 @@
+class Solution10 {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int n = s.length();
+        set<string> wordSet(wordDict.begin(), wordDict.end());
+
+        vector<bool> A(n, false);
+        for (int i = 1; i <= n; ++ i) {
+            if (wordSet.contains(s.substr(0, i))) {
+                A[i-1] = true;
+            } else {
+                for (int j = 1; j < i; ++ j) {
+                    if (A[j-1] && wordSet.contains(s.substr(j, i - j))) {
+                        A[i-1] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return A[n-1];
+    }
+};
 
 class Solution9 {
 public:
