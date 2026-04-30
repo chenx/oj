@@ -1,9 +1,3 @@
-//
-// http://www.leetcode.com/onlinejudge#
-// @Author: Xin Chen
-// @Created on: 12/18/2012
-// @Last modified: 1/13/2013
-//
 
 class Solution3 {
     unordered_map<int, int> inorderIndexMap;
