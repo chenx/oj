@@ -1,3 +1,31 @@
+class Solution2 {
+public:
+    string removeDuplicates(string s, int k) {
+        vector<pair<char, int>> st;
+
+        for (int i = 0; i < s.length(); ++ i) {
+            if (! st.empty() && s[i] == st.back().first) {
+                if (st.back().second == k-1) {
+                    st.pop_back();
+                } else {
+                    st.back().second ++;
+                }
+            } else {
+                st.push_back({s[i], 1});
+            }
+        }
+
+        string ans;
+        for (int i = 0; i < st.size(); ++ i) {
+            char t = st[i].first;
+            int ct = st[i].second;
+            ans = ans + string(ct, t);
+        }
+        return ans;
+    }
+};
+
+
 class Solution {
 public:
     string removeDuplicates(string s, int k) {
