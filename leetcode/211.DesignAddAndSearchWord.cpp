@@ -1,3 +1,87 @@
+// Version 3.
+class Trie {
+    struct TrieNode {
+        unordered_map<char, TrieNode*> children;
+        bool wordMarker;
+
+        TrieNode() : wordMarker(false) {}
+
+        TrieNode* addChild(char ch) {
+            children[ch] = new TrieNode();
+            return children[ch];
+        }
+
+        TrieNode* findChild(char ch) {
+            return children[ch];
+        }
+    };
+    TrieNode root;
+
+public:
+    Trie() {}
+    
+    void insert(string word) {
+        TrieNode* node = &root;
+        for (char ch : word) {
+            TrieNode* child = node->findChild(ch);
+            if (! child) child = node->addChild(ch);
+            node = child;
+        }
+        node->wordMarker = true;
+    }
+    
+    bool search(string word) {
+        return search2(word, 0, &root);
+    }
+
+    bool search2(string word, int pos, TrieNode* node) {
+        if (! node) return false;
+        
+        for (int i = pos; i < word.size(); ++ i) {
+            if (word[i] == '.') {
+                for (auto [ch, child] : node->children) {
+                    if (search2(word, i + 1, child)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            TrieNode* child = node->findChild(word[i]);
+            if (! child) return false;
+            node = child;
+        }
+        return node->wordMarker;
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* node = &root;
+        for (char ch : prefix) {
+            TrieNode* child = node->findChild(ch);
+            if (! child) return false;
+            node = child;
+        }
+        return true;
+    }
+};
+
+
+class WordDictionary {
+    Trie trie;
+public:
+    WordDictionary() {
+        
+    }
+    
+    void addWord(string word) {
+        trie.insert(word);
+    }
+    
+    bool search(string word) {
+        return trie.search(word);
+    }
+};
+
+
 // Version 2. Works. Clean.
 
 class TrieNode {
