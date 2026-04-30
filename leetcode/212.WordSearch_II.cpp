@@ -1,3 +1,147 @@
+// Version 8.
+struct TrieNode {
+    unordered_map<char, TrieNode*> children;
+    bool wordMarker;
+
+    TrieNode() : wordMarker(false) {}
+
+    TrieNode* addChild(char ch) {
+        children[ch] = new TrieNode();
+        return children[ch];
+    }
+
+    TrieNode* findChild(char ch) {
+        return children[ch];
+    }
+
+    string dump() {
+        string s;
+        for (auto [ch, child] : children) {
+            child->dump();
+            s += ch;
+        }
+        cout << s << endl;
+        return s;
+    }
+};
+
+class Trie {
+    TrieNode root;
+
+public:
+    Trie() {
+        
+    }
+
+    TrieNode* getRoot() {
+        return &root;
+    }
+    
+    void insert(string word) {
+        TrieNode* node = &root;
+        for (char ch : word) {
+            TrieNode* child = node->findChild(ch);
+            if (! child) child = node->addChild(ch);
+            node = child;
+        }
+        node->wordMarker = true;
+    }
+    
+    bool search(string word) {
+        TrieNode* node = &root;
+        for (char ch : word) {
+            TrieNode* child = node->findChild(ch);
+            if (! child) return false;
+            node = child;
+        }
+        return node->wordMarker;
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* node = &root;
+        for (char ch : prefix) {
+            TrieNode* child = node->findChild(ch);
+            if (! child) return false;
+            node = child;
+        }
+        return true;
+    }
+
+    void dump() {
+        root.dump();
+    }
+};
+
+class Solution {
+    int m, n;
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        vector<string> result;
+        Trie trie;
+        for (const auto& word: words) {
+            trie.insert(word);
+        }
+        trie.dump();
+
+        m = board.size();
+        n = board[0].size();
+        TrieNode* root = trie.getRoot();
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (root->children.contains(board[i][j])) { // Both dfs and dfs2 work.
+                    // dfs(result, board, i, j, string(1, board[i][j]), root->children[board[i][j]]);
+                    dfs2(result, board, i, j, "", root);
+                }
+            }
+        }
+        return result;
+    }
+
+    void dfs(vector<string>& result, vector<vector<char>>& board, int i, int j, string word, TrieNode* node) {
+        if (node->wordMarker) {
+            result.push_back(word);
+            node->wordMarker = false;
+        }
+        char backup = board[i][j];
+        board[i][j] = '.';
+
+        static vector<vector<int>> options = {{-1,0}, {0,1}, {1,0}, {0,-1}};
+        for (int k = 0; k < options.size(); ++ k) {
+            int x = i + options[k][0], y = j + options[k][1];
+
+            if (x >= 0 && x < m && y >= 0 && y < n) {
+                if (node->children.contains(board[x][y])) {
+                    dfs(result, board, x, y, word + board[x][y], node->children[board[x][y]]);
+                }
+            }
+        }
+        board[i][j] = backup;
+    }
+
+    void dfs2(vector<string>& result, vector<vector<char>>& board, int i, int j, string word, TrieNode* node) {
+        if (i < 0 || i >= m || j < 0 || j >= n || ! node->children.contains(board[i][j])) {
+            return;
+        }
+        word += board[i][j];
+        node = node->children[board[i][j]];
+        if (node->wordMarker) {
+            result.push_back(word);
+            node->wordMarker = false;
+        }
+
+        char backup = board[i][j];
+        board[i][j] = '.';
+
+        dfs2(result, board, i + 1, j, word, node);
+        dfs2(result, board, i - 1, j, word, node);
+        dfs2(result, board, i, j + 1, word, node);
+        dfs2(result, board, i, j - 1, word, node);
+
+        board[i][j] = backup;
+    }
+};
+
 // Works. Slightly better.
 // Time complexity: O( M(4⋅3^(L−1)) ), where M is the number of cells in the board and L is the maximum length of words.
 // Space Complexity: O(N), where N is the total number of letters in the dictionary.
