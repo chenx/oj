@@ -1,3 +1,40 @@
+class Solution2 {
+    int m, n;
+public:
+    int numDistinctIslands(vector<vector<int>>& grid) {
+        m = grid.size();
+        n = grid[0].size();
+        set<string> islands;
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] == 1) {
+                    string path;
+                    dfs(grid, i, j, path, "");
+                    islands.insert(path);
+                }
+            }
+        }
+        return islands.size();
+    }
+
+    void dfs(vector<vector<int>>& grid, int i, int j, string& path, string dir) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != 1) {
+            return;
+        }
+        grid[i][j] = 2; // mark cell as visited.
+        path += dir;
+        
+        dfs(grid, i + 1, j, path, "U");
+        dfs(grid, i - 1, j, path, "D");
+        dfs(grid, i, j + 1, path, "L");
+        dfs(grid, i, j - 1, path, "R");
+
+        path += ".";
+    }
+};
+
+
 // See https://leetcode.com/problems/number-of-distinct-islands
 // Hash the path by traversal directions.
 class Solution {
