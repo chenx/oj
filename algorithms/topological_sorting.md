@@ -1,1 +1,26 @@
-A topological sort for a directed acyclic graph (DAG) is a linear ordering of vertices such that for every directed edge \(u \to v\), vertex \(u\) comes before \(v\). It is used to schedule tasks with dependencies (e.g., project management, build systems), ensuring all tasks appear only after their dependencies.This video provides a visual explanation of topological sorting:57sTopological Sorting Visually ExplainedHello ByteYouTube• May 15, 2025Key ConceptsApplicability: Only possible for Directed Acyclic Graphs (DAGs). If a graph has a cycle, no topological ordering exists.Multiple Orderings: A single graph can have more than one valid topological sort.Complexity: Linear time complexity of \(O(V + E)\), where \(V\) is vertices and \(E\) is edges.Topological Sort AlgorithmsKahn's Algorithm (BFS-based):Calculate the in-degree (incoming edges) for each vertex.Initialize a queue with all vertices having an in-degree of 0.Remove vertices from the queue, add them to the ordering, and decrease the in-degree of their neighbors.If a neighbor's in-degree becomes 0, add it to the queue.DFS-based Algorithm:Perform a Depth First Search (DFS) traversal from every unvisited vertex.For each node, recursively visit all its unvisited neighbors.After visiting all neighbors, push the current node onto a stack.Finally, pop elements from the stack for the topological order.
+# Topological sorting
+
+A topological sort for a directed acyclic graph (DAG) is a linear ordering of vertices such that for every directed edge \(u \to v\), vertex \(u\) comes before \(v\). It is used to schedule tasks with dependencies (e.g., project management, build systems), ensuring all tasks appear only after their dependencies.
+
+## Key Concepts
+
+- Applicability: Only possible for Directed Acyclic Graphs (DAGs). If a graph has a cycle, no topological ordering exists.
+- Multiple Orderings: A single graph can have more than one valid topological sort.
+- Complexity: Linear time complexity of \(O(V + E)\), where \(V\) is vertices and \(E\) is edges.
+
+## Topological Sort Algorithms
+
+### Kahn's Algorithm (BFS-based):
+
+- Calculate the in-degree (incoming edges) for each vertex.
+- Initialize a queue with all vertices having an in-degree of 0.
+- Remove vertices from the queue, add them to the ordering, and decrease the in-degree of their neighbors.
+- If a neighbor's in-degree becomes 0, add it to the queue.
+
+### DFS-based Algorithm:
+
+- Perform a Depth First Search (DFS) traversal from every unvisited vertex.
+- For each node, recursively visit all its unvisited neighbors.
+- After visiting all neighbors, push the current node onto a stack.
+- Finally, pop elements from the stack for the topological order.
+
