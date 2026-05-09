@@ -1,6 +1,6 @@
 # Topological sorting
 
-A topological sort for a directed acyclic graph (DAG) is a linear ordering of vertices such that for every directed edge \(u \to v\), vertex \(u\) comes before \(v\). It is used to schedule tasks with dependencies (e.g., project management, build systems), ensuring all tasks appear only after their dependencies.
+A topological sort for a directed acyclic graph (DAG) is a linear ordering of vertices such that for every directed edge \(u -> v\), vertex \(u\) comes before \(v\). It is used to schedule tasks with dependencies (e.g., project management, build systems), ensuring all tasks appear only after their dependencies.
 
 ## Key Concepts
 
@@ -12,7 +12,7 @@ A topological sort for a directed acyclic graph (DAG) is a linear ordering of ve
 
 ### Kahn's Algorithm (BFS-based):
 
-- Calculate the in-degree (incoming edges) for each vertex.
+- Calculate the in-degree (incoming edges) and out-degree (outgoing edges) for each vertex.
 - Initialize a queue with all vertices having an in-degree of 0.
 - Remove vertices from the queue, add them to the ordering, and decrease the in-degree of their neighbors.
 - If a neighbor's in-degree becomes 0, add it to the queue.
