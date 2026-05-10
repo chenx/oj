@@ -1,3 +1,39 @@
+// DFS. Different from BFS solutions previously.
+// Time, Space: O(V + E)
+class Solution8 {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_map<int, set<int>> outDegree;
+        for (auto& p : prerequisites) {
+            outDegree[p[1]].insert(p[0]);
+        }
+
+        bool cycle = false;
+        vector<int> visit(numCourses, -1); // -1: not visited; 0; visited; 1: in visiting.
+        for (int i = 0; i < numCourses; ++ i) {
+            if (visit[i] == -1) {
+                dfs(i, outDegree, visit, cycle);
+            }
+        }
+        return ! cycle;
+    }
+
+    void dfs(int course, unordered_map<int, set<int>>& outDegree, vector<int>& visit, bool& cycle) {
+        visit[course] = 1;
+
+        for (int nextCourse : outDegree[course]) {
+            if (visit[nextCourse] == -1) {
+                dfs(nextCourse, outDegree, visit, cycle);
+            } else if (visit[nextCourse] == 1) {
+                cycle = true;
+                return;
+            }
+        }
+        visit[course] = 0;
+    }
+}
+
+
 class Solution7 {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
