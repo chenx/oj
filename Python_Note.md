@@ -50,19 +50,19 @@ str[start: start+len] : Substring, same as str.substr(start, len) in C++
 str(num)
 
 ### Convert string to number
-
+```
 num = '123'
 int(num)
-
+```
 ### Split string to char array
-
+```
 a = 'abc d'
 arr = list(a) # ['a', 'b', 'c', ' ', 'd']
-
+```
 ### Split string
 
 Use split() function, which use ' ' as default delimiter
-
+```
 a = 'abc'
 a.split() # ['abc']
 
@@ -72,7 +72,7 @@ c.split() # ['a', 'b']
 c.split('a') # ['', ' b']
 
 c.split("b") # ['a ', '']
-
+```
 
 ### Common string functions
 
@@ -488,7 +488,7 @@ heapq.heappush(self.minHeap, (expire, [timestamp, amount, expire]))
 ```
 a = []
 a.pop(i)
-a.nsert(i, Node)
+a.insert(i, Node)
 ```
 
 ### Iterator
@@ -500,7 +500,8 @@ try:
     pass
 except StopIteration as e:
     print(f"Exception: {e}")
- iter: return self
+
+iter: return self
 ```
 
 ### isinstance
