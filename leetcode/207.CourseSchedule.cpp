@@ -13,6 +13,7 @@ public:
         for (int i = 0; i < numCourses; ++ i) {
             if (visit[i] == -1) {
                 dfs(i, outDegree, visit, cycle);
+                if (cycle) return false;
             }
         }
         return ! cycle;
