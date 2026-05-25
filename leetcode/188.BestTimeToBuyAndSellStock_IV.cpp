@@ -1,4 +1,5 @@
 // Tested. Works. Simplified from Solution4.
+// Time: O(kn), Space: O(n)
 class Solution5 {
 public:
     int maxProfit(int k, vector<int>& prices) {
@@ -11,7 +12,7 @@ public:
             for (int i = 1; i < n; ++ i) {
                 cur[i] = max(cur[i-1], prices[i] - low);
                 // prices[i] - prev[i-1] means you cannot get the profit from prev[i-1]
-                // if you use prices[i].
+                // if you use prices[i]. prices[i] - prev[i-1] is the effectiveBuyCost.
                 low = min(low, prices[i] - prev[i-1]);
             }
             prev = cur;
