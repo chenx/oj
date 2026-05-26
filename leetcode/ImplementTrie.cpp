@@ -1,3 +1,68 @@
+class Trie3 {
+    struct TrieNode {
+        unordered_map<char, TrieNode*> children;
+        bool wordMarker;
+        TrieNode() { wordMarker = false; }
+
+        TrieNode* addChild(char ch) {
+            children[ch] = new TrieNode();
+            return children[ch];
+        }
+        TrieNode* findChild(char ch) {
+            return children[ch];
+        }
+    };
+    TrieNode root;
+
+public:
+    Trie() {}
+    
+    void insert(string word) {
+        TrieNode* node = &root;
+        for (char ch : word) {
+            if (node->children.contains(ch)) {
+                node = node->children[ch];
+            } else {
+                node = node->addChild(ch);
+            }
+        }
+        node->wordMarker = true;
+    }
+    
+    bool search(string word) {
+        TrieNode* node = &root;
+        for (char ch : word) {
+            if (node->children.contains(ch)) {
+                node = node->children[ch];
+            } else {
+                return false;
+            }
+        }
+        return node->wordMarker;
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* node = &root;
+        for (char ch : prefix) {
+            if (node->children.contains(ch)) {
+                node = node->children[ch];
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
+
+
 // Works too.
 class Trie2 {
     struct TrieNode {
