@@ -1,3 +1,42 @@
+// Adapted from Solution8.
+class Solution82 {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_map<int, set<int>> outDegree;
+        for (auto& p : prerequisites) {
+            outDegree[p[1]].insert(p[0]);
+        }
+
+        // -1: not visited; 0:visiting; 1:visited.
+        vector<int> state(numCourses, -1); 
+        for (int i = 0; i < numCourses; ++ i) {
+            if (state[i] == -1) {
+                if (hasCycle(i, outDegree, state)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    bool hasCycle(int course, unordered_map<int, set<int>>& outDegree, vector<int>& state) {
+        state[course] = 0;
+
+        for (int nextCourse : outDegree[course]) {
+            if (state[nextCourse] == 0) {
+                return true;
+            } else if (state[nextCourse] == -1) {
+                if (hasCycle(nextCourse, outDegree, state)) {
+                    return true;
+                }
+            }
+        }
+
+        state[course] = 1;
+        return false;
+    }
+};
+
 // DFS. Different from BFS solutions previously.
 // Time, Space: O(V + E)
 class Solution8 {
