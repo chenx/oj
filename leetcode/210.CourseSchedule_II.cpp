@@ -1,3 +1,46 @@
+// Modified from Solution7.
+class Solution72 {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> courses;
+        unordered_map<int, set<int>> outDegree;
+        for (auto& p : prerequisites) {
+            outDegree[p[1]].insert(p[0]);
+        }
+
+        // -1: not visited; 0:visiting; 1:visited.
+        vector<int> state(numCourses, -1);
+        for (int i = 0; i < numCourses; ++ i) {
+            if (state[i] == -1) {
+                if (hasCycle(i, outDegree, state, courses)) {
+                    return vector<int>();
+                }
+            }
+        }
+        reverse(courses.begin(), courses.end());
+        return courses;
+    }
+
+    bool hasCycle(int course, unordered_map<int, set<int>>& outDegree, vector<int>& state, vector<int>& courses) {
+        state[course] = 0;
+
+        for (int nextCourse : outDegree[course]) {
+            if (state[nextCourse] == 0) {
+                return true;
+            } else if (state[nextCourse] == -1) {
+                if (hasCycle(nextCourse, outDegree, state, courses)) {
+                    return true;
+                }
+            }
+        }
+
+        state[course] = 1;
+        courses.push_back(course);
+        return false;
+    }
+};
+
+
 // DFS. Different from previous BFS solutions.
 // Time, Space: O(V + E)
 class Solution7 {
