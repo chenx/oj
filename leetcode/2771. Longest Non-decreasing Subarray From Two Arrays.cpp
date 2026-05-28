@@ -1,3 +1,43 @@
+// Adapted from Solution.
+// Time: O(n)
+// Space: O(1)
+class Solution2 {
+public:
+    int maxNonDecreasingLength(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size();
+
+        int len1 = 1;
+        int len2 = 1;
+        int maxLength = 1;
+      
+        for (int i = 1; i < n; ++i) {
+            int newLen1 = 1;
+            int newLen2 = 1;
+          
+            if (nums1[i] >= nums1[i - 1]) {
+                newLen1 = max(newLen1, len1 + 1);
+            }
+            if (nums1[i] >= nums2[i - 1]) {
+                newLen1 = max(newLen1, len2 + 1);
+            }
+          
+            if (nums2[i] >= nums1[i - 1]) {
+                newLen2 = max(newLen2, len1 + 1);
+            }
+            if (nums2[i] >= nums2[i - 1]) {
+                newLen2 = max(newLen2, len2 + 1);
+            }
+          
+            len1 = newLen1;
+            len2 = newLen2;          
+            maxLength = max(maxLength, max(len1, len2));
+        }
+      
+        return maxLength;
+    }
+};
+
+
 class Solution {
 public:
     int maxNonDecreasingLength(vector<int>& nums1, vector<int>& nums2) {
