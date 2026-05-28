@@ -1,4 +1,19 @@
 // From: https://leetcode.com/problems/find-the-duplicate-number/editorial/
+class Solution3 {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int n = nums.size();
+        for (int i = 0; i < n; ++ i) {
+            int val = abs(nums[i]);
+            if (nums[val - 1] < 0) return val;
+            nums[val - 1] *= -1;
+        }
+        return 0;
+    }
+};
+
+
+// From: https://leetcode.com/problems/find-the-duplicate-number/editorial/
 // Cyclic sort
 // Time: O(n)
 // Space: O(1)
