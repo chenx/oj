@@ -1,39 +1,28 @@
 // Adapted from Solution.
 // Time: O(n)
 // Space: O(1)
-class Solution2 {
+class Solution {
 public:
     int maxNonDecreasingLength(vector<int>& nums1, vector<int>& nums2) {
         int n = nums1.size();
+        if (n == 0) return 0;
 
-        int len1 = 1;
-        int len2 = 1;
-        int maxLength = 1;
-      
-        for (int i = 1; i < n; ++i) {
-            int newLen1 = 1;
-            int newLen2 = 1;
-          
-            if (nums1[i] >= nums1[i - 1]) {
-                newLen1 = max(newLen1, len1 + 1);
-            }
-            if (nums1[i] >= nums2[i - 1]) {
-                newLen1 = max(newLen1, len2 + 1);
-            }
-          
-            if (nums2[i] >= nums1[i - 1]) {
-                newLen2 = max(newLen2, len1 + 1);
-            }
-            if (nums2[i] >= nums2[i - 1]) {
-                newLen2 = max(newLen2, len2 + 1);
-            }
-          
+        int len1 = 1, len2 = 1, maxLen = 1;
+
+        for (int i = 1; i < n; ++ i) {
+            int newLen1 = 1, newLen2 = 1;
+
+            if (nums1[i] >= nums1[i-1]) newLen1 = max(newLen1, len1 + 1);
+            if (nums1[i] >= nums2[i-1]) newLen1 = max(newLen1, len2 + 1);
+
+            if (nums2[i] >= nums1[i-1]) newLen2 = max(newLen2, len1 + 1);
+            if (nums2[i] >= nums2[i-1]) newLen2 = max(newLen2, len2 + 1);
+
             len1 = newLen1;
-            len2 = newLen2;          
-            maxLength = max(maxLength, max(len1, len2));
+            len2 = newLen2;
+            maxLen = max(maxLen, max(newLen1, newLen2));
         }
-      
-        return maxLength;
+        return maxLen;
     }
 };
 
