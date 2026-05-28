@@ -1,3 +1,44 @@
+// From: https://leetcode.com/problems/employee-free-time/editorial/
+// Time Complexity: O(ClogC), where C is the number of intervals across all employees.
+// Space Complexity: O(C).
+//
+class Solution {
+public:
+    vector<Interval> employeeFreeTime(vector<vector<Interval>>& avails) {
+        const int OPEN = 0;
+        const int CLOSE = 1;
+
+        vector<pair<int, int>> events;
+        for (const auto& employee : avails) {
+            for (const auto& iv : employee) {
+                events.push_back({iv.start, OPEN});
+                events.push_back({iv.end, CLOSE});
+            }
+        }
+
+        // Sort by time, then by type
+        sort(events.begin(), events.end()); 
+
+        vector<Interval> ans;
+        int prev = -1;
+        int bal = 0;
+
+        for (const auto& event : events) {
+            int time = event.first;
+            int type = event.second;
+
+            // If no one is working, it's free time
+            if (bal == 0 && prev >= 0) {
+                ans.push_back(Interval(prev, time));
+            }
+
+            bal += (type == OPEN) ? 1 : -1;
+            prev = time;
+        }
+
+        return ans;
+    }
+};
 
 
 // From: https://leetcode.com/problems/employee-free-time/editorial/
