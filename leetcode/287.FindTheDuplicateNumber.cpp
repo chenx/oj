@@ -1,3 +1,27 @@
+// Hare and Tortoise.
+class Solution4 {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int slow = 0, fast = 0;
+        while (true) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+
+            if (slow == fast) {
+                fast = 0;
+                while (true) {
+                    slow = nums[slow];
+                    fast = nums[fast];
+
+                    if (slow == fast) {
+                        return slow;
+                    }
+                }
+            }
+        }
+    }
+};
+
 // From: https://leetcode.com/problems/find-the-duplicate-number/editorial/
 class Solution3 {
 public:
