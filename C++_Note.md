@@ -598,6 +598,17 @@ int main() {
 
 ```
 
+Output:
+```
+t1 ID: 0x7000039bc000
+t2 ID: 0x700003a3f000
+Thread 1 is running. ID: 0x7000039bc000
+t1 joined
+t2 detached
+Thread 2 is running. ID: 0x700003a3f000
+Main thread finished.
+```
+
 ### Constructor: member initialization list or initialize inside constructor?
 
 It is significantly better to use a member initialization list rather than assigning values inside the constructor body.
