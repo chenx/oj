@@ -564,6 +564,6 @@ private:
   size_t capacity_;
 
 public:
-  Test() : array_(vector<T>(N), capacity_(N) {}
+  Test() : array_(vector<T>(N)), capacity_(N) {}
 };
 ```
