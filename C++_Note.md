@@ -547,3 +547,23 @@ int main() {
 ### Multithreading in C++
 
 https://www.geeksforgeeks.org/cpp/multithreading-in-cpp/
+
+### Constructor: member initialization list or initialize inside constructor?
+
+It is significantly better to use a member initialization list rather than assigning values inside the constructor body.
+
+In C++, all class members are automatically initialized before the constructor body ever begins executing. If you do not use an initialization list, your variables are first default-initialized, and writing code inside the constructor body simply overrides those values via assignment.
+
+### Template
+
+```
+template <typename T, int N>
+class Test {
+private:
+  vector<T> array_;
+  size_t capacity_;
+
+public:
+  Test() : array_(vector<T>(N), capacity_(N) {}
+};
+```
