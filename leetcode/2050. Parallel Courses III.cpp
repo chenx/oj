@@ -1,3 +1,38 @@
+// See https://leetcode.com/problems/parallel-courses-iii/editorial/
+// DFS + Memoization
+class Solution3 {
+public:
+    int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
+        unordered_map<int, set<int>> outDegree;
+        for (const auto& p : relations) {
+            outDegree[p[0]].insert(p[1]);
+        }
+
+        vector<int> memo(n + 1, -1);
+        int ans = 0;
+        for (int i = 1; i <= n; ++ i) {
+            ans = max(ans, dfs(i, outDegree, time, memo));
+        }
+        return ans;
+    }
+
+    int dfs(int course, unordered_map<int, set<int>>& outDegree, vector<int>& time, vector<int>& memo) {
+        if (outDegree[course].empty()) {
+            return time[course - 1];
+        }
+        
+        if (memo[course] == -1) {
+            int ans = 0;
+            for (int nextCourse : outDegree[course]) {            
+                ans = max(ans, dfs(nextCourse, outDegree, time, memo));
+            }
+
+            memo[course] = time[course - 1] + ans;
+        }
+        return memo[course];
+    }
+};
+
 // Similar to Solution.
 // Note that in relations, course numbers are [1, .. n], when using the time array, use time[course - 1].
 class Solution2 {
