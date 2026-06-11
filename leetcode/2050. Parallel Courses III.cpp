@@ -37,6 +37,8 @@ public:
             result = max(maxTime[i], result);
         }
         return result;
+        // This also works:
+        // return (int) *std::max_element(maxTime.begin(), maxTime.end());
     }
 };
 
