@@ -1,3 +1,37 @@
+// DP
+// Time / Space: O(n * m * k)
+typedef long long ll;
+const int MOD = 1e9 + 7;
+
+class Solution2 {
+public:
+    int numberOfPaths(vector<vector<int>>& grid, int k) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        auto dp = vector(m + 1, vector(n + 1, vector<ll>(k)));
+        dp[1][1][grid[0][0] % k] = 1;
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (i == 1 && j == 1) {
+                    continue;
+                }
+
+                int value = grid[i - 1][j - 1] % k;
+                for (int r = 0; r < k; r++) {
+                    int prevMod = (r - value + k) % k;
+                    dp[i][j][r] =
+                        (dp[i - 1][j][prevMod] + dp[i][j - 1][prevMod]) % MOD;
+                }
+            }
+        }
+
+        return dp[m][n][0];
+    }
+};
+
+
 // Timesout for large input.
 // Time: O( C(n+m, n-1) )
 // Space: O(m + n) comes from recursion.
