@@ -917,3 +917,30 @@ def outer_function():
     inner_function()
     print(x) # Output will be 20
 ```
+
+### Inheritance
+
+```py
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def make_sound(self):
+        return "Some generic sound"
+
+class Dog(Animal):
+    def __init__(self, name, breed):
+        # Call the parent class __init__ method
+        super().__init__(name)
+        self.breed = breed
+
+    def make_sound(self):
+        # Extend the parent method behavior
+        parent_sound = super().make_sound()
+        return f"{parent_sound} -> Woof!"
+
+# Usage
+my_dog = Dog("Buddy", "Golden Retriever")
+print(my_dog.name)        # Output: Buddy
+print(my_dog.make_sound()) # Output: Some generic sound -> Woof!
+```
