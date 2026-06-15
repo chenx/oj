@@ -1,3 +1,40 @@
+// Generate 7-digit key from random number generator.
+class Solution {
+    unordered_map<string, string> keyToStr;
+    unordered_map<string, string> strToKey;
+    string alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    
+    string generateKey() {
+        string key;
+        for (int i = 0; i < 7; ++ i) {
+            key += alphabet[rand() % 62];
+        }
+        return key;
+    }
+public:
+
+    // Encodes a URL to a shortened URL.
+    string encode(string longUrl) {
+        if (strToKey.contains(longUrl)) {
+            return strToKey[longUrl];
+        }
+        
+        string key;
+        do {
+            key = generateKey();
+        } while (strToKey.contains(key));
+        keyToStr[key] = longUrl;
+        strToKey[longUrl] = key;
+
+        return key;
+    }
+
+    // Decodes a shortened URL to its original URL.
+    string decode(string shortUrl) {
+        return keyToStr[shortUrl];
+    }
+};
+
 // Use self-increment ID as hash.
 class Solution {
     unordered_map<string, string> keyToStr;
