@@ -1,27 +1,28 @@
 // Use self-increment ID as hash.
 class Solution {
-    unordered_map<int, string> idToStr;
-    unordered_map<string, int> strToId;
+    unordered_map<string, string> keyToStr;
+    unordered_map<string, string> strTokey;
     int id = 0;
 public:
 
     // Encodes a URL to a shortened URL.
     string encode(string longUrl) {
-        if (! strToId.contains(longUrl)) {
+        string key = strTokey[longUrl];
+        if (key == "") {
             ++ id;
-            idToStr[id] = longUrl;
-            strToId[longUrl] = id;
+            key = to_string(id);
+            keyToStr[key] = longUrl;
+            strTokey[longUrl] = key;
         }
-        return to_string(id);
+        return key;
     }
 
     // Decodes a shortened URL to its original URL.
     string decode(string shortUrl) {
-        int id = stoi(shortUrl);
-        if (! idToStr.contains(id)) {
+        if (! keyToStr.contains(shortUrl)) {
             return "";
         }
-        return idToStr[id];
+        return keyToStr[shortUrl];
     }
 };
 
