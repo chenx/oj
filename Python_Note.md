@@ -96,8 +96,10 @@ However, it provides powerful, built-in data structures for the functionalities 
 In Python, lists are built-in, highly flexible data structures that can store elements of different types, 
 while arrays (from the built-in array module or NumPy library) are specialized for storing homogeneous data (elements of the same type)
 
+```py
 import array as arr
-a = arr.array('i', [1,2,3])
+a = arr.array('i', [1,2,3])  # "i" means "int", the array's elements should all be integers.
+```
 
 https://www.geeksforgeeks.org/python/difference-between-list-and-array-in-python/
 
