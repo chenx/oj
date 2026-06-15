@@ -34,7 +34,7 @@ public:
 
 // BFS
 // Time: O(V + E)
-// Space: O(V + E)
+// Space: O(V)
 class Solution {
 public:
     int findDistance(TreeNode* root, int p, int q) {
