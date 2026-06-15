@@ -1,4 +1,5 @@
 // Generate 7-digit key from random number generator.
+// Pros: key space is large: 62^7 =~ 35 trillion. Key not guessable.
 class Solution {
     unordered_map<string, string> keyToStr;
     unordered_map<string, string> strToKey;
@@ -36,6 +37,7 @@ public:
 };
 
 // Use self-increment ID as hash.
+// Cons: key space is limited to int range (4 billion); key can be guessed.
 class Solution {
     unordered_map<string, string> keyToStr;
     unordered_map<string, string> strToKey;
