@@ -1,8 +1,39 @@
 // BFS + Recursion
+// Time: O(n)
+// Space: O(n), n comes from recursion, happens when tree is a linear list.
+class Solution3 {
+public:
+    int findDistance(TreeNode* root, int p, int q) {
+        if (! root) return 0;
+
+        TreeNode* lca = getLCA(root, p, q);
+        return getDepth(lca, p) + getDepth(lca, q);
+    }
+
+    int getDepth(TreeNode* node, int target, int depth = 0) {
+        if (! node) return 0;
+        if (node->val == target) return depth;
+        depth += 1;
+        return max(getDepth(node->left, target, depth), 
+                   getDepth(node->right, target, depth));
+    }
+
+    TreeNode* getLCA(TreeNode* root, int p, int q) {
+        if (! root || root->val == p || root->val == q) return root;
+
+        TreeNode* left = getLCA(root->left, p, q);
+        TreeNode* right = getLCA(root->right, p, q);
+
+        return left && right ? root : left ? left : right;
+    }
+};
+
+
+// BFS + Recursion
 // See: https://leetcode.com/problems/find-distance-in-a-binary-tree/editorial/
 // Time: O(n)
 // Space: O(n), n comes from recursion, happens when tree is a linear list.
-class Solution {
+class Solution2 {
 public:
     int findDistance(TreeNode* root, int p, int q) {
         if (root == NULL || p == q) return 0;
