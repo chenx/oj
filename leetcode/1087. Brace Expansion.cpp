@@ -16,10 +16,7 @@ public:
         vector<vector<string>> tokens;
         string cur;
         for (char ch : s) {
-            if (ch == '{') {
-                if (cur != "") tokens.push_back(getOptions(cur));
-                cur = "";
-            } else if (ch == '}') {
+            if (ch == '{' || ch == '}') {
                 if (cur != "") tokens.push_back(getOptions(cur));
                 cur = "";
             } else {
@@ -43,23 +40,6 @@ public:
     }
 
     vector<string> getOptions(string& item) {
-        vector<string> v;
-        string cur;
-        for (char ch : item) {
-            if (ch == ',') {
-                if (cur != "") v.push_back(cur);
-                cur = "";
-            } else {
-                cur += ch;
-            }
-        }
-        if (cur != "") v.push_back(cur); // Don't forget this!
-        // cout << "==> getOptions: " << item << endl;
-        // print(v);
-        return v;
-    }
-
-    vector<string> getOptions2(string& item) {
         vector<string> options;
         stringstream ss(item);
         string out;
@@ -69,14 +49,31 @@ public:
         return options;
     }
 
-    void print(vector<vector<string>>& v) {
-        for (auto& u : v) print(u);
-    }
+    // vector<string> getOptions(string& item) {
+    //     vector<string> v;
+    //     string cur;
+    //     for (char ch : item) {
+    //         if (ch == ',') {
+    //             if (cur != "") v.push_back(cur);
+    //             cur = "";
+    //         } else {
+    //             cur += ch;
+    //         }
+    //     }
+    //     if (cur != "") v.push_back(cur); // Don't forget this!
+    //     // cout << "==> getOptions: " << item << endl;
+    //     // print(v);
+    //     return v;
+    // }
 
-    void print(vector<string>& v) {
-        for (auto& u : v) cout << u << " ";
-        cout << endl;
-    }
+    // void print(vector<vector<string>>& v) {
+    //     for (auto& u : v) print(u);
+    // }
+
+    // void print(vector<string>& v) {
+    //     for (auto& u : v) cout << u << " ";
+    //     cout << endl;
+    // }
 };
 
 
