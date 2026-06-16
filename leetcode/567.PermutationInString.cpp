@@ -9,11 +9,11 @@ public:
         unordered_map<char, int> ct1, ct2;
         for (char ch : s1) ++ ct1[ch];
 
-        int i = 0, left = 0;
+        int i = 0;
         for (; i < s1.length(); ++ i) {
             ++ ct2[s2[i]];
         }
-        for (; i < s2.length(); ++ i) { // O(n)
+        for (int left = 0; i < s2.length(); ++ i) { // O(n)
             if (ct1 == ct2) return true;  // O(26) = O(1)
 
             ++ ct2[s2[i]];
