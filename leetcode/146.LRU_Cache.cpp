@@ -9,6 +9,49 @@ When the cache reached its capacity, it should invalidate the least recently
 used item before inserting a new item. 
  */
 
+class LRUCache13 {
+    struct Node {
+        int key;
+        int val;
+        Node(int k, int v) : key(k), val(v) {}
+    };
+
+    list<Node> dll;  // most recently used: at begin, least recently used: at end.
+    unordered_map<int, list<Node>::iterator> cache;
+    int capacity;
+
+    void move_to_front(int k, int v) {
+        if (cache.contains(k)) {
+            auto it = cache[k];
+            dll.erase(it);
+        }
+        dll.push_front(Node(k, v));
+        cache[k] = dll.begin();
+    }
+
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+    
+    int get(int key) {
+        if (! cache.contains(key)) return -1;
+
+        move_to_front(key, cache[key]->val);
+        return dll.front().val;
+    }
+    
+    void put(int key, int value) {
+        if (! cache.contains(key)) {
+            if (dll.size() == capacity) {
+                cache.erase(dll.back().key);
+                dll.pop_back();
+            }
+        } else {
+            cache[key]->val = value;
+        }
+        move_to_front(key, value);
+    }
+};
+
 class LRUCache12 {
     struct Node {
         int key;
