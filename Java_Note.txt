@@ -254,7 +254,7 @@ for (int n : set) {
 
 Method 1:
 
-Queue<Integer> maxHeap = new PriorityQueue<>(
+Queue<Integer> minHeap = new PriorityQueue<>(
             (a, b) -> { return mp.get(a) - mp.get(b); } );
 
 Method 2:
