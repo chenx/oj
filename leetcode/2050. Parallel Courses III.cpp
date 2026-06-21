@@ -1,3 +1,38 @@
+// BFS. Kahn's algorithm.
+class Solution4 {
+public:
+    int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
+        map<int, set<int>> outDegree;
+        vector<int> inDegree(n + 1, 0);
+        for (auto p : relations) {
+            inDegree[p[1]] ++;
+            outDegree[p[0]].insert(p[1]);
+        }
+
+        vector<int> maxTime(n + 1, 0);
+        queue<int> q;
+        for (int course = 1; course <= n; ++ course) {
+            if (inDegree[course] == 0) q.push(course);
+            maxTime[course] = time[course - 1];
+        }
+
+        while (! q.empty()) {
+            int course = q.front();
+            q.pop();
+
+            for (auto nextCourse : outDegree[course]) {
+                maxTime[nextCourse] = max(maxTime[nextCourse], maxTime[course] + time[nextCourse - 1]);
+                inDegree[nextCourse] --;
+                if (inDegree[nextCourse] == 0) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+
+        return *max_element(maxTime.begin(), maxTime.end());
+    }
+};
+
 // See https://leetcode.com/problems/parallel-courses-iii/editorial/
 // DFS + Memoization
 class Solution3 {
