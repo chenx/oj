@@ -21,6 +21,16 @@ public:
     }
 };
 
+
+/*
+Example: nums = {2, 3, 4}
+
+A: 2, 6, 24
+B: 24, 12, 4
+
+result: 12, 8, 6 
+*/
+
 class Solution {
 public:
     // This works. Uses O(2n) extra space, for L[] and R[].
