@@ -1,3 +1,103 @@
+// Use begin and size only. Don't use end.
+class MyCircularQueue3 {
+    vector<int> q;
+    int capacity;
+    int begin; // pop at front.
+    // int end; // add at back. end = begin + size - 1;
+    int size;
+
+public:
+    MyCircularQueue(int k) : q(vector<int>(k)), capacity(k), begin(0), size(0) {}
+    
+    bool enQueue(int value) {
+        if (isFull()) return false;
+
+        int end = (begin + size) % capacity;
+        q[end] = value;
+
+        ++ size;
+        return true;
+    }
+    
+    bool deQueue() {
+        if (isEmpty()) return false;
+        ++ begin;
+        if (begin == capacity) begin = 0;
+
+        -- size;
+        return true;
+    }
+    
+    int Front() {
+        if (isEmpty()) return -1;
+        return q[begin];
+    }
+    
+    int Rear() {
+        if (isEmpty()) return -1;
+
+        int end = (begin + size - 1 + capacity) % capacity;
+        return q[end];
+    }
+    
+    bool isEmpty() {
+        return size == 0;
+    }
+    
+    bool isFull() {
+        return size == capacity;
+    }
+};
+
+
+class MyCircularQueue2 {
+    vector<int> q;
+    int capacity;
+    int begin; // pop at front.
+    int end; // add at back. end = begin + size;
+    int size;
+
+public:
+    MyCircularQueue(int k) : q(vector<int>(k)), capacity(k), begin(0), end(0), size(0) {}
+    
+    bool enQueue(int value) {
+        if (isFull()) return false;
+        q[end ++] = value;
+        if (end == capacity) end = 0;
+
+        ++ size;
+        return true;
+    }
+    
+    bool deQueue() {
+        if (isEmpty()) return false;
+        ++ begin;
+        if (begin == capacity) begin = 0;
+
+        -- size;
+        return true;
+    }
+    
+    int Front() {
+        if (isEmpty()) return -1;
+        return q[begin];
+    }
+    
+    int Rear() {
+        if (isEmpty()) return -1;
+        return end == 0 ? q[capacity - 1] : q[end - 1];
+    }
+    
+    bool isEmpty() {
+        return size == 0;
+    }
+    
+    bool isFull() {
+        return size == capacity;
+    }
+};
+
+
 class MyCircularQueue {
     int capacity;
     int size;
