@@ -1,3 +1,36 @@
+class Solution9 {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        map<int, set<int>> outDegree;
+        vector<int> inDegree(numCourses, 0);
+        for (auto p : prerequisites) {
+            inDegree[p[0]] ++;
+            outDegree[p[1]].insert(p[0]);
+        }
+
+        queue<int> q;
+        for (int course = 0; course < numCourses; ++ course) {
+            if (inDegree[course] == 0) q.push(course);
+        }
+
+        int courseCount = 0;
+        while (! q.empty()) {
+            int curCourse = q.front();
+            q.pop();
+
+            ++ courseCount;
+
+            for (auto nextCourse : outDegree[curCourse]) {
+                inDegree[nextCourse] --;
+                if (inDegree[nextCourse] == 0) {
+                    q.push(nextCourse);
+                }
+            }
+        }
+        return courseCount == numCourses;
+    }
+};
+
 // Adapted from Solution8.
 class Solution82 {
 public:
