@@ -11,6 +11,7 @@ public:
 
     int E(string& s, int& pos) {
         int val = F(s, pos);
+        // Note: don't do "char op = s[pos]" before loop, it'll get error of passing string end.
         while (s[pos] == '+' || s[pos] == '-') {
             if (s[pos] == '+') val += F(s, ++ pos);
             else val -= F(s, ++ pos);
