@@ -1,3 +1,27 @@
+class Solution4 {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> result;
+        sort(intervals.begin(), intervals.end());
+
+        int i = 0, n = intervals.size();
+        for (; i < n && intervals[i][1] < newInterval[0]; ++ i) {
+            result.push_back(intervals[i]);
+        }
+
+        for (; i < n && intervals[i][0] <= newInterval[1]; ++ i) {
+            newInterval[0] = min(newInterval[0], intervals[i][0]);
+            newInterval[1] = max(newInterval[1], intervals[i][1]);
+        }
+        result.push_back(newInterval);
+
+        for (; i < n; ++ i) {
+            result.push_back(intervals[i]);
+        }
+        return result;
+    }
+};
+
 // From: https://leetcode.com/problems/insert-interval/description/
 // Time: O(n)
 // Space: O(1)
