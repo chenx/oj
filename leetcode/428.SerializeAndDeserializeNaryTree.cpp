@@ -1,4 +1,3 @@
-// C++ version translated from Java does not work yet.
 /*
 // Definition for a Node.
 class Node {
@@ -17,134 +16,82 @@ public:
         children = _children;
     }
 };
-ser: result = 1#2345#$67$8$9:#$;$<$=$#>$$$#$#
-des: data = 1#2345#$67$8$9:#$;$<$=$#>$$$#$#
 */
 
+// C++ version works. Much more clear than Java version.
+// Similar to 297. https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 class Codec {
 public:
     // Encodes a tree to a single string.
     string serialize(Node* root) {
-        if (root == NULL) {
-            return "";
-        }
-        
-        string s;
-        ser(root, s);
-        return s;
-    }
+        if (! root) return "";
 
-    void ser(Node* root, string& s) {
-        // Queue to perform a level order traversal of the tree
+        string result;
+        vector<string> tokens;
+        
         queue<Node*> q;
-        
-        // Two dummy nodes that will help us in serialization string formation.
-        // We insert the "endNode" whenever a level ends and the "childNode"
-        // whenever a node's children are added to the queue and we are about
-        // to switch over to the next node.
-        Node* endNode = new Node();
-        Node* childNode = new Node();
         q.push(root);
-        q.push(endNode);
         
-        while (!q.empty()) {
+        tokens.push_back(to_string(root->val));
+        tokens.push_back("null");
+
+        while (! q.empty()) {
             Node* node = q.front();
             q.pop();
-            
-            // If this is an "endNode", we need to add another one to mark the end of 
-            // the current level unless this was the last level.
-            if (node == endNode) { // We add a sentinal value of "#" here
-                s += "#";
-                if (!q.empty()) {
-                    q.push(endNode);  
-                }
-            } else if (node == childNode) {
-                // Add a sentinal value of "$" here to mark the switch to a different parent.
-                s += "$";
-            } else {
-                // Add value of the current node and add all of it's
-                // children nodes to the queue. Note how we convert
-                // the integers to their corresponding ASCII counterparts.
-                // cout << "### ser: node->val = " << node->val << ", in char:" << ((char)(node->val + '0'))  << endl;
-                s += (char)(node->val + '0');
-                if (node->val >= 100) cout << "node->val = " << node->val << endl;
-                for (auto child : node->children) {
+
+            if (node) {
+                for (Node* child : node->children) {
+                    tokens.push_back(to_string(child->val));
                     q.push(child);
                 }
-                
-                // If this is NOT the last one on the current level, add a childNode as well 
-                // since we move on to processing the next node.
-                if (q.front() != endNode) {
-                    q.push(childNode);
-                }
+                tokens.push_back("null");
             }
         }
+
+        while (! tokens.empty() && tokens.back() == "null") {
+            tokens.pop_back();
+        }
+
+        for (string& token : tokens) {
+            if (result != "") result += ",";
+            result += token;
+        }
+        // cout << "::" << result << endl;
+        return result;
     }
 	
     // Decodes your encoded data to tree.
     Node* deserialize(string data) {
-        if (data.empty()) {
-            return NULL;
-        }
-            
-        Node* rootNode = new Node(data[0] - '0');
-        cout << "deserialize.0" << endl;
-        des(data, rootNode);
-        cout << "deserialize end" << endl;
-        return rootNode;
-    }
-    
-    void des(string& data, Node* rootNode) {  
-        // We move one level at a time and at every level, we need access
-        // to the nodes on the previous level as well so that we can form
-        // the children arrays properly. Hence two arrays.
-        queue<Node*> currentLevel;
-        queue<Node*> prevLevel;
-        currentLevel.push(rootNode);
-        Node* parentNode = rootNode;
+        if (data == "") return NULL;
+        
+        vector<string> tokens = split(data);
+        Node* root = new Node(stoi(tokens[0]));
 
-        cout << "deserialize.1. data =" << data << endl;
-        cout << "deserialize.1. data.length()=" << data.length() << endl;
+        queue<Node*> q;
+        q.push(root);
+        int pos = 1;
 
-        // Process the characters in the string one at a time.
-        for (int i = 1; i < data.length(); i++) {
-            char d = data[i];
-            // if (i >= 450)
-            // cout << "deserialize: i=" << i << ", data[i]=" << d << endl;
-            if (d == '#') {
-                // Special processing for end of level. We need to swap the
-                // array lists. Here, we simply re-initialize the "currentLevel"
-                // arraylist rather than clearing it.
-                cout << "deserialize.2" << endl;
-                cout << "prevLevel.size = " << prevLevel.size() << ", currentLevel.size = " << currentLevel.size() << endl;
-                prevLevel = currentLevel;
-                cout << "deserialize.3. prevLevelp.size=" << prevLevel.size() << endl;
-                queue<Node*> x;
-                currentLevel = x; //queue<Node*>();
+        while (! q.empty()) {
+            Node* node = q.front();
+            q.pop();
 
-                cout << "deserialize.4: prevLevel.size = " << prevLevel.size() << endl;
-                
-                // Since we move one level down, we take the parent as the first
-                // node on the current level.
-                parentNode = prevLevel.front();
-                prevLevel.pop();
-            } else {
-                if (d == '$') { // Special handling for change in parent on the same level
-                    cout << "deserialize.5: prevLevel.size = " << prevLevel.size() << endl;
-                    // if (! prevLevel.empty()) 
-                    {
-                        parentNode = prevLevel.front();
-                        prevLevel.pop();
-                    }
-                    // cout << "deserialize.5.2: parentNode: " << parentNode->val << endl;
-                } else {
-                    cout << "deserialize.6" << endl;
-                    Node* childNode = new Node((int) (d - '0'));    
-                    currentLevel.push(childNode);
-                    parentNode->children.push_back(childNode);
-                }
+            while (++ pos < tokens.size() && tokens[pos] != "null") {
+                Node* child = new Node(stoi(tokens[pos]));
+                node->children.push_back(child);
+                q.push(child);
             }
         }
+        return root;
+    }
+
+    vector<string> split(string& s) {
+        stringstream ss(s);
+        string token;
+        vector<string> tokens;
+        while (getline(ss, token, ',')) {
+            tokens.push_back(token);
+        }
+        return tokens;
     }
 };
 
@@ -153,7 +100,8 @@ public:
 // codec.deserialize(codec.serialize(root));
 
 
-// Java version. Works. But C++ version does not.
+
+// Java version. Works.
 class Codec {
     // Encodes a tree to a single string.
     public String serialize(Node root) {
