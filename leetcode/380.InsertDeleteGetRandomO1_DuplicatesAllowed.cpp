@@ -1,5 +1,41 @@
+class RandomizedSet3 {
+    vector<int> arr;
+    unordered_map<int, int> indexMap; // <val, index>
+
+public:
+    RandomizedSet() {}
+    
+    bool insert(int val) {
+        if (indexMap.contains(val)) return false;
+
+        indexMap[val] = arr.size();
+        arr.push_back(val);
+        return true;
+    }
+    
+    bool remove(int val) {
+        if (! indexMap.contains(val)) return false;
+
+        int index = indexMap[val];        
+        int lastVal = arr.back();
+
+        arr[index] = lastVal;
+        indexMap[lastVal] = index;
+
+        arr.pop_back();
+        indexMap.erase(val);
+
+        return true;
+    }
+    
+    int getRandom() {
+        return arr[rand() % arr.size()];
+    }
+};
+
+
 // Works.
-class RandomizedSet {
+class RandomizedSet2 {
     vector<int> vals;
     map<int, int> positionMap;
 public:
