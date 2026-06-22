@@ -1,3 +1,24 @@
+// Sort
+// Time: O(nlog(n))
+// Space: O(1)
+class Solution2 {
+public:
+    // Time: O(n) 
+    // Space: O(n)
+    vector<int> findLonely(vector<int>& nums) {
+        vector<int> result;
+
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        for (int i = 0; i < n; ++ i) {
+            if (i > 0 && (nums[i] == nums[i-1] || nums[i] == nums[i-1] + 1)) continue;
+            else if (i < n - 1 && (nums[i] == nums[i+1] || nums[i] == nums[i+1] - 1)) continue;
+            else result.push_back(nums[i]);
+        }
+        return result;
+    }
+};
+
 // Time: O(n). n = nums.size()
 // Space: O(n)
 class Solution {
