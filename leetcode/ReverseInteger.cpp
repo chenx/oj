@@ -1,3 +1,24 @@
+class Solution4 {
+public:
+    int reverse(int x) {
+        if (x == INT_MIN) return 0;
+        
+        bool neg = x < 0;
+        if (neg) x = -x;
+
+        long long y = 0, y0 = 0;
+        while (x > 0) {
+            y0 = y;
+            y = y * 10 + (x % 10);
+            if (y > INT_MAX) return 0;
+            x /= 10;
+        }
+
+        return neg ? -y : y;
+    }
+};
+
+// The solutios below all fail when x = 1534236469.
 class Solution3 {
 public:
     int reverse(int x) {
