@@ -1,4 +1,7 @@
 // Works. Code is cleaned form Solution.
+// BFS.
+// Time: O(n), each node is processed once.
+// Space: O(n). queue and mp.
 class Solution2 {
 public:
     vector<vector<int> > verticalOrder(TreeNode* root) {
