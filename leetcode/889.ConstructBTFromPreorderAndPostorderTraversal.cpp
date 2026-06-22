@@ -1,5 +1,35 @@
+// Cleaned up a bit from Solution.
+class Solution2 {
+public:
+    TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
+        int preIndex = 0;
+        int postIndex = 0;
+        return constructTree(preIndex, postIndex, preorder, postorder);
+    }
+
+private:
+    TreeNode* constructTree(int& preIndex, int& postIndex,
+                            vector<int>& preorder, vector<int>& postorder) {
+        int val = preorder[preIndex];
+        TreeNode* root = new TreeNode(val);
+        preIndex++;
+
+        if (val != postorder[postIndex]) {
+            root->left = constructTree(preIndex, postIndex, preorder, postorder);
+        }
+        if (val != postorder[postIndex]) {
+            root->right = constructTree(preIndex, postIndex, preorder, postorder);
+        }
+
+        postIndex++; // Mark this node and its subtree as fully processed
+        return root;
+    }
+};
+
 // Approach 3: 
 // From: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/editorial/
+// NOTE: A binary tree cannot always be uniquely reconstructed from only preorder + postorder traversal unless
+// additional constraints are assumed (typically: the tree is full, meaning every node has 0 or 2 children).
 // Time: O(n)
 // Space: O(n)
 class Solution {
