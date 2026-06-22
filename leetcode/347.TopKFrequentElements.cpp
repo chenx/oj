@@ -7,6 +7,52 @@
 //    that in practice it often works even slower than N2.
 // 2) It doesn't work with duplicates.
 
+// Quick select.
+// Time: O(n)
+// Space: O(log(n)) for recursion.
+class Solution5 {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> counter; // <num, count>
+        for (int num : nums) counter[num] ++;
+
+        vector<int> arr;
+        for (auto& [num, _]: counter) arr.push_back(num);
+
+        int n = arr.size();
+        quick_select(arr, counter, 0, n - 1, n - k);
+
+        vector<int> result;
+        for (int i = n-k; i < n; ++ i) {
+            result.push_back(arr[i]);
+        }
+        return result;
+    }
+
+    void quick_select(vector<int>& arr, unordered_map<int, int>& counter, int left, int right, int k) {
+        if (left >= right) return;
+
+        swap(arr[left], arr[left + (right - left)/2]);
+        int pivot = arr[left], L = left + 1, R = right;
+
+        while (L <= R) { // "<=", not "<"
+            while (L <= R && counter[arr[L]] <= counter[pivot]) ++ L;
+            while (L <= R && counter[arr[R]] >= counter[pivot]) -- R;
+            if (L <= R && counter[arr[L]] > counter[arr[R]]) {
+                swap(arr[L], arr[R]);
+                ++ L, -- R;
+            } else {
+                ++ L;
+            }
+        }
+
+        swap(arr[left], arr[R]);
+        if (k < R) quick_select(arr, counter, left, R - 1, k);
+        if (k > R) quick_select(arr, counter, R + 1, right, k);
+    }
+};
+
+
 // minHeap.
 // Time: O(n + n * log(k))
 // Space: O(n + k)
