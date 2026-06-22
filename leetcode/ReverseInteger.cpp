@@ -1,3 +1,24 @@
+// Works. Best answer, doesn't use long long type.
+class Solution5 {
+public:
+    int reverse(int x) {
+        if (x == INT_MIN) return 0;
+        
+        bool neg = x < 0;
+        if (neg) x = -x;
+
+        int y = 0, y0 = 0;
+        while (x > 0) {
+            y0 = y;
+            if ((INT_MAX - (x % 10)) / 10 < y) return 0;
+            y = y * 10 + (x % 10);
+            x /= 10;
+        }
+
+        return neg ? -y : y;
+    }
+};
+
 class Solution4 {
 public:
     int reverse(int x) {
