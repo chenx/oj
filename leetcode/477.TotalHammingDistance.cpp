@@ -1,5 +1,7 @@
 // From: https://leetcode.com/problems/total-hamming-distance/editorial/
 // Loop over the bits!
+// Count how many bits are On at each bit. 
+// Say k numbers has the on, then n-k numbers has the bit off, the total hamming dist is k(n-k).
 // Time complexity: O(n⋅log​V)≃O(n).
 // Space complexity: O(log​V)→O(1) extra space
 class Solution {
