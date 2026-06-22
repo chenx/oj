@@ -1,3 +1,20 @@
+// This does not use long long. Best.
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        int x0 = x;
+        int y = 0;
+
+        while (x > 0) {
+            if ( (INT_MAX - (x % 10)) / 10 < y) return false;
+            y = y * 10 + (x % 10);
+            x /= 10;
+        }
+        return y == x0;
+    }
+};
+
 // Works. Simplest. Use long long to avoid checking for overflow.
 class Solution7 {
 public:
@@ -16,6 +33,7 @@ public:
 };
 
 // Works.
+// As of 06/22/2026, 998765432 causes integer overflow on line 48.
 class Solution6 {
 public:
     bool isPalindrome(int x) {
