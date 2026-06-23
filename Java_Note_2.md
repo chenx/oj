@@ -134,7 +134,7 @@ public class NonBlockingIOServer {
 ## Summary: Architectural Comparison
 
 | Feature | Multi-Threading (BIO) | Asynchronous Programming | Non-Blocking I/O (NIO) |
-| : | : | : | : |
+| - | - | - | - |
 | **Thread Management** | One thread per connection/task. | Reuses threads via pools or background executors. | Single thread manages multiple connections. |
 | **Blocking Behavior** | Thread idles while waiting for network/disk responses. | Thread is freed; notification triggers when done. | Thread never idles; polls streams for ready data. |
 | **Scalability Limit** | Limited by OS kernel thread constraints (~thousands). | Limited by pool sizing and heap memory. | Scalable to millions of concurrent open sockets. |
