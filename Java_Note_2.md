@@ -2,7 +2,7 @@
 
 Modern Java offers three distinct approaches to handle concurrent tasks and high-throughput operations. Choosing the right tool depends heavily on whether your application is **CPU-bound** (heavy calculations) or **I/O-bound** (waiting on databases, networks, or disks).
 
----
+
 
 ## 1. Multi-Threading
 
@@ -37,7 +37,7 @@ public class MultiThreadingExample {
 }
 ```
 
----
+
 
 ## 2. Asynchronous Programming (Async)
 
@@ -79,7 +79,7 @@ public class AsyncExample {
 }
 ```
 
----
+
 
 ## 3. Non-Blocking I/O (NIO)
 
@@ -129,18 +129,18 @@ public class NonBlockingIOServer {
 }
 ```
 
----
+
 
 ## Summary: Architectural Comparison
 
 | Feature | Multi-Threading (BIO) | Asynchronous Programming | Non-Blocking I/O (NIO) |
-| :--- | :--- | :--- | :--- |
+| : | : | : | : |
 | **Thread Management** | One thread per connection/task. | Reuses threads via pools or background executors. | Single thread manages multiple connections. |
 | **Blocking Behavior** | Thread idles while waiting for network/disk responses. | Thread is freed; notification triggers when done. | Thread never idles; polls streams for ready data. |
 | **Scalability Limit** | Limited by OS kernel thread constraints (~thousands). | Limited by pool sizing and heap memory. | Scalable to millions of concurrent open sockets. |
 | **Complexity** | Low to Medium (intuitive imperative code). | Medium (functional, callback, or chain style). | High (requires event loops and state machines). |
 
----
+
 
 ## Modern Note: Virtual Threads (Project Loom)
 If you are using **Java 21 or later**, you can combine the simple, imperative coding style of **Multi-Threading** with the massive scalability of **Non-Blocking I/O** using **Virtual Threads**. They are lightweight threads managed by the Java runtime instead of the OS, allowing you to run millions of concurrent threads without memory exhaustion.
