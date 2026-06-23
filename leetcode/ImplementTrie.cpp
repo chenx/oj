@@ -1,3 +1,70 @@
+class Trie4 {
+    struct TrieNode {
+        unordered_map<char, TrieNode*> children;
+        bool wordMarker;
+
+        TrieNode() : wordMarker(false) {}
+
+        TrieNode* insert(char ch) {
+            if (! children.contains(ch)) {
+                children[ch] = new TrieNode();
+            }
+            return children[ch];
+        }
+
+        TrieNode* find(char ch) {
+            return children.contains(ch) ? children[ch] : NULL;
+        }
+    };
+
+    TrieNode root;
+
+public:
+    Trie() {
+        
+    }
+    
+    void insert(string word) {
+        TrieNode* node = &root;
+        for (char ch : word) {
+            cout << "ch = " << ch << endl;
+            if (! node) {
+                cout << "Error: node is NULL." << endl;
+            }
+            TrieNode * child = node->find(ch);
+            if (! child) {
+                child = node->insert(ch);
+            }
+            node = child; 
+        }
+        node->wordMarker = true;
+    }
+    
+    bool search(string word) {
+        TrieNode* node = &root;
+        for (char ch : word) {
+            TrieNode * child = node->find(ch);
+            if (! child) {
+                return false;
+            }
+            node = child; 
+        }
+        return node->wordMarker;
+    }
+    
+    bool startsWith(string prefix) {
+        TrieNode* node = &root;
+        for (char ch : prefix) {
+            TrieNode * child = node->find(ch);
+            if (! child) {
+                return false;
+            }
+            node = child; 
+        }
+        return true;
+    }
+};
+
 class Trie3 {
     struct TrieNode {
         unordered_map<char, TrieNode*> children;
@@ -10,6 +77,10 @@ class Trie3 {
         }
         TrieNode* findChild(char ch) {
             return children[ch];
+            // Note: the above inserts ch into children, children[ch] is NULL.
+            // This is same as addChild() and may cause subtle issues. better do:
+            // return children.contains(ch) ? children[ch] : nullptr;
+            // See Trie4.
         }
     };
     TrieNode root;
