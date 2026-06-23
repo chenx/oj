@@ -38,6 +38,8 @@ public:
 };
 */
 
+// Time: O(n^2 * log(n))
+// Space: O(log(n)) for recursion.
 class Solution2 {
 public:
     Node* construct(vector<vector<int>>& grid) {
