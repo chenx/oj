@@ -1,3 +1,28 @@
+class Solution5 {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> arr;
+
+        for (int i = 0; i < nums.size(); ++ i) { // patience sort
+            if (arr.empty() || nums[i] > arr.back()) {
+                arr.push_back(nums[i]);
+            } else {
+                int left = 0, right = arr.size() - 1;
+                while (left <= right) {
+                    int mid = left + (right - left)/2;
+                    if (arr[mid] >= nums[i]) {
+                        right = mid - 1;
+                    } else {
+                        left = mid + 1;
+                    }
+                }
+                arr[left] = nums[i];
+            }
+        }
+        return arr.size();
+    }
+};
+
 // Works. Easier to understand. O(n*log(n)) time. O(n) space.
 class Solution4 {
 public:
