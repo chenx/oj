@@ -1,3 +1,30 @@
+class Solution2 {
+public:
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        queue<int> keys;
+        set<int> visited;
+        visited.insert(0);
+
+        for (int key : rooms[0]) {
+            keys.push(key);
+            visited.insert(key);
+        }
+
+        while (! keys.empty()) {
+            int key = keys.front();
+            keys.pop();
+
+            for (int k : rooms[key]) {
+                if (! visited.contains(k)) {
+                    keys.push(k);
+                    visited.insert(k);
+                }
+            }
+        }
+        return visited.size() == rooms.size();
+    }
+};
+
 // BFS
 // Time: O(V+E)
 // Space: O(V)
