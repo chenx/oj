@@ -1,3 +1,5 @@
+// Time: O(n)
+// Space: O(n)
 class Solution8 {
     map<TreeNode*, int> cache;
 public:
