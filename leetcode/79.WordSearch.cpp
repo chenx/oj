@@ -5,6 +5,46 @@
 // @Last modified: 10/26/2014
 //
 
+class Solution7 {
+    int m;
+    int n;
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        m = board.size(), n = board[0].size();
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (word[0] == board[i][j]) {
+                    if (dfs(word, 0, board, i, j)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    bool dfs(const string& word, int pos, vector<vector<char>>& board, int i, int j) {
+        if (i < 0 || i >= m || j < 0 || j >= n || word[pos] != board[i][j]) {
+            return false;
+        }
+        ++ pos;
+        if (pos == word.length()) {
+            return true;
+        }
+        
+        char ch = board[i][j];
+        board[i][j] = '.';
+        if (dfs(word, pos, board, i+1, j)) return true;
+        if (dfs(word, pos, board, i-1, j)) return true;
+        if (dfs(word, pos, board, i, j+1)) return true;
+        if (dfs(word, pos, board, i, j-1)) return true;
+        board[i][j] = ch;
+
+        return false;
+    }
+};
+
 // Works. No longer use an extra used[][] matrix. Maybe best so far.
 class Solution6 {
 public:
