@@ -10,6 +10,8 @@
 using namespace std;
 
 // Works. Best so far.
+// Time: O(n * n!)
+// Space: O(n)
 class Solution4 {
 public:
     int totalNQueens(int n) {
