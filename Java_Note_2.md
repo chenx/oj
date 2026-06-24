@@ -154,6 +154,8 @@ Thread.startVirtualThread(() -> {
 
 ---
 
+# Threading: Thread, Runnable, Platform Threads (Traditional) vs Virtual Threads (Java 21+), ExecutorServices (Thread Pool)
+
 **Java threading** allows your program to execute multiple tasks concurrently by splitting work into independent paths of execution. By default, every Java application runs on a single "main" thread, but you can create additional threads to perform background tasks, maximize CPU utilization, and keep user interfaces responsive.
 
 ### Core Approaches to Creating Threads
