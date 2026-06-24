@@ -3,6 +3,13 @@
 Modern Java offers three distinct approaches to handle concurrent tasks and high-throughput operations. Choosing the right tool depends heavily on whether your application is **CPU-bound** (heavy calculations) or **I/O-bound** (waiting on databases, networks, or disks).
 
 
+## Links
+
+- https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html
+- https://www.w3schools.com/java/java_threads.asp
+- https://www.geeksforgeeks.org/java/java-threads/
+- https://medium.com/@syed.fawzul.azim/how-java-threads-work-jvm-internals-cpu-level-execution-and-multi-threading-in-java-89d8d343677f
+
 
 ## 1. Multi-Threading
 
@@ -154,7 +161,7 @@ Thread.startVirtualThread(() -> {
 
 ---
 
-# Threading: Thread, Runnable, Platform Threads (Traditional) vs Virtual Threads (Java 21+), ExecutorServices (Thread Pool)
+# Thread, Runnable, Platform Threads (Traditional) vs Virtual Threads (Java 21+), ExecutorServices (Thread Pool)
 
 **Java threading** allows your program to execute multiple tasks concurrently by splitting work into independent paths of execution. By default, every Java application runs on a single "main" thread, but you can create additional threads to perform background tasks, maximize CPU utilization, and keep user interfaces responsive.
 
