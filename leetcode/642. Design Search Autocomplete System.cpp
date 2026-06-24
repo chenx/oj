@@ -1,3 +1,98 @@
+class AutocompleteSystem2 {
+    struct TrieNode {
+        unordered_map<char, TrieNode*> children;
+        unordered_map<string, int> sentenceCount; // <sentence, count>
+
+        TrieNode* insert(char ch) {
+            if (! children.contains(ch)) {
+                children[ch] = new TrieNode();
+            }
+            return children[ch];
+        }
+
+        TrieNode* find(char ch) {
+            return children.contains(ch) ? children[ch] : nullptr;
+        }
+    };
+
+    TrieNode root;
+    TrieNode* curNode;
+    TrieNode* deadNode;
+    string curSentence;
+
+public:
+    AutocompleteSystem(vector<string>& sentences, vector<int>& times) {
+        int n = sentences.size();
+        for (int i = 0; i < n; ++ i) {
+            insert(sentences[i], times[i]);
+        }
+        curNode = &root;
+        deadNode = new TrieNode();
+    }
+    
+    vector<string> input(char c) {
+        vector<string> result;
+
+        if (c == '#') {
+            insert(curSentence, 1);
+            curSentence.clear();
+            curNode = &root;
+            return result;
+        }
+
+        curSentence.push_back(c);
+        if (! curNode->children.contains(c)) {
+            curNode = deadNode;
+            return result;
+        }
+
+        // get top 3 sentences.
+        curNode = curNode->children[c];
+
+        auto comp = [&](const string& a, const string& b) {
+            int ct1 = curNode->sentenceCount[a], ct2 = curNode->sentenceCount[b];
+            if (ct1 == ct2) return a < b; // larger ascii order first.
+            return ct1 > ct2; // smaller count first.
+        };
+        priority_queue<string, vector<string>, decltype(comp)> minHeap(comp);
+
+        for (auto& [sentence, _] : curNode->sentenceCount) {
+            minHeap.push(sentence);
+            if (minHeap.size() > 3) minHeap.pop(); // optimization if count is large.
+        }
+
+        // int ct = 0;
+        // while (! minHeap.empty() && ++ ct <= 3) {
+        while (! minHeap.empty()) {
+            result.push_back(minHeap.top());
+            minHeap.pop();
+        }
+        reverse(result.begin(), result.end());
+        return result;
+    }
+
+private:
+    void insert(string& sentence, int time) {
+        TrieNode* node = &root;
+        for (char ch : sentence) {
+            TrieNode* child = node->find(ch);
+            if (! child) {
+                child = node->insert(ch);
+            }
+            child->sentenceCount[sentence] += time;
+            node = child;
+        }
+    }
+};
+
+/**
+ * Your AutocompleteSystem object will be instantiated and called as such:
+ * AutocompleteSystem* obj = new AutocompleteSystem(sentences, times);
+ * vector<string> param_1 = obj->input(c);
+ */
+
+
+
 // See: https://leetcode.com/problems/design-search-autocomplete-system/editorial/
 // Time complexity: O(n⋅k+m⋅(n+(m/k)​))
 // Space complexity: O(k⋅(n⋅k+m))
