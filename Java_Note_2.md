@@ -151,3 +151,103 @@ Thread.startVirtualThread(() -> {
     System.out.println("Running on a lightweight virtual thread!");
 });
 ```
+
+---
+
+**Java threading** allows your program to execute multiple tasks concurrently by splitting work into independent paths of execution. By default, every Java application runs on a single "main" thread, but you can create additional threads to perform background tasks, maximize CPU utilization, and keep user interfaces responsive.
+
+### Core Approaches to Creating Threads
+
+Java offers two classic techniques for defining and launching a basic platform thread.
+
+#### 1. Implementing the `Runnable` Interface (Preferred)
+You implement the [Runnable Interface](https://oracle.com) and pass it to a `Thread` object. This is the industry-standard preference because Java does not support multiple class inheritance. Implementing an interface keeps your class free to extend something else.
+
+```java
+public class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Running in a separate thread: " + Thread.currentThread().getName());
+    }
+
+    public static void main(String[] args) {
+        Thread thread = new Thread(new MyRunnable());
+        thread.start(); // Spawns the thread and executes run()
+    }
+}
+```
+
+#### 2. Extending the `Thread` Class
+You subclass the [Thread Class](https://oracle.com) and override its `run()` method. This is simple but structurally restrictive.
+
+```java
+public class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println("Running inside extended Thread class.");
+    }
+
+    public static void main(String[] args) {
+        MyThread thread = new MyThread();
+        thread.start(); // Never call run() directly; start() instantiates the actual thread
+    }
+}
+```
+
+
+
+### Comparison: Classic Platforms vs. Modern Virtual Threads
+
+Java concurrency drastically improved with the introduction of **Virtual Threads** in Java 21. 
+
+| Feature | Platform Threads (Traditional) | Virtual Threads (Java 21+) |
+| :--- | :--- | :--- |
+| **Management** | Managed directly by the Operating System. | Managed purely by the Java Runtime (JVM). |
+| **Resource Cost** | Heavy; large stack memory allocations. | Lightweight; negligible footprint. |
+| **Scalability** | Limited to thousands due to OS constraints. | Scalable to millions within one application. |
+| **Best Used For** | Long-running, heavy CPU-bound computations. | High-volume blocking I/O (e.g., HTTP requests). |
+
+*To launch a virtual thread in modern Java:*
+```java
+Thread.ofVirtual().start(() -> System.out.println("Lightweight virtual thread!"));
+```
+
+
+
+### Advanced Concurrency: ExecutorServices
+
+Manually spinning up raw `Thread` objects for every single background task can easily crash your system under high load. Instead, production applications use thread pools via the `ExecutorService` framework.
+
+*   **Fixed Thread Pools**: Limits the system to a fixed allocation of concurrent workers.
+*   **Cached Thread Pools**: Dynamically expands and contracts based on real-time spikes in short tasks.
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ThreadPoolExample {
+    public static void main(String[] args) {
+        // Creates a controlled ecosystem with exactly 3 worker threads
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        for (int i = 0; i < 10; i++) {
+            executor.submit(() -> {
+                System.out.println("Executing via pool: " + Thread.currentThread().getName());
+            });
+        }
+        
+        executor.shutdown(); // Gracefully closes down the thread resource pool
+    }
+}
+```
+
+
+
+### Thread Safety and Synchronization
+
+Because independent threads share the same application memory space, multiple threads trying to modify the same resource simultaneously will corrupt your data (race conditions). 
+
+You must guarantee thread safety using one of these options:
+*   **The `synchronized` Keyword**: Locks a block or whole method to allow only one thread entry at a time.
+*   **Volatile Variables**: Guarantees that changes to a variable are instantly visible across separate CPU registers.
+*   **Concurrent Collections**: Avoid standard arrays/lists and use drop-in thread-safe equivalents like `ConcurrentHashMap` or `CopyOnWriteArrayList`.
