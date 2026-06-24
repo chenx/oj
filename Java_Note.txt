@@ -20,6 +20,12 @@ string: string s = "abc"; int len = s.length();
 list: List<int> t = new ArrayList<int>(); int len = t.size();
 
 
+-- var (for auto in C++)
+
+There is no "auto" keyword like in C++. The alternative is "var". 
+A var is a local variable with value, and cannot be null.
+
+
 -- String functions.
 String s;
 char[] s_array = s.toCharArray(); // convert to char array.
