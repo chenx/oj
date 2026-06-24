@@ -1,3 +1,73 @@
+class AutocompleteSystem3 {
+    struct TrieNode {
+        unordered_map<char, TrieNode*> children;
+        unordered_map<string, int> sentenceCount; // <sentence, count>
+    };
+
+    TrieNode root;
+    TrieNode* curNode;
+    TrieNode* deadNode;
+    string curSentence;
+
+    void insertToTrie(string& sentence, int time) {
+        TrieNode* node = &root;
+        for (char ch : sentence) {
+            if (! node->children.contains(ch)) {
+                node->children[ch] = new TrieNode();
+            }
+            node = node->children[ch];
+            node->sentenceCount[sentence] += time;
+        }
+    }
+
+public:
+    AutocompleteSystem(vector<string>& sentences, vector<int>& times) {
+        int n = sentences.size();
+        for (int i = 0; i < n; ++ i) {
+            insertToTrie(sentences[i], times[i]);
+        }
+        curNode = &root;
+        deadNode = new TrieNode();
+    }
+    
+    vector<string> input(char c) {
+        vector<string> result;
+
+        if (c == '#') {
+            insertToTrie(curSentence, 1);
+            curSentence.clear();
+            curNode = &root;
+            return result;
+        }
+
+        curSentence.push_back(c);
+        if (! curNode->children.contains(c)) {
+            curNode = deadNode;
+            return result;
+        }
+
+        // get top 3 sentences.
+        curNode = curNode->children[c];
+
+        vector<pair<string, int>> sentences;
+        for (auto& [sentence, ct] : curNode->sentenceCount) {
+            sentences.push_back({sentence, ct});
+        }
+        sort(sentences.begin(), sentences.end(), 
+            [](const pair<string, int>&a, const pair<string, int>& b) {
+                if (a.second == b.second) return a < b;
+                return a.second > b.second;
+        });
+
+        int len = min(3, (int) sentences.size());
+        for (int i = 0; i < len; ++ i) {
+            result.push_back(sentences[i].first);
+        }
+        return result;
+    }
+};
+
+
 class AutocompleteSystem2 {
     struct TrieNode {
         unordered_map<char, TrieNode*> children;
