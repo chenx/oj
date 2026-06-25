@@ -1,3 +1,95 @@
+// Use a list / array.
+// - O(1) for push, pop, top. O(n) for peekMax and popMax.
+// - If a list, it needs to be dll to be convenient to erase.
+// - Compare dll and array: both O(n) for peekMax; for popMax, dll is O(n) , array is O(2n). 
+// - Use this makes sense when peekMax and popMax happens rarely: 
+//   - say if chance of calling peekMax/popMax =~ percentage of max elements in all elements, then it's amortized to O(1).
+class MaxStack4 {
+    vector<int> array;
+
+public:
+    MaxStack() {}
+    
+    void push(int x) {
+        array.push_back(x);
+    }
+    
+    int pop() {
+        int val = array.back();
+        array.pop_back();
+        return val;
+    }
+    
+    int top() {
+        return array.back();
+    }
+    
+    // Time out for large input.
+    int peekMax() {
+        return *max_element(array.begin(), array.end());
+    }
+    
+    // Time out for large input.
+    int popMax() {
+        vector<int>::reverse_iterator it = max_element(array.rbegin(), array.rend());
+        int val = *it;
+        array.erase(std::next(it).base());
+        return val;
+    }
+
+    // This does not work. Need to erase the last inserted max element, not the first.
+    // E.g., array is [5,1,5], peek after popMax is 5 using popMax2, but it should be 1.
+    int popMax2() {
+        vector<int>::iterator it = max_element(array.rbegin(), array.rend());
+        int val = *it;
+        array.erase(it);
+        return val;
+    }
+};
+
+
+// Better variable names.
+class MaxStack3 {
+    set<pair<int, int>> valStack; // <count, value>
+    set<pair<int, int>> maxStack; // <value, count>
+    int count;
+
+public:
+    MaxStack() : count(0) {}
+    
+    void push(int x) {
+        ++ count;
+        valStack.insert({count, x});
+        maxStack.insert({x, count});
+    }
+    
+    int pop() {
+        auto [count, value] = *valStack.rbegin();
+        // auto [count, value] = *(-- valStack.end()); // This also works.
+        valStack.erase({count, value});
+        maxStack.erase({value, count});
+        return value;
+    }
+    
+    int top() {
+        auto [count, value] = *valStack.rbegin();
+        return value;
+    }
+    
+    int peekMax() {
+        auto [value, count] = *maxStack.rbegin();
+        return value;
+    }
+    
+    int popMax() {
+        auto [value, count] = *maxStack.rbegin();
+        maxStack.erase({value, count});
+        valStack.erase({count, value});
+        return value;
+    }
+};
+
+
 // Use vector<int> instead of pair<int, int>.
 class MaxStack2 {
     set<vector<int>> stack;
@@ -43,8 +135,13 @@ public:
 // A set is a balanced tree. *set.rbegin() is always the one with the largest value.
 //
 // From https://leetcode.com/problems/max-stack/editorial/
-// Time Complexity: O(logN) for each operation except for initialization.
+// Time Complexity:
+// - O(1) for top and peekMax.
+// - O(logN) for push, pop and popMax.
 // Space Complexity: O(N), the maximum size of the two balanced trees.
+//
+// Note this problem is similar to 155. https://leetcode.com/problems/min-stack/ 
+// The reason we can't solve it like in min-stack is there is a popMax function.
 class MaxStack {
 private:
     set<pair<int, int>> stack;
