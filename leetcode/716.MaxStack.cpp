@@ -48,6 +48,81 @@ public:
 };
 
 
+// Thread_safe. Handles empty stack protection.
+class MaxStack {
+    set<pair<int, int>> valStack; // <count, value>
+    set<pair<int, int>> maxStack; // <value, count>
+    std::uint64_t count;
+    mutable mutex mtx;
+
+public:
+    MaxStack() : count(0) {}
+    
+    void push(int x) {
+        lock_guard<mutex> lock(mtx);
+
+        ++ count;
+        valStack.insert({count, x});
+        maxStack.insert({x, count});
+    }
+    
+    int pop() {
+        lock_guard<mutex> lock(mtx);
+        if (valStack.empty()) {
+            throw std::out_of_range("empty stack"); // or: throw exception();
+        }
+
+        auto [count, value] = *valStack.rbegin();
+        // auto [count, value] = *(-- valStack.end()); // also works.
+        valStack.erase({count, value});
+        maxStack.erase({value, count});
+        return value;
+    }
+    
+    int top() const {
+        lock_guard<mutex> lock(mtx);
+        if (valStack.empty()) {
+            throw std::out_of_range("empty stack"); // or: throw exception();
+        }
+
+        auto [count, value] = *valStack.rbegin();
+        return value;
+    }
+    
+    int peekMax() const {
+        lock_guard<mutex> lock(mtx);
+        if (valStack.empty()) {
+            throw std::out_of_range("empty stack"); // or: throw exception();
+        }
+
+        auto [value, count] = *maxStack.rbegin();
+        return value;
+    }
+    
+    int popMax() {
+        lock_guard<mutex> lock(mtx);
+        if (valStack.empty()) {
+            throw std::out_of_range("empty stack"); // or: throw exception();
+        }
+
+        auto [value, count] = *maxStack.rbegin();
+        maxStack.erase({value, count});
+        valStack.erase({count, value});
+        return value;
+    }
+
+    std::size_t size() const {
+        lock_guard<mutex> lock(mtx);
+        return valStack.size();
+    }
+
+    bool empty() const {
+        lock_guard<mutex> lock(mtx);
+        return valStack.empty();
+    }
+};
+
+
 // Better variable names.
 class MaxStack3 {
     set<pair<int, int>> valStack; // <count, value>
@@ -192,4 +267,23 @@ Implement the MaxStack class:
     only remove the top-most one.
 
 You must come up with a solution that supports O(1) for each top call and O(logn) for each other call.
+ */
+
+/**
+Note:
+
+The most common "optimal" answer uses:
+
+a doubly linked list (std::list)
+a value -> iterator map (std::map<int, vector<iterator>>)
+
+which achieves:
+
+top() = O(1)
+peekMax() = O(1)
+push() = O(log n)
+pop() = O(log n)
+popMax() = O(log n)
+
+Your two-set solution achieves the same asymptotic bounds while being simpler to reason about.
  */
