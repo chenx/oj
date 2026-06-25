@@ -53,7 +53,7 @@ class MaxStack {
     set<pair<int, int>> valStack; // <count, value>
     set<pair<int, int>> maxStack; // <value, count>
     std::uint64_t count;
-    mutable mutex mtx;
+    mutable mutex mtx; // "mutable" because "const" is used for some functions.
 
 public:
     MaxStack() : count(0) {}
