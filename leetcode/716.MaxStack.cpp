@@ -136,7 +136,7 @@ public:
 //
 // From https://leetcode.com/problems/max-stack/editorial/
 // Time Complexity:
-// - O(1) for top and peekMax.
+// - O(1) for top and peekMax, because C++ set maintains first and last elements.
 // - O(logN) for push, pop and popMax.
 // Space Complexity: O(N), the maximum size of the two balanced trees.
 //
