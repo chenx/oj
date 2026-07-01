@@ -7,31 +7,33 @@
 //
 
 // Works. Best.
+// Time: O(n*L*26) = O(nL), n = wordSet.size(), L = word.length()
+// Space: q, used, O(nL)
 class Solution3 {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         if (beginWord == endWord) return 0;
 
-        set<string> words(wordList.begin(), wordList.end());
+        unordered_set<string> words(wordList.begin(), wordList.end());
 
-        set<string> used;
-        queue<pair<string, int>> q; // word, dist
+        unordered_set<string> used;
+        queue<pair<string, int>> q; // pair<word, distance>
         used.insert(beginWord);
         q.push({beginWord, 1});
 
-        while (!q.empty()) {
+        while (!q.empty()) { // O(n), n = wordSet.size()
             string word = q.front().first;
             int dist = q.front().second;
             q.pop();
 
-            for (int i = 0; i < word.length(); ++ i) {
+            for (int i = 0; i < word.length(); ++ i) { // O(L), L = word.length()
                 char c = word[i];
 
-                for (char d = 'a'; d <= 'z'; ++ d) {
+                for (char d = 'a'; d <= 'z'; ++ d) { // O(26)
                     if (d == c) continue;
                     word[i] = d;
 
-                    if (words.contains(word) && ! used.contains(word)) {
+                    if (words.contains(word) && ! used.contains(word)) { // O(1)
                         if (word == endWord) return dist + 1;  // return here early insetad of after q.pop().
                         used.insert(word);
                         q.push({word, dist + 1});
