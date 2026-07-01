@@ -10,7 +10,7 @@
 // Quick select.
 // Time: O(n)
 // Space: O(log(n)) for recursion.
-class Solution5 {
+class Solution6 {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         unordered_map<int, int> counter; // <num, count>
@@ -56,7 +56,7 @@ public:
 // minHeap.
 // Time: O(n + n * log(k))
 // Space: O(n + k)
-class Solution4 {
+class Solution5 {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         map<int, int> count; // num, count
@@ -78,6 +78,34 @@ public:
             minHeap.pop();
         }
         return ans;
+    }
+};
+
+// MaxHeap.
+// Time: O(n + nlogn)
+// Space: O(n): for freq, maxHeap.
+class Solution4 {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> freq; // <num, frequency>
+
+        for (int num : nums) ++ freq[num];
+
+        auto comp = [&freq](int a, int b) {
+            return freq[a] < freq[b];
+        };
+        priority_queue<int, vector<int>, decltype(comp)> maxHeap(comp);
+        for (auto [num, _] : freq) {
+            maxHeap.push(num);
+        }
+
+        vector<int> result;
+        while (! maxHeap.empty() && k > 0) {
+            -- k;
+            result.push_back(maxHeap.top());
+            maxHeap.pop();
+        }
+        return result;
     }
 };
 
