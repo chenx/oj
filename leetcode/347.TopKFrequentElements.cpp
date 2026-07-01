@@ -16,7 +16,7 @@ public:
         unordered_map<int, int> counter; // <num, count>
         for (int num : nums) counter[num] ++;
 
-        vector<int> arr;
+        vector<int> arr; // NOTE: can't use nums, must use arr now.
         for (auto& [num, _]: counter) arr.push_back(num);
 
         int n = arr.size();
