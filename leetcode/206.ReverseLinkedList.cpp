@@ -8,7 +8,7 @@
  */
 
 // Iterative version. This works too.
-class Solution3 {
+class Solution4 {
 public:
     ListNode* reverseList(ListNode* head) {
         //if (! head || ! head->next) return head; // works with or without this.
@@ -26,7 +26,7 @@ public:
 };
 
 // Iterative version. This works.
-class Solution2 {
+class Solution3 {
 public:
     ListNode* reverseList(ListNode* head) {
         ListNode * h = NULL;
@@ -37,6 +37,31 @@ public:
             head = tmp;
         }
         
+        return h;
+    }
+};
+
+// Recursive version.
+class Solution2 {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* t = nullptr;
+        return rev(head, t);
+    }
+
+    ListNode* rev(ListNode* head, ListNode*& tail) {
+        if (! head) return nullptr;
+        if (! head->next) {
+            tail = head;
+            return head;
+        }
+
+        ListNode* h = rev(head->next, tail);
+        if (tail) {
+            tail->next = head;
+            tail = head;
+            tail->next = nullptr;
+        }
         return h;
     }
 };
