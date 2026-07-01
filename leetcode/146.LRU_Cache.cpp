@@ -9,6 +9,49 @@ When the cache reached its capacity, it should invalidate the least recently
 used item before inserting a new item. 
  */
 
+// This is efficient with C++ features: splice, emplace.
+class LRUCache14 {
+    struct Node {
+        int key;
+        int val;
+        Node(int k, int v) : key(k), val(v) {}
+    };
+    list<Node> dll;
+    unordered_map<int, list<Node>::iterator> cache;
+    size_t capacity;
+
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+    
+    int get(int key) {
+        auto it = cache.find(key);
+        if (it == cache.end()) {
+            // throw std::invalid_argument("key not exist: " + to_string(key));
+            return -1;
+        }
+
+        dll.splice(dll.begin(), dll, it->second);
+        cache[key] = dll.begin();
+        return it->second->val;
+    }
+    
+    void put(int key, int value) {
+        auto it = cache.find(key);
+        if (it == cache.end()) { // key not exist; add new entry.
+            if (capacity == dll.size()) { // remove from end of dll.
+                cache.erase(dll.back().key);
+                dll.pop_back();
+            }
+            dll.emplace_front(key, value);
+        } else {
+            it->second->val = value;
+            dll.splice(dll.begin(), dll, it->second);
+        }
+
+        cache[key] = dll.begin();
+    }
+};
+
 class LRUCache13 {
     struct Node {
         int key;
