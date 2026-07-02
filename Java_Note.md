@@ -19,9 +19,14 @@ Integer.MAX_VALUE
 
 ## length
 ```
-array: int[] a = {1,2}; int len = a.length;
-string: string s = "abc"; int len = s.length();
-list: List<int> t = new ArrayList<int>(); int len = t.size();
+array: int[] a = {1,2};
+int len = a.length;
+
+string: string s = "abc";
+int len = s.length();
+
+list: List<int> t = new ArrayList();
+int len = t.size();
 ```
 
 ## var (for auto in C++)
