@@ -480,7 +480,6 @@ Sequential containers restricting data access to endpoints.
 | Deletion | `erase(key)` | `remove(key)` |
 
 
-
 ## 6. Set
 
 | Feature | C++ `std::set` | Java `TreeSet` |
@@ -497,3 +496,45 @@ Sequential containers restricting data access to endpoints.
 | Check Empty | `set.empty()` | `set.isEmpty()` |
 | Time Complexity | **O(log n)** for insert, search, delete | **O(log n)** for insert, search, delete |
 | Supports Custom Ordering | Yes (custom comparator) | Yes (`Comparator`) |
+
+
+## 7. Deque
+
+| Feature | C++ `std::deque` | Java `ArrayDeque` (`Deque` Interface) |
+|---------|-------------------|----------------------------------------|
+| Underlying Data Structure | Segmented dynamic array | Resizable circular array |
+| Random Access | Yes (`deque[index]`, `deque.at(index)`) | No direct indexing |
+| Insertion at Front | `push_front(val)` | `addFirst(val)` / `offerFirst(val)` |
+| Insertion at Back | `push_back(val)` | `addLast(val)` / `offerLast(val)` |
+| Remove from Front | `pop_front()` | `removeFirst()` / `pollFirst()` |
+| Remove from Back | `pop_back()` | `removeLast()` / `pollLast()` |
+| Access Front | `front()` | `getFirst()` / `peekFirst()` |
+| Access Back | `back()` | `getLast()` / `peekLast()` |
+| Size | `size()` | `size()` |
+| Check Empty | `empty()` | `isEmpty()` |
+| Supports Stack Operations | Yes (`push_back()`, `pop_back()`) | Yes (`push()`, `pop()`, `peek()`) |
+| Supports Queue Operations | Yes | Yes |
+| Duplicate Elements | Allowed | Allowed |
+| Null Elements | Allowed | **Not allowed** |
+| Time Complexity | **O(1)** amortized for front/back insertions and removals | **O(1)** amortized for front/back insertions and removals |
+
+
+## 8. String
+
+| Feature | C++ `std::string` | Java `String` |
+|---------|--------------------|---------------|
+| Mutability | Mutable | Immutable |
+| Length | `str.length()` or `str.size()` | `str.length()` |
+| Access Character | `str[index]` or `str.at(index)` | `str.charAt(index)` |
+| Concatenation | `str += s` or `str.append(s)` | `str + s` or `str.concat(s)` |
+| Substring | `str.substr(pos, len)` | `str.substring(begin, end)` |
+| Find Substring | `str.find(sub)` | `str.indexOf(sub)` |
+| Replace | `str.replace(pos, len, s)` | `str.replace(old, new)` |
+| Insert | `str.insert(pos, s)` | Not supported (create a new string) |
+| Erase | `str.erase(pos, len)` | Not supported (create a new string) |
+| Compare | `str.compare(other)` | `str.compareTo(other)` |
+| Equality | `str == other` | `str.equals(other)` (`==` compares references) |
+| Check Empty | `str.empty()` | `str.isEmpty()` |
+| Clear | `str.clear()` | `str = ""` |
+| Convert to Character Array | `str.c_str()` / `std::vector<char>` | `str.toCharArray()` |
+| Time Complexity | Most operations are **O(n)** | Most operations are **O(n)** due to immutability |
