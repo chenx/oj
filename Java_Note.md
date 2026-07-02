@@ -460,7 +460,7 @@ Sequential containers restricting data access to endpoints.
 | Pop / Dequeue | `pop()` | `poll()` or `remove()` |
 | Peek | `front()` | `peek()` or `element()` |
 
-### Priority Queue (Heap)
+## 4. Priority Queue (Heap)
 
 | Operation | C++ | Java |
 |----------|------|------|
@@ -470,7 +470,7 @@ Sequential containers restricting data access to endpoints.
 | Default Ordering | Max-Heap (largest element first) | Min-Heap (smallest element first) |
 
 
-## 4. Associative Maps (Key-Value Pairs)
+## 5. Associative Maps (Key-Value Pairs)
 
 | Operation | C++ | Java |
 |----------|------|------|
@@ -481,7 +481,7 @@ Sequential containers restricting data access to endpoints.
 
 
 
-## 5. Set
+## 6. Set
 
 | Feature | C++ `std::set` | Java `TreeSet` |
 |---------|----------------|----------------|
