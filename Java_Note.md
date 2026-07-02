@@ -425,7 +425,7 @@ Used for fast random access and amortized **O(1)** insertions at the end.
 | Deletion | `pop_back()` or `erase()` | `remove(index)` |
 | Size | `size()` | `size()` |
 
----
+
 
 ## 2. Doubly Linked List
 
@@ -437,19 +437,11 @@ Used when frequent insertions and deletions at arbitrary positions are necessary
 | Access | Sequential traversal via iterators | `list.getFirst()` / `list.getLast()` |
 | Deletion | `pop_front()` / `pop_back()` / `erase()` | `removeFirst()` / `removeLast()` |
 
----
+
 
 ## 3. Queue & Stack
 
 Sequential containers restricting data access to endpoints.
-
-### Queue
-
-| Operation | C++ | Java |
-|----------|------|------|
-| Push / Enqueue | `push(val)` | `offer(val)` or `add(val)` |
-| Pop / Dequeue | `pop()` | `poll()` or `remove()` |
-| Peek | `front()` | `peek()` or `element()` |
 
 ### Stack
 
@@ -459,7 +451,24 @@ Sequential containers restricting data access to endpoints.
 | Pop | `pop()` *(returns `void`)* | `pop()` *(returns removed item)* |
 | Peek | `top()` | `peek()` |
 
----
+
+### Queue
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Push / Enqueue | `push(val)` | `offer(val)` or `add(val)` |
+| Pop / Dequeue | `pop()` | `poll()` or `remove()` |
+| Peek | `front()` | `peek()` or `element()` |
+
+### Priority Queue (Heap)
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Insertion | `push(val)` | `add(val)` or `offer(val)` |
+| Extract Top | `pop()` *(returns `void`)* | `poll()` *(returns element)* |
+| Peek Top | `top()` | `peek()` |
+| Default Ordering | Max-Heap (largest element first) | Min-Heap (smallest element first) |
+
 
 ## 4. Associative Maps (Key-Value Pairs)
 
@@ -470,13 +479,21 @@ Sequential containers restricting data access to endpoints.
 | Check Existence | `count(key)` or `contains()` *(C++20)* | `containsKey(key)` |
 | Deletion | `erase(key)` | `remove(key)` |
 
----
 
-## 5. Priority Queue (Heap)
 
-| Operation | C++ | Java |
-|----------|------|------|
-| Insertion | `push(val)` | `add(val)` or `offer(val)` |
-| Extract Top | `pop()` *(returns `void`)* | `poll()` *(returns element)* |
-| Peek Top | `top()` | `peek()` |
-| Default Ordering | Max-Heap (largest element first) | Min-Heap (smallest element first) |
+## 5. Set
+
+| Feature | C++ `std::set` | Java `TreeSet` |
+|---------|----------------|----------------|
+| Underlying Data Structure | Red-Black Tree | Red-Black Tree |
+| Ordering | Sorted (ascending by default) | Sorted (natural order or custom comparator) |
+| Duplicate Elements | Not allowed | Not allowed |
+| Insertion | `set.insert(val)` | `set.add(val)` |
+| Search | `set.find(val)` | `set.contains(val)` |
+| Deletion | `set.erase(val)` | `set.remove(val)` |
+| Smallest Element | `*set.begin()` | `set.first()` |
+| Largest Element | `*set.rbegin()` | `set.last()` |
+| Check Size | `set.size()` | `set.size()` |
+| Check Empty | `set.empty()` | `set.isEmpty()` |
+| Time Complexity | **O(log n)** for insert, search, delete | **O(log n)** for insert, search, delete |
+| Supports Custom Ordering | Yes (custom comparator) | Yes (`Comparator`) |
