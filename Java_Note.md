@@ -396,3 +396,87 @@ void test() {
 | Stack / Queue | `Deque<E>` / `Queue<E>` | `ArrayDeque<E>` |
 | Hash Table | `Map<K, V>` | `HashMap<K, V>` |
 | Balanced Tree | `SortedSet<E>` | `TreeSet<E>` |
+
+
+# Compare data structures in C++ and Java
+
+# C++ STL vs Java JCF Data Structures
+
+| Data Structure | C++ STL Class | Java JCF Class | Underlying Mechanism |
+|----------------|---------------|----------------|----------------------|
+| Dynamic Array | `std::vector` | `ArrayList` | Contiguous resizing array |
+| Doubly Linked List | `std::list` | `LinkedList` | Non-contiguous node pointers |
+| Queue | `std::queue` | `Queue` (Interface) / `ArrayDeque` | First-In, First-Out (FIFO) pipeline |
+| Stack | `std::stack` | `Stack` / `ArrayDeque` | Last-In, First-Out (LIFO) stack |
+| Ordered Map / Set | `std::map` / `std::set` | `TreeMap` / `TreeSet` | Self-balancing Red-Black Tree |
+| Unordered Map / Set | `std::unordered_map` / `std::unordered_set` | `HashMap` / `HashSet` | Hash table with collision chaining |
+| Priority Queue | `std::priority_queue` | `PriorityQueue` | Binary Max-Heap (C++) vs Min-Heap (Java) |
+
+# Core Method Mapping
+
+## 1. Dynamic Array
+
+Used for fast random access and amortized **O(1)** insertions at the end.
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Insertion | `push_back(val)` or `insert()` | `add(val)` or `add(index, val)` |
+| Access | `vec[index]` or `vec.at(index)` | `list.get(index)` |
+| Deletion | `pop_back()` or `erase()` | `remove(index)` |
+| Size | `size()` | `size()` |
+
+---
+
+## 2. Doubly Linked List
+
+Used when frequent insertions and deletions at arbitrary positions are necessary.
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Insertion | `push_front(val)` / `push_back(val)` | `addFirst(val)` / `addLast(val)` |
+| Access | Sequential traversal via iterators | `list.getFirst()` / `list.getLast()` |
+| Deletion | `pop_front()` / `pop_back()` / `erase()` | `removeFirst()` / `removeLast()` |
+
+---
+
+## 3. Queue & Stack
+
+Sequential containers restricting data access to endpoints.
+
+### Queue
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Push / Enqueue | `push(val)` | `offer(val)` or `add(val)` |
+| Pop / Dequeue | `pop()` | `poll()` or `remove()` |
+| Peek | `front()` | `peek()` or `element()` |
+
+### Stack
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Push | `push(val)` | `push(val)` |
+| Pop | `pop()` *(returns `void`)* | `pop()` *(returns removed item)* |
+| Peek | `top()` | `peek()` |
+
+---
+
+## 4. Associative Maps (Key-Value Pairs)
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Insertion | `map[key] = value` or `insert()` | `map.put(key, value)` |
+| Access | `map[key]` or `find()` | `map.get(key)` or `getOrDefault()` |
+| Check Existence | `count(key)` or `contains()` *(C++20)* | `containsKey(key)` |
+| Deletion | `erase(key)` | `remove(key)` |
+
+---
+
+## 5. Priority Queue (Heap)
+
+| Operation | C++ | Java |
+|----------|------|------|
+| Insertion | `push(val)` | `add(val)` or `offer(val)` |
+| Extract Top | `pop()` *(returns `void`)* | `poll()` *(returns element)* |
+| Peek Top | `top()` | `peek()` |
+| Default Ordering | Max-Heap (largest element first) | Min-Heap (smallest element first) |
