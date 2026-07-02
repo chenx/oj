@@ -538,3 +538,6 @@ Sequential containers restricting data access to endpoints.
 | Clear | `str.clear()` | `str = ""` |
 | Convert to Character Array | `str.c_str()` / `std::vector<char>` | `str.toCharArray()` |
 | Time Complexity | Most operations are **O(n)** | Most operations are **O(n)** due to immutability |
+
+**Note**: Since Java String is immutable, operations like concatenation, replacement, or substring creation return a new String rather than modifying the original. For frequent modifications, Java uses StringBuilder, which is more comparable to a mutable C++ std::string.
+
