@@ -1,3 +1,53 @@
+// No extra space. Better than Solution3.
+// From: https://leetcode.com/problems/product-of-array-except-self/editorial/
+// Time: O(n), Space: O(1)
+class Solution4 {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> result(n);
+
+        result[0] = 1;
+        for (int i = 1; i < n; ++ i) {
+            result[i] = result[i-1] * nums[i-1];
+        }
+
+        int prod = 1;
+        for (int i = n-1; i > 0; -- i) {
+            result[i] = result[i] * prod;
+            prod *= nums[i];
+        }
+        result[0] = prod;
+
+        return result;
+    }
+};
+
+// Adapted from Solution2. No extra space.
+// Space: O(1)
+class Solution3 {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> result(n);
+
+        result[0] = nums[0];
+        for (int i = 1; i < n-1; ++ i) {
+            result[i] = result[i-1] * nums[i];
+        }
+        result[n-1] = result[n-2];
+
+        int prod = nums[n-1];
+        for (int i = n-2; i > 0; -- i) {
+            result[i] = result[i-1] * prod;
+            prod *= nums[i];
+        }
+        result[0] = prod;
+
+        return result;
+    }
+};
+
 // Works too. Tested.
 class Solution2 {
 public:
