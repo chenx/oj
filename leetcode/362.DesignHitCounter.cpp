@@ -1,3 +1,30 @@
+// Similar to HitCounter3, but use pair.
+class HitCounter4 {
+    int capacity;
+    vector<pair<int, int>> data; // <time, count>
+public:
+    HitCounter() : capacity(300), data(vector<pair<int, int>>(capacity, {0, 0})) {}
+    
+    void hit(int timestamp) {
+        int index = timestamp % capacity;
+        if (timestamp == data[index].first) {
+            data[index].second += 1;
+        } else {
+            data[index] = {timestamp, 1};
+        }
+    }
+    
+    int getHits(int timestamp) {
+        int count = 0;
+        for (auto [time, ct] : data) {
+            if (time + capacity > timestamp) {
+                count += ct;
+            }
+        }
+        return count;
+    }
+};
+
 /**
   In C++, a std::map automatically stores its elements in a sorted order based on their keys. 
   This is a fundamental characteristic of std::map, as it is typically implemented using a self-balancing 
@@ -9,7 +36,7 @@
 // Implemented as circular array. The most popular implementation.
 // Time: O(1) for hit, O(300) =~ O(1) for getHits.
 // Space: O(300) =~ O(1).
-class HitCounter {
+class HitCounter3 {
     vector<vector<int>> counter; //(300, vector<int>(2, 0)); // <timestamp, count> 
     int capacity;
 public:
