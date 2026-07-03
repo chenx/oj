@@ -1,3 +1,10 @@
+// upper_bound: return iterator to first key > timestamp.
+// lower_bound: return iterator to first key >= timestamp.
+
+// Time: O(L * log(n)) for set, get. 
+// - L = average length of key, for hashing the key; 
+// - n = map[key].size(). In worst case, all elements are in one key, then n = map.size()
+// Space: O(1)
 class TimeMap {
     unordered_map<string, map<int, string>> map; // <key, <timestamp, value>>
 
