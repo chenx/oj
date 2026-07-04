@@ -1,16 +1,17 @@
 // Best answer. From https://leetcode.com/problems/find-peak-element/editorial/
+// Note: all 4 combinations work: ">" or ">=", return "l" or "r".
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
         int l = 0, r = nums.size() - 1;
         while (l < r) {
             int mid = l + (r - l) / 2;
-            if (nums[mid] > nums[mid + 1])
+            if (nums[mid] > nums[mid + 1]) // ">=" works too.
                 r = mid;
             else
                 l = mid + 1;
         }
-        return l;
+        return l; // "return r" also works.
     }
 };
 
