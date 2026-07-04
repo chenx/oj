@@ -5,7 +5,9 @@
 // @Last modified: 1/9/2013
 //
 
-// Works. Recursive solution. Time: O(n!), Space: O(n).
+// Works. Recursive solution.
+// Time: n * n!, n for copy at the last step.
+// Space: O(n)
 class Solution9 {
 public:
     vector<vector<int>> permute(vector<int>& nums) {
