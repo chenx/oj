@@ -1,6 +1,33 @@
 #include <iostream>
 using namespace std;
 
+class Solution12 {
+public:
+    string reverseWords(string s) {
+        reverse(s.begin(), s.end());
+        
+        int i = 0, j = 0, n = s.length();
+        while (true) {
+            while (i < n && isspace(s[i])) ++ i;
+            if (i == n) break;
+            for (j = i; j < n && ! isspace(s[j]); ++ j) ;
+            
+            reverse(s.begin() + i, s.begin() + j);
+            i = j;
+        }
+
+        // remove start and end space.
+        int p = 0;
+        for (i = 0; i < n; ) {
+            while (i < n && isspace(s[i])) ++ i;
+            while (i < n && ! isspace(s[i])) s[p++] = s[i++];
+            s[p ++] = ' ';
+        }
+        while (s[p - 1] == ' ') -- p;
+        return s.substr(0, p);
+    }
+};
+
 // Works. In place, O(1) space.
 class Solution11 {
 public:
