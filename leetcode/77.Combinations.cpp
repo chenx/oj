@@ -8,6 +8,8 @@
 #include <vector>
 using namespace std;
 
+// Time: k * C(n, k), k for copy at the last step.
+// Space: O(k)
 class Solution8 {
 public:
     vector<vector<int>> combine(int n, int k) {
