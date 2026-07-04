@@ -4,7 +4,7 @@ class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
         int l = 0, r = nums.size() - 1;
-        while (l < r) {
+        while (l < r) {  // cannot be "<=" or it loops forever.
             int mid = l + (r - l) / 2;
             if (nums[mid] > nums[mid + 1]) // ">=" works too.
                 r = mid;
