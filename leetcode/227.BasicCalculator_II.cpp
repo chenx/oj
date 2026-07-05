@@ -1,3 +1,77 @@
+/**
+  E = F + F | F - F
+  F = T * T | T / T
+  T = num | - T | ( E )
+ */
+class Solution11 {
+    int pos;
+public:
+    int calculate(string s) {
+        pos = 0;
+        return E(s);
+    }
+
+    int E(string& s) {
+        int val = F(s);
+        while (s[pos] == '+' || s[pos] == '-') {
+            if (s[pos] == '+') {
+                ++ pos;
+                val += F(s);
+            } else {
+                ++ pos;
+                val -= F(s);
+            }
+        }
+        return val;
+    }
+
+    int F(string& s) {
+        int val = T(s);
+        while (s[pos] == '*' || s[pos] == '/') {
+            if (s[pos] == '*') {
+                ++ pos;
+                val *= T(s);
+            } else {
+                ++ pos;
+                val /= T(s);
+            }
+        }
+        return val;
+    }
+
+    int T(string& s) {
+        int val = 0;
+        ignoreSpace(s);
+        
+        if (isdigit(s[pos])) {
+            val = getNum(s);
+        } else if (s[pos] == '-') {
+            ++ pos;
+            val = - T(s);
+        } else if (s[pos] == '(') {
+            ++ pos;
+            val = E(s);
+            ++ pos; // ignore ')'
+        }
+
+        ignoreSpace(s);
+        return val;
+    }
+
+    int getNum(string& s) {
+        int val = 0;
+        while (isdigit(s[pos])) {
+            val = val * 10 + (s[pos] - '0');
+            ++ pos;
+        }
+        return val;
+    }
+
+    void ignoreSpace(string& s) {
+        while (isspace(s[pos])) ++ pos;
+    }
+};
+
 // Works for both 224 and 227.
 // E = F +/ F
 // F = T */ T
