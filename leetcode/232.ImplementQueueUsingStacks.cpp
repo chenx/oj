@@ -1,3 +1,46 @@
+// Use only 1 stack.
+class MyQueue2 {
+    // push: O(n), use call stack as the 2nd stack.
+    // pop: O(1)
+    stack<int> s;
+
+public:
+    MyQueue() {}
+    
+    void push(int x) {
+        if (s.empty()) {
+            s.push(x);
+            return;
+        }
+        int t = s.top();
+        s.pop();
+        push(x);
+        s.push(t);
+    }
+    
+    int pop() {
+        if (empty()) throw exception();
+
+        int val = s.top();
+        s.pop();
+        return val;
+    }
+    
+    int peek() {
+        if (empty()) throw exception();
+
+        return s.top();
+    }
+    
+    bool empty() {
+        return s.empty();
+    }
+};
+
+
+// Use 2 stacks.
+// push: O(1)
+// peek, pop: O(n) but amortized to O(1).
 class Queue {
 public:
     // Push element x to the back of queue.
@@ -8,14 +51,14 @@ public:
     // Removes the element from in front of queue.
     void pop(void) {
         if (empty()) return;
-        mov();
+        movS1ToS2();
         s2.pop();
     }
 
     // Get the front element.
     int peek(void) {
         if (empty()) return -1; // underflow
-        mov();
+        movS1ToS2();
         return s2.top();
     }
 
@@ -28,7 +71,7 @@ private:
     stack<int> s1;
     stack<int> s2;
     
-    void mov() {
+    void movS1ToS2() {
         if (! s2.empty()) return;
         while (! s1.empty()) {
             s2.push(s1.top());
