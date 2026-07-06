@@ -1,3 +1,35 @@
+class Solution3 {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        unordered_map<int, vector<pair<int, int>>> outBound; // <from, to, price>
+        for (auto& f : flights) {
+            outBound[f[0]].push_back({f[1], f[2]});
+        }
+
+        queue<tuple<int, int, int>> q; // <airport, price, stops>
+        q.push({src, 0, 0});
+
+        vector<int> prices(n, -1);
+
+        while (! q.empty()) {
+            auto [airport, price, stops] = q.front();
+            q.pop();
+
+            if (stops > k) continue;
+
+            for (auto& [nextAirport, nextPrice] : outBound[airport]) {
+                int newPrice = price + nextPrice;
+                if (prices[nextAirport] == -1 || prices[nextAirport] > newPrice) {
+                    prices[nextAirport] = newPrice;
+                    q.push({nextAirport, newPrice, stops + 1});
+                }
+            }
+        }
+
+        return prices[dst];
+    }
+};
+
 // BFS.
 // Reference: https://leetcode.com/problems/cheapest-flights-within-k-stops/editorial/
 // Time: Let E be the number of flights and N be the number of cities.
