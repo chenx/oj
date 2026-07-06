@@ -12,6 +12,12 @@ class Trie4 {
             return children[ch];
         }
 
+        // This is more efficient: only use find once.
+        TrieNode* findChild2(char c) {
+            auto it = children.find(c);
+            return it == children.end() ? nullptr : it->second;
+        }
+
         TrieNode* find(char ch) {
             return children.contains(ch) ? children[ch] : NULL;
         }
