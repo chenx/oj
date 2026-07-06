@@ -1,4 +1,38 @@
-// Works. Maybe best.
+// Best. Use only one queue.
+// See: https://leetcode.com/problems/implement-queue-using-stacks/editorial/
+// Time: push O(n), pop O(1), top O(1)
+class MyStack4 {
+    queue<int> q;
+public:
+    MyStack() {}
+    
+    void push(int x) {
+        int ct = q.size();
+        q.push(x);
+        for (; ct > 0; -- ct) {
+            q.push(q.front());
+            q.pop();
+        }
+    }
+    
+    int pop() {
+        if (q.empty()) return -1;
+        int val = q.front();
+        q.pop();
+        return val;
+    }
+    
+    int top() {
+        if (q.empty()) return -1;
+        return q.front();
+    }
+    
+    bool empty() {
+        return q.empty();
+    }
+};
+
+// Works.
 // This works and uses only standard queue operations. 
 // Key is to keep only 1 element in q1, so top() and pop() are both easy.
 // When pop, after pop q1, push all q2 elements again.
