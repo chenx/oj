@@ -20,6 +20,7 @@ public:
 
 // C++ version works. Much more clear than Java version.
 // Similar to 297. https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+// E.g.: [1,null,3,2,4,null,5,6]. Each row ends with a "null".
 class Codec {
 public:
     // Encodes a tree to a single string.
