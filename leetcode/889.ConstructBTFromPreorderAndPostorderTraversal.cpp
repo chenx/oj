@@ -1,3 +1,24 @@
+// Cleaned up a bit from Solution2.
+class Solution3 {
+public:
+    TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
+        int p1 = 0, p2 = 0;
+        return build(preorder, postorder, p1, p2);
+    }
+
+    TreeNode* build(vector<int>& preorder, vector<int>& postorder, int& p1, int& p2) {
+        int val = preorder[p1];
+        ++ p1;
+
+        TreeNode* node = new TreeNode(val);
+        if (val != postorder[p2]) node->left = build(preorder, postorder, p1, p2);
+        if (val != postorder[p2]) node->right = build(preorder, postorder, p1, p2);
+
+        ++ p2;
+        return node;
+    }
+};
+
 // Cleaned up a bit from Solution.
 class Solution2 {
 public:
