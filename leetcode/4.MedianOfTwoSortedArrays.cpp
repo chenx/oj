@@ -67,7 +67,7 @@ public:
         int m = A.size() - offsetA, n = B.size() - offsetB;
         
         if (m > n) return getKth(B, offsetB, A, offsetA, k);
-        if (m == 0) return B[offsetB + k - 1];
+        if (m == 0) return B[k - 1];  // B[offsetB + k - 1] also works.
         if (k == 1) return min(A[offsetA], B[offsetB]);
         
         int pa = min(k/2, m), pb = k - pa;
