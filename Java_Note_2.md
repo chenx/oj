@@ -165,6 +165,8 @@ Thread.startVirtualThread(() -> {
 
 **Java threading** allows your program to execute multiple tasks concurrently by splitting work into independent paths of execution. By default, every Java application runs on a single "main" thread, but you can create additional threads to perform background tasks, maximize CPU utilization, and keep user interfaces responsive.
 
+**Java version** The latest stable release of the Java SE Platform is Java 26, which reached General Availability on March 17, 2026.
+
 ### Core Approaches to Creating Threads
 
 Java offers two classic techniques for defining and launching a basic platform thread.
