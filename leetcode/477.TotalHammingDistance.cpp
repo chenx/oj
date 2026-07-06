@@ -1,3 +1,24 @@
+class Solution2 {
+public:
+    int totalHammingDistance(vector<int>& nums) {
+        if (nums.empty()) return 0;
+        vector<int> count(32, 0);
+
+        for (int i = 0; i < 32; ++ i) {
+            int mask = 1 << i;
+            for (int num : nums) {
+                if (num & mask) count[i] ++;
+            }
+        }
+
+        int sum = 0, n = nums.size();
+        for (int ct : count) {
+            sum += ct * (n - ct);
+        }
+        return sum;
+    }
+};
+
 // From: https://leetcode.com/problems/total-hamming-distance/editorial/
 // Loop over the bits!
 // Count how many bits are On at each bit. 
