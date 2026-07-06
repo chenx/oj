@@ -21,6 +21,8 @@ public:
 // C++ version works. Much more clear than Java version.
 // Similar to 297. https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 // E.g.: [1,null,3,2,4,null,5,6]. Each row ends with a "null".
+// deserialize() is different only by pos = 1, instead of starting with pos = 0.
+// serialize() is different, since there is no need to distinguish left or right for n-ary tree.
 class Codec {
 public:
     // Encodes a tree to a single string.
