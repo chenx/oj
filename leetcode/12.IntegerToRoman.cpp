@@ -10,6 +10,7 @@ public:
                 num -= val[i];
                 result += roman[i];
             }
+            if (num == 0) break;
         }
         return result;
     }
