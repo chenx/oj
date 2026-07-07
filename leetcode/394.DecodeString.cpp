@@ -1,3 +1,37 @@
+class Solution3 {
+public:
+    string decodeString(string s) {
+        stack<string> valStack;
+        stack<int> numStack;
+
+        string cur;
+        int ct = 0;
+        for (char ch : s) {
+            if (ch == '[') {
+                numStack.push(ct);
+                valStack.push(cur);
+                ct = 0;
+                cur = "";
+            } else if (ch == ']') {
+                string prev = valStack.top();
+                valStack.pop();
+                int count = numStack.top();
+                numStack.pop();
+                for (int i = 0; i < count; ++ i) {
+                    prev += cur;
+                }
+                cur = prev;
+            } else if (isdigit(ch)) {
+                ct = ct * 10 + (ch - '0');
+            } else {
+                cur += ch;
+            }
+        }
+
+        return cur;
+    }
+};
+
 // Time Complexity: O(maxK⋅n), where maxK is the maximum value of k and n is the length of a given string s.
 // Space Complexity: O(m+n), where m is the number of letters(a-z) and n is the number of digits(0-9) in string s.
 // In worst case, the maximum size of stringStack and countStack could be m and n respectively.
