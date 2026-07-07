@@ -1,3 +1,26 @@
+// Best solution so far.
+// Time: O(1)
+// Space: O(1)
+class Solution {
+    vector<string> roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    vector<int> val = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+
+public:
+    int romanToInt(string s) {
+        int result = 0, index = 0;
+        for (int i = 0; i < val.size(); ++ i) {
+            string key = roman[i];
+            int value = val[i];
+            while (s.find(key, index) == index) { // s[index] starts with key.
+                result += value;
+                index += key.length();
+            };
+            if (index == s.length()) break;
+        }
+        return result;
+    }
+};
+
 // From: https://leetcode.com/problems/roman-to-integer/editorial/
 // Time: O(1)
 // Space: O(1)
