@@ -9,11 +9,9 @@ public:
     int romanToInt(string s) {
         int result = 0, index = 0;
         for (int i = 0; i < val.size(); ++ i) {
-            string key = roman[i];
-            int value = val[i];
-            while (s.find(key, index) == index) { // s[index] starts with key.
-                result += value;
-                index += key.length();
+            while (s.find(roman[i], index) == index) {
+                result += val[i];
+                index += roman[i].length();
             };
             if (index == s.length()) break;
         }
