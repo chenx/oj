@@ -51,10 +51,6 @@ public:
         int freq = it->freq;
 
         if (freq == 1) {
-            it->keys.erase(key);
-            if (it->keys.empty()) {
-                dll.erase(it);
-            }
             map.erase(key);
         } else {
             if (next(it) != dll.end() && freq - 1 == next(it)->freq) {
@@ -63,11 +59,11 @@ public:
                 dll.insert(next(it), Node(freq - 1, key));
             }
             map[key] = next(it);
-
-            it->keys.erase(key);
-            if (it->keys.empty()) {
-                dll.erase(it);
-            }
+        }
+        
+        it->keys.erase(key);
+        if (it->keys.empty()) {
+            dll.erase(it);
         }
     }
     
