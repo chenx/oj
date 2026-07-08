@@ -1,8 +1,26 @@
+class Solution3 {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int left = 1, right = *max_element(piles.begin(), piles.end());
+
+        while (left < right) {
+            int mid = left + (right - left)/2;
+
+            int hours = 0;
+            for (int p : piles) hours += ceil( (double) p / mid);
+
+            if (hours > h) left = mid + 1;
+            else right = mid;
+        }
+        return right;
+    }
+};
+
 // From: https://leetcode.com/problems/koko-eating-bananas/editorial/
 // Let n be the length of the input array piles and m be the maximum number of bananas in a single pile from piles.
 // Time: O(n log m)
 // Space: O(1)
-class Solution {
+class Solution2 {
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
         int left = 1, right = 1;
