@@ -7,7 +7,7 @@ public:
             int mid = left + (right - left)/2;
 
             int hours = 0;
-            for (int p : piles) hours += ceil( (double) p / mid);
+            for (int p : piles) hours += ceil( (double) p / mid); // Dont' forget to cast to double!
 
             if (hours > h) left = mid + 1;
             else right = mid;
