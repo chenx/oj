@@ -5,9 +5,7 @@ private:
     struct Node {
         int freq;
         unordered_set<string> keys;
-        Node(int freq, string& key) : freq(freq) {
-            keys.insert(key);
-        }
+        Node(int freq, string& key) : freq(freq), keys({key}) {}
     };
 
     list<Node> dll; // front: top count; back: bottom count
