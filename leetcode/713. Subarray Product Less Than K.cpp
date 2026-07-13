@@ -1,3 +1,22 @@
+class Solution3 {
+public:
+    int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+        int n = nums.size(), prod = 1, count = 0;
+        for (int i = 0, start = 0; i < n; ++ i) {
+            prod *= nums[i];
+
+            while (start < i && prod >= k) {
+                prod /= nums[start];
+                ++ start;
+            }
+            if (prod < k) {
+                count += i - start + 1; // <-- NOTE!
+            }
+        }
+        return count;
+    }
+};
+
 // From: https://leetcode.com/problems/subarray-product-less-than-k/editorial/
 class Solution2 {
 public:
