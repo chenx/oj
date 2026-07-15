@@ -884,6 +884,11 @@ class A(object):
         return cls.__instance
 ```
 
+Note: 
+- cls represents the class A
+- self represents an instance
+- __new__ is a class level method. It runs before any object actually exists.
+
 ### decorator
 
 ### yield
