@@ -887,7 +887,7 @@ class A(object):
 Note: 
 - cls represents the class A
 - self represents an instance
-- __new__ is a class level method. It runs before any object actually exists.
+- \_\_new\__ is a class level method. It runs before any object actually exists.
 
 ### decorator
 
