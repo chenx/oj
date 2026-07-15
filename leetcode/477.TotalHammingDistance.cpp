@@ -1,3 +1,27 @@
+class Solution3 {
+public:
+    int totalHammingDistance(vector<int>& nums) {
+        unordered_map<int, int> countMap;
+        for (int num : nums) ++ countMap[num];
+
+        vector<int> bitCount(32);
+        for (int i = 0; i < 32; ++ i) {
+            int mask = 1 << i;
+            for (auto& [num, ct] : countMap) {
+                if (num & mask) {
+                    bitCount[i] += ct;
+                }
+            }
+        }
+
+        int sum = 0, n = nums.size();
+        for (int ct : bitCount) {
+            sum += ct * (n - ct);
+        }
+        return sum;
+    }
+};
+
 class Solution2 {
 public:
     int totalHammingDistance(vector<int>& nums) {
