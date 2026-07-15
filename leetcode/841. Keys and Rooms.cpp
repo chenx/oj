@@ -1,3 +1,28 @@
+class Solution4 {
+public:
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        queue<int> q;
+        set<int> visited;
+        q.push(0);
+        visited.insert(0);
+
+        int counter = 0;
+        while (! q.empty()) {
+            int room = q.front();
+            q.pop();
+            ++ counter;
+
+            for (int k : rooms[room]) {
+                if (! visited.contains(k)) {
+                    visited.insert(k);
+                    q.push(k);
+                }
+            }
+        }
+        return counter == rooms.size();
+    }
+};
+
 // Time: O(V + E)
 // Space: O(V)
 class Solution3 {
