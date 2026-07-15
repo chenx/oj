@@ -1,3 +1,22 @@
+class Solution2 {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        unordered_map<char, int> freqMap;
+        for (char task : tasks) ++ freqMap[task];
+
+        int maxF = 0;
+        for (auto& [_, freq] : freqMap) {
+            maxF = max(maxF, freq);
+        }
+
+        int time = (maxF - 1) * (n + 1);
+        for (auto& [_, freq] : freqMap) {
+            if (freq == maxF) ++ time;
+        }
+        return max(time, (int) tasks.size());
+    }
+};
+
 // From: https://leetcode.com/problems/task-scheduler/editorial/
 // Time: O(n)
 // Space: O(1)
