@@ -245,7 +245,7 @@ size:
 len(map)
 
 loop:
-for key, val in map:
+for key, val in map.items():
   print(key)
 ```
 
@@ -887,7 +887,7 @@ class A(object):
 Note: 
 - cls represents the class A
 - self represents an instance
-- \_\_new\__ is a class level method. It runs before any object actually exists.
+- \__new\__ is a class level method. It runs before any object actually exists.
 
 ### decorator
 
