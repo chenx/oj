@@ -11,6 +11,7 @@ public:
   }
 
   // original, recursive version.
+  // Time: O(alpha(n)) =~ O(1)
   int find(int x) {  // O(alpha(n))
     if (parent[x] != x) {
       parent[x] = find(parent[x]);
@@ -19,6 +20,7 @@ public:
   }
 
   // iterative version.
+  // Time: O(alpha(n)) =~ O(1)
   int find2(int x) {  // O(alpha(n))
     while (parent[x] != x) {
       parent[x] = parent[parent[x]];
@@ -36,6 +38,7 @@ public:
     return parent[x];
   }
 
+  // Time: O(alpha(n)) =~ O(1)
   void get_union(int x, int y) {  // O(alpha(n))
     x = find(x);
     y = find(y);
