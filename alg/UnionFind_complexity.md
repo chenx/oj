@@ -1,3 +1,5 @@
+# 1. Time Complexity
+
 Let:
 * \(V\) = number of unique strings/nodes
 * \(E\) = number of relationships/edges
@@ -149,3 +151,17 @@ The DFS solution is technically slightly better for one-shot connected-component
 
 However, the difference is practically negligible because:
 $$\alpha(V) \approx 1$$
+
+
+<br/>
+
+# 2. Space Complexity
+
+For your two implementations, the space complexity is $O(V+E)$ for the DFS solution and $O(V)$ for the Union-Find solution, depending on whether you count the output.
+
+### Summary
+
+| Function | Main data structure | Auxiliary Space | Including Output |
+| :--- | :--- | :--- | :--- |
+| **`find_group()`** | Union-Find | $O(V)$ | $O(V)$ |
+| **`find_group_2()`** | Adjacency list | $O(V+E)$ | $O(V+E)$ |
