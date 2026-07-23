@@ -197,13 +197,13 @@ Output:
 ```
 
 ```cpp
+// 1) Union Find solution.
 // Time: O(m * alpha(n)) for m operators, n elements. alpha(n): reverse ackerman function =~ 1
 // Space: O(n)
 class UnionFind;
 
-
-// Time: O(n * alpha(n)) =~ O(n), n = input.size()
-// Space: O(n)
+// Time: O((V + E) * alpha(V) + V log V) =~ O(E + V log V), n = input.size()
+// Space: O(V)
 vector<vector<int>> get_groups(vector<pair<int, int>>& input) {
   UnionFind uf;
   for (auto [x, y] : input) {
@@ -228,6 +228,9 @@ vector<vector<int>> get_groups(vector<pair<int, int>>& input) {
 }
 
 
+// 2. DFS solution.
+// Time: O(E + V log V)
+// Space: O(V + E)
 void dfs(int val, vector<int>& row, unordered_map<int, unordered_set<int>>& graph, set<int>& used) {
   used.insert(val);
   row.push_back(val);
