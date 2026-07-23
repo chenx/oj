@@ -6,7 +6,9 @@
 class UnionFind:
     def __init__(self, n):
         self.parent = [i for i in range(n)]
-    
+
+    # This does NOT do path compression. It just walks up the tree.
+    # See c++ version for standard implementation.
     def find(self, i):
         while self.parent[i] != self.parent[self.parent[i]]:
             i = self.parent[i]
