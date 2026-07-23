@@ -177,3 +177,179 @@ DFS:
 Time:  O(E + V log V)
 Space: O(V + E)
 ```
+
+# 4. Full code
+
+```
+#include <algorithm>
+#include <iostream>
+#include <set>
+#include <unordered_map> 
+#include <unordered_set>
+#include <vector>
+  
+using namespace std; 
+    
+    
+// Time: O(m * alpha(n)) for m operators, n elements. alpha(n): reverse ackerman function =~ 1
+// Space: O(n)
+class UnionFind {
+public:
+  void add(int x) {  // O(1)
+    if (parent.contains(x)) return;
+    
+    parent[x] = x;
+    rank[x] = 0;
+  }
+  
+  int find(int x) {  // O(alpha(n)) 
+    while (parent[x] != parent[parent[x]]) {
+      parent[x] = parent[parent[x]];
+    }
+    return parent[x];
+  }
+
+  void get_union(int x, int y) {  // O(alpha(n))
+    x = find(x);
+    y = find(y);
+    if (x == y) return;
+    
+    int rx = rank[x], ry = rank[y];
+    if (rx < ry) {
+      parent[x] = y;
+    } else if (ry < rx) {
+      parent[y] = x;
+    } else {
+      parent[y] = x;
+      ++ rank[x];
+    } 
+  } 
+    
+  unordered_map<int, int>& get_parent_map() {
+    return parent;
+  }
+
+private:
+  unordered_map<int, int> parent;
+  unordered_map<int, int> rank;
+};
+
+
+// Time: O(n * alpha(n)) =~ O(n), n = input.size()
+// Space: O(n)
+vector<vector<int>> get_groups(vector<pair<int, int>>& input) {
+  UnionFind uf;
+  for (auto [x, y] : input) {
+    uf.add(x);
+    uf.add(y);
+    uf.get_union(x, y);
+  }
+
+  unordered_map<int, unordered_set<int>> groups;
+  auto parent_map = uf.get_parent_map();
+  for (auto [x, _] : parent_map) {
+    groups[uf.find(x)].insert(x);
+  }
+
+  vector<vector<int>> result;
+  for (auto& [_, values] : groups) {
+    vector<int> row(values.begin(), values.end());
+    sort(row.begin(), row.end());
+    result.push_back(row);
+  }
+  return result;
+}
+
+
+void test() {
+  vector<pair<int, int>> input = {
+    {3, 4},
+    {3, 6},
+    {4, 6},
+    {4, 5},
+    {7, 10},
+  };
+
+  auto groups = get_groups(input);
+  for (auto& group: groups) {
+    for (int val : group) {
+      cout << val << " ";
+    }
+    cout << endl;
+  }
+}
+
+
+
+void dfs(int val, vector<int>& row, unordered_map<int, unordered_set<int>>& graph, set<int>& used) {
+  used.insert(val);
+  row.push_back(val);
+
+  for (int v : graph[val]) {
+    if (used.contains(v)) continue;
+    dfs(v, row, graph, used);
+  }
+}
+
+vector<vector<int>> get_groups_2(vector<pair<int, int>>& input) {
+  unordered_map<int, unordered_set<int>> graph;
+  for (auto [x, y] : input) {
+    graph[x].insert(y);
+    graph[y].insert(x);
+  }
+
+  vector<vector<int>> result;
+  set<int> used;
+  for (auto [key, _] : graph) {
+    if (used.contains(key)) continue;
+
+    vector<int> row;
+    dfs(key, row, graph, used);
+    sort(row.begin(), row.end());
+    result.push_back(row);
+  }
+  sort(result.begin(), result.end());
+  return result;
+}
+
+void test2() {
+  vector<pair<int, int>> input = {
+    {3, 4},
+    {3, 6},
+    {4, 6},
+    {4, 5},
+    {7, 10},
+  };
+
+  auto groups = get_groups_2(input);
+  for (auto& group: groups) {
+    for (int val : group) {
+      cout << val << " ";
+    }
+    cout << endl;
+  }
+}
+
+
+int main() {
+  test();
+  test2();
+  return 0;
+}
+
+/**
+Given pairs of numbers, group them together.
+For input:
+{
+    {3, 4},
+    {3, 6},
+    {4, 6},
+    {4, 5},
+    {7, 10},
+}
+
+Output:
+3 4 5 6 
+7 10 
+ */
+```
