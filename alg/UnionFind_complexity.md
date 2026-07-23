@@ -202,7 +202,7 @@ Output:
 // Space: O(n)
 class UnionFind;
 
-// Time: O((V + E) * alpha(V) + V log V) =~ O(E + V log V), n = input.size()
+// Time: O((V + E) * alpha(V) + V log V) =~ O(E + V log V), n = input.size(). Log is for sorting.
 // Space: O(V)
 vector<vector<int>> get_groups(vector<pair<int, int>>& input) {
   UnionFind uf;
@@ -229,7 +229,7 @@ vector<vector<int>> get_groups(vector<pair<int, int>>& input) {
 
 
 // 2. DFS solution.
-// Time: O(E + V log V)
+// Time: O(E + V log V). Log is for sorting.
 // Space: O(V + E)
 void dfs(int val, vector<int>& row, unordered_map<int, unordered_set<int>>& graph, set<int>& used) {
   used.insert(val);
