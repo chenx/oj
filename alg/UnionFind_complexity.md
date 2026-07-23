@@ -178,61 +178,28 @@ Time:  O(E + V log V)
 Space: O(V + E)
 ```
 
-# 4. Full code
-
+# 4. Code
 ```
-#include <algorithm>
-#include <iostream>
-#include <set>
-#include <unordered_map> 
-#include <unordered_set>
-#include <vector>
-  
-using namespace std; 
-    
-    
+Given pairs of numbers, group them together.
+For input:
+{
+    {3, 4},
+    {3, 6},
+    {4, 6},
+    {4, 5},
+    {7, 10},
+}
+
+Output:
+3 4 5 6 
+7 10 
+ */
+```
+
+```cpp
 // Time: O(m * alpha(n)) for m operators, n elements. alpha(n): reverse ackerman function =~ 1
 // Space: O(n)
-class UnionFind {
-public:
-  void add(int x) {  // O(1)
-    if (parent.contains(x)) return;
-    
-    parent[x] = x;
-    rank[x] = 0;
-  }
-  
-  int find(int x) {  // O(alpha(n)) 
-    while (parent[x] != parent[parent[x]]) {
-      parent[x] = parent[parent[x]];
-    }
-    return parent[x];
-  }
-
-  void get_union(int x, int y) {  // O(alpha(n))
-    x = find(x);
-    y = find(y);
-    if (x == y) return;
-    
-    int rx = rank[x], ry = rank[y];
-    if (rx < ry) {
-      parent[x] = y;
-    } else if (ry < rx) {
-      parent[y] = x;
-    } else {
-      parent[y] = x;
-      ++ rank[x];
-    } 
-  } 
-    
-  unordered_map<int, int>& get_parent_map() {
-    return parent;
-  }
-
-private:
-  unordered_map<int, int> parent;
-  unordered_map<int, int> rank;
-};
+class UnionFind;
 
 
 // Time: O(n * alpha(n)) =~ O(n), n = input.size()
@@ -259,26 +226,6 @@ vector<vector<int>> get_groups(vector<pair<int, int>>& input) {
   }
   return result;
 }
-
-
-void test() {
-  vector<pair<int, int>> input = {
-    {3, 4},
-    {3, 6},
-    {4, 6},
-    {4, 5},
-    {7, 10},
-  };
-
-  auto groups = get_groups(input);
-  for (auto& group: groups) {
-    for (int val : group) {
-      cout << val << " ";
-    }
-    cout << endl;
-  }
-}
-
 
 
 void dfs(int val, vector<int>& row, unordered_map<int, unordered_set<int>>& graph, set<int>& used) {
@@ -311,45 +258,4 @@ vector<vector<int>> get_groups_2(vector<pair<int, int>>& input) {
   sort(result.begin(), result.end());
   return result;
 }
-
-void test2() {
-  vector<pair<int, int>> input = {
-    {3, 4},
-    {3, 6},
-    {4, 6},
-    {4, 5},
-    {7, 10},
-  };
-
-  auto groups = get_groups_2(input);
-  for (auto& group: groups) {
-    for (int val : group) {
-      cout << val << " ";
-    }
-    cout << endl;
-  }
-}
-
-
-int main() {
-  test();
-  test2();
-  return 0;
-}
-
-/**
-Given pairs of numbers, group them together.
-For input:
-{
-    {3, 4},
-    {3, 6},
-    {4, 6},
-    {4, 5},
-    {7, 10},
-}
-
-Output:
-3 4 5 6 
-7 10 
- */
 ```
