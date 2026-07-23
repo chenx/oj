@@ -1,3 +1,7 @@
+# Union Find (Disjoint set) 
+
+## Implementation
+
 ```
 // Time: O(m * alpha(n)) for m operators, n elements. alpha(n): reverse ackerman function =~ 1
 // Space: O(n)
@@ -66,6 +70,8 @@ private:
   unordered_map<int, int> rank;
 };
 ```
+
+## Implementation of the Find() function
 
 If you're comparing these three implementations:
 
