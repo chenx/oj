@@ -1,5 +1,7 @@
 # Union Find (Disjoint set) 
 
+https://en.wikipedia.org/wiki/Disjoint-set_data_structure
+
 ## Implementation
 
 ```
