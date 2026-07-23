@@ -3,7 +3,7 @@
 ## Implementation
 
 ```
-// Time: O(m * alpha(n)) for m operators, n elements. alpha(n): reverse ackerman function =~ 1
+// Time: O(m * alpha(n)) for m operations, n elements. alpha(n): reverse ackerman function =~ 1
 // Space: O(n)
 class UnionFind {
 public:
