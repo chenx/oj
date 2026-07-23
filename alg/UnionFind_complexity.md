@@ -165,3 +165,15 @@ For your two implementations, the space complexity is $O(V+E)$ for the DFS solut
 | :--- | :--- | :--- | :--- |
 | **`find_group()`** | Union-Find | $O(V)$ | $O(V)$ |
 | **`find_group_2()`** | Adjacency list | $O(V+E)$ | $O(V+E)$ |
+
+
+# 3. Overall
+```
+Union-Find:
+Time:  O(E + V log V)
+Space: O(V)
+
+DFS:
+Time:  O(E + V log V)
+Space: O(V + E)
+```
