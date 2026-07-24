@@ -1,4 +1,4 @@
-// Time complexity: O(N⋅α(N)) =~ O(N)
+// Time complexity: O(N⋅α(N)) =~ O(N), α(N): inverse Ackermann function.
 // Space: O(N)
 class Solution {
     class UnionFind {
