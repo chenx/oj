@@ -42,6 +42,23 @@ public:
     int makeConnected(int n, vector<vector<int>>& connections) {
         if (connections.size() < n-1) return -1;
 
+        int count = 0;  // number of existing connections.
+        UnionFind uf;
+        for (auto& conn : connections) {
+            uf.add(conn[0]);
+            uf.add(conn[1]);
+            if (uf.find(conn[0]) != uf.find(conn[1])) {
+                ++ count;
+                uf.get_union(conn[0], conn[1]);
+            }
+        }
+        return n - 1 - count;  // number of connections needed.
+    }
+
+    // This works too.
+    int makeConnected2(int n, vector<vector<int>>& connections) {
+        if (connections.size() < n-1) return -1;
+
         int count = n - 1; // number of connections needed.
         UnionFind uf;
         for (auto& conn : connections) {
@@ -53,7 +70,6 @@ public:
             }
         }
         return count;
-
     }
 };
 
