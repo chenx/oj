@@ -1,3 +1,70 @@
+class Solution4 {
+    class UnionFind {
+        public:
+        void add(int x) {
+            if (parent.contains(x)) return;
+
+            parent[x] = x;
+            rank[x] = 0;
+        }
+
+        int find(int x) {
+            if (parent[x] != x) {
+            parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+        
+        void get_union(int x, int y) {
+            x = find(x), y = find(y);
+            if (x == y) return;
+            
+            int rx = rank[x], ry = rank[y];
+            if (rx < ry) {
+            parent[x] = y;
+            } else if (ry < rx) {
+            parent[y] = x;
+            } else {
+            parent[y] = x;
+            rank[x] ++;
+            }
+        }
+
+        const unordered_map<int, int>& get_parent_map() const {
+            return parent;
+        }
+        
+        private:
+        unordered_map<int, int> parent;
+        unordered_map<int, int> rank;
+    };
+
+public:
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        UnionFind uf;
+        int n = isConnected.size();
+        for (int i = 0; i < n; ++ i) {
+            uf.add(i);
+        }
+
+        for (int i = 0; i < n; ++ i) {
+            for (int j = i + 1; j < n; ++ j) {
+                if (isConnected[i][j] == 1) {
+                    uf.get_union(i, j);
+                }
+            }
+        }
+
+        unordered_set<int> groups;
+        auto parent_map = uf.get_parent_map();
+        for (auto [key, _] : parent_map) {
+            groups.insert(uf.find(key));
+        }
+
+        return groups.size();
+    }
+};
+
 class Solution3 {
     class UnionFind {
         public:
