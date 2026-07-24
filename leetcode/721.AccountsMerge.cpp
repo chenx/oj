@@ -1,4 +1,93 @@
+// UnionFind
+// Time: O(NK log(NK)). N = accounts.size(), K = max length of an account. Log for sorting.
+// Space: O(NK)
+class Solution2 {
+    class UnionFind {
+        public:
+        void add(string x) {
+            if (parent.contains(x)) return;
 
+            parent[x] = x;
+            rank[x] = 0;
+        }
+
+        string find(string x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+        
+        void get_union(string x, string y) {
+            x = find(x), y = find(y);
+            if (x == y) return;
+            
+            int rx = rank[x], ry = rank[y];
+            if (rx < ry) {
+                parent[x] = y;
+            } else if (ry < rx) {
+                parent[y] = x;
+            } else {
+                parent[y] = x;
+                rank[x] ++;
+            }
+        }
+
+        const unordered_map<string, string>& get_parent_map() const {
+            return parent;
+        }
+        
+        private:
+        unordered_map<string, string> parent;
+        unordered_map<string, int> rank;
+    };
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        vector<vector<string>> result;
+
+        UnionFind uf;
+        unordered_map<string, set<string>> graph;
+        for (auto& account: accounts) {
+            for (int i = 2; i < account.size(); ++ i) {
+                uf.add(account[1]);
+                uf.add(account[i]);
+                uf.get_union(account[1], account[i]);
+            }
+        }
+
+        // All emails.
+        unordered_set<string> emails;
+        for (auto& [key, _] : uf.get_parent_map()) {
+            emails.insert(key);
+        }
+
+        unordered_set<string> used;
+        for (auto& account: accounts) {
+            string& email = account[1];
+            if (used.contains(email)) {
+                continue;
+            }
+            string& name = account[0];
+            set<string> rowSet = { email };
+            used.insert(email);
+
+            for (string e : emails) {
+                if (uf.find(e) == uf.find(email)) {
+                    used.insert(e);
+                    rowSet.insert(e);
+                }
+            }
+            
+            vector<string> row(rowSet.begin(), rowSet.end());
+            sort(row.begin(), row.end());
+            row.insert(row.begin(), name);
+            result.push_back(row);
+        }
+        return result;
+    }
+};
+
+// DFS.
 class Solution {
 public:
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
