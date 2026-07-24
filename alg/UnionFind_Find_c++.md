@@ -54,8 +54,6 @@ public:
     if (rx < ry) {
       parent[x] = y;
     } else if (ry < rx) {
-      parent[x] = y;
-    } else if (ry < rx) {
       parent[y] = x;
     } else {
       parent[y] = x;
@@ -63,7 +61,7 @@ public:
     }
   }
 
-  unordered_map<int, int>& get_parent_map() {
+  const unordered_map<int, int>& get_parent_map() const {
     return parent;
   }
 
