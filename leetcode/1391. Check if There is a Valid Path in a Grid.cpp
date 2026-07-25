@@ -35,6 +35,9 @@ private:
   unordered_map<int, int> rank;
 };
 
+
+// Time: O(t * alpha(t)) =~ O(t), t = m*n
+// Space: O(t)
 class Solution {
     const set<vector<int>> horizontal_match = {
         {1, 1}, {1, 3}, {1, 5}, {4, 1}, {6, 1}, {4, 3}, {4, 5}, {6, 3}, {6, 5},
