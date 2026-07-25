@@ -2,11 +2,14 @@
 // Space: O(n)
 class UnionFind {
 public:
+  UnionFind() : components(0) {}
+
   void add(int x) {  // O(1)
     if (parent.contains(x)) return;
     
     parent[x] = x;
     rank[x] = 0;
+    ++ components;
   }
 
   // original, recursive version.
@@ -33,16 +36,65 @@ public:
       parent[y] = x;
       ++ rank[x];
     }
+    -- components;
   }
 
   const unordered_map<int, int>& get_parent_map() const {
     return parent;
   }
 
+  int components;
 private:
   unordered_map<int, int> parent;
   unordered_map<int, int> rank;
 };
+
+// Time: O(n)
+// Space: O(n)
+class Solution2 {
+public:
+    bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) {
+        UnionFind uf;
+        unordered_map<int, int> parent; // <node, node's parent>
+        for (int i = 0; i < n; ++ i) {
+            uf.add(i);
+            vector<int> children = {leftChild[i], rightChild[i]};
+            for (int child : children) {
+                if (child == -1) continue;
+                
+                if (parent.contains(child) && parent[child] != i) return false; // conflict
+                if (parent.contains(i) && parent[i] == child) return false; // cycle
+                parent[child] = i;
+                uf.add(child);
+                uf.get_union(i, child);
+            }
+        }
+
+        if (uf.components != 1) return false;
+
+        // check for cycle.
+        int node = uf.get_parent_map().begin()->second;
+        unordered_set<int> used;
+        if (has_cycle(node, parent, used)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool has_cycle(int node, unordered_map<int, int>& parent, unordered_set<int>& used) {
+        if (used.contains(node)) return true;
+
+        used.insert(node);
+        if (parent.contains(node)) {
+            if (has_cycle(parent[node], parent, used)) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
 
 class Solution {
 public:
