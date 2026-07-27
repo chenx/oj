@@ -5,6 +5,7 @@ public:
         int x = 0, y = 0, dir = 0;
 
         for (char ch : instructions) {
+            // swap +1/3 for L and R also works.
             if (ch == 'L') dir = (dir + 3) % 4;
             else if (ch == 'R') dir = (dir + 1) % 4;
             else {
