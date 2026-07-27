@@ -1,3 +1,32 @@
+class ProductOfNumbers2 {
+    int size;
+    vector<int> nums;
+
+public:
+    ProductOfNumbers() : size(1), nums({1}) {
+        
+    }
+    
+    void add(int num) {
+        if (num == 0) {
+            size = 1;
+            nums = {1};
+        } else {
+            size ++;
+            nums.push_back(num * nums.back());
+        }
+    }
+    
+    int getProduct(int k) {
+        int n = nums.size();
+        if (n <= k) {
+            return 0;
+        } else {
+            return nums.back() / nums[n - 1 - k];
+        }
+    }
+};
+
 // From: https://leetcode.com/problems/product-of-the-last-k-numbers/editorial/
 // Time Complexity: O(n)
 //  - the add method runs in O(1) time per operation, and the getProduct method also runs in O(1) time per operation. 
