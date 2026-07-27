@@ -1,18 +1,13 @@
 class ProductOfNumbers2 {
-    int size;
     vector<int> nums;
 
 public:
-    ProductOfNumbers() : size(1), nums({1}) {
-        
-    }
+    ProductOfNumbers() : nums({1}) {}
     
     void add(int num) {
         if (num == 0) {
-            size = 1;
             nums = {1};
         } else {
-            size ++;
             nums.push_back(num * nums.back());
         }
     }
@@ -26,6 +21,7 @@ public:
         }
     }
 };
+
 
 // From: https://leetcode.com/problems/product-of-the-last-k-numbers/editorial/
 // Time Complexity: O(n)
