@@ -1,3 +1,5 @@
+// Time complexity: O(nlog(n)+m)
+// Space: O(1)
 class Solution {
 public:
     int maxBoxesInWarehouse(vector<int>& boxes, vector<int>& warehouse) {
