@@ -15,12 +15,8 @@ public:
         if (! root) return NULL;
 
         if (to_delete_set.contains(root->val)) {
-            if (root->left) {
-                getForest(root->left, to_delete_set, result, true);
-            }
-            if (root->right) {
-                getForest(root->right, to_delete_set, result, true);
-            }
+            getForest(root->left, to_delete_set, result, true);
+            getForest(root->right, to_delete_set, result, true);
             return NULL;
         } else {
             if (isRoot) result.push_back(root);
