@@ -1,3 +1,53 @@
+// Time: O(log(n)) for addScore() and reset(). O(K) for top. n = scores.size().
+// Space: O(n)
+class Leaderboard2 {
+    map<int, int> scores; // <id, score>
+    map<int, int> scoreCount; // <score, count>
+
+public:
+    Leaderboard() {}
+    
+    void addScore(int playerId, int score) {  // O(log(n))
+        if (scores.contains(playerId)) {
+            -- scoreCount[scores[playerId]];
+            if (scoreCount[scores[playerId]] == 0) {
+                scoreCount.erase(scores[playerId]);
+            }
+
+            scores[playerId] += score;
+            scoreCount[scores[playerId]] += 1;
+        } else {
+            scores[playerId] = score;
+            scoreCount[score] += 1;
+        }
+    }
+    
+    int top(int K) {  // O(K)
+        int sum = 0;
+        for (auto it = scoreCount.rbegin(); it != scoreCount.rend() && K > 0; ++ it) {
+            int score = it->first, count = it->second;
+            if (K >= count) {
+                sum += score * count;
+                K -= count;
+            } else {
+                sum += score * K;
+                K = 0;
+            }
+        }
+        return sum;
+    }
+    
+    void reset(int playerId) {  // O(log(n))
+        if (! scores.contains(playerId)) return;
+
+        -- scoreCount[scores[playerId]];
+        if (scoreCount[scores[playerId]] == 0) {
+            scoreCount.erase(scores[playerId]);
+        }
+        scores[playerId] = 0;
+    }
+};
+
 // Time: O(log n) for addScore and reset, O(k) for top
 // Space: O(n)
 class Leaderboard {
