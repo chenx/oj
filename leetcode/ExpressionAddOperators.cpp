@@ -1,5 +1,7 @@
 // Works too. Modified from Solution3.
 // Note that pos+len == i+1 !
+// Overall time complexity = O(N * 4^N).
+// Space: O(N)
 class Solution4 {
 public:
     vector<string> addOperators(string num, int target) {
