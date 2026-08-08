@@ -1,3 +1,49 @@
+class Solution2 {
+    const int directions[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    int m, n;
+
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        m = grid.size(), n = grid[0].size();
+        int time = 2;
+
+        while (hasRottenApple(grid, time)) {
+            ++ time;
+        }
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] == 1) return -1;
+            }
+        }
+        return time - 2;
+    }
+
+    // Check each fresh apple.
+    bool hasRottenApple(vector<vector<int>>& grid, int time) {
+        bool foundfreshApple = false;
+
+        for (int i = 0; i < m; ++ i) {
+            for (int j = 0; j < n; ++ j) {
+                if (grid[i][j] != 1) continue;
+
+                for (int k = 0; k < 4; ++ k) {
+                    int x = i + directions[k][0], y = j + directions[k][1];
+                    if (x >= 0 && x < m && y >= 0 && y < n) {
+                        if (grid[x][y] == time) {
+                            foundfreshApple = true;
+                            grid[i][j] = time + 1;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return foundfreshApple;
+    }
+};
+
+
 // See: https://leetcode.com/problems/rotting-oranges/editorial/
 // BFS. 
 // Time Complexity: O(N^2 * M^2) where N×M is the size of the input grid.
@@ -22,6 +68,7 @@ public:
         return time - 2;
     }
 
+    // Check each rotten apple.
     bool bfs(vector<vector<int>>& grid, int time, int m, int n) {
         static vector<int> directions = {-1, 0, 1, 0, -1};
         bool hasGoodApple = false;
