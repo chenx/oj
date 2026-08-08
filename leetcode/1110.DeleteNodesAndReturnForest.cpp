@@ -6,8 +6,8 @@ public:
     vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
         vector<TreeNode*> result;
         set<int> to_delete_set(to_delete.begin(), to_delete.end());
-
-        root = getForest(root, to_delete_set, result, true);
+        
+        getForest(root, to_delete_set, result, true);
         return result;
     }
 
