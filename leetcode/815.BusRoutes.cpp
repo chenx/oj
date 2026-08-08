@@ -1,7 +1,8 @@
 // BFS by routes. Works.
+// Breadth-First Search (BFS) with Bus Stops as Nodes.
 // M is the size of routes, and K is the maximum size of routes[i]. N = number of stops.
 // Time complexity: O(M^2⋅N+M⋅N)
-// Space complexity: O(M+N)
+// Space complexity: O(M*N)
 class Solution6 {
 public:
     // Go from a stop, try each route.
